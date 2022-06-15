@@ -1,0 +1,19 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* a:hover {
+  color: "#2F4858";
+  text-decoration: underline;
+} */
+
+* {
+  box-sizing: border-box;
+}

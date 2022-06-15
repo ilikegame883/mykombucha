@@ -1,0 +1,179 @@
+import React, { useContext } from "react";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import { patchData } from "../../../../utils/fetchData";
+import AlertSnackBar from "../../../AlertSnackBar";
+import { AlertContext } from "../../../../stores/context/alert.context";
+import { toggleAlert } from "../../../../stores/actions";
+
+const validationSchema = yup.object({
+  currentPassword: yup.string().required("Please specify your password"),
+  newPassword: yup
+    .string()
+    .required("Please specify your new password")
+    .min(7, "The password should have at minimum length of 7"),
+  repeatPassword: yup
+    .string()
+    .required("Please specify your repeat new password")
+    .min(7, "The password should have at minimum length of 7"),
+});
+
+const Security = () => {
+  const { dispatch } = useContext(AlertContext);
+
+  const initialValues = {
+    currentPassword: "",
+    newPassword: "",
+    repeatPassword: "",
+  };
+
+  const onSubmit = async (values, resetForm) => {
+    if (values.newPassword !== values.repeatPassword) {
+      dispatch(
+        toggleAlert("error", "New password does not match repeat password")
+      );
+      return;
+    }
+
+    const url = `auth/change-pass`;
+    const res = await patchData(url, values);
+    if (res.msg) {
+      resetForm.resetForm();
+      dispatch(toggleAlert("success", res.msg));
+      return;
+    }
+    if (res?.err) {
+      resetForm.resetForm();
+      dispatch(toggleAlert("error", res.err));
+      return;
+    }
+  };
+
+  const formik = useFormik({
+    initialValues,
+    validationSchema: validationSchema,
+    onSubmit,
+  });
+
+  return (
+    <div>
+      <Box>
+        <Box
+          display={"flex"}
+          flexDirection={{ xs: "column", md: "row" }}
+          justifyContent={"space-between"}
+          alignItems={{ xs: "flex-start", md: "center" }}
+        >
+          <Typography variant="h6" fontWeight="700" gutterBottom>
+            Change your password
+          </Typography>
+        </Box>
+        <Box pb={4}>
+          <Divider />
+        </Box>
+        <form onSubmit={formik.handleSubmit}>
+          <Grid container spacing={4}>
+            <Grid item xs={12}>
+              <Typography
+                variant={"subtitle2"}
+                sx={{ marginBottom: 2 }}
+                fontWeight="700"
+              >
+                Current password
+              </Typography>
+              <TextField
+                variant="outlined"
+                name={"currentPassword"}
+                type={"password"}
+                fullWidth
+                value={formik.values.currentPassword}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.currentPassword &&
+                  Boolean(formik.errors.currentPassword)
+                }
+                helperText={
+                  formik.touched.currentPassword &&
+                  formik.errors.currentPassword
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography
+                variant={"subtitle2"}
+                sx={{ marginBottom: 2 }}
+                fontWeight="700"
+              >
+                New password
+              </Typography>
+              <TextField
+                variant="outlined"
+                name={"newPassword"}
+                type={"password"}
+                fullWidth
+                value={formik.values.newPassword}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.newPassword &&
+                  Boolean(formik.errors.newPassword)
+                }
+                helperText={
+                  formik.touched.newPassword && formik.errors.newPassword
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography
+                variant={"subtitle2"}
+                sx={{ marginBottom: 2 }}
+                fontWeight="700"
+              >
+                Repeat new password
+              </Typography>
+              <TextField
+                variant="outlined"
+                name={"repeatPassword"}
+                type={"password"}
+                fullWidth
+                value={formik.values.repeatPassword}
+                onChange={formik.handleChange}
+                error={
+                  formik.touched.repeatPassword &&
+                  Boolean(formik.errors.repeatPassword)
+                }
+                helperText={
+                  formik.touched.repeatPassword && formik.errors.repeatPassword
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Divider />
+            </Grid>
+
+            <Grid item container xs={12}>
+              <Box>
+                <AlertSnackBar />
+                <Button
+                  size={"large"}
+                  variant={"contained"}
+                  type={"submit"}
+                  color="secondary"
+                >
+                  Submit
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </form>
+      </Box>
+    </div>
+  );
+};
+
+export default Security;

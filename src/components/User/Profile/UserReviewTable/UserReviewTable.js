@@ -1,0 +1,347 @@
+import React, { useContext, useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { useSession } from "next-auth/react";
+import { mutate } from "swr";
+import {
+  Box,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TablePagination,
+  TableRow,
+  Typography,
+  Avatar,
+  Divider,
+} from "@mui/material";
+import ReviewTableHead from "./ReviewTableHead";
+import ReviewSearchBar from "./ReviewSearchBar";
+import ReviewNotFound from "./ReviewNotFound";
+import { deleteData } from "../../../../utils/fetchData";
+import { AlertContext } from "../../../../stores/context/alert.context";
+import { toggleToast } from "../../../../stores/actions";
+import AlertToast from "../../../AlertToast";
+import DeleteUserItem from "../DeleteUserItem";
+
+const TABLE_HEAD = [
+  {
+    id: "name",
+    label: "Name",
+    alignRight: false,
+  },
+  {
+    id: "type",
+    label: "Type",
+    alignRight: true,
+  },
+  {
+    id: "rating",
+    label: "My Rating",
+    alignRight: true,
+  },
+  {
+    id: "avg",
+    label: "Avg",
+    alignRight: true,
+  },
+  {
+    id: "date",
+    label: "Date",
+    alignRight: true,
+  },
+  {
+    id: "delete",
+    label: "",
+    alignRight: false,
+  },
+];
+
+function createReviewData(
+  name,
+  brewery,
+  type,
+  rating,
+  avg,
+  date,
+  product_id,
+  user_id,
+  review_id,
+  image,
+  brewery_slug
+) {
+  return {
+    name,
+    brewery,
+    type,
+    rating,
+    avg,
+    date,
+    product_id,
+    user_id,
+    review_id,
+    image,
+    brewery_slug,
+  };
+}
+
+const descendingComparator = (a, b, orderBy) => {
+  //a & b is an {} from row array
+  if (b[orderBy] < a[orderBy]) {
+    //ex: b[orderBy = "name"] = "cupcake"
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+};
+
+const getComparator = (orderDirection, orderBy) => {
+  return orderDirection === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+};
+const applySearchFilter = (array, query) => {
+  if (query) {
+    return array.filter(
+      (_kombucha) =>
+        _kombucha.name.toLowerCase().indexOf(query.toLowerCase()) !== -1
+    );
+  }
+  return array;
+};
+
+const UserReviewTable = ({ userReviews }) => {
+  //userReviews = []
+  const { dispatch } = useContext(AlertContext);
+  const router = useRouter();
+
+  const { data: session } = useSession();
+  const { name } = router.query;
+
+  const [page, setPage] = useState(0);
+  const [orderDirection, setOrderDirection] = useState("asc");
+  const [orderBy, setOrderBy] = useState("name");
+  const [searchUserReview, setSearchUserReview] = useState("");
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const reviewRows = userReviews.map(
+    ({
+      kombucha_info,
+      brewery,
+      rating,
+      createdAt,
+      user,
+      _id,
+      brewery_slug,
+    }) => {
+      const dateOnly = createdAt.slice(0, createdAt.lastIndexOf("T"));
+      return createReviewData(
+        kombucha_info.name,
+        brewery,
+        kombucha_info.category,
+        rating,
+        kombucha_info.avg,
+        dateOnly,
+        kombucha_info._id,
+        user,
+        _id,
+        kombucha_info.image,
+        brewery_slug
+      );
+    }
+  );
+  const handleRequestSort = (event, property) => {
+    const isAsc = orderBy === property && orderDirection === "asc";
+    setOrderDirection(isAsc ? "desc" : "asc");
+    //set orderBy value to the table head name when clicked
+    setOrderBy(property);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value));
+    setPage(0);
+  };
+
+  const handleSearchUserReview = (event) => {
+    setSearchUserReview(event.target.value);
+  };
+
+  const clearSearchBar = () => {
+    setSearchUserReview("");
+  };
+
+  const handleDelete = async (reviewData) => {
+    try {
+      await deleteData("reviews", reviewData);
+      mutate(`/api/user/${session.user.username}/reviews`);
+      //swr will not update with refresh unless mutate is called?
+      // router.replace(router.asPath);
+      dispatch(toggleToast("success", "Review Deleted"));
+    } catch (err) {
+      console.log(err);
+      dispatch(toggleToast("error", "Something went wrong"));
+    }
+  };
+
+  //get # of emptyRows if row items are less than the set amount of rows per page (5)
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - reviewRows.length) : 0;
+
+  const filteredReview = applySearchFilter(reviewRows, searchUserReview);
+  const isReviewNotFound = filteredReview.length === 0;
+
+  return (
+    <>
+      <TableContainer component={Paper}>
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          p={3}
+        >
+          <Typography variant="h6" fontWeight="bold" color="text.primary">
+            Reviews
+          </Typography>
+
+          <ReviewSearchBar
+            searchUserReview={searchUserReview}
+            handleSearchUserReview={handleSearchUserReview}
+            clearSearchBar={clearSearchBar}
+          />
+        </Box>
+        <Divider />
+        <Table>
+          <ReviewTableHead
+            orderDirection={orderDirection}
+            orderBy={orderBy}
+            headLabel={TABLE_HEAD}
+            rowCount={reviewRows.length}
+            handleRequestSort={handleRequestSort}
+          />
+          <TableBody>
+            {/* render only the rows required per page using Array.slice
+             and sort the active row(orderBy) by decending order*/}
+            {filteredReview
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .sort(getComparator(orderDirection, orderBy))
+              .map((row, idx) => {
+                return (
+                  <TableRow hover key={row.name}>
+                    <TableCell sx={{ pl: 0 }}>
+                      <Stack direction="row" alignItems="center">
+                        <Typography variant="subtitle2" px={1.5}>
+                          {idx + 1}
+                        </Typography>
+
+                        <Avatar
+                          variant="square"
+                          src={row.image}
+                          sx={{ height: 50, width: 50 }}
+                        />
+                        <Box>
+                          <Link href={`/kombucha/${row.product_id}`} passHref>
+                            <Typography
+                              component="a"
+                              variant="body1"
+                              color="text.primary"
+                              fontWeight="500"
+                              sx={{
+                                textDecoration: "none",
+                                "&:hover": { textDecoration: "underline" },
+                              }}
+                            >
+                              {row.name}
+                            </Typography>
+                          </Link>
+                          <Box>
+                            <Link
+                              href={`/breweries/${row.brewery_slug}`}
+                              passHref
+                            >
+                              <Typography
+                                component="a"
+                                variant="caption"
+                                color="text.secondary"
+                                sx={{
+                                  textDecoration: "none",
+                                  "&:hover": { textDecoration: "underline" },
+                                }}
+                                noWrap
+                              >
+                                {row.brewery} Brewing Co.
+                              </Typography>
+                            </Link>
+                          </Box>
+                        </Box>
+                      </Stack>
+                    </TableCell>
+                    <TableCell align="right" sx={{ p: 2 }}>
+                      {row.type}
+                    </TableCell>
+                    <TableCell align="right" sx={{ fontWeight: 700 }}>
+                      {row.rating}
+                    </TableCell>
+                    <TableCell align="right" sx={{ p: 2 }}>
+                      {row.avg}
+                    </TableCell>
+                    <TableCell align="right" sx={{ p: 2 }}>
+                      {row.date}
+                    </TableCell>
+                    {session && session.user.username === name ? (
+                      <TableCell align="left" sx={{ p: 0 }}>
+                        <DeleteUserItem
+                          handleDelete={() => handleDelete(row)}
+                          item="review"
+                        />
+                      </TableCell>
+                    ) : (
+                      <TableCell align="left" sx={{ p: 0 }}></TableCell>
+                    )}
+                  </TableRow>
+                );
+              })}
+            {emptyRows > 0 && (
+              <TableRow
+                style={{
+                  height: 53 * emptyRows,
+                }}
+              >
+                <TableCell align="center" colSpan={5} />
+              </TableRow>
+            )}
+            {isReviewNotFound && (
+              <TableRow>
+                <TableCell align="center" colSpan={5} sx={{ py: 3 }}>
+                  <ReviewNotFound
+                    searchUserReview={searchUserReview}
+                    userReviews={userReviews}
+                  />
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={reviewRows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <AlertToast />
+    </>
+  );
+};
+
+export default UserReviewTable;
