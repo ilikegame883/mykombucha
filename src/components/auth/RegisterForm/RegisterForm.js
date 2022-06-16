@@ -1,4 +1,5 @@
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Box from "@mui/material/Box";
@@ -7,8 +8,6 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-
 import { postData } from "../../../utils/fetchData";
 
 const validationSchema = yup.object({
@@ -78,21 +77,22 @@ const RegisterForm = () => {
 
   return (
     <Box py={5}>
-      <Box marginBottom={4}>
-        <Typography variant="h3" fontWeight="700">
+      <Box mb={3}>
+        <Typography variant="h4" fontWeight="700">
           Create an Account
         </Typography>
         <Typography color="text.secondary" variant="subtitle1">
-          Fill out the form to start exploring myKombucha!
+          Register to access all myKombucha features!
         </Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6" sx={{ marginBottom: 2 }} fontWeight="600">
+        <Grid container spacing={3}>
+          <Grid item xs={6} sm={6}>
+            <Typography variant="body1" mb={1.5} fontWeight="600">
               First Name
             </Typography>
             <TextField
+              size="small"
               label="First Name *"
               variant="outlined"
               name="firstname"
@@ -105,11 +105,12 @@ const RegisterForm = () => {
               helperText={formik.touched.firstname && formik.errors.firstname}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6" sx={{ marginBottom: 2 }} fontWeight="700">
+          <Grid item xs={6} sm={6}>
+            <Typography variant="body1" mb={1.5} fontWeight="700">
               Last Name
             </Typography>
             <TextField
+              size="small"
               label="Last Name *"
               variant="outlined"
               name="lastname"
@@ -121,10 +122,11 @@ const RegisterForm = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography variant="h6" sx={{ marginBottom: 2 }} fontWeight="600">
+            <Typography variant="body1" mb={1.5} fontWeight="600">
               Enter a username
             </Typography>
             <TextField
+              size="small"
               label="Username *"
               variant="outlined"
               name="username"
@@ -136,10 +138,11 @@ const RegisterForm = () => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography variant="h6" sx={{ marginBottom: 2 }} fontWeight="600">
+            <Typography variant="body1" mb={1.5} fontWeight="600">
               Enter your email
             </Typography>
             <TextField
+              size="small"
               label="Email *"
               variant="outlined"
               name="email"
@@ -152,10 +155,11 @@ const RegisterForm = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="h6" sx={{ marginBottom: 2 }} fontWeight="600">
+            <Typography variant="body1" mb={1.5} fontWeight="600">
               Enter password
             </Typography>
             <TextField
+              size="small"
               label="Password *"
               variant="outlined"
               name="password"
@@ -168,10 +172,11 @@ const RegisterForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h6" sx={{ marginBottom: 2 }} fontWeight="600">
+            <Typography variant="body1" mb={1.5} fontWeight="600">
               Confirm password
             </Typography>
             <TextField
+              size="small"
               label="Confirm Password *"
               variant="outlined"
               name="cf_password"
@@ -201,22 +206,21 @@ const RegisterForm = () => {
               maxWidth={600}
               margin="0 auto"
             >
-              <Box marginBottom={{ xs: 1, sm: 0 }}>
-                <Typography variant="subtitle2">
-                  {`Already have an account?${" "}`}
-                </Typography>
-                <Box>
-                  <Link
-                    component="a"
-                    variant="body1"
-                    color="primary.dark"
-                    href="/signin"
-                    underline="none"
-                    fontWeight="700"
-                  >
-                    Login
+              <Box marginBottom={{ xs: 2, sm: 0 }}>
+                <Typography variant="subtitle1">
+                  Already have an account?{" "}
+                  <Link href="/signin" passHref>
+                    <Typography
+                      component="a"
+                      variant="subtitle1"
+                      color="primary.dark"
+                      underline="none"
+                      fontWeight="700"
+                    >
+                      Login
+                    </Typography>
                   </Link>
-                </Box>
+                </Typography>
               </Box>
               <Button
                 size="large"

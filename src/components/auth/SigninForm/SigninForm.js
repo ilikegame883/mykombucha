@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -8,7 +9,6 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleAlert } from "../../../stores/actions";
 import AlertSnackBar from "../../AlertSnackBar";
@@ -63,8 +63,8 @@ const SigninForm = () => {
 
   return (
     <Container maxWidth="sm" sx={{ py: 5 }}>
-      <Box marginBottom={4}>
-        <Typography variant="h3" color="text.primary" fontWeight="700">
+      <Box marginBottom={3}>
+        <Typography variant="h4" color="text.primary" fontWeight="700">
           Login
         </Typography>
         <Typography color="text.secondary" variant="subtitle1">
@@ -72,12 +72,12 @@ const SigninForm = () => {
         </Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           <Grid item xs={12}>
             <Typography
-              variant="h6"
+              variant="body1"
               color="text.primary"
-              sx={{ marginBottom: 2 }}
+              mb={1.5}
               fontWeight="600"
             >
               Enter your email
@@ -94,20 +94,15 @@ const SigninForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Box
-              display="flex"
-              flexDirection={{ xs: "column", sm: "row" }}
-              alignItems={{ xs: "stretched", sm: "center" }}
-              justifyContent="space-between"
-              width={1}
-              marginBottom={2}
+            <Typography
+              variant="body1"
+              fontWeight="600"
+              color="text.primary"
+              mb={1.5}
             >
-              <Box marginBottom={{ xs: 1, sm: 0 }}>
-                <Typography variant="h6" fontWeight="600" color="text.primary">
-                  Enter your password
-                </Typography>
-              </Box>
-              {/* <Typography variant="subtitle2">
+              Enter your password
+            </Typography>
+            {/* <Typography variant="subtitle2">
                 <Link
                   component="a"
                   color="primary"
@@ -117,7 +112,6 @@ const SigninForm = () => {
                   Forgot your password?
                 </Link>
               </Typography> */}
-            </Box>
             <TextField
               label="Password *"
               variant="outlined"
@@ -141,33 +135,30 @@ const SigninForm = () => {
               maxWidth={600}
               // margin="0 auto"
             >
-              <Box marginBottom={{ xs: 1, sm: 0 }}>
-                <Typography variant="subtitle2">
-                  {`Don't have an account yet?${" "}`}
-                  <Box>
-                    <Link
+              <Box marginBottom={{ xs: 2, sm: 0 }}>
+                <Typography variant="subtitle1">
+                  {`Don't have an account yet?`}{" "}
+                  <Link href="/register" passHref>
+                    <Typography
                       component="a"
-                      variant="body1"
+                      variant="subtitle1"
                       color="primary.dark"
-                      href="/register"
                       underline="none"
                       fontWeight="700"
                     >
-                      Click here to sign up.
-                    </Link>
-                  </Box>
+                      Sign up
+                    </Typography>
+                  </Link>
                 </Typography>
               </Box>
-              <Box>
-                <Button
-                  size="large"
-                  variant="contained"
-                  type="submit"
-                  color="secondary"
-                >
-                  Login
-                </Button>
-              </Box>
+              <Button
+                size="large"
+                variant="contained"
+                type="submit"
+                color="secondary"
+              >
+                Login
+              </Button>
             </Box>
           </Grid>
         </Grid>
