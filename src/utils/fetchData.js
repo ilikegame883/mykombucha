@@ -1,7 +1,10 @@
 //http request method to api route
+const dev = process.env.NODE_ENV !== "production";
+console.log(`production ${dev}`);
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_PROD_URL || process.env.NEXT_PUBLIC_BASE_URL;
+const baseUrl = dev
+  ? process.env.NEXT_PUBLIC_BASE_URL
+  : process.env.NEXT_PUBLIC_PROD_URL;
 console.log(baseUrl);
 
 export const postData = async (url, post, token) => {
