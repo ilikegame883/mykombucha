@@ -9,7 +9,6 @@ const handler = async (req, res) => {
   }
   try {
     const { str } = req.query;
-    console.log(str);
     if (str) {
       const searchBreweryData = await Brewery.aggregate([
         {
@@ -19,8 +18,10 @@ const handler = async (req, res) => {
               query: str,
               path: "name",
               fuzzy: {
+                //maxEdits field represents how many consecutive characters must match
                 maxEdits: 1,
-                // prefixLength: 1,
+                //prefixLength indicates the number of characters at the beginning of each term in the result that must match exactly
+                prefixLength: 1,
               },
               tokenOrder: "any",
             },

@@ -52,9 +52,6 @@ const HeroSearchBar = () => {
   const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const [searchData, setSearchData] = useState([]);
   const [value, setValue] = useState("");
-  const [open, setOpen] = useState(false);
-
-  console.log(open);
 
   const getSearchData = async (str) => {
     try {
@@ -68,41 +65,36 @@ const HeroSearchBar = () => {
 
   const onChangeSearch = async (e) => {
     if (e.target.value) {
-      let data = await getSearchData(e.target.value);
       setValue(e.target.value);
+      let data = await getSearchData(e.target.value);
       return setSearchData(data);
     }
+    //clear state when search bar has no inputvalue from backspace or clear iconbutton
     setValue("");
     setSearchData([]);
   };
-
   return (
     <Box>
       <Autocomplete
         id="search-bar"
         freeSolo
-        open={open}
-        onOpen={() => {
-          // only open when in focus and inputValue is not empty
-          if (value) {
-            setOpen(true);
-          }
-        }}
-        onClose={() => setOpen(false)}
+        inputValue={value}
+        onInputChange={(e) => onChangeSearch(e)}
         PopperComponent={StyledPopper}
-        filterOptions={(x) => x}
-        onChange={(e) => setValue(e.target.innerText)}
+        filterOptions={(option) => option}
         options={searchData ? searchData : []}
         groupBy={(option) => option.category}
         getOptionLabel={(option) => option.name || ""}
         renderInput={(params) => (
           <Box
             component={Card}
-            sx={{
-              //remove the bottom border radius on the textfield when search dropdown is open and inputValue is not empty
-              borderBottomLeftRadius: open && value && 0,
-              borderBottomRightRadius: open && value && 0,
-            }}
+            sx={
+              {
+                //remove the bottom border radius on the textfield when search dropdown is open and inputValue is not empty
+                // borderBottomLeftRadius: searchData && 0,
+                // borderBottomRightRadius: searchData && 0,
+              }
+            }
           >
             <TextField
               {...params}
@@ -111,9 +103,8 @@ const HeroSearchBar = () => {
               fullWidth
               focused
               placeholder="Search for Kombucha, Breweries..."
-              onChange={(e) => onChangeSearch(e)}
+              // onChange={(e) => onChangeSearch(e)}
               sx={{
-                // height: 1,
                 "& .MuiOutlinedInput-notchedOutline": {
                   //remove preset outline from textfield
                   border: "0 !important",
@@ -153,7 +144,6 @@ const HeroSearchBar = () => {
             category === "kombucha"
               ? `/${category}/${_id}`
               : `/${category}/${slug}`;
-
           return (
             <>
               <Link href={getHref} passHref>
