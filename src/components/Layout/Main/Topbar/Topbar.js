@@ -54,18 +54,18 @@ const Topbar = ({ onSidebarOpen }) => {
 
   return (
     <Toolbar
-      sx={{ justifyContent: "space-between", height: 70 }}
+      sx={{ justifyContent: "space-between", height: 65 }}
       disableGutters
     >
       <Box
         component="a"
         href="/"
         title="home"
-        width={{ xs: 160, md: 220 }}
+        width={{ xs: 180, md: 220 }}
         height={1}
       >
         <Box
-          component={"img"}
+          component="img"
           src={
             router.pathname === "/"
               ? "https://res.cloudinary.com/jjo/image/upload/v1651018045/myKombucha/Logo/topbar-neg_ovtkl1.svg"
@@ -95,21 +95,23 @@ const Topbar = ({ onSidebarOpen }) => {
             Search
           </Button>
         </Link>
+        <Link href="/local" passHref>
+          <Button
+            variant="text"
+            disableRipple
+            sx={{
+              color: "common.white",
+              fontWeight: 700,
+              "&:hover": { bgcolor: "transparent", color: "secondary.main" },
+            }}
+          >
+            Local
+          </Button>
+        </Link>
 
         <Button
-          variant="text"
-          disableRipple
-          sx={{
-            color: "common.white",
-            fontWeight: 700,
-            "&:hover": { bgcolor: "transparent", color: "secondary.main" },
-          }}
-        >
-          Local
-        </Button>
-        <Button
           id="basic-button"
-          aria-controls={open ? "basic-menu" : undefined}
+          aria-controls={open ? "expore-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
           onClick={handleClick}
@@ -132,22 +134,23 @@ const Topbar = ({ onSidebarOpen }) => {
         </Button>
 
         <Menu
-          id="basic-menu"
+          id="expore-menu"
           anchorEl={anchorEl}
           open={open}
           onClose={handleClose}
           MenuListProps={{
-            "aria-labelledby": "basic-button",
+            "aria-labelledby": "expore-button",
           }}
           PaperProps={{
             sx: {
               overflow: "visible",
               "&:before": {
+                //arrow styles
                 content: '""',
                 display: "block",
                 position: "absolute",
                 top: 0,
-                right: 14,
+                right: 10,
                 width: 10,
                 height: 10,
                 bgcolor: "background.paper",
@@ -161,7 +164,14 @@ const Topbar = ({ onSidebarOpen }) => {
           disableScrollLock={true}
         >
           <Link href="/breweries/explore/list/1" passHref>
-            <MenuItem component="a">
+            <MenuItem
+              component="a"
+              sx={{
+                "& .MuiListItemIcon-root": {
+                  minWidth: 30,
+                },
+              }}
+            >
               <ListItemIcon>
                 <WarehouseOutlinedIcon fontSize="small" />
               </ListItemIcon>
@@ -169,7 +179,14 @@ const Topbar = ({ onSidebarOpen }) => {
             </MenuItem>
           </Link>
           <Link href="/kombucha/explore/recent/1" passHref>
-            <MenuItem component="a">
+            <MenuItem
+              component="a"
+              sx={{
+                "& .MuiListItemIcon-root": {
+                  minWidth: 30,
+                },
+              }}
+            >
               <ListItemIcon>
                 <LocalDrinkOutlinedIcon fontSize="small" />
               </ListItemIcon>
@@ -224,11 +241,9 @@ const Topbar = ({ onSidebarOpen }) => {
           <Button
             onClick={() => onSidebarOpen()}
             aria-label="Menu"
-            variant="outlined"
             sx={{
               borderRadius: 2,
               minWidth: "auto",
-              // padding: 1,
               borderColor: "#fff",
               color: "#fff",
             }}

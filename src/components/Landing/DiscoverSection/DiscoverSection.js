@@ -63,20 +63,20 @@ const DiscoverSection = ({ breweryList }) => {
         <Typography
           variant="h6"
           color="secondary"
-          fontWeight="700"
+          fontWeight="800"
           gutterBottom
         >
           Discover
         </Typography>
         <Typography
-          variant="h3"
+          variant={isSm ? "h3" : "h4"}
           fontWeight="800"
           color="text.primary"
           gutterBottom
         >
           Discover New Breweries
         </Typography>
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
           Explore the many different types of kombucha available at breweries
           around the world.
         </Typography>

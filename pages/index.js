@@ -16,7 +16,7 @@ export default function Home({ kombuchaList, breweryList, session }) {
       <Layout position="absolute" bgcolor="transparent">
         <Hero />
         <Container maxWidth="lg" sx={{ py: 10 }}>
-          <Stack spacing={20} mb={5}>
+          <Stack spacing={{ xs: 15, sm: 20 }} mb={5}>
             <DiscoverSection breweryList={breweryList} />
             <ExploreSection kombuchaList={kombuchaList} />
             <MobileApp />

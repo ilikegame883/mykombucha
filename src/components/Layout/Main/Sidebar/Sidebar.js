@@ -38,7 +38,7 @@ const sideBarLinks = [
       },
       {
         title: "Local",
-        href: "/",
+        href: "/local",
         icon: <LocationOnOutlinedIcon />,
       },
       {
@@ -79,12 +79,12 @@ const sideBarLinks = [
     pages: [
       {
         title: "About",
-        href: "/about",
+        href: "/",
         icon: <AccountBoxOutlinedIcon />,
       },
       {
         title: "Contact",
-        href: "/",
+        href: "/contact",
         icon: <ListAltIcon />,
       },
     ],
@@ -141,7 +141,7 @@ const Sidebar = ({ open, variant, onClose }) => {
             showUserAccountGroup(item.displayInSideBar) && (
               <Box key={i} mb={3}>
                 <Typography
-                  variant="caption"
+                  variant="body2"
                   color="secondary"
                   sx={{
                     fontWeight: 700,
@@ -166,6 +166,7 @@ const Sidebar = ({ open, variant, onClose }) => {
                         sx={{
                           justifyContent: "flex-start",
                           color: "text.primary",
+                          textTransform: "capitalize",
                         }}
                         startIcon={p.icon || null}
                       >
@@ -177,15 +178,15 @@ const Sidebar = ({ open, variant, onClose }) => {
               </Box>
             )
         )}
-        <Divider sx={{ mb: 3, borderColor: theme.palette.primary.main }} />
+        <Divider sx={{ my: 3 }} />
         <Box>
           {!session && (
-            <Box display="flex" justifyContent="space-evenly">
-              <Box>
+            <Box>
+              <Box mb={2}>
                 <Link href="/signin" passHref>
                   <Button
+                    fullWidth
                     variant="outlined"
-                    size="large"
                     color="secondary"
                     sx={{ fontWeight: 700 }}
                   >
@@ -193,21 +194,18 @@ const Sidebar = ({ open, variant, onClose }) => {
                   </Button>
                 </Link>
               </Box>
-              <Box>
-                <Link href="/register" passHref>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    size="large"
-                    sx={{
-                      px: 4,
-                      color: "common.white",
-                    }}
-                  >
-                    Join
-                  </Button>
-                </Link>
-              </Box>
+              <Link href="/register" passHref>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  sx={{
+                    color: "common.white",
+                  }}
+                >
+                  Join
+                </Button>
+              </Link>
             </Box>
           )}
         </Box>

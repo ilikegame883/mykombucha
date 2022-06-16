@@ -5,7 +5,13 @@ const DiscoverBreweryCard = ({ brewery }) => {
   const { name, city, country, image, type, slug } = brewery;
   return (
     <Card sx={{ borderRadius: 2, m: { xs: 0.5, md: 1 } }} elevation={1}>
-      <CardContent sx={{ pt: 2 }}>
+      <CardContent
+        sx={{
+          "&:last-child": {
+            pb: 2,
+          },
+        }}
+      >
         <Stack direction="row" spacing={2} alignItems="center">
           <Avatar
             variant="square"

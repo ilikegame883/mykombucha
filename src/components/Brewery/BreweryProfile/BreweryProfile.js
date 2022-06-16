@@ -125,12 +125,7 @@ const BreweryProfile = ({ breweryData, session }) => {
               fontWeight="bold"
             >{`${name} Brewing Company`}</Typography>
             <Box display="flex" alignItems="center">
-              <Typography
-                variant="body1"
-                color="text.primary"
-                fontWeight="600"
-                pb={0.5}
-              >
+              <Typography variant="body1" color="text.primary" fontWeight="600">
                 {type}
               </Typography>
               <ProductTypeChips list={product_type} />

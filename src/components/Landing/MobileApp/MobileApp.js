@@ -20,19 +20,16 @@ const MobileApp = () => {
           Get the app
         </Typography>
         <Typography
-          variant="h3"
-          fontWeight={800}
+          variant={isSm ? "h3" : "h4"}
+          fontWeight="800"
           color="text.primary"
           gutterBottom
         >
           Mobile App Coming Soon
         </Typography>
-        <Typography variant="h6" color="text.secondary">
-          Browse and share your kombucha experiences from wherever you go.
-        </Typography>
-        <Typography variant="h6" color="text.secondary">
-          Sign up for our newsletter to be notified when our mobile app is
-          released.
+        <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
+          Browse and share your kombucha experiences from wherever you go. Sign
+          up for our newsletter to be notified when our mobile app is released.
         </Typography>
       </Box>
       <Box

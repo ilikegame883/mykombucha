@@ -18,23 +18,24 @@ const ExploreSection = ({ kombuchaList }) => {
           fontWeight="700"
           gutterBottom
         >
-          Review
+          Reviews
         </Typography>
         <Typography
-          variant="h3"
+          variant={isSm ? "h3" : "h4"}
           fontWeight="800"
           color="text.primary"
           gutterBottom
         >
           Explore Top Rated Kombucha
         </Typography>
-        <Typography variant="h6" color="text.secondary">
-          See top rated kombuchas from our growing community.
+        <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
+          See top rated kombuchas from our community. Register to submit and
+          share your own kombucha tastings.
         </Typography>
-        <Typography variant="h6" color="text.secondary">
-          Share your own experiences with all the different types of kombucha
-          {` you've`} tried.
-        </Typography>
+        <Typography
+          variant={isSm ? "h6" : "subtitle1"}
+          color="text.secondary"
+        ></Typography>
       </Box>
       <TopKombuchaList kombuchaList={kombuchaList} />
     </Stack>

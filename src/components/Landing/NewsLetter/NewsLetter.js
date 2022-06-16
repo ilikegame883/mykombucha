@@ -1,5 +1,4 @@
 import {
-  Container,
   Button,
   Typography,
   TextField,
@@ -14,55 +13,54 @@ const NewsLetter = () => {
   const isSm = useMediaQuery(theme.breakpoints.up("sm"), {
     defaultMatches: true,
   });
+
   const alignPosition = isSm ? "center" : "left";
 
   return (
     <Stack>
-      <Box sx={{ textAlign: alignPosition }} pb={4}>
-        <Typography variant="h4" fontWeight="700" gutterBottom>
+      <Box sx={{ textAlign: alignPosition }} mb={4}>
+        <Typography variant="h4" fontWeight="800" gutterBottom>
           Subscribe to our newsletter
         </Typography>
-        <Typography variant="h6" color="text.secondary">
+        <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
           Be among the firsts to know about our upcoming news and updates.
         </Typography>
       </Box>
-      <Container maxWidth="sm">
+      <Box
+        component={"form"}
+        noValidate
+        autoComplete="off"
+        display="flex"
+        justifyContent="center"
+        sx={{
+          "& .MuiInputBase-input.MuiOutlinedInput-input": {
+            bgcolor: "background.paper",
+          },
+        }}
+      >
         <Box
-          component={"form"}
-          noValidate
-          autoComplete="off"
-          sx={{
-            "& .MuiInputBase-input.MuiOutlinedInput-input": {
-              bgcolor: "background.paper",
-            },
-          }}
+          display="flex"
+          flexDirection={{ xs: "column", sm: "row" }}
+          width={{ xs: 1, md: "50%" }}
         >
           <Box
-            display="flex"
-            flexDirection={{ xs: "column", sm: "row" }}
-            alignItems={{ xs: "stretched", sm: "flex-start" }}
-            mb={3}
+            fullWidth
+            component={TextField}
+            label="Enter your email"
+            variant="outlined"
+            disabled
+            color="primary"
+            mb={{ xs: 2, sm: 0 }}
+          />
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{ px: 4, py: { xs: 2, sm: 0 }, ml: { sm: 1.5 } }}
           >
-            <Box
-              flex={"1 1 auto"}
-              component={TextField}
-              label="Enter your email"
-              variant="outlined"
-              disabled
-              color="primary"
-              mb={{ xs: 2, sm: 0 }}
-            />
-            <Button
-              variant="contained"
-              size="large"
-              color="secondary"
-              sx={{ py: { xs: 2, sm: 0 }, ml: { sm: 1.5 }, height: 54 }}
-            >
-              Subscribe
-            </Button>
-          </Box>
+            Subscribe
+          </Button>
         </Box>
-      </Container>
+      </Box>
     </Stack>
   );
 };

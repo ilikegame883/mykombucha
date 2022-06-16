@@ -67,6 +67,7 @@ const HorizontalStats = ({ breweryData }) => {
               },
               "&:last-child": {
                 borderRight: 0,
+                borderBottom: 0,
               },
             }}
           >
