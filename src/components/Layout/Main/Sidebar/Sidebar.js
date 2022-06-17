@@ -114,19 +114,33 @@ const Sidebar = ({ open, variant, onClose }) => {
         },
       }}
     >
-      <Box sx={{ flexGrow: 1 }} pt={1} px={2}>
-        <Box mb={2}>
+      <Box sx={{ flexGrow: 1 }} pt={2} px={2}>
+        <Box display="flex" alignItems="center" mb={3}>
+          <Box
+            component="img"
+            src="/static/favicons/android-chrome-192x192.png"
+            alt="nav-sidebar-menu-logo"
+            width={60}
+            height={60}
+          />
           {session && (
-            <>
+            <Box ml={2}>
               <Typography variant="h6" color="secondary">
                 Welcome back
               </Typography>
-              <Typography variant="h6" color="text.primary" fontWeight="700">
+              <Typography
+                variant="h6"
+                component="p"
+                color="text.primary"
+                fontWeight="700"
+                align="center"
+              >
                 {session.user.username}!
               </Typography>
-            </>
+            </Box>
           )}
         </Box>
+        {/* <Divider sx={{ my: 2 }} /> */}
         {sideBarLinks.map(
           (item, i) =>
             showUserAccountGroup(item.displayInSideBar) && (

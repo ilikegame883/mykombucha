@@ -11,9 +11,6 @@ import {
   Box,
   ListItemIcon,
   ListItemText,
-  Button,
-  Divider,
-  Typography,
 } from "@mui/material";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import ListAltIcon from "@mui/icons-material/ListAlt";
@@ -42,7 +39,7 @@ const UserMenuDropDown = ({ userSessionAvatar }) => {
           <Avatar
             src={userSessionAvatar}
             alt="top bar avatar"
-            sx={{ width: 40, height: 40, border: "1px solid #000000" }}
+            sx={{ width: 50, height: 50, border: "1px solid #fff" }}
           />
         </IconButton>
       </Tooltip>
@@ -85,15 +82,15 @@ const UserMenuDropDown = ({ userSessionAvatar }) => {
         <Link href={`/user/${session.user.username}`} passHref>
           <MenuItem component="a">
             <ListItemIcon>
-              <AccountBoxOutlinedIcon fontSize="small" />
+              <AccountBoxOutlinedIcon fontSize="small" color="secondary" />
             </ListItemIcon>
             <ListItemText>My Profile</ListItemText>
           </MenuItem>
         </Link>
-        <Link href="/user/lists" passHref>
+        <Link href="/" passHref>
           <MenuItem component="a">
             <ListItemIcon>
-              <ListAltIcon fontSize="small" />
+              <ListAltIcon fontSize="small" color="secondary" />
             </ListItemIcon>
             <ListItemText>My Lists</ListItemText>
           </MenuItem>
@@ -101,7 +98,7 @@ const UserMenuDropDown = ({ userSessionAvatar }) => {
         <Link href={`/user/${session.user.username}/general-settings`} passHref>
           <MenuItem component="a">
             <ListItemIcon>
-              <SettingsOutlinedIcon fontSize="small" />
+              <SettingsOutlinedIcon fontSize="small" color="secondary" />
             </ListItemIcon>
             <ListItemText>Account Settings</ListItemText>
           </MenuItem>
@@ -115,7 +112,7 @@ const UserMenuDropDown = ({ userSessionAvatar }) => {
           }
         >
           <ListItemIcon>
-            <ExitToAppOutlinedIcon fontSize="small" />
+            <ExitToAppOutlinedIcon fontSize="small" color="secondary" />
           </ListItemIcon>
           <ListItemText>Logout</ListItemText>
         </MenuItem>

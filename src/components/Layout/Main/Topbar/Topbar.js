@@ -54,14 +54,14 @@ const Topbar = ({ onSidebarOpen }) => {
 
   return (
     <Toolbar
-      sx={{ justifyContent: "space-between", height: 65 }}
+      sx={{ justifyContent: "space-between", height: 65, my: 0.5 }}
       disableGutters
     >
       <Box
         component="a"
         href="/"
         title="home"
-        width={{ xs: 180, md: 220 }}
+        width={{ xs: 180, sm: 200, md: 220 }}
         height={1}
       >
         <Box
@@ -173,7 +173,7 @@ const Topbar = ({ onSidebarOpen }) => {
               }}
             >
               <ListItemIcon>
-                <WarehouseOutlinedIcon fontSize="small" />
+                <WarehouseOutlinedIcon fontSize="small" color="secondary" />
               </ListItemIcon>
               <ListItemText>Breweries</ListItemText>
             </MenuItem>
@@ -188,7 +188,7 @@ const Topbar = ({ onSidebarOpen }) => {
               }}
             >
               <ListItemIcon>
-                <LocalDrinkOutlinedIcon fontSize="small" />
+                <LocalDrinkOutlinedIcon fontSize="small" color="secondary" />
               </ListItemIcon>
               <ListItemText>Kombucha</ListItemText>
             </MenuItem>
@@ -270,7 +270,7 @@ const Topbar = ({ onSidebarOpen }) => {
             <Avatar
               src={userSessionAvatar}
               alt="mobile user avatar menu"
-              sx={{ width: 35, height: 35, border: "1px solid #000000" }}
+              sx={{ width: 40, height: 40, border: "1px solid #fff" }}
             />
           </IconButton>
         )}
