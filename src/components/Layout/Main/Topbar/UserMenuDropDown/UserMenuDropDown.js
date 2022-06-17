@@ -39,7 +39,7 @@ const UserMenuDropDown = ({ userSessionAvatar }) => {
           <Avatar
             src={userSessionAvatar}
             alt="top bar avatar"
-            sx={{ width: 50, height: 50, border: "1px solid #fff" }}
+            sx={{ width: 45, height: 45, border: "1px solid #fff" }}
           />
         </IconButton>
       </Tooltip>
