@@ -181,7 +181,7 @@ const UserReviewTable = ({ userReviews }) => {
   const handleDelete = async (reviewData) => {
     try {
       await deleteData("reviews", reviewData);
-      mutate(`/api/user/${session.user.username}/reviews`);
+      mutate(`/api/users/${session.user.username}/reviews`);
       //swr will not update with refresh unless mutate is called?
       // router.replace(router.asPath);
       dispatch(toggleToast("success", "Review Deleted"));
