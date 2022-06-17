@@ -1,18 +1,9 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import PropTypes from "prop-types";
-import {
-  Drawer,
-  Divider,
-  Box,
-  Button,
-  Typography,
-  Stack,
-} from "@mui/material/";
+import { Drawer, Divider, Box, Button, Typography } from "@mui/material/";
 import { useTheme } from "@mui/material/styles";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import SearchIcon from "@mui/icons-material/Search";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
@@ -123,7 +114,7 @@ const Sidebar = ({ open, variant, onClose }) => {
         },
       }}
     >
-      <Box sx={{ flexGrow: 1 }} p={2}>
+      <Box sx={{ flexGrow: 1 }} pt={1} px={2}>
         <Box mb={2}>
           {session && (
             <>
@@ -226,12 +217,6 @@ const Sidebar = ({ open, variant, onClose }) => {
       )}
     </Drawer>
   );
-};
-
-Sidebar.propTypes = {
-  onClose: PropTypes.func,
-  open: PropTypes.bool.isRequired,
-  variant: PropTypes.string.isRequired,
 };
 
 export default Sidebar;

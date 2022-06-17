@@ -21,17 +21,17 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import HorizontalStats from "./HorizontalStats";
-import SocialIcons from "./SocialIcons";
 import { patchData } from "../../../utils/fetchData";
 import AlertToast from "../../AlertToast";
 import RevealText from "../../RevealText";
 import ProductTypeChips from "./ProductTypeChips";
+import SocialIcons from "./SocialIcons/SocialIcons";
 
 const BreweryProfile = ({ breweryData, session }) => {
   const router = useRouter();
 
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up("md"));
+  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   const {
     slug,
@@ -106,23 +106,22 @@ const BreweryProfile = ({ breweryData, session }) => {
       </Box>
       <AlertToast />
       <Divider />
-      <Grid container alignItems="center" py={2} px={3}>
-        <Grid
-          item
-          xs={12}
-          md={2}
-          mr={{ xs: 2, md: 0 }}
-          mb={{ xs: 1, md: 0 }}
-          align={isMd ? "center" : "left"}
-        >
-          <Image src={image} alt="name" width="110" height="110" />
-        </Grid>
 
-        <Grid item md={10}>
+      <Box px={3} py={{ xs: 2, sm: 3 }}>
+        <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
+          <Box
+            component="img"
+            alt={name}
+            src={image}
+            width={110}
+            height={110}
+            mb={{ xs: 2, sm: 0 }}
+            mr={{ xs: 0, sm: 2 }}
+          />
           <Stack justifyContent="center" pl={1}>
             <Typography
-              variant="h5"
-              fontWeight="bold"
+              variant={isSm ? "h4" : "h5"}
+              fontWeight="700"
             >{`${name} Brewing Company`}</Typography>
             <Box display="flex" alignItems="center">
               <Typography variant="body1" color="text.primary" fontWeight="600">
@@ -133,11 +132,10 @@ const BreweryProfile = ({ breweryData, session }) => {
             <Typography variant="caption">
               {city}, {country}
             </Typography>
+            <SocialIcons />
           </Stack>
-          <SocialIcons />
-        </Grid>
-      </Grid>
-
+        </Box>
+      </Box>
       <Divider />
 
       <HorizontalStats breweryData={breweryData} />

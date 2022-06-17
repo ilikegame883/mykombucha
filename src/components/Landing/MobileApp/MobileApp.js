@@ -28,8 +28,9 @@ const MobileApp = () => {
           Mobile App Coming Soon
         </Typography>
         <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
-          Browse and share your kombucha experiences from wherever you go. Sign
-          up for our newsletter to be notified when our mobile app is released.
+          Browse and share your kombucha experiences from wherever you go.
+          {isSm && <br />} Sign up for our newsletter to be notified when our
+          mobile app is released.
         </Typography>
       </Box>
       <Box

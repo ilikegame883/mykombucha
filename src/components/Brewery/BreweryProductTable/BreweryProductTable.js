@@ -190,10 +190,10 @@ const BreweryProductTable = ({ breweryData, session }) => {
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          p={3}
+          p={2}
         >
-          <Typography variant="h6" fontWeight="bold" color="text.primary">
-            Kombucha List
+          <Typography variant="h6" fontWeight="600" color="text.primary" mr={2}>
+            Kombuchas
           </Typography>
           <ProductTableSearchBar
             searchQuery={searchQuery}

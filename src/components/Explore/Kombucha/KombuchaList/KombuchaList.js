@@ -22,20 +22,21 @@ const KombuchaList = ({ kombuchaList, category }) => {
             xs={12}
             key={i}
             sx={{
+              position: "relative",
               borderBottom: `1px solid ${theme.palette.divider}`,
               "&:last-child": {
                 borderBottom: 0,
               },
             }}
           >
-            <Box padding={3} display={"flex"} alignItems={"center"}>
+            <Box p={3} display="flex" alignItems="center">
               <Box
                 display={"flex"}
                 flexDirection={{ xs: "column", sm: "row" }}
                 flex={"1 1 100%"}
                 alignItems={{ sm: "center" }}
               >
-                <Box pr={2}>
+                <Box pr={2} mb={{ xs: 1, sm: 0 }}>
                   <Avatar
                     variant="square"
                     src={item.image}
@@ -59,7 +60,7 @@ const KombuchaList = ({ kombuchaList, category }) => {
                       </Typography>
                     </Link>
                   </Box>
-                  <Box>
+                  <Box mb={{ xs: 1, sm: 0.5 }}>
                     <Link href={`/breweries/${item.brewery_slug}`} passHref>
                       <Typography
                         component="a"
@@ -76,31 +77,44 @@ const KombuchaList = ({ kombuchaList, category }) => {
                   </Box>
                   <RevealText text={item.description} maxLength={75} />
                 </Box>
-                <Stack alignItems="center" spacing={1}>
-                  <Box
-                    display="flex"
-                    bgcolor="#F7F9FC"
-                    p={1.5}
-                    sx={{ borderRadius: 10 }}
-                    alignItems="center"
+                <Box
+                  display="flex"
+                  // bgcolor="#F7F9FC"
+                  p={1.5}
+                  sx={{
+                    position: "absolute",
+                    top: { xs: 25, sm: 20 },
+                    right: 10,
+                    borderRadius: 10,
+                  }}
+                  alignItems="center"
+                >
+                  <Rating
+                    value={item.avg}
+                    readOnly
+                    precision={0.25}
+                    sx={{ mr: 1 }}
+                  />
+                  <Typography
+                    variant="body1"
+                    color="text.primary"
+                    fontWeight="500"
+                    // sx={{ lineHeight: 0 }}
                   >
-                    <Rating
-                      value={item.avg}
-                      readOnly
-                      precision={0.25}
-                      sx={{ mr: 1 }}
-                    />
-                    <Typography
-                      variant="caption"
-                      color={"text.secondary"}
-                      fontWeight="500"
-                      sx={{ lineHeight: 0 }}
-                    >
-                      {item.avg ? `${item.avg} / 5` : "N/A"}
-                    </Typography>
-                  </Box>
+                    {item.avg ? `${item.avg} / 5` : "N/A"}
+                  </Typography>
+                </Box>
+                <Stack
+                  alignItems="center"
+                  spacing={1}
+                  sx={{
+                    position: "absolute",
+                    bottom: 10,
+                    right: 20,
+                  }}
+                >
                   {category === "new" ? (
-                    <Typography variant="caption" color="text.secondary">
+                    <Typography variant="caption" color="text.primary">
                       Date added:{" "}
                       {item.insertTime.slice(
                         0,
@@ -108,8 +122,12 @@ const KombuchaList = ({ kombuchaList, category }) => {
                       )}
                     </Typography>
                   ) : (
-                    <Typography variant="caption" color="text.secondary">
-                      {item.review_count} user ratings
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      fontWeight="600"
+                    >
+                      {item.review_count} ratings
                     </Typography>
                   )}
                 </Stack>

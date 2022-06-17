@@ -61,11 +61,10 @@ const Footer = () => {
             <Stack>
               <Box>
                 <Typography
-                  variant="body1"
+                  variant="h6"
                   component="div"
                   color="text.primary"
-                  fontWeight="700"
-                  gutterBottom
+                  fontWeight="600"
                 >
                   Explore
                 </Typography>
@@ -101,11 +100,10 @@ const Footer = () => {
             <Stack>
               <Box>
                 <Typography
-                  variant="body1"
+                  variant="h6"
                   component="div"
                   color="text.primary"
-                  fontWeight="700"
-                  gutterBottom
+                  fontWeight="600"
                 >
                   About
                 </Typography>

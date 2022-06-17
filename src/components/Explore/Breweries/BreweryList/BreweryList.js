@@ -1,12 +1,10 @@
 import Link from "next/link";
 import {
   Avatar,
-  Rating,
   Stack,
   Grid,
   Box,
   Typography,
-  Chip,
   Paper,
   useTheme,
 } from "@mui/material";
@@ -57,6 +55,7 @@ const BreweryList = ({ breweryList, category, sort }) => {
             xs={12}
             key={i}
             sx={{
+              position: "relative",
               borderBottom: `1px solid ${theme.palette.divider}`,
               "&:last-child": {
                 borderBottom: 0,
@@ -64,16 +63,11 @@ const BreweryList = ({ breweryList, category, sort }) => {
             }}
           >
             <Box
-              padding={3}
+              p={{ xs: 2, sm: 2.5 }}
               display={"flex"}
               flexDirection={{ xs: "column", sm: "row" }}
             >
-              <Box
-                display={"flex"}
-                alignItems="center"
-                pb={{ xs: 1, sm: 0 }}
-                flexGrow={1}
-              >
+              <Box display="flex" alignItems="center" flexGrow={1}>
                 <Avatar
                   variant="square"
                   src={item.image}
@@ -108,13 +102,9 @@ const BreweryList = ({ breweryList, category, sort }) => {
                   </Typography>
                 </Box>
               </Box>
-              <Stack
-                alignItems={{ xs: "flex-start", sm: "flex-end" }}
-                justifyContent="center"
-                spacing={1}
-              >
-                {category === "popular" ? (
-                  <Typography variant="body1">
+              {category === "popular" && (
+                <Box position="absolute" right={15} top={15}>
+                  <Typography variant="body1" color="text.primary">
                     {item.favorite_count}{" "}
                     <FavoriteIcon
                       color="error"
@@ -122,13 +112,27 @@ const BreweryList = ({ breweryList, category, sort }) => {
                       sx={{ verticalAlign: "text-top" }}
                     />
                   </Typography>
-                ) : (
+                </Box>
+              )}
+
+              <Stack
+                direction={{ xs: "row", sm: "column" }}
+                alignItems={{ xs: "flex-start", sm: "flex-end" }}
+                justifyContent={{ xs: "flex-end", sm: "center" }}
+                spacing={1}
+              >
+                {category !== "popular" && (
                   <Typography variant="caption" color="text.secondary">
-                    Date added:{" "}
+                    Added on:{" "}
                     {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
                   </Typography>
                 )}
-                <Stack direction="row" spacing={1} sx={{ opacity: 0.8 }}>
+
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  sx={{ display: { xs: "none", sm: "inline" }, opacity: 0.8 }}
+                >
                   <ProductTypeChips list={item.product_type} />
                 </Stack>
               </Stack>

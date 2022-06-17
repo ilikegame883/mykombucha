@@ -110,7 +110,7 @@ const TopKombuchaList = ({ kombuchaList }) => {
               variant="body2"
               component="a"
               color="secondary"
-              sx={{ textDecoration: "none" }}
+              fontWeight="600"
             >
               See more
             </Typography>

@@ -29,8 +29,8 @@ const ExploreSection = ({ kombuchaList }) => {
           Explore Top Rated Kombucha
         </Typography>
         <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
-          See top rated kombuchas from our community. Register to submit and
-          share your own kombucha tastings.
+          See top rated kombuchas from our community. {isSm && <br />} Register
+          to rate and share your own kombucha tastings.
         </Typography>
         <Typography
           variant={isSm ? "h6" : "subtitle1"}

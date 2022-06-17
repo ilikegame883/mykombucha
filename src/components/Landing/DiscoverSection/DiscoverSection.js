@@ -77,8 +77,9 @@ const DiscoverSection = ({ breweryList }) => {
           Discover New Breweries
         </Typography>
         <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
-          Explore the many different types of kombucha available at breweries
-          around the world.
+          Learn more about your favorite breweries and {isSm && <br />} discover
+          many types of kombucha that are being made by other breweries around
+          the world.
         </Typography>
       </Stack>
       <Slider {...settings}>
@@ -94,7 +95,7 @@ const DiscoverSection = ({ breweryList }) => {
             variant="body2"
             component="a"
             color="primary.dark"
-            sx={{ textDecoration: "none" }}
+            fontWeight="600"
           >
             See more
           </Typography>

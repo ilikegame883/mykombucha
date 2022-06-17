@@ -27,7 +27,7 @@ const Brewery = ({ topRaters, session }) => {
       </Head>
       <Layout>
         <Container maxWidth="xl" sx={{ py: 5 }}>
-          <Grid container columnSpacing={2}>
+          <Grid container columnSpacing={3}>
             <Grid item xs={12} md={9}>
               <Paper sx={{ mb: 1.5 }}>
                 <BreweryProfile
@@ -37,7 +37,7 @@ const Brewery = ({ topRaters, session }) => {
               </Paper>
             </Grid>
 
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} md={3} sx={{ mb: { xs: 2 } }}>
               <Paper>
                 <TopRaters topRaters={topRaters} />
               </Paper>

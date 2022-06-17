@@ -37,7 +37,7 @@ const DiscoverBreweryCard = ({ brewery }) => {
               </Typography>
             </Link>
 
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.primary">
               {type}
             </Typography>
             <Typography variant="caption" color="text.secondary">

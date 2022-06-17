@@ -14,7 +14,7 @@ import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 const TopRaters = ({ topRaters }) => {
   const theme = useTheme();
   return (
-    <Box py={1}>
+    <Box pt={1}>
       <Box>
         <Typography
           variant="h6"

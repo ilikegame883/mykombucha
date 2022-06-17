@@ -8,7 +8,7 @@ const SocialIcons = () => {
   return (
     <div>
       <Stack direction="row" alignItems="center">
-        <IconButton>
+        <IconButton sx={{ pl: 0 }}>
           <TwitterIcon />
         </IconButton>
         <IconButton>

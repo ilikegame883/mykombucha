@@ -8,7 +8,6 @@ import RevealText from "../../../RevealText";
 const RecentItemList = ({ reviewList }) => {
   const theme = useTheme();
   console.log(reviewList);
-  // const [order, setOrder] = useState()
 
   return (
     <Box component={Paper}>
@@ -19,21 +18,21 @@ const RecentItemList = ({ reviewList }) => {
             xs={12}
             key={i}
             sx={{
+              position: "relative",
               borderBottom: `1px solid ${theme.palette.divider}`,
               "&:last-child": {
                 borderBottom: 0,
               },
             }}
           >
-            <Box padding={3} display={"flex"} alignItems={"center"}>
+            <Box p={3} display="flex" alignItems="center">
               <Box
-                display={"flex"}
+                display="flex"
                 flexDirection={{ xs: "column", sm: "row" }}
                 flex={"1 1 100%"}
-                // justifyContent={{ sm: "space-between" }}
                 alignItems={{ sm: "center" }}
               >
-                <Box pr={2} width={60} height={60}>
+                <Box pr={2} mb={{ xs: 1, sm: 0 }} width={60} height={60}>
                   <Avatar
                     variant="square"
                     src={item.kombucha.image}
@@ -71,7 +70,7 @@ const RecentItemList = ({ reviewList }) => {
                       <Typography
                         variant="body2"
                         component="a"
-                        color={"text.primary"}
+                        color="text.primary"
                         sx={{
                           textDecoration: "none",
                           "&:hover": { textDecoration: "underline" },
@@ -81,37 +80,47 @@ const RecentItemList = ({ reviewList }) => {
                       </Typography>
                     </Link>
                   </Box>
-                  <Box sx={{ fontStyle: "italic" }}>
+                  <Box sx={{ fontStyle: "italic" }} mb={0.5}>
                     <RevealText text={item.comment} maxLength={75} />
                   </Box>
                 </Stack>
-                <Stack alignItems="flex-end" spacing={1}>
-                  <Box display="flex" alignItems="center">
-                    <Link href={`/user/${item.username}`} passHref>
-                      <Avatar
-                        src={item.userAvatar}
-                        alt={item.username}
-                        component="a"
-                      />
-                    </Link>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  sx={{
+                    position: "absolute",
+                    top: { xs: 25, sm: 40 },
+                    right: 15,
+                  }}
+                >
+                  <Link href={`/user/${item.username}`} passHref>
+                    <Avatar
+                      src={item.userAvatar}
+                      alt={item.username}
+                      component="a"
+                    />
+                  </Link>
 
-                    <Link href={`/user/${item.username}`} passHref>
-                      <Typography
-                        variant="h6"
-                        component="a"
-                        color={"text.secondary"}
-                        fontWeight="500"
-                        sx={{ pl: 1 }}
-                      >
-                        {item.username}
-                      </Typography>
-                    </Link>
-                  </Box>
-                  <Typography variant="caption" color="text.secondary">
-                    Reviewed:{" "}
-                    {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
-                  </Typography>
-                </Stack>
+                  <Link href={`/user/${item.username}`} passHref>
+                    <Typography
+                      variant="h6"
+                      component="a"
+                      color="text.primary"
+                      fontWeight="500"
+                      sx={{ pl: 1 }}
+                    >
+                      {item.username}
+                    </Typography>
+                  </Link>
+                </Box>
+                <Typography
+                  variant="caption"
+                  color="text.primary"
+                  sx={{ position: "absolute", bottom: 5, right: 10 }}
+                >
+                  Reviewed:{" "}
+                  {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
+                </Typography>
               </Box>
             </Box>
           </Grid>
