@@ -13,7 +13,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import EditProfilePicPopup from "./EditProfilePicPopup";
-import AlertSnackBar from "../../../AlertSnackBar";
 
 const pages = [
   {

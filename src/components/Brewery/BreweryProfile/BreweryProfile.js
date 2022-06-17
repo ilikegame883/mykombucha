@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { mutate } from "swr";
-
 import { useRouter } from "next/router";
-import Link from "next/link";
-import Image from "next/image";
 import {
   Box,
   Typography,

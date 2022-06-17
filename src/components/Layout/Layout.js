@@ -7,7 +7,6 @@ import {
   Box,
   useTheme,
   useMediaQuery,
-  Toolbar,
   Divider,
 } from "@mui/material";
 
