@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
 import moment from "moment";
 import {
@@ -10,22 +9,29 @@ import {
   Typography,
   Divider,
   Stack,
-  Grid,
   IconButton,
   Tooltip,
+  Chip,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { patchData } from "../../../utils/fetchData";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleToast } from "../../../stores/actions";
 import AlertToast from "../../AlertToast";
+import HorizontalStats from "./HorizontalStats";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import PublicIcon from "@mui/icons-material/Public";
 
 const KombuchaProfile = ({ kombuchaData }) => {
   const router = useRouter();
   const { dispatch } = useContext(AlertContext);
   const { data: session } = useSession();
+
+  const theme = useTheme();
+  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   const {
     brewery_name,
@@ -69,6 +75,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
   };
   return (
     <>
+      <AlertToast />
       <Box
         sx={{
           display: "flex",
@@ -106,21 +113,20 @@ const KombuchaProfile = ({ kombuchaData }) => {
 
       <Divider />
 
-      <Grid container alignItems="center" p={2}>
-        <Grid
-          item
-          md={2}
-          align="center"
-          mb={{ xs: 1, md: 0 }}
-          sx={{ position: "relative", width: 120, height: 120 }}
-        >
-          <Image src={image} alt={name} layout="fill" objectFit="contain" />
-        </Grid>
-
-        <Grid item md={10}>
-          <Stack justifyContent="center" mb={2}>
+      <Box px={3} py={3}>
+        <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
+          <Box
+            component="img"
+            alt={name}
+            src={image}
+            width={110}
+            height={110}
+            mb={{ xs: 2, sm: 0 }}
+            mr={{ xs: 0, sm: 2 }}
+          />
+          <Stack justifyContent="center">
             <Box display="flex" alignItems="center">
-              <Typography variant="h4" fontWeight="bold">
+              <Typography variant={isSm ? "h4" : "h5"} fontWeight="700" mr={1}>
                 {name}
               </Typography>
               {Boolean(avg) && (
@@ -130,70 +136,52 @@ const KombuchaProfile = ({ kombuchaData }) => {
                     precision={0.25}
                     value={avg}
                     readOnly
-                    sx={{ ml: 1 }}
                   />
                   <Typography
                     variant="body1"
                     component="span"
                     color="text.secondary"
+                    fontWeight="700"
+                    ml={0.5}
                   >
                     ({avg.toFixed(2)})
                   </Typography>
                 </>
               )}
             </Box>
+
+            <Link href={`/breweries/${brewery_slug}`} passHref>
+              <Typography
+                variant="h6"
+                component="a"
+                color="text.secondary"
+                fontWeight="600"
+                gutterBottom
+              >{`${brewery_name} Brewing Company`}</Typography>
+            </Link>
             <Box>
-              <Link href={`/breweries/${brewery_slug}`} passHref>
-                <Typography
-                  variant="h6"
-                  component="a"
-                  color="text.secondary"
-                  sx={{ textDecoration: "none" }}
-                >{`${brewery_name} Brewing Company`}</Typography>
-              </Link>
+              <Chip
+                label={category}
+                color="primary"
+                size="small"
+                sx={{ mr: 1 }}
+              />
+
+              <IconButton sx={{ p: 0 }}>
+                <PublicIcon />
+              </IconButton>
             </Box>
           </Stack>
-
-          <Stack direction="row" spacing={2}>
-            <Typography
-              variant="caption"
-              py={0.5}
-              px={1}
-              ml={0.5}
-              bgcolor="#F5F5F5"
-              sx={{ borderRadius: 1.5 }}
-            >
-              {served_in}
-            </Typography>
-            <Divider orientation="vertical" flexItem />
-            <Typography
-              variant="caption"
-              py={0.5}
-              px={1}
-              ml={0.5}
-              bgcolor="#FAAF00"
-              sx={{ borderRadius: 1.5 }}
-            >
-              {category}
-            </Typography>
-            <Divider orientation="vertical" flexItem />
-
-            <Typography variant="body1" fontWeight="bold">
-              {ABV} ABV
-            </Typography>
-          </Stack>
-        </Grid>
-
-        <Box p={2}>
-          <Typography variant="body2">
-            Coors Light is Coors Brewing Companys largest-selling brand and the
-            fourth best-selling beer in the U.S. Introduced in 1978, Coors Light
-            has been a favorite in delivering the ultimate in cold refreshment
-            for more than 25 years.
-          </Typography>
         </Box>
-      </Grid>
-      <AlertToast />
+      </Box>
+      <Divider />
+      <HorizontalStats served_in={served_in} ABV={ABV} />
+      <Divider />
+      <Box px={4} py={2}>
+        <Typography variant="body2">
+          Add a description for this product.
+        </Typography>
+      </Box>
     </>
   );
 };
