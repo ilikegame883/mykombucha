@@ -30,7 +30,7 @@ const Topbar = ({ onSidebarOpen }) => {
   const loading = status === "loading";
 
   const { data: userData, error } = useSWR(
-    session ? `/api/user/${session.user.username}` : null,
+    session ? `/api/users/${session.user.username}` : null,
     fetcher,
     { revalidateOnFocus: false }
   );
@@ -238,18 +238,33 @@ const Topbar = ({ onSidebarOpen }) => {
 
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
         {!session ? (
-          <Button
-            onClick={() => onSidebarOpen()}
-            aria-label="Menu"
-            sx={{
-              borderRadius: 2,
-              minWidth: "auto",
-              borderColor: "#fff",
-              color: "#fff",
-            }}
-          >
-            <MenuIcon />
-          </Button>
+          <>
+            <Link href="/signin" passHref>
+              <Button
+                variant="outlined"
+                disableRipple
+                sx={{
+                  color: "common.white",
+                  fontWeight: "500",
+                  border: "1px solid #fff",
+                }}
+              >
+                Login
+              </Button>
+            </Link>
+            <Button
+              onClick={() => onSidebarOpen()}
+              aria-label="Menu"
+              sx={{
+                borderRadius: 2,
+                minWidth: "auto",
+                color: "#fff",
+                ml: 0.5,
+              }}
+            >
+              <MenuIcon />
+            </Button>
+          </>
         ) : (
           <IconButton onClick={() => onSidebarOpen()} aria-label="Menu">
             <Avatar
