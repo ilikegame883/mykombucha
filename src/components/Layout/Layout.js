@@ -14,7 +14,7 @@ import {
 import { Footer, Sidebar, Topbar } from "./Main";
 
 const Layout = ({
-  bgcolor = "#ffa926 ",
+  bgcolor = "primary.main",
   position = "sticky",
   title,
   children,
