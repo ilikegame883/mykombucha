@@ -44,6 +44,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
     avg,
     image,
     brewery_slug,
+    description,
   } = kombuchaData;
 
   const [addToList, setAddToList] = useState(false);
@@ -178,9 +179,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
       <HorizontalStats served_in={served_in} ABV={ABV} />
       <Divider />
       <Box px={4} py={2}>
-        <Typography variant="body2">
-          Add a description for this product.
-        </Typography>
+        <Typography variant="body2">{description}</Typography>
       </Box>
     </>
   );
