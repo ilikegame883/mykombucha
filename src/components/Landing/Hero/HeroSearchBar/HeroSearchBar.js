@@ -1,28 +1,22 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import {
-  Paper,
   Autocomplete,
   TextField,
   ListItem,
-  ListItemButton,
   ListItemAvatar,
   ListItemText,
   Avatar,
   Typography,
   Popper,
   InputAdornment,
-  IconButton,
-  Button,
   Card,
   Box,
   useMediaQuery,
-  Divider,
   autocompleteClasses,
+  useTheme,
 } from "@mui/material";
-import { styled, useTheme } from "@mui/material/styles";
-import SearchIcon from "@mui/icons-material/Search";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { styled } from "@mui/material/styles";
 import { getData } from "../../../../utils/fetchData";
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
@@ -49,7 +43,6 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
 
 const HeroSearchBar = () => {
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
   const [searchData, setSearchData] = useState([]);
   const [value, setValue] = useState("");
 
@@ -63,9 +56,9 @@ const HeroSearchBar = () => {
     }
   };
 
-  const onChangeSearch = async (e) => {
-    if (e.target.value) {
-      setValue(e.target.value);
+  const onChangeSearch = async (e, value) => {
+    if (value) {
+      setValue(value);
       let data = await getSearchData(e.target.value);
       return setSearchData(data);
     }
@@ -73,13 +66,14 @@ const HeroSearchBar = () => {
     setValue("");
     setSearchData([]);
   };
+
   return (
     <Box>
       <Autocomplete
         id="search-bar"
         freeSolo
         inputValue={value}
-        onInputChange={(e) => onChangeSearch(e)}
+        onInputChange={(e, value) => onChangeSearch(e, value)}
         PopperComponent={StyledPopper}
         filterOptions={(option) => option}
         options={searchData ? searchData : []}
@@ -210,10 +204,5 @@ const HeroSearchBar = () => {
     </Box>
   );
 };
-
-// HeroSearchBar.propTypes = {
-//   searchUserReview: PropTypes.string,
-//   handleSearchUserReview: PropTypes.func,
-// };
 
 export default HeroSearchBar;
