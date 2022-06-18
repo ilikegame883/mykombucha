@@ -3,7 +3,7 @@ import { Box, Stack, Typography } from "@mui/material";
 const ContactForm = () => {
   return (
     <Stack spacing={4}>
-      <Box px={2}>
+      <Box>
         <Typography variant="h3" fontWeight="700" align="center" gutterBottom>
           Contact us
         </Typography>

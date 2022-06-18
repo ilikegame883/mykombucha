@@ -19,7 +19,9 @@ const Brewery = ({ topRaters, session }) => {
     `/api/breweries/${slug}`,
     fetcher
   );
+
   if (!singleBreweryData) return <CircularProgress color="primary" />;
+
   return (
     <>
       <Head>
