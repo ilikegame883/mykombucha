@@ -30,14 +30,12 @@ async function handler(req, res) {
   const currentHash = user.password;
 
   const passwordsAreEqual = await verifyPassword(currentPassword, currentHash);
-  console.log(passwordsAreEqual);
   if (!passwordsAreEqual) {
     res.status(403).json({ err: "Invalid password." });
     return;
   }
 
   const hashedPassword = await hashPassword(newPassword);
-  console.log(hashedPassword);
 
   //what does updateOne return?
   await Users.updateOne({ _id }, { $set: { password: hashedPassword } });

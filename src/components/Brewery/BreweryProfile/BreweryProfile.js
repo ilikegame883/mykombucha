@@ -6,11 +6,8 @@ import {
   Typography,
   Divider,
   Stack,
-  Button,
-  Grid,
   IconButton,
   Tooltip,
-  Chip,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -26,7 +23,6 @@ import SocialIcons from "./SocialIcons/SocialIcons";
 
 const BreweryProfile = ({ breweryData, session }) => {
   const router = useRouter();
-
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 

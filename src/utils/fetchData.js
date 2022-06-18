@@ -1,11 +1,9 @@
 //http request method to api route
 const dev = process.env.NODE_ENV !== "production";
-console.log(`production ${dev}`);
 
 const baseUrl = dev
   ? process.env.NEXT_PUBLIC_BASE_URL
   : process.env.NEXT_PUBLIC_PROD_URL;
-console.log(baseUrl);
 
 export const postData = async (url, post, token) => {
   const res = await fetch(`${baseUrl}/api/${url}`, {
@@ -37,7 +35,6 @@ export const patchData = async (url, patch, token) => {
   //   throw new Error(`Error: ${res.status}`);
   // }
   const data = await res.json();
-  console.log(data);
   return data;
 };
 

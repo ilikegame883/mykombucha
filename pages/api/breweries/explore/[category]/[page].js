@@ -8,7 +8,6 @@ connectDB();
 const PAGE_SIZE = 5;
 
 const handler = async (req, res) => {
-  console.log(req.query);
   if (req.method !== "GET") {
     return;
   }

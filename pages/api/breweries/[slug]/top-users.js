@@ -19,7 +19,6 @@ const getTopUsers = async (req, res) => {
     const { slug } = req.query;
 
     const newSlugStr = slug.replace(/-/g, "");
-    console.log(`^${newSlugStr}$`);
 
     //get top 5 raters for brewery
     //find users with the most reviews for products from the same brewery

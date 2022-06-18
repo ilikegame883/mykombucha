@@ -56,7 +56,6 @@ const SearchTable = ({ category }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  console.log(router.query);
   useEffect(() => {
     if (router.query?.q) {
       setSearchQuery(router.query.q);

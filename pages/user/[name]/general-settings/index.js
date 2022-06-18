@@ -5,7 +5,6 @@ import SettingsLayout from "../../../../src/components/User/Settings/SettingsLay
 import { General } from "../../../../src/components/User/Settings";
 
 const GeneralSettingsPage = ({ userData }) => {
-  console.log(userData);
   return (
     <Layout position="fixed">
       <SettingsLayout userData={userData}>

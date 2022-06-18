@@ -7,7 +7,6 @@ import RevealText from "../../../RevealText";
 
 const RecentItemList = ({ reviewList }) => {
   const theme = useTheme();
-  console.log(reviewList);
 
   return (
     <Box component={Paper}>

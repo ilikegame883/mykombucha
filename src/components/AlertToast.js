@@ -8,8 +8,6 @@ const AlertToast = () => {
   const { state, dispatch } = useContext(AlertContext);
   const { status, alertMessage, alertToast } = state;
 
-  console.log(state);
-
   // const Alert = React.forwardRef(function Alert(props, ref) {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });

@@ -50,7 +50,6 @@ const SigninForm = () => {
       password: values.password,
       callbackUrl: `${window.location.origin}`,
     });
-    console.log(res);
     if (res?.error) dispatch(toggleAlert("error", res.error));
     if (res.url) router.push(res.url);
   };

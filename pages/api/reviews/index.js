@@ -90,7 +90,6 @@ const postReview = async (req, res) => {
 
 const deleteReview = async (req, res) => {
   const { review_id, user_id, product_id, rating } = req.body;
-  console.log(req.body);
   try {
     await Review.deleteOne({ _id: review_id });
 
