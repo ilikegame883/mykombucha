@@ -72,7 +72,7 @@ const Footer = () => {
               <Link
                 underline="none"
                 component="a"
-                href="/breweries/explore/list1"
+                href="/breweries/explore/list/1"
                 color="text.secondary"
                 variant="subtitle2"
               >
@@ -81,7 +81,7 @@ const Footer = () => {
               <Link
                 underline="none"
                 component="a"
-                href="/kombucha/explore/list1"
+                href="/kombucha/explore/list/1"
                 color="text.secondary"
                 variant="subtitle2"
               >

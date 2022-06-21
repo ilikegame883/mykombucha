@@ -112,11 +112,11 @@ const BreweryLinkTabs = ({
               href="/breweries/explore/popular/1"
               value="popular"
             />
-            <NextLinkTab
+            {/* <NextLinkTab
               label="Local"
               href="/breweries/explore/local/1"
               value="local"
-            />
+            /> */}
           </Tabs>
         </Box>
 

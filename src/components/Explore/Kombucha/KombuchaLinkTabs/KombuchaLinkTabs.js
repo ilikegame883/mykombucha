@@ -102,11 +102,11 @@ const KombuchaLinkTabs = ({ children, category, pageCount, currentPage }) => {
               href="/kombucha/explore/popular/1"
               value="popular"
             />
-            <NextLinkTab
+            {/* <NextLinkTab
               label="Local"
               href="/kombucha/explore/local/1"
               value="local"
-            />
+            /> */}
           </Tabs>
         </Box>
         {children}
