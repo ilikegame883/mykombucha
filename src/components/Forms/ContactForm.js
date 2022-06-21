@@ -26,15 +26,15 @@ const ContactForm = () => {
       </Box>
       <Box textAlign="center">
         <Typography variant="subtitle1" color="text.secondary">
-          For all suggestions and all other enquiries reach us at:
-        </Typography>
-        <Typography
-          component="a"
-          href="mailto:admin@mykombucha.net"
-          color="info.main"
-          fontWeight="700"
-        >
-          admin@mykombucha.net
+          For all suggestions and all other enquiries reach us at:{" "}
+          <Typography
+            component="a"
+            href="mailto:admin@mykombucha.net"
+            color="info.main"
+            fontWeight="700"
+          >
+            admin@mykombucha.net
+          </Typography>
         </Typography>
       </Box>
     </Stack>

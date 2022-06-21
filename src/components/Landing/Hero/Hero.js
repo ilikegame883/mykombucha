@@ -1,20 +1,11 @@
 import { styled } from "@mui/material/styles";
 import {
-  Paper,
   Typography,
   Box,
-  Button,
-  IconButton,
-  InputBase,
-  Divider,
-  Stack,
   useMediaQuery,
   Container,
-  Card,
+  useTheme,
 } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
-
-import SearchIcon from "@mui/icons-material/Search";
 import HeroSearchBar from "./HeroSearchBar";
 
 const RootStyle = styled("div")(({ theme }) => ({
@@ -65,8 +56,8 @@ const Hero = () => {
           <Box pb={3.5}>
             <Box width={{ sm: 460, md: 625 }} pb={1.5}>
               <Box
-                component={"img"}
-                src="https://res.cloudinary.com/jjo/image/upload/v1650337295/myKombucha/Logo/hero-logo_veivqp.svg"
+                component="img"
+                src="https://res.cloudinary.com/mykombucha/image/upload/v1655511899/logo/hero-logo_nocv1z.svg"
                 height={1}
                 width={1}
               />

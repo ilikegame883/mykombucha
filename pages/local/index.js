@@ -4,7 +4,7 @@ import Layout from "../../src/components/Layout";
 const LocalPage = () => {
   return (
     <Layout title="Local Breweries">
-      <Container maxWidth="md" sx={{ py: 15 }}>
+      <Container maxWidth="md" sx={{ py: 10 }}>
         <Box px={2}>
           <Typography variant="h3" fontWeight="700" align="center" gutterBottom>
             Coming soon...
