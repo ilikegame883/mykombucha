@@ -3,7 +3,10 @@ import connectDB from "../../../src/lib/connectDB";
 
 connectDB();
 
-//handler logic for returning brewery data
+//handler logic for Discover Breweries section on homepage
+//limit results to 8
+//revise operation in future to fetch breweries documents based on popularity (number of hearts given)
+
 const handler = async (req, res) => {
   if (req.method !== "GET") {
     return;
