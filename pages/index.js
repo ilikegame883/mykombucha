@@ -1,4 +1,3 @@
-import { getSession } from "next-auth/react";
 import { Container, Stack, Box } from "@mui/material";
 import { getData } from "./../src/utils/fetchData";
 import {
@@ -10,7 +9,7 @@ import {
 } from "../src/components/Landing";
 import Layout from "../src/components/Layout";
 
-export default function Home({ kombuchaList, breweryList, session }) {
+export default function Home({ kombuchaList, breweryList }) {
   return (
     <Box>
       <Layout position="absolute" bgcolor="transparent">
@@ -28,16 +27,26 @@ export default function Home({ kombuchaList, breweryList, session }) {
   );
 }
 
-export async function getServerSideProps(ctx) {
-  //server side rendering
+// export async function getServerSideProps(ctx) {
+//   //server side rendering
+
+//   const session = await getSession(ctx);
+//   return {
+//     props: {
+//       session,
+//     },
+//   };
+// }
+
+export const getStaticProps = async () => {
   const kombuchaList = await getData("kombucha");
   const breweryList = await getData("breweries");
-  const session = await getSession(ctx);
+
   return {
     props: {
       kombuchaList,
       breweryList,
-      session,
     },
+    revalidate: 15,
   };
-}
+};
