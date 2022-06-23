@@ -1,12 +1,12 @@
 import { getSession } from "next-auth/react";
 import { Box } from "@mui/material";
-import Layout from "../src/components/Layout";
 import { SigninForm } from "../src/components/auth";
+import { MainLayout } from "../src/components/Layout";
 
 const Signin = () => {
   return (
     <Box>
-      <Layout title="Login">
+      <MainLayout title="Login">
         <Box
           display="flex"
           alignItems="center"
@@ -14,7 +14,7 @@ const Signin = () => {
         >
           <SigninForm />
         </Box>
-      </Layout>
+      </MainLayout>
     </Box>
   );
 };

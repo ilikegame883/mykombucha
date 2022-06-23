@@ -1,9 +1,9 @@
 import { Container, Typography, Box } from "@mui/material";
-import Layout from "../../src/components/Layout";
+import { MainLayout } from "../../src/components/Layout";
 
 const LocalPage = () => {
   return (
-    <Layout title="Local Breweries">
+    <MainLayout title="Local Breweries">
       <Container maxWidth="md" sx={{ py: 10 }}>
         <Box px={2}>
           <Typography variant="h3" fontWeight="700" align="center" gutterBottom>
@@ -14,7 +14,7 @@ const LocalPage = () => {
           </Typography>
         </Box>
       </Container>
-    </Layout>
+    </MainLayout>
   );
 };
 

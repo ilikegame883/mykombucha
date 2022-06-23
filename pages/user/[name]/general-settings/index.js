@@ -1,16 +1,15 @@
 import { getSession } from "next-auth/react";
-import Layout from "../../../../src/components/Layout";
 import { getData } from "../../../../src/utils/fetchData";
-import SettingsLayout from "../../../../src/components/User/Settings/SettingsLayout";
 import { General } from "../../../../src/components/User/Settings";
+import { MainLayout, SettingsLayout } from "../../../../src/components/Layout";
 
 const GeneralSettingsPage = ({ userData }) => {
   return (
-    <Layout position="fixed">
+    <MainLayout position="fixed">
       <SettingsLayout userData={userData}>
         <General userData={userData} />
       </SettingsLayout>
-    </Layout>
+    </MainLayout>
   );
 };
 

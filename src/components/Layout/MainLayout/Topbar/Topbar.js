@@ -24,22 +24,22 @@ import UserMenuDropDown from "./UserMenuDropDown";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const Topbar = ({ onSidebarOpen }) => {
-  //Another alternative is to pass session from parent?
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
+const Topbar = ({ onSidebarOpen, session, loading }) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
-  const { data: userData, error } = useSWR(
+  const router = useRouter();
+
+  const { data: userData } = useSWR(
     session ? `/api/users/${session.user.username}` : null,
     fetcher,
     { revalidateOnFocus: false }
   );
+
   const userSessionAvatar = userData ? userData[0].avatar : "";
 
-  const router = useRouter();
-
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
+  const isAuthPage =
+    router.pathname === "/signin" && router.pathname === "/register";
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -48,9 +48,6 @@ const Topbar = ({ onSidebarOpen }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  const isAuthPage =
-    router.pathname === "/signin" && router.pathname === "/register";
 
   return (
     <Toolbar
@@ -202,7 +199,7 @@ const Topbar = ({ onSidebarOpen }) => {
                 orientation="vertical"
                 variant="middle"
                 flexItem
-                sx={{ my: 0.5, bgcolor: "secondary" }}
+                sx={{ my: 0.5, bgcolor: "common.white" }}
               />
             </Box>
             <Stack direction="row" spacing={2}>
@@ -233,7 +230,12 @@ const Topbar = ({ onSidebarOpen }) => {
             </Stack>
           </>
         )}
-        {session && <UserMenuDropDown userSessionAvatar={userSessionAvatar} />}
+        {session && (
+          <UserMenuDropDown
+            userSessionAvatar={userSessionAvatar}
+            session={session}
+          />
+        )}
       </Stack>
 
       <Box sx={{ display: { xs: "block", sm: "none" } }}>

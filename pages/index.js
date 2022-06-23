@@ -7,46 +7,47 @@ import {
   MobileApp,
   NewsLetter,
 } from "../src/components/Landing";
-import Layout from "../src/components/Layout";
+// import connectDB from "../src/lib/connectDB";
+// import Brewery from "../src/models/breweryModel";
+import { MainLayout } from "../src/components/Layout";
 
-export default function Home({ kombuchaList, breweryList }) {
+export default function Home() {
   return (
     <Box>
-      <Layout position="absolute" bgcolor="transparent">
+      <MainLayout position="absolute" bgcolor="transparent">
         <Hero />
         <Container maxWidth="lg" sx={{ py: 10 }}>
           <Stack spacing={{ xs: 15, sm: 20 }} mb={5}>
-            <DiscoverSection breweryList={breweryList} />
-            <ExploreSection kombuchaList={kombuchaList} />
+            {/* <DiscoverSection breweryList={breweryList} />
+            <ExploreSection kombuchaList={kombuchaList} /> */}
             <MobileApp />
             <NewsLetter />
           </Stack>
         </Container>
-      </Layout>
+      </MainLayout>
     </Box>
   );
 }
 
-// export async function getServerSideProps(ctx) {
-//   //server side rendering
+// export const getStaticProps = async () => {
+//   await connectDB();
+//   //when more data is avaiable, fetch breweries documents based on popularity (number of hearts given)
+//   // lean converts mongoose.Document to Plain Javascript Object
+//   const result = await Brewery.find().limit(8).lean();
 
-//   const session = await getSession(ctx);
+//   const breweryList = result.map((doc) => {
+//     doc._id = doc._id.toString();
+//     doc.updatedAt = doc.updatedAt.toString();
+//     return doc;
+//   });
+
+//   const kombuchaList = await getData("kombucha/top");
+
 //   return {
 //     props: {
-//       session,
+//       breweryList,
+//       kombuchaList,
 //     },
+//     revalidate: 15,
 //   };
-// }
-
-export const getStaticProps = async () => {
-  const kombuchaList = await getData("kombucha");
-  const breweryList = await getData("breweries");
-
-  return {
-    props: {
-      kombuchaList,
-      breweryList,
-    },
-    revalidate: 15,
-  };
-};
+// };

@@ -1,11 +1,11 @@
 import { Container } from "@mui/material";
 import { Kombucha } from "../../../../src/components/Explore";
-import Layout from "../../../../src/components/Layout";
+import { MainLayout } from "../../../../src/components/Layout";
 import { getData } from "../../../../src/utils/fetchData";
 
 const ExploreKombucha = ({ recentReviews, kombuchaData, category, page }) => {
   return (
-    <Layout>
+    <MainLayout>
       <Container maxWidth="lg" sx={{ py: { xs: 5, sm: 8 } }}>
         <Kombucha
           recentReviews={recentReviews}
@@ -14,7 +14,7 @@ const ExploreKombucha = ({ recentReviews, kombuchaData, category, page }) => {
           page={page}
         />
       </Container>
-    </Layout>
+    </MainLayout>
   );
 };
 

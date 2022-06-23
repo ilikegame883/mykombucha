@@ -3,13 +3,13 @@ import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
 import { Container, Grid, Paper, Typography } from "@mui/material";
 import { getData } from "../../src/utils/fetchData";
-import Layout from "../../src/components/Layout";
 import KombuchaProfile from "../../src/components/Kombucha/KombuchaProfile";
 import KombuchaSideBar from "../../src/components/Kombucha/ReviewSideBar";
 import {
   KombuchaTopReview,
   KombuchaReviews,
 } from "../../src/components/Kombucha/ReviewTable";
+import { MainLayout } from "../../src/components/Layout";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -26,7 +26,7 @@ const Kombucha = ({ singleKombuchaData }) => {
   );
 
   return (
-    <Layout>
+    <MainLayout>
       <Container maxWidth="xl" sx={{ py: 5 }}>
         <Grid container columnSpacing={2}>
           <Grid item xs={12} md={9}>
@@ -62,7 +62,7 @@ const Kombucha = ({ singleKombuchaData }) => {
           </Grid>
         </Grid>
       </Container>
-    </Layout>
+    </MainLayout>
   );
 };
 

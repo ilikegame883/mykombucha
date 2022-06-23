@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import Image from "next/image";
 import {
-  Container,
   IconButton,
   Box,
   Dialog,
   Typography,
-  Grid,
-  TextField,
   Button,
   Divider,
   Avatar,
@@ -18,8 +14,8 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { imageUpload } from "../../../../../utils/imageUpload";
-import { patchData } from "../../../../../utils/fetchData";
+import { imageUpload } from "../../../../utils/imageUpload";
+import { patchData } from "../../../../utils/fetchData";
 import { useRouter } from "next/router";
 
 const Input = styled("input")({
@@ -128,7 +124,7 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
 
             <Typography variant="body1" color="text.primary" gutterBottom>
               A picture helps people recognize you and lets you know when you’re
-              signed in to your account
+              signed in to your account.
             </Typography>
             <Divider sx={{ my: 3 }} />
           </Box>

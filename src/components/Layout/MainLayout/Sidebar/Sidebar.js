@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { Drawer, Divider, Box, Button, Typography } from "@mui/material/";
 import { useTheme } from "@mui/material/styles";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
@@ -43,7 +42,6 @@ const sideBarLinks = [
     groupTitle: "Account",
     id: "account",
     displayInSideBar: false,
-
     pages: [
       {
         title: "My Profile",
@@ -66,7 +64,6 @@ const sideBarLinks = [
     groupTitle: "Site",
     id: "site",
     displayInSideBar: true,
-
     pages: [
       {
         title: "About",
@@ -81,22 +78,21 @@ const sideBarLinks = [
     ],
   },
 ];
-const Sidebar = ({ open, variant, onClose }) => {
-  const theme = useTheme();
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
 
-  const getUserSessionLinks = (href) => {
-    if (!loading) {
-      return `/user/${session.user.username}${href}`;
-    }
-  };
+const Sidebar = ({ open, variant, onClose, session, loading }) => {
+  const theme = useTheme();
 
   const showUserAccountGroup = (displayInSideBar) => {
     if (!loading && session) {
       return true;
     }
     return displayInSideBar;
+  };
+
+  const getUserSessionLinks = (href) => {
+    if (!loading && session) {
+      return `/users/${session.user.username}${href}`;
+    }
   };
 
   return (
@@ -115,7 +111,7 @@ const Sidebar = ({ open, variant, onClose }) => {
       }}
     >
       <Box sx={{ flexGrow: 1 }} pt={2} px={2}>
-        <Box display="flex" alignItems="center" mb={3}>
+        <Box display="flex" alignItems="center" mb={2}>
           <Box
             component="img"
             src="/static/favicons/android-chrome-192x192.png"
@@ -140,7 +136,6 @@ const Sidebar = ({ open, variant, onClose }) => {
             </Box>
           )}
         </Box>
-        {/* <Divider sx={{ my: 2 }} /> */}
         {sideBarLinks.map(
           (item, i) =>
             showUserAccountGroup(item.displayInSideBar) && (

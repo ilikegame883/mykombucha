@@ -56,13 +56,13 @@ const SettingsLayout = ({ children, userData }) => {
           </Typography>
         </Container>
       </Box>
-      <Container sx={{ paddingTop: "0 !important", mt: -8 }}>
+      <Container sx={{ pt: "0 !important", mt: -10 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={3}>
             <Card sx={{ boxShadow: 3, pt: 3 }}>
               <Box display="flex" justifyContent="center" mb={1}>
                 <Box position="relative">
-                  <Avatar src={avatar} sx={{ width: 160, height: 160 }} />
+                  <Avatar src={avatar} sx={{ width: 150, height: 150 }} />
 
                   <Box
                     sx={{
@@ -108,7 +108,7 @@ const SettingsLayout = ({ children, userData }) => {
                   <ListItem
                     key={item.id}
                     component={"a"}
-                    href={`/user/${username}${item.href}`}
+                    href={`/users/${username}${item.href}`}
                     disableGutters
                     sx={{
                       marginRight: { xs: 2, md: 0 },
@@ -118,9 +118,17 @@ const SettingsLayout = ({ children, userData }) => {
                         xs: "none",
                         md: "2px solid transparent",
                       },
-                      borderLeftColor: {
+                      borderBottom: {
+                        xs: "2px solid transparent",
+                        md: "none",
+                      },
+                      borderColor: {
+                        xs:
+                          activeLink === `/users/${username}${item.href}`
+                            ? theme.palette.primary.main
+                            : "transparent",
                         md:
-                          activeLink === `/user/${username}${item.href}`
+                          activeLink === `/users/${username}${item.href}`
                             ? theme.palette.primary.main
                             : "transparent",
                       },
@@ -130,12 +138,12 @@ const SettingsLayout = ({ children, userData }) => {
                       variant="subtitle1"
                       noWrap
                       color={
-                        activeLink === `/user/${username}${item.href}`
+                        activeLink === `/users/${username}${item.href}`
                           ? "text.primary"
                           : "text.secondary"
                       }
                       fontWeight={
-                        activeLink === `/user/${username}${item.href}`
+                        activeLink === `/users/${username}${item.href}`
                           ? 700
                           : 400
                       }

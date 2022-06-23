@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
 import {
@@ -17,11 +16,8 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 
-//Show account avatar icon drop down menu when user is logged in//
-const UserMenuDropDown = ({ userSessionAvatar }) => {
-  //get sesion to generate user account related links in drop down
-  const { data: session } = useSession();
-
+//When user is logged in, show user avatar drop down menu
+const UserMenuDropDown = ({ userSessionAvatar, session }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -79,7 +75,7 @@ const UserMenuDropDown = ({ userSessionAvatar }) => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         disableScrollLock={true}
       >
-        <Link href={`/user/${session.user.username}`} passHref>
+        <Link href={`/users/${session.user.username}`} passHref>
           <MenuItem component="a">
             <ListItemIcon>
               <AccountBoxOutlinedIcon fontSize="small" color="secondary" />
@@ -87,15 +83,18 @@ const UserMenuDropDown = ({ userSessionAvatar }) => {
             <ListItemText>My Profile</ListItemText>
           </MenuItem>
         </Link>
-        <Link href="/" passHref>
+        {/* <Link href="/" passHref>
           <MenuItem component="a">
             <ListItemIcon>
               <ListAltIcon fontSize="small" color="secondary" />
             </ListItemIcon>
             <ListItemText>My Lists</ListItemText>
           </MenuItem>
-        </Link>
-        <Link href={`/user/${session.user.username}/general-settings`} passHref>
+        </Link> */}
+        <Link
+          href={`/users/${session.user.username}/general-settings`}
+          passHref
+        >
           <MenuItem component="a">
             <ListItemIcon>
               <SettingsOutlinedIcon fontSize="small" color="secondary" />

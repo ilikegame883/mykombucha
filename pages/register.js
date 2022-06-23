@@ -1,12 +1,12 @@
 import { getSession } from "next-auth/react";
 import { Container, Box } from "@mui/material";
-import Layout from "../src/components/Layout";
 import { RegisterForm } from "../src/components/auth";
+import { MainLayout } from "../src/components/Layout";
 
 const Register = () => {
   return (
     <Box>
-      <Layout justify="center" title="Register">
+      <MainLayout justify="center" title="Register">
         <Container
           maxWidth="sm"
           sx={{
@@ -17,7 +17,7 @@ const Register = () => {
         >
           <RegisterForm />
         </Container>
-      </Layout>
+      </MainLayout>
     </Box>
   );
 };

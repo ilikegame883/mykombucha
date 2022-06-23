@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import {
@@ -9,23 +10,26 @@ import {
   useMediaQuery,
   Divider,
 } from "@mui/material";
+import Topbar from "./Topbar";
+import Sidebar from "./Sidebar";
+import Footer from "./Footer";
 
-import { Footer, Sidebar, Topbar } from "./Main";
-
-const Layout = ({
+const MainLayout = ({
   bgcolor = "primary.main",
   position = "sticky",
   title,
   children,
 }) => {
-  const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up("md"), {
-    defaultMatches: true,
-  });
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const router = useRouter();
+  const theme = useTheme();
+  const isMd = useMediaQuery(theme.breakpoints.up("md"), {
+    defaultMatches: true,
+  });
 
   const handleSidebarOpen = () => {
     setOpenSidebar(true);
@@ -83,11 +87,21 @@ const Layout = ({
         elevation={0}
       >
         <Container maxWidth="xl">
-          <Topbar onSidebarOpen={handleSidebarOpen} />
+          <Topbar
+            onSidebarOpen={handleSidebarOpen}
+            session={session}
+            loading={loading}
+          />
         </Container>
       </AppBar>
 
-      <Sidebar onClose={handleSidebarClose} open={open} variant="temporary" />
+      <Sidebar
+        onClose={handleSidebarClose}
+        open={open}
+        session={session}
+        loading={loading}
+        variant="temporary"
+      />
       <Box component="main" flexGrow={1}>
         {children}
       </Box>
@@ -99,4 +113,4 @@ const Layout = ({
   );
 };
 
-export default Layout;
+export default MainLayout;

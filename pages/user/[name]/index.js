@@ -4,8 +4,8 @@ import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Container } from "@mui/material";
 import { getData } from "../../../src/utils/fetchData";
-import Layout from "../../../src/components/Layout";
 import Profile from "../../../src/components/User/Profile";
+import { MainLayout } from "../../../src/components/Layout";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -24,11 +24,11 @@ const UserProfile = ({ userData }) => {
       <Head>
         <title>User Profile</title>
       </Head>
-      <Layout>
+      <MainLayout>
         <Container maxWidth="xl" sx={{ py: 5 }}>
           <Profile userData={userData} userReviews={userReviews} name={name} />
         </Container>
-      </Layout>
+      </MainLayout>
     </>
   );
 };

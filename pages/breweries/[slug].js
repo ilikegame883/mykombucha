@@ -2,11 +2,11 @@ import Head from "next/head";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import { getSession } from "next-auth/react";
-import { Container, Grid, Paper, CircularProgress } from "@mui/material";
-import Layout from "../../src/components/Layout";
+import { Box, Container, Grid, Paper, CircularProgress } from "@mui/material";
 import { getData } from "../../src/utils/fetchData";
 import { BreweryProductTable, TopRaters } from "../../src/components/Brewery";
 import BreweryProfile from "../../src/components/Brewery/BreweryProfile";
+import { MainLayout } from "../../src/components/Layout";
 
 const fetcher = (url) => fetch(url).then((r) => r.json());
 
@@ -27,7 +27,7 @@ const Brewery = ({ topRaters, session }) => {
       <Head>
         <title>{singleBreweryData[0].name}</title>
       </Head>
-      <Layout>
+      <MainLayout>
         <Container maxWidth="xl" sx={{ py: 5 }}>
           <Grid container columnSpacing={3}>
             <Grid item xs={12} md={9}>
@@ -46,16 +46,16 @@ const Brewery = ({ topRaters, session }) => {
             </Grid>
 
             <Grid item xs={12} md={9}>
-              <Paper sx={{ mb: 1.5 }}>
+              <Box sx={{ mb: 1.5 }}>
                 <BreweryProductTable
                   breweryData={singleBreweryData[0]}
                   session={session}
                 />
-              </Paper>
+              </Box>
             </Grid>
           </Grid>
         </Container>
-      </Layout>
+      </MainLayout>
     </>
   );
 };
