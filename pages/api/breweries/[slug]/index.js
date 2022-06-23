@@ -1,10 +1,10 @@
 import Brewery from "../../../../src/models/breweryModel";
 import connectDB from "../../../../src/lib/connectDB";
 
-connectDB();
-
 //handler logic for returning brewery data by slug
 const handler = async (req, res) => {
+  await connectDB();
+
   if (req.method !== "GET") {
     return;
   }

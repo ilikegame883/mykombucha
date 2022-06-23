@@ -1,9 +1,9 @@
 import connectDB from "../../../../src/lib/connectDB";
 import Kombucha from "../../../../src/models/kombuchaModel";
 
-connectDB();
-
 const handler = async (req, res) => {
+  await connectDB();
+
   if (req.method !== "GET") {
     return;
   }

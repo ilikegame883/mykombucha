@@ -3,9 +3,9 @@ import Users from "../../../src/models/userModel";
 import connectDB from "./../../../src/lib/connectDB";
 import { hashPassword, verifyPassword } from "../../../src/utils/verify";
 
-connectDB();
-
 async function handler(req, res) {
+  await connectDB();
+
   if (req.method !== "PATCH") {
     return;
   }

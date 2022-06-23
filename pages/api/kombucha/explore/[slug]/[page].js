@@ -2,12 +2,12 @@ import connectDB from "../../../../../src/lib/connectDB";
 import Kombucha from "../../../../../src/models/kombuchaModel";
 import Review from "../../../../../src/models/reviewModel";
 
-connectDB();
-
 // Similar to 'limit' (# of items per page - page size)
 const PAGE_SIZE = 5;
 
 const handler = async (req, res) => {
+  await connectDB();
+
   if (req.method !== "GET") {
     return;
   }

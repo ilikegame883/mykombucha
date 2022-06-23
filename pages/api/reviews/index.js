@@ -1,14 +1,11 @@
 import Review from "../../../src/models/reviewModel";
 import User from "../../../src/models/userModel";
 import Kombucha from "../../../src/models/kombuchaModel";
-
 import connectDB from "../../../src/lib/connectDB";
 
-connectDB();
-
-//hanlder logic
-
 const handler = async (req, res) => {
+  await connectDB();
+
   switch (req.method) {
     case "POST":
       await postReview(req, res);

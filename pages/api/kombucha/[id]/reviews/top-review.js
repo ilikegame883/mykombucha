@@ -2,11 +2,11 @@ import Review from "../../../../../src/models/reviewModel";
 import connectDB from "../../../../../src/lib/connectDB";
 import mongoose from "mongoose";
 
-connectDB();
-
 //KombuchaReviews.js
 //get top-review for kombucha with highest number of user likes
 const handler = async (req, res) => {
+  await connectDB();
+
   if (req.method !== "GET") {
     return;
   }

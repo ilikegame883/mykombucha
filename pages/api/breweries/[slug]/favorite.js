@@ -2,9 +2,9 @@ import connectDB from "../../../../src/lib/connectDB";
 import Brewery from "../../../../src/models/breweryModel";
 import mongoose from "mongoose";
 
-connectDB();
-
 const handler = async (req, res) => {
+  await connectDB();
+
   if (req.method !== "PATCH") {
     return;
   }

@@ -1,9 +1,9 @@
 import Review from "../../../../src/models/reviewModel";
 import connectDB from "../../../../src/lib/connectDB";
 
-connectDB();
-
 const handler = async (req, res) => {
+  await connectDB();
+
   switch (req.method) {
     case "GET":
       await getTopUsers(req, res);

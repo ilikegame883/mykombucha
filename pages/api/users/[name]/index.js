@@ -1,9 +1,9 @@
 import connectDB from "../../../../src/lib/connectDB";
 import User from "../../../../src/models/userModel";
 
-connectDB();
-
 const handler = async (req, res) => {
+  await connectDB();
+
   switch (req.method) {
     case "GET":
       await getSingleUser(req, res);
@@ -68,7 +68,7 @@ const updateUser = async (req, res) => {
     //get current username
     const { name: username } = req.query;
 
-    //get new name
+    //get revised info
     const { firstname, lastname, avatar, city, country, bio } = req.body;
 
     const update = {

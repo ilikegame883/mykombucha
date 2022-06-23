@@ -2,9 +2,9 @@ import connectDB from "../../../../src/lib/connectDB";
 import Kombucha from "../../../../src/models/kombuchaModel";
 import Review from "../../../../src/models/reviewModel";
 
-connectDB();
-
 const handler = async (req, res) => {
+  await connectDB();
+
   switch (req.method) {
     case "GET":
       await getUserReviews(req, res);

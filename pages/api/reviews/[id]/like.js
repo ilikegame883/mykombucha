@@ -1,11 +1,10 @@
 import Review from "../../../../src/models/reviewModel";
-
 import connectDB from "../../../../src/lib/connectDB";
 import mongoose from "mongoose";
 
-connectDB();
-
 const handler = async (req, res) => {
+  await connectDB();
+
   switch (req.method) {
     case "PATCH":
       await updateReviewLikes(req, res);

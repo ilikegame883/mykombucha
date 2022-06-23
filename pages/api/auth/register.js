@@ -2,9 +2,9 @@ import Users from "../../../src/models/userModel";
 import bcrypt from "bcrypt";
 import connectDB from "./../../../src/lib/connectDB";
 
-connectDB();
-
 const handler = async (req, res) => {
+  await connectDB();
+
   if (req.method !== "POST") {
     return;
   }
