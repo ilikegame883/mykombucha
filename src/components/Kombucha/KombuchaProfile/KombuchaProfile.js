@@ -24,6 +24,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PublicIcon from "@mui/icons-material/Public";
+import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 
 const KombuchaProfile = ({ kombuchaData }) => {
   const router = useRouter();
@@ -119,7 +120,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
           <Box
             component="img"
             alt={name}
-            src={image}
+            src={getCloudinaryUrl(image)}
             width={110}
             height={110}
             mb={{ xs: 2, sm: 0 }}
