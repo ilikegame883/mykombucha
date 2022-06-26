@@ -1,6 +1,5 @@
 import { Typography, Stack, Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

@@ -66,7 +66,6 @@ const HeroSearchBar = () => {
     setValue("");
     setSearchData([]);
   };
-
   return (
     <Box>
       <Autocomplete
@@ -133,7 +132,7 @@ const HeroSearchBar = () => {
           </Box>
         )}
         renderOption={(props, option) => {
-          const { name, image, category, _id, slug } = option;
+          const { name, image, category, _id, slug, brewery_name } = option;
           const getHref =
             category === "kombucha"
               ? `/${category}/${_id}`
@@ -154,7 +153,7 @@ const HeroSearchBar = () => {
                         variant="square"
                         alt={name}
                         src={image}
-                        sx={{ width: 35, height: 35 }}
+                        sx={{ width: 40, height: 40 }}
                       />
                     </ListItemAvatar>
                     <ListItemText
@@ -164,6 +163,7 @@ const HeroSearchBar = () => {
                         fontWeight: 600,
                         component: "a",
                       }}
+                      // secondary={category === "kombucha" && brewery_name}
                     />
                   </ListItem>
                 </Box>
@@ -193,7 +193,7 @@ const HeroSearchBar = () => {
                     color="info.dark"
                     fontWeight="700"
                   >
-                    See more {group} results for {value}
+                    See more {group} results for {`"${value}"`}
                   </Typography>
                 </Link>
               </Box>

@@ -103,7 +103,7 @@ const BreweryList = ({ breweryList, category, sort }) => {
                 </Box>
               </Box>
               {category === "popular" && (
-                <Box position="absolute" right={15} top={15}>
+                <Box position="absolute" right={20} top={15}>
                   <Typography variant="body1" color="text.primary">
                     {item.favorite_count}{" "}
                     <FavoriteIcon
@@ -121,13 +121,6 @@ const BreweryList = ({ breweryList, category, sort }) => {
                 justifyContent={{ xs: "flex-end", sm: "center" }}
                 spacing={1}
               >
-                {category !== "popular" && (
-                  <Typography variant="caption" color="text.secondary">
-                    Added on:{" "}
-                    {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
-                  </Typography>
-                )}
-
                 <Stack
                   direction="row"
                   spacing={1}
@@ -135,6 +128,12 @@ const BreweryList = ({ breweryList, category, sort }) => {
                 >
                   <ProductTypeChips list={item.product_type} />
                 </Stack>
+                {category !== "popular" && (
+                  <Typography variant="caption" color="text.secondary">
+                    Added on:{" "}
+                    {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
+                  </Typography>
+                )}
               </Stack>
             </Box>
           </Grid>

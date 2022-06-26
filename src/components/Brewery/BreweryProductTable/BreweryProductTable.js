@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { alpha, useTheme } from "@mui/material/styles";
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Divider,
@@ -19,7 +19,7 @@ import {
   ListItemText,
   ListItemAvatar,
   useMediaQuery,
-  Stack,
+  Chip,
 } from "@mui/material";
 import ProductTableSearchBar from "../../ProductTable/ProductTableSearchBar";
 import ProductSearchNotFound from "../../ProductTable/ProductSearchNotFound";
@@ -247,30 +247,19 @@ const BreweryProductTable = ({ breweryData, session }) => {
                               </Link>
                             </Box>
                           }
-                          // secondary={
-                          //   <Typography
-                          //     variant="caption"
-                          //     fontWeight={500}
-                          //     sx={{
-                          //       bgcolor: alpha(
-                          //         theme.palette.success.light,
-                          //         0.5
-                          //       ),
-                          //       px: 1,
-                          //       borderRadius: 4,
-                          //     }}
-                          //   >
-                          //     Active
-                          //   </Typography>
-                          // }
                         />
                       </ListItem>
                     </List>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant={"subtitle2"}>
+                    <Chip
+                      label={item.category}
+                      size="small"
+                      color={item.category === "Kombucha" ? "primary" : "error"}
+                    />
+                    {/* <Typography variant={"subtitle2"}>
                       {item.category}
-                    </Typography>
+                    </Typography> */}
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant={"subtitle2"} color="text.secondary">
@@ -291,7 +280,7 @@ const BreweryProductTable = ({ breweryData, session }) => {
                 </TableRow>
               ))}
 
-            {emptyRows > 0 && (
+            {/* {emptyRows > 0 && (
               <TableRow
                 style={{
                   height: 90 * emptyRows,
@@ -299,7 +288,7 @@ const BreweryProductTable = ({ breweryData, session }) => {
               >
                 <TableCell align="center" colSpan={6} />
               </TableRow>
-            )}
+            )} */}
             {isKombuchaNotFound && (
               <TableRow>
                 <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
@@ -309,17 +298,16 @@ const BreweryProductTable = ({ breweryData, session }) => {
             )}
           </TableBody>
         </Table>
-        <Divider />
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={rows.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </>
   );
 };
