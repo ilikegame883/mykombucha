@@ -1,15 +1,15 @@
 import { Container, Stack, Box } from "@mui/material";
-import { getData } from "./../src/utils/fetchData";
 import {
-  DiscoverSection,
-  ExploreSection,
+  // DiscoverSection,
+  // ExploreSection,
   Hero,
   MobileApp,
   NewsLetter,
 } from "../src/components/Landing";
+import { MainLayout } from "../src/components/Layout";
+// import { getData } from "../src/utils/fetchData";
 // import connectDB from "../src/lib/connectDB";
 // import Brewery from "../src/models/breweryModel";
-import { MainLayout } from "../src/components/Layout";
 
 export default function Home() {
   return (
