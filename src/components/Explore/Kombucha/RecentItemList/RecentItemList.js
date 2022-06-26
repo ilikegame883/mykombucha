@@ -1,13 +1,22 @@
-import React, { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "@mui/material/styles";
-import { Avatar, Stack, Grid, Box, Typography, Paper } from "@mui/material";
+import {
+  Avatar,
+  Stack,
+  Grid,
+  Box,
+  Typography,
+  Paper,
+  useMediaQuery,
+} from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import RevealText from "../../../RevealText";
 
 const RecentItemList = ({ reviewList }) => {
   const theme = useTheme();
+  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
+  console.log(reviewList);
   return (
     <Box component={Paper}>
       <Grid container>
@@ -84,32 +93,24 @@ const RecentItemList = ({ reviewList }) => {
                   </Box>
                 </Stack>
                 <Box
-                  display="flex"
-                  alignItems="center"
                   sx={{
                     position: "absolute",
                     top: { xs: 25, sm: 40 },
                     right: 15,
                   }}
                 >
-                  <Link href={`/user/${item.username}`} passHref>
-                    <Avatar
-                      src={item.userAvatar}
-                      alt={item.username}
-                      component="a"
-                    />
-                  </Link>
-
-                  <Link href={`/user/${item.username}`} passHref>
-                    <Typography
-                      variant="h6"
-                      component="a"
-                      color="text.primary"
-                      fontWeight="500"
-                      sx={{ pl: 1 }}
-                    >
-                      {item.username}
-                    </Typography>
+                  <Link href={`/users/${item.username}`} passHref>
+                    <Box component="a" display="flex" alignItems="center">
+                      <Avatar src={item.userAvatar} alt={item.username} />
+                      <Typography
+                        variant={isSm ? "h6" : "body1"}
+                        color="text.primary"
+                        fontWeight="500"
+                        sx={{ pl: 1 }}
+                      >
+                        {item.username}
+                      </Typography>
+                    </Box>
                   </Link>
                 </Box>
                 <Typography

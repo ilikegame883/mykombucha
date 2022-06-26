@@ -46,7 +46,7 @@ const UserInfo = ({ userData, userReviews }) => {
             <Typography variant="caption" color="text.primary" fontWeight="500">
               Account Settings
               <Link
-                href={`/user/${session.user.username}/general-settings`}
+                href={`/users/${session.user.username}/general-settings`}
                 passHref
               >
                 <IconButton sx={{ padding: 0, pl: 1 }} component="a">

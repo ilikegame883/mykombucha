@@ -61,7 +61,7 @@ const TopRaters = ({ topRaters }) => {
                     sx={{ margin: 0 }}
                     primary={
                       <>
-                        <Link href={`/user/${user.username}`} passHref>
+                        <Link href={`/users/${user.username}`} passHref>
                           <Typography
                             component="a"
                             variant="body1"

@@ -41,7 +41,7 @@ const ReviewCard = ({ review, handleClickLikeIcon, topReview }) => {
               sx={{ ml: 1.5, mt: 0 }}
               primary={
                 <Box display="flex">
-                  <Link href={`/user/${review.username}`} passHref>
+                  <Link href={`/users/${review.username}`} passHref>
                     <Typography
                       variant="h6"
                       fontWeight="500"
@@ -88,10 +88,7 @@ const ReviewCard = ({ review, handleClickLikeIcon, topReview }) => {
             </Typography>
           </Box>
           <Typography variant="body2" mb={2}>
-            {review.comment} 16 oz. can shared by Tmoney, from recent notes.
-            Pours a hazy golden color with a medium sized white head. The aroma
-            and flavor have pale malts, grainy malts, light sweetness, citrus
-            and tropical fruits, orange, mild melon, mild earthy notes,
+            {review.comment}
           </Typography>
           <Typography variant="caption" mb={1}>
             Review Date:{" "}
