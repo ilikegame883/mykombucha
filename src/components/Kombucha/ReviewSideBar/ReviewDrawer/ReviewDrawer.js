@@ -29,6 +29,7 @@ const ReviewDrawer = ({ kombuchaData, toggleDrawer }) => {
     served_in: "",
     user: session.user._id,
     username: session.user.username,
+    userAvatar: session.user.avatar,
   });
 
   const [error, setError] = useState(false);
