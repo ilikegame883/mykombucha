@@ -104,32 +104,31 @@ const Sidebar = ({ open, variant, onClose, session, loading }) => {
       sx={{
         "& .MuiPaper-root": {
           width: "100%",
-          maxWidth: 256,
+          maxWidth: 240,
           height: { xs: "100%" },
           background: theme.palette.background.paper,
         },
       }}
     >
-      <Box sx={{ flexGrow: 1 }} pt={2} px={2}>
-        <Box display="flex" alignItems="center" mb={2}>
+      <Box sx={{ flexGrow: 1 }} pt={2.5} px={2}>
+        <Box display="flex" alignItems="center" mb={3}>
           <Box
             component="img"
             src="/static/favicons/android-chrome-192x192.png"
             alt="nav-sidebar-menu-logo"
-            width={60}
-            height={60}
+            width={50}
+            height={50}
           />
           {session && (
-            <Box ml={2}>
-              <Typography variant="h6" color="secondary">
+            <Box ml={1.5} sx={{ textAlign: "left" }}>
+              <Typography variant="body1" color="secondary" fontWeight="600">
                 Welcome back
               </Typography>
               <Typography
-                variant="h6"
-                component="p"
+                variant="body1"
                 color="text.primary"
-                fontWeight="700"
-                align="center"
+                fontWeight="600"
+                pl={0.5}
               >
                 {session.user.username}!
               </Typography>
