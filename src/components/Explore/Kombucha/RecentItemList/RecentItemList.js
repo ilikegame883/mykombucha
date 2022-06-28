@@ -16,7 +16,6 @@ const RecentItemList = ({ reviewList }) => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
-  console.log(reviewList);
   return (
     <Box component={Paper}>
       <Grid container>

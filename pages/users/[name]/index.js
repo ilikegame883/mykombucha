@@ -39,12 +39,9 @@ export async function getServerSideProps(ctx) {
   //fetch reviews by userName
   // const userReviews = await getData("user", `${ctx.params.name}/reviews`);
 
-  //protect account settings and delete review button from server side
-  const session = await getSession(ctx);
   return {
     props: {
       userData,
-      session,
       // userReviews,
     },
   };
