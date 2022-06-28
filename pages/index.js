@@ -1,25 +1,24 @@
 import { Container, Stack, Box } from "@mui/material";
 import {
-  // DiscoverSection,
-  // ExploreSection,
+  DiscoverSection,
+  ExploreSection,
   Hero,
   MobileApp,
   NewsLetter,
 } from "../src/components/Landing";
 import { MainLayout } from "../src/components/Layout";
-// import { getData } from "../src/utils/fetchData";
-// import connectDB from "../src/lib/connectDB";
-// import Brewery from "../src/models/breweryModel";
+import connectDB from "../src/lib/connectDB";
+import getHomeStaticData from "../src/utils/getHomeStaticData";
 
-export default function Home() {
+export default function Home({ breweryList, kombuchaList }) {
   return (
     <Box>
       <MainLayout position="absolute" bgcolor="transparent">
         <Hero />
         <Container maxWidth="lg" sx={{ py: 10 }}>
           <Stack spacing={{ xs: 15, sm: 20 }} mb={5}>
-            {/* <DiscoverSection breweryList={breweryList} />
-            <ExploreSection kombuchaList={kombuchaList} /> */}
+            <DiscoverSection breweryList={breweryList} />
+            <ExploreSection kombuchaList={kombuchaList} />
             <MobileApp />
             <NewsLetter />
           </Stack>
@@ -29,25 +28,17 @@ export default function Home() {
   );
 }
 
-// export const getStaticProps = async () => {
-//   await connectDB();
-//   //when more data is avaiable, fetch breweries documents based on popularity (number of hearts given)
-//   // lean converts mongoose.Document to Plain Javascript Object
-//   const result = await Brewery.find().limit(8).lean();
-
-//   const breweryList = result.map((doc) => {
-//     doc._id = doc._id.toString();
-//     doc.updatedAt = doc.updatedAt.toString();
-//     return doc;
-//   });
-
-//   const kombuchaList = await getData("kombucha/top");
-
-//   return {
-//     props: {
-//       breweryList,
-//       kombuchaList,
-//     },
-//     revalidate: 15,
-//   };
-// };
+export const getStaticProps = async () => {
+  //You should not call your Next.js API route within getStaticProps.
+  //The reason is that your API route is not available until your Next app is built and getStaticProps runs at build time.
+  //Therefore the API route would not be available to populate the data during the build.
+  await connectDB();
+  const { breweryList, kombuchaList } = await getHomeStaticData();
+  return {
+    props: {
+      breweryList,
+      kombuchaList,
+    },
+    revalidate: 15,
+  };
+};
