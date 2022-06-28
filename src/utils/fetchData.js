@@ -5,12 +5,11 @@ const baseUrl = dev
   ? process.env.NEXT_PUBLIC_BASE_URL
   : process.env.NEXT_PUBLIC_PROD_URL;
 
-export const postData = async (url, post, token) => {
+export const postData = async (url, post) => {
   const res = await fetch(`${baseUrl}/api/${url}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
     },
     body: JSON.stringify(post), //post type = object
   });
@@ -22,12 +21,11 @@ export const postData = async (url, post, token) => {
   return data;
 };
 
-export const patchData = async (url, patch, token) => {
+export const patchData = async (url, patch) => {
   const res = await fetch(`${baseUrl}/api/${url}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
     },
     body: JSON.stringify(patch), //post type = object
   });
@@ -38,7 +36,7 @@ export const patchData = async (url, patch, token) => {
   return data;
 };
 
-export const getData = async (path, params = null, token) => {
+export const getData = async (path, params = null) => {
   //params is received from pages\<name> getServerSideProps ctx.params.id
   //use params to call single document api
   let url;
@@ -51,9 +49,9 @@ export const getData = async (path, params = null, token) => {
   }
   const res = await fetch(url, {
     method: "GET",
-    headers: {
-      Authorization: token,
-    },
+    // headers: {
+    //   Authorization: token,
+    // },
   });
   if (!res.ok) {
     throw new Error(`Error: ${res.status}`);
@@ -63,12 +61,11 @@ export const getData = async (path, params = null, token) => {
   return data;
 };
 
-export const deleteData = async (url, post, token) => {
+export const deleteData = async (url, post) => {
   const res = await fetch(`${baseUrl}/api/${url}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      Authorization: token,
     },
     body: JSON.stringify(post), //post type = object
   });
