@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
+// import useSWR from "swr";
 import {
   Autocomplete,
   TextField,
@@ -12,9 +13,7 @@ import {
   InputAdornment,
   Card,
   Box,
-  useMediaQuery,
   autocompleteClasses,
-  useTheme,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { getData } from "../../../../utils/fetchData";
@@ -42,15 +41,14 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
 }));
 
 const HeroSearchBar = () => {
-  const theme = useTheme();
   const [searchData, setSearchData] = useState([]);
   const [value, setValue] = useState("");
-
   const getSearchData = async (str) => {
     try {
-      let kombuchaSearchData = await getData("kombucha", `search/${str}`);
-      let brewerySearchData = await getData("breweries", `search/${str}`);
-      return [...kombuchaSearchData, ...brewerySearchData];
+      let kombuchaSearchData = await getData("kombucha/search", `${str}`);
+      let brewerySearchData = await getData("breweries/search", `${str}`);
+      setSearchData([...kombuchaSearchData, ...brewerySearchData]);
+      // return [...kombuchaSearchData, ...brewerySearchData];
     } catch (error) {
       console.error(error);
     }
@@ -59,8 +57,8 @@ const HeroSearchBar = () => {
   const onChangeSearch = async (e, value) => {
     if (value) {
       setValue(value);
-      let data = await getSearchData(e.target.value);
-      return setSearchData(data);
+      getSearchData(e.target.value);
+      return;
     }
     //clear state when search bar has no inputvalue from backspace or clear iconbutton
     setValue("");
@@ -69,13 +67,15 @@ const HeroSearchBar = () => {
   return (
     <Box>
       <Autocomplete
+        loading
+        loadingText={`No results for "${value}"`}
         id="search-bar"
         freeSolo
         inputValue={value}
         onInputChange={(e, value) => onChangeSearch(e, value)}
         PopperComponent={StyledPopper}
         filterOptions={(option) => option}
-        options={searchData ? searchData : []}
+        options={searchData ? searchData : ""}
         groupBy={(option) => option.category}
         getOptionLabel={(option) => option.name || ""}
         renderInput={(params) => (
@@ -138,7 +138,7 @@ const HeroSearchBar = () => {
               ? `/${category}/${_id}`
               : `/${category}/${slug}`;
           return (
-            <>
+            <React.Fragment key={name}>
               <Link href={getHref} passHref>
                 <Box
                   sx={{
@@ -168,7 +168,7 @@ const HeroSearchBar = () => {
                   </ListItem>
                 </Box>
               </Link>
-            </>
+            </React.Fragment>
           );
         }}
         renderGroup={(params) => {
