@@ -33,6 +33,10 @@ const kombuchaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    product_type: {
+      type: String,
+      required: true,
+    },
     review_count: {
       type: Number,
       default: 0,

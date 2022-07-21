@@ -23,10 +23,7 @@ const brewerySchema = new mongoose.Schema(
     image: {
       type: String,
     },
-    type: {
-      type: String,
-      required: true,
-    },
+
     product_type: [String],
     // products: [{ type: mongoose.Types.ObjectId, ref: "Kombucha" }],
 
