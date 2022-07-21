@@ -24,6 +24,7 @@ import {
 import ProductTableSearchBar from "../../ProductTable/ProductTableSearchBar";
 import ProductSearchNotFound from "../../ProductTable/ProductSearchNotFound";
 import ProductTableHead from "../../ProductTable/ProductTableHead";
+import getChipColor from "../../../utils/getChipColor";
 
 const TABLE_HEAD = [
   {
@@ -32,8 +33,8 @@ const TABLE_HEAD = [
     align: "left",
   },
   {
-    id: "category",
-    label: "Category",
+    id: "product_type",
+    label: "Type",
     align: "right",
   },
   {
@@ -60,7 +61,7 @@ const TABLE_HEAD = [
 
 function createTableData(
   name,
-  category,
+  product_type,
   userSessionRating,
   avg,
   total_ratings,
@@ -71,7 +72,7 @@ function createTableData(
   //_id = kombucha product id
   return {
     name,
-    category,
+    product_type,
     userSessionRating,
     avg,
     total_ratings,
@@ -118,7 +119,7 @@ const BreweryProductTable = ({ breweryData, session }) => {
   const [orderDirection, setOrderDirection] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
   const [searchQuery, setSearchQuery] = useState("");
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   //For Brewery Product Table
   const getUserSessionRating = (_id) => {
@@ -135,12 +136,12 @@ const BreweryProductTable = ({ breweryData, session }) => {
   };
 
   const rows = kombuchas.map(
-    ({ name, category, review_count, updatedAt, _id, avg, image }) => {
+    ({ name, product_type, review_count, updatedAt, _id, avg, image }) => {
       const dateOnly = updatedAt.slice(0, updatedAt.lastIndexOf("T"));
       const userSessionRating = getUserSessionRating(_id);
       return createTableData(
         name,
-        category,
+        product_type,
         userSessionRating,
         avg,
         review_count,
@@ -253,13 +254,13 @@ const BreweryProductTable = ({ breweryData, session }) => {
                   </TableCell>
                   <TableCell align="right">
                     <Chip
-                      label={item.category}
+                      label={item.product_type}
                       size="small"
-                      color={item.category === "Kombucha" ? "primary" : "error"}
+                      sx={{
+                        color: "text.primary",
+                        bgcolor: getChipColor(item.product_type),
+                      }}
                     />
-                    {/* <Typography variant={"subtitle2"}>
-                      {item.category}
-                    </Typography> */}
                   </TableCell>
                   <TableCell align="right">
                     <Typography variant={"subtitle2"} color="text.secondary">
@@ -275,7 +276,7 @@ const BreweryProductTable = ({ breweryData, session }) => {
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant={"subtitle2"}>{item.added}</Typography>
+                    <Typography variant={"caption"}>{item.added}</Typography>
                   </TableCell>
                 </TableRow>
               ))}

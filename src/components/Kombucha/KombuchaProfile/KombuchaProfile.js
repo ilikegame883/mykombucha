@@ -25,6 +25,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PublicIcon from "@mui/icons-material/Public";
 import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
+import getChipColor from "../../../utils/getChipColor";
 
 const KombuchaProfile = ({ kombuchaData }) => {
   const router = useRouter();
@@ -36,7 +37,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
 
   const {
     brewery_name,
-    category,
+    product_type,
     name,
     served_in,
     ABV,
@@ -127,7 +128,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
             mr={{ xs: 0, sm: 2 }}
           />
           <Stack justifyContent="center">
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" flexWrap="wrap">
               <Typography variant={isSm ? "h4" : "h5"} fontWeight="700" mr={1}>
                 {name}
               </Typography>
@@ -163,10 +164,13 @@ const KombuchaProfile = ({ kombuchaData }) => {
             </Link>
             <Box>
               <Chip
-                label={category}
-                color="primary"
+                label={product_type}
                 size="small"
-                sx={{ mr: 1 }}
+                sx={{
+                  mr: 1,
+                  color: "text.primary",
+                  bgcolor: getChipColor(product_type),
+                }}
               />
 
               <IconButton sx={{ p: 0 }}>
