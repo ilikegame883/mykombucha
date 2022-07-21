@@ -11,6 +11,7 @@ const getCloudinaryUrl = (url) => {
         width: 200,
         height: 200,
       },
+      format: "webp",
     },
   });
   return src;
