@@ -52,8 +52,13 @@ const Kombucha = ({ singleKombuchaData }) => {
           </Grid>
 
           <Grid item xs={12} md={9}>
-            <Paper sx={{ p: 3 }}>
-              <Typography variant="h6" color="text.primary" fontWeight="medium">
+            <Paper sx={{ px: 3, pt: 3, pb: 2 }}>
+              <Typography
+                variant="h6"
+                color="text.primary"
+                fontWeight="medium"
+                gutterBottom
+              >
                 Reviews ({review_count})
               </Typography>
 

@@ -2,7 +2,6 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import {
   Avatar,
-  Divider,
   List,
   ListItem,
   ListItemAvatar,
@@ -15,7 +14,7 @@ import {
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import getUserBadge from "../../../../utils/getUserBadge";
 
-const ReviewCard = ({ review, handleClickLikeIcon, topReview }) => {
+const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
   const { data: session } = useSession();
 
   const thumbsUpClickedByUser =
@@ -26,15 +25,16 @@ const ReviewCard = ({ review, handleClickLikeIcon, topReview }) => {
     <Box>
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
         <ListItem
-          sx={{ flexDirection: "column", py: 1 }}
+          sx={{ flexDirection: "column", p: 0 }}
+          disableGutters
           alignItems="flex-start"
         >
           <Box sx={{ display: "flex", alignItems: "center" }} mb={2}>
-            <ListItemAvatar sx={{ mt: 0, width: 60, height: 60 }}>
+            <ListItemAvatar sx={{ mt: 0, minWidth: 50, height: 50 }}>
               <Avatar
                 src={review.review_by.avatar}
                 alt={review.username}
-                sx={{ width: "100%", height: "100%" }}
+                sx={{ width: 1, height: 1 }}
               />
             </ListItemAvatar>
             <ListItemText
@@ -106,7 +106,7 @@ const ReviewCard = ({ review, handleClickLikeIcon, topReview }) => {
             </Typography>
           </Typography>
           <Box display="flex" alignItems="center">
-            {!topReview && (
+            {!isTopReview && (
               <IconButton
                 disableRipple
                 sx={{
@@ -132,7 +132,6 @@ const ReviewCard = ({ review, handleClickLikeIcon, topReview }) => {
           </Box>
         </ListItem>
       </List>
-      <Divider />
     </Box>
   );
 };

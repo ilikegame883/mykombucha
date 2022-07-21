@@ -49,7 +49,7 @@ const UserInfo = ({ userData, userReviews }) => {
                 href={`/users/${session.user.username}/general-settings`}
                 passHref
               >
-                <IconButton sx={{ padding: 0, pl: 1 }} component="a">
+                <IconButton sx={{ p: 0, pl: 1 }} component="a">
                   <Tooltip title="Go to Account Settings">
                     <SettingsIcon color="info" />
                   </Tooltip>
@@ -57,7 +57,11 @@ const UserInfo = ({ userData, userReviews }) => {
               </Link>
             </Typography>
           ) : (
-            <MessageOutlinedIcon color="primary" />
+            <IconButton sx={{ p: 0 }}>
+              <Tooltip title="Send Message: Coming Soon">
+                <MessageOutlinedIcon color="primary" />
+              </Tooltip>
+            </IconButton>
           )}
         </Stack>
       </Box>
@@ -68,7 +72,7 @@ const UserInfo = ({ userData, userReviews }) => {
           <Avatar
             src={avatar}
             alt={`${username}'s photo`}
-            sx={{ height: { xs: 100, sm: 120 }, width: { xs: 100, sm: 120 } }}
+            sx={{ height: { xs: 80, sm: 100 }, width: { xs: 80, sm: 100 } }}
           />
         </Box>
         <Box pl={{ xs: 2, sm: 3 }}>

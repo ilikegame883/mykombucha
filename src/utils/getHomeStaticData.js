@@ -3,9 +3,9 @@ import Kombucha from "../models/kombuchaModel";
 
 //helper function to get data required for Discover and Explore section on homepage
 const getHomeStaticData = async () => {
-  //when more data is avaiable, fetch breweries documents based on popularity (number of hearts given)
+  //when more user data is avaiable, fetch breweries documents based on popularity (number of hearts given)
   // lean converts mongoose.Document to Plain Javascript Object
-  const breweryResult = await Brewery.find().limit(8).lean();
+  const breweryResult = await Brewery.find().limit(6).lean();
 
   const breweryList = breweryResult.map((doc) => {
     doc._id = doc._id.toString();
@@ -14,7 +14,7 @@ const getHomeStaticData = async () => {
   });
 
   const kombuchaResult = await Kombucha.aggregate([
-    //search kombucha with review greater than 1
+    //search kombucha with user reviews greater than 1
     //set to 0 for now since not enough ratings
     { $match: { review_count: { $gt: 0 } } },
 

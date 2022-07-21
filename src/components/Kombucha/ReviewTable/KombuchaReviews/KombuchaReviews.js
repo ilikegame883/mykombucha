@@ -1,8 +1,7 @@
 import useSWR, { mutate } from "swr";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { Typography, Box, CircularProgress } from "@mui/material";
+import { Typography, Box, CircularProgress, Divider } from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 import { patchData } from "../../../../utils/fetchData";
 import ReviewCard from "../ReviewCard";
@@ -37,6 +36,7 @@ const KombuchaReviews = ({ kombuchaReviews }) => {
         kombuchaReviews.map((r, idx) => (
           <Box key={idx}>
             <ReviewCard review={r} handleClickLikeIcon={handleClickLikeIcon} />
+            {kombuchaReviews.length - 1 !== idx && <Divider sx={{ my: 1 }} />}
           </Box>
         ))
       ) : (
@@ -46,8 +46,7 @@ const KombuchaReviews = ({ kombuchaReviews }) => {
             sx={{ fontSize: 84, opacity: 0.3 }}
           />
           <Typography variant="body1" color="text.primary" mt={2}>
-            There are no reviews yet. Click the Rate button to add the first
-            review!
+            There are no reviews yet. Click the Rate button to add a review!
           </Typography>
         </Box>
       )}

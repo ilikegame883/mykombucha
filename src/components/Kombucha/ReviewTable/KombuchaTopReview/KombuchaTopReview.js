@@ -9,7 +9,7 @@ const KombuchaTopReview = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  //load reviews, client side with useSWR
+  //load top review client side with useSWR
   const { data: topReview, error } = useSWR(
     `/api/kombucha/${id}/reviews/top-review`,
     fetcher
@@ -21,9 +21,9 @@ const KombuchaTopReview = () => {
   return (
     <Box>
       {topReview.length ? (
-        <ReviewCard review={topReview[0]} topReview={true} />
+        <ReviewCard review={topReview[0]} isTopReview={true} />
       ) : (
-        <Typography variant="body1" color="text.primary" mt={2}>
+        <Typography variant="body2" color="text.primary" mt={1}>
           Top review has not yet been determined.
         </Typography>
       )}

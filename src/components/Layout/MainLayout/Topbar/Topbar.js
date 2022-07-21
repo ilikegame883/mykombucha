@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -25,11 +25,13 @@ import UserMenuDropDown from "./UserMenuDropDown";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Topbar = ({ onSidebarOpen, session, loading }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
   const router = useRouter();
 
+  //when user decides to update the avatar picture on settings page,
+  //userdata is fetched clientside to display a live update of avatar photo on the topbar
   const { data: userData } = useSWR(
     session ? `/api/users/${session.user.username}` : null,
     fetcher,

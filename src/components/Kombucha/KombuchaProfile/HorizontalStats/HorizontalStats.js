@@ -64,7 +64,7 @@ const HorizontalStats = ({ served_in, ABV }) => {
             }}
           >
             <Typography variant="body1" color="text.primary" fontWeight="600">
-              Flavor:{" "}
+              Flavors:{" "}
               <Typography
                 variant="body1"
                 component="span"

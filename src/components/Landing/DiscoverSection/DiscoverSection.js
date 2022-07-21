@@ -57,7 +57,7 @@ const DiscoverSection = ({ breweryList }) => {
       <Stack
         direction="column"
         sx={{ position: "relative", textAlign: alignPosition }}
-        pb={3}
+        mb={3}
       >
         <Typography
           variant="h6"
@@ -76,9 +76,7 @@ const DiscoverSection = ({ breweryList }) => {
           Discover New Breweries
         </Typography>
         <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
-          Learn more about your favorite breweries and {isSm && <br />} discover
-          many types of kombucha that are being made by other breweries around
-          the world.
+          Get to know the latest breweries and what kind of kombucha they make.
         </Typography>
       </Stack>
       <Slider {...settings}>
