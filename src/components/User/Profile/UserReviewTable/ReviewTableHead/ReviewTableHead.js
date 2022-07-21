@@ -21,6 +21,7 @@ const ReviewTableHead = ({
   return (
     <TableHead bgcolor="#F7F9FC">
       <TableRow>
+        <TableCell size="small" sx={{ px: 0 }} />
         {headLabel.map((headCell, idx) => (
           <TableCell
             key={headCell.id}

@@ -1,12 +1,9 @@
 import React, { useContext, useState } from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { mutate } from "swr";
 import {
   Box,
   Paper,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -14,7 +11,6 @@ import {
   TablePagination,
   TableRow,
   Typography,
-  Avatar,
   Divider,
 } from "@mui/material";
 import ReviewTableHead from "./ReviewTableHead";
@@ -24,7 +20,7 @@ import { deleteData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
 import { toggleToast } from "../../../../stores/actions";
 import AlertToast from "../../../AlertToast";
-import DeleteUserItem from "../DeleteUserItem";
+import ReviewRow from "./ReviewRow/ReviewRow";
 
 const TABLE_HEAD = [
   {
@@ -70,7 +66,8 @@ function createReviewData(
   user_id,
   review_id,
   image,
-  brewery_slug
+  brewery_slug,
+  comment
 ) {
   return {
     name,
@@ -84,6 +81,7 @@ function createReviewData(
     review_id,
     image,
     brewery_slug,
+    comment,
   };
 }
 
@@ -117,16 +115,14 @@ const applySearchFilter = (array, query) => {
 const UserReviewTable = ({ userReviews }) => {
   //userReviews = []
   const { dispatch } = useContext(AlertContext);
-  const router = useRouter();
-
-  const { data: session } = useSession();
-  const { name } = router.query;
 
   const [page, setPage] = useState(0);
   const [orderDirection, setOrderDirection] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
   const [searchUserReview, setSearchUserReview] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const { data: session } = useSession();
 
   const reviewRows = userReviews.map(
     ({
@@ -137,6 +133,7 @@ const UserReviewTable = ({ userReviews }) => {
       user,
       _id,
       brewery_slug,
+      comment,
     }) => {
       const dateOnly = createdAt.slice(0, createdAt.lastIndexOf("T"));
       return createReviewData(
@@ -150,7 +147,8 @@ const UserReviewTable = ({ userReviews }) => {
         user,
         _id,
         kombucha_info.image,
-        brewery_slug
+        brewery_slug,
+        comment
       );
     }
   );
@@ -232,80 +230,14 @@ const UserReviewTable = ({ userReviews }) => {
             {filteredReview
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .sort(getComparator(orderDirection, orderBy))
-              .map((row, idx) => {
+              .map((row) => {
                 return (
-                  <TableRow hover key={row.name}>
-                    <TableCell sx={{ pl: 0 }}>
-                      <Stack direction="row" alignItems="center">
-                        <Typography variant="subtitle2" px={1.5}>
-                          {idx + 1}
-                        </Typography>
-
-                        <Avatar
-                          variant="square"
-                          src={row.image}
-                          sx={{ height: 50, width: 50 }}
-                        />
-                        <Box>
-                          <Link href={`/kombucha/${row.product_id}`} passHref>
-                            <Typography
-                              component="a"
-                              variant="body1"
-                              color="text.primary"
-                              fontWeight="500"
-                              sx={{
-                                textDecoration: "none",
-                                "&:hover": { textDecoration: "underline" },
-                              }}
-                            >
-                              {row.name}
-                            </Typography>
-                          </Link>
-                          <Box>
-                            <Link
-                              href={`/breweries/${row.brewery_slug}`}
-                              passHref
-                            >
-                              <Typography
-                                component="a"
-                                variant="caption"
-                                color="text.secondary"
-                                sx={{
-                                  textDecoration: "none",
-                                  "&:hover": { textDecoration: "underline" },
-                                }}
-                                noWrap
-                              >
-                                {row.brewery} Brewing Co.
-                              </Typography>
-                            </Link>
-                          </Box>
-                        </Box>
-                      </Stack>
-                    </TableCell>
-                    <TableCell align="right" sx={{ p: 2 }}>
-                      {row.type}
-                    </TableCell>
-                    <TableCell align="right" sx={{ fontWeight: 700 }}>
-                      {row.rating}
-                    </TableCell>
-                    <TableCell align="right" sx={{ p: 2 }}>
-                      {row.avg}
-                    </TableCell>
-                    <TableCell align="right" sx={{ p: 2 }}>
-                      {row.date}
-                    </TableCell>
-                    {session && session.user.username === name ? (
-                      <TableCell align="left" sx={{ p: 0 }}>
-                        <DeleteUserItem
-                          handleDelete={() => handleDelete(row)}
-                          item="review"
-                        />
-                      </TableCell>
-                    ) : (
-                      <TableCell align="left" sx={{ p: 0 }}></TableCell>
-                    )}
-                  </TableRow>
+                  <ReviewRow
+                    key={row.name}
+                    row={row}
+                    handleDelete={handleDelete}
+                    session={session}
+                  />
                 );
               })}
             {emptyRows > 0 && (
