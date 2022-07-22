@@ -29,7 +29,7 @@ const TABLE_HEAD = [
     alignRight: false,
   },
   {
-    id: "type",
+    id: "product_type",
     label: "Type",
     alignRight: true,
   },
@@ -58,7 +58,7 @@ const TABLE_HEAD = [
 function createReviewData(
   name,
   brewery,
-  type,
+  product_type,
   rating,
   avg,
   date,
@@ -72,7 +72,7 @@ function createReviewData(
   return {
     name,
     brewery,
-    type,
+    product_type,
     rating,
     avg,
     date,
@@ -139,7 +139,7 @@ const UserReviewTable = ({ userReviews }) => {
       return createReviewData(
         kombucha_info.name,
         brewery,
-        kombucha_info.category,
+        kombucha_info.product_type,
         rating,
         kombucha_info.avg,
         dateOnly,

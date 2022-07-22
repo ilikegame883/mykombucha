@@ -1,8 +1,11 @@
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { Rating, Stack, Tooltip } from "@mui/material";
+import {
+  useTheme,
+  Box,
+  Grid,
+  Typography,
+  Rating,
+  Tooltip,
+} from "@mui/material";
 import getUserBadge from "../../../../../utils/getUserBadge";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
@@ -21,17 +24,18 @@ const UserStats = ({ userData }) => {
       label: "Avg Score Given",
       info: "Average score from all your ratings",
       value: (
-        <Stack direction="row">
+        <Box display="flex" alignItems="center">
           <Rating
+            size="small"
             value={avg_rating}
             readOnly
             precision={0.25}
             sx={{ color: "primary.main" }}
           />
-          <Typography fontWeight="medium" color="text.secondary">
+          <Typography variant="body1" fontWeight="500" color="text.secondary">
             ({Boolean(avg_rating) ? avg_rating.toFixed(2) : "N/A"})
           </Typography>
-        </Stack>
+        </Box>
       ),
     },
   ];
@@ -61,12 +65,11 @@ const UserStats = ({ userData }) => {
             }}
           >
             <Box
-              sx={{
-                p: { xs: 2, sm: 2.5 },
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "flex-end",
-              }}
+              py={1.5}
+              px={2}
+              display="flex"
+              justifyContent="space-between"
+              alignItems="flex-end"
             >
               <Box>
                 <Box display="flex" alignItems="center" mb={0.5}>
@@ -81,10 +84,10 @@ const UserStats = ({ userData }) => {
                   </Tooltip>
                 </Box>
                 <Typography
-                  variant={"h5"}
+                  variant="h5"
                   component="div"
-                  color={"text.secondary"}
-                  fontWeight="700"
+                  color="text.secondary"
+                  fontWeight="500"
                 >
                   {item.value}
                 </Typography>
