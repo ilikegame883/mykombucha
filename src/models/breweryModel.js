@@ -34,12 +34,14 @@ const brewerySchema = new mongoose.Schema(
       required: true,
     },
     //should be an array
-    urls: {
-      website: { type: String },
-      twitter: { type: String },
-      instagram: { type: String },
-      facebook: { type: String },
-    },
+    urls: [
+      {
+        website: { type: String },
+        twitter: { type: String },
+        instagram: { type: String },
+        facebook: { type: String },
+      },
+    ],
     love_count: {
       type: Number,
       required: true,

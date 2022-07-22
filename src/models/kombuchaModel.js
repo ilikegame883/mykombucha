@@ -37,6 +37,7 @@ const kombuchaSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    flavor: [String],
     review_count: {
       type: Number,
       default: 0,
