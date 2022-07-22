@@ -23,7 +23,7 @@ const StatItem = ({ kombuchaData }) => {
     <>
       <Grid item xs={6}>
         <Paper variant="outlined" sx={{ py: 1, textAlign: "center" }}>
-          <Box sx={{ mb: 0.5 }}>
+          <Box>
             <RateReviewIcon sx={{ color: "secondary.main" }} />
           </Box>
           <Typography variant="body1">{review_count}</Typography>
@@ -32,7 +32,7 @@ const StatItem = ({ kombuchaData }) => {
       </Grid>
       <Grid item xs={6}>
         <Paper variant="outlined" sx={{ py: 1, textAlign: "center" }}>
-          <Box sx={{ mb: 0.5 }}>
+          <Box>
             <StarsIcon sx={{ color: "#FAAF00" }} />
           </Box>
           <Typography variant="body1">#</Typography>
@@ -117,11 +117,9 @@ const ReviewSideBar = ({ kombuchaReviews, kombuchaData }) => {
               onClick={toggleDrawer}
               sx={{
                 width: "100%",
-                borderRadius: 10,
-                py: 1,
               }}
             >
-              Rate this Kombucha
+              Rate Kombucha
             </Button>
           )}
         </CardContent>

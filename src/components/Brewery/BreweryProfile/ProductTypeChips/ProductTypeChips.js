@@ -9,7 +9,7 @@ const ProductTypeChips = ({ list }) => {
           label={type}
           size="small"
           sx={{
-            ml: 0.65,
+            mr: 0.5,
             fontSize: "0.75rem",
             color: "text.primary",
             bgcolor: getChipColor(type),

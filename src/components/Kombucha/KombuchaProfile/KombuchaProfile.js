@@ -87,9 +87,9 @@ const KombuchaProfile = ({ kombuchaData }) => {
           p: 1.5,
         }}
       >
-        <Stack direction="row" spacing={1} alignItems="center">
+        <Stack direction="row" alignItems="center">
           <Link href={`/kombucha/${_id}/corrections`}>
-            <a>
+            <a style={{ maxHeight: 24 }}>
               <Tooltip title="Edit product info">
                 <EditOutlinedIcon color="action" />
               </Tooltip>
@@ -118,49 +118,49 @@ const KombuchaProfile = ({ kombuchaData }) => {
 
       <Divider />
 
-      <Box px={3} py={3}>
+      <Box p={2.5}>
         <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
           <Box
             component="img"
             alt={name}
             src={getCloudinaryUrl(image)}
-            width={110}
-            height={110}
+            width={100}
+            height={100}
             mb={{ xs: 2, sm: 0 }}
             mr={{ xs: 0, sm: 2 }}
           />
-          <Stack justifyContent="center">
-            <Box display="flex" alignItems="center" flexWrap="wrap">
-              <Typography variant={isSm ? "h4" : "h5"} fontWeight="700" mr={1}>
+          <Stack>
+            <Box display="flex" flexWrap="wrap">
+              <Typography variant="h5" fontWeight="700" mr={1}>
                 {name}
               </Typography>
               {Boolean(avg) && (
-                <>
+                <Box display="flex" alignItems="center">
                   <Rating
                     name="kombucha-rating"
                     precision={0.25}
                     value={avg}
                     readOnly
+                    size="small"
                   />
                   <Typography
                     variant="body1"
-                    component="span"
-                    color="text.secondary"
-                    fontWeight="700"
+                    color="text.primary"
+                    fontWeight="600"
                     ml={0.5}
                   >
                     ({avg.toFixed(2)})
                   </Typography>
-                </>
+                </Box>
               )}
             </Box>
 
             <Link href={`/breweries/${brewery_slug}`} passHref>
               <Typography
-                variant="h6"
+                variant={isSm ? "h6" : "body1"}
                 component="a"
                 color="text.secondary"
-                fontWeight="600"
+                fontWeight="500"
                 gutterBottom
               >{`${brewery_name} Brewing Company`}</Typography>
             </Link>
@@ -185,7 +185,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
       <Divider />
       <HorizontalStats served_in={served_in} ABV={ABV} />
       <Divider />
-      <Box px={4} py={2}>
+      <Box px={{ xs: 2, sm: 3 }} py={2}>
         <Typography variant="body2">{description}</Typography>
       </Box>
     </>

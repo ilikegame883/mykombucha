@@ -1,16 +1,6 @@
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import {
-  Avatar,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Typography,
-  Box,
-  Rating,
-  IconButton,
-} from "@mui/material";
+import { Avatar, Typography, Box, Rating, IconButton } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import getUserBadge from "../../../../utils/getUserBadge";
 
@@ -22,116 +12,109 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
 
   const disableThumbsUp = session && session.user_id === review._id;
   return (
-    <Box>
-      <List sx={{ width: "100%", bgcolor: "background.paper" }}>
-        <ListItem
-          sx={{ flexDirection: "column", p: 0 }}
-          disableGutters
-          alignItems="flex-start"
-        >
-          <Box sx={{ display: "flex", alignItems: "center" }} mb={2}>
-            <ListItemAvatar sx={{ mt: 0, minWidth: 50, height: 50 }}>
-              <Avatar
-                src={review.review_by.avatar}
-                alt={review.username}
-                sx={{ width: 1, height: 1 }}
-              />
-            </ListItemAvatar>
-            <ListItemText
-              sx={{ ml: 1.5, mt: 0 }}
-              primary={
-                <Box display="flex">
-                  <Link href={`/users/${review.username}`} passHref>
-                    <Typography
-                      variant="h6"
-                      fontWeight="500"
-                      component="a"
-                      color="text.primary"
-                      sx={{ textDecoration: "none" }}
-                    >
-                      {review.username}
-                    </Typography>
-                  </Link>
-                  <Box alignSelf="flex-end">
-                    {
-                      getUserBadge(review.review_by.review_total, "text-bottom")
-                        .value
-                    }
-                  </Box>
-                </Box>
-              }
-              secondary={
-                <Typography
-                  variant="body2"
-                  color="text.primary"
-                  sx={{ lineHeight: 1 }}
-                >
-                  City, Country
-                </Typography>
-              }
-            />
-          </Box>
-          <Box display="flex" alignItems="center" mb={2}>
-            <Rating
-              name="user-rating"
-              precision={0.25}
-              value={review.rating}
-              readOnly
-            />
-            <Typography
-              variant="body1"
-              color="text.secondary"
-              component="span"
-              ml={0.5}
-            >
-              ({review.rating.toFixed(2)})
-            </Typography>
-          </Box>
-          <Typography variant="body2" mb={2}>
-            {review.comment}
-          </Typography>
-          <Typography variant="caption" mb={1}>
-            Review Date:{" "}
-            {review.createdAt.slice(0, review.createdAt.lastIndexOf("T"))}{" "}
-            <Typography
-              component="span"
-              variant="caption"
-              py={0.5}
-              px={1}
-              ml={0.5}
-              bgcolor="#F5F5F5"
-              sx={{ borderRadius: 1.5 }}
-            >
-              {review.served_in}
-            </Typography>
-          </Typography>
-          <Box display="flex" alignItems="center">
-            {!isTopReview && (
-              <IconButton
-                disableRipple
-                sx={{
-                  borderRadius: 2,
-                  px: 1,
-                  py: 0.5,
-                  bgcolor: thumbsUpClickedByUser ? "primary.main" : "inherit",
-                }}
-                disabled={disableThumbsUp}
-                onClick={() => handleClickLikeIcon(review._id)}
+    <Box py={3}>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        flexWrap="wrap"
+        mb={2}
+      >
+        <Box display="inline-flex">
+          <Avatar
+            src={review.review_by.avatar}
+            alt={review.username}
+            sx={{ width: 50, height: 50 }}
+          />
+          <Box ml={1.5}>
+            <Link href={`/users/${review.username}`} passHref>
+              <Typography
+                variant="h6"
+                fontWeight="500"
+                component="a"
+                color="text.primary"
+                sx={{ textDecoration: "none" }}
               >
-                <ThumbUpOutlinedIcon sx={{ fontSize: 14 }} />
-                <Typography
-                  variant="body2"
-                  color="text.primary"
-                  component="span"
-                  pl={1}
-                >
-                  {review.like_count}
-                </Typography>
-              </IconButton>
-            )}
+                {review.username}
+              </Typography>
+            </Link>
+            {getUserBadge(review.review_by.review_total, "sub").value}
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ lineHeight: 1 }}
+            >
+              City, Country
+            </Typography>
           </Box>
-        </ListItem>
-      </List>
+        </Box>
+        <Box display="inline-flex" alignItems="center">
+          <Rating
+            name="user-rating"
+            precision={0.25}
+            value={review.rating}
+            size="small"
+            readOnly
+          />
+          <Typography
+            variant="body2"
+            color="text.primary"
+            component="span"
+            ml={0.5}
+          >
+            ({review.rating.toFixed(2)})
+          </Typography>
+        </Box>
+      </Box>
+      <Box>
+        <Typography variant="body2" color="text.primary" mb={2}>
+          {review.comment}
+        </Typography>
+      </Box>
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+        flexWrap="wrap"
+      >
+        {!isTopReview && (
+          <IconButton
+            disableRipple
+            sx={{
+              p: 0,
+              color: thumbsUpClickedByUser ? "secondary.main" : "inherit",
+            }}
+            disabled={disableThumbsUp}
+            onClick={() => handleClickLikeIcon(review._id)}
+          >
+            <ThumbUpOutlinedIcon sx={{ fontSize: 14 }} />
+            <Typography
+              variant="caption"
+              color="text.primary"
+              fontWeight="600"
+              pl={1}
+            >
+              {review.like_count}
+            </Typography>
+          </IconButton>
+        )}
+        <Box pt={{ xs: 1, sm: 0 }}>
+          <Typography
+            component="span"
+            variant="caption"
+            py={0.5}
+            px={1}
+            bgcolor="#F5F5F5"
+            sx={{ borderRadius: 1.5 }}
+          >
+            {review.served_in}
+          </Typography>
+          <Typography variant="caption" ml={1}>
+            Review Date:{" "}
+            {review.createdAt.slice(0, review.createdAt.lastIndexOf("T"))}
+          </Typography>
+        </Box>
+      </Box>
     </Box>
   );
 };

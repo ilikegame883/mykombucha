@@ -28,7 +28,7 @@ const Brewery = ({ topRaters, session }) => {
         <title>{singleBreweryData[0].name}</title>
       </Head>
       <MainLayout>
-        <Container maxWidth="xl" sx={{ py: 5 }}>
+        <Container maxWidth="lg" sx={{ py: 5 }}>
           <Grid container columnSpacing={3}>
             <Grid item xs={12} md={9}>
               <Paper sx={{ mb: 1.5 }}>

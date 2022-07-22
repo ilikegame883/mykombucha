@@ -20,7 +20,7 @@ const TopRaters = ({ topRaters }) => {
           variant="h6"
           align="center"
           color="text.primary"
-          fontWeight="600"
+          fontWeight="500"
           gutterBottom
         >
           Top Raters
@@ -51,9 +51,9 @@ const TopRaters = ({ topRaters }) => {
               },
             }}
           >
-            <Box p={2}>
+            <Box p={1}>
               <Box>
-                <ListItem component="div" disableGutters sx={{ p: 0, pl: 1 }}>
+                <ListItem component="div" sx={{ p: 0, pl: 1 }}>
                   <ListItemAvatar>
                     <Avatar src={user.avatar} />
                   </ListItemAvatar>
@@ -66,16 +66,15 @@ const TopRaters = ({ topRaters }) => {
                             component="a"
                             variant="body1"
                             color="text.primary"
-                            fontWeight="600"
+                            fontWeight="500"
                             sx={{
-                              textDecoration: "none",
                               "&:hover": { textDecoration: "underline" },
                             }}
                           >
                             {user.username}
                           </Typography>
                         </Link>
-                        <Typography variant="body2" color="text.primary">
+                        <Typography variant="body2" color="text.secondary">
                           {total_reviews} Reviews
                         </Typography>
                       </>

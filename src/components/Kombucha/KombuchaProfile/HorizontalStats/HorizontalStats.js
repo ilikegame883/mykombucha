@@ -23,8 +23,8 @@ const HorizontalStats = ({ served_in, ABV }) => {
         >
           <Box
             sx={{
-              p: 1.5,
-              px: 4,
+              py: 1.5,
+              px: { xs: 2, sm: 3 },
               display: "flex",
               alignItems: "center",
             }}
@@ -58,7 +58,7 @@ const HorizontalStats = ({ served_in, ABV }) => {
           <Box
             sx={{
               p: 1.5,
-              px: 4,
+              px: { xs: 2, sm: 3 },
               display: "flex",
               alignItems: "flex-start",
             }}
@@ -80,7 +80,7 @@ const HorizontalStats = ({ served_in, ABV }) => {
           <Box
             sx={{
               p: 1.5,
-              px: 4,
+              px: { xs: 2, sm: 3 },
               display: "flex",
               alignItems: "flex-start",
             }}

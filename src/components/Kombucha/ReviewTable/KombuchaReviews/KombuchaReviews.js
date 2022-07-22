@@ -1,3 +1,4 @@
+import React from "react";
 import useSWR, { mutate } from "swr";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
@@ -34,13 +35,13 @@ const KombuchaReviews = ({ kombuchaReviews }) => {
     <>
       {kombuchaReviews.length ? (
         kombuchaReviews.map((r, idx) => (
-          <Box key={idx}>
+          <React.Fragment key={idx}>
             <ReviewCard review={r} handleClickLikeIcon={handleClickLikeIcon} />
             {kombuchaReviews.length - 1 !== idx && <Divider sx={{ my: 1 }} />}
-          </Box>
+          </React.Fragment>
         ))
       ) : (
-        <Box sx={{ mt: 2 }}>
+        <Box mt={2}>
           <FindInPageOutlinedIcon
             color="primary"
             sx={{ fontSize: 84, opacity: 0.3 }}

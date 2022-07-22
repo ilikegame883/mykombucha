@@ -26,7 +26,7 @@ const HorizontalStats = ({ breweryData }) => {
           <Box
             sx={{
               p: 1.5,
-              px: 4,
+              px: 3,
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
@@ -57,7 +57,7 @@ const HorizontalStats = ({ breweryData }) => {
           <Box
             sx={{
               p: 1.5,
-              px: 4,
+              px: 3,
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",
@@ -91,7 +91,7 @@ const HorizontalStats = ({ breweryData }) => {
           <Box
             sx={{
               p: 1.5,
-              px: 4,
+              px: 3,
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",

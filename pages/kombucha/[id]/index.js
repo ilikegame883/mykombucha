@@ -26,7 +26,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
 
   return (
     <MainLayout>
-      <Container maxWidth="xl" sx={{ py: 5 }}>
+      <Container maxWidth="lg" sx={{ py: 5 }}>
         <Grid container columnSpacing={2}>
           <Grid item xs={12} md={9}>
             <Paper sx={{ mb: 1.5 }}>
@@ -43,7 +43,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
 
           <Grid item xs={12} md={9} mb={1.5}>
             <Paper sx={{ p: 3 }}>
-              <Typography variant="h6" color="text.primary" fontWeight="medium">
+              <Typography variant="h6" color="text.primary" fontWeight="600">
                 Top Review
               </Typography>
               <KombuchaTopReview />
@@ -55,7 +55,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
               <Typography
                 variant="h6"
                 color="text.primary"
-                fontWeight="medium"
+                fontWeight="600"
                 gutterBottom
               >
                 Reviews ({review_count})
