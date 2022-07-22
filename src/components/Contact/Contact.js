@@ -1,6 +1,6 @@
 import { Box, Stack, Typography } from "@mui/material";
 
-const ContactForm = () => {
+const Contact = () => {
   return (
     <Stack spacing={4}>
       <Box>
@@ -8,11 +8,9 @@ const ContactForm = () => {
           Contact us
         </Typography>
         <Typography color="text.secondary" align="center" variant="subtitle1">
-          <Typography component="span" fontWeight="700" color="secondary">
-            myKombucha
-          </Typography>{" "}
-          does not produce kombucha nor do we forward emails to brewers. If you
-          would like to contact a brewery, you can look them up through our{" "}
+          myKombucha does not produce kombucha nor do we forward emails to
+          brewers. If you would like to contact a brewery, you can look them up
+          through our{" "}
           <Typography
             component="a"
             color="secondary"
@@ -41,4 +39,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default Contact;
