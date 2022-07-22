@@ -58,28 +58,25 @@ const BreweryLinkTabs = ({
   return (
     <>
       <Box sx={{ width: "100%" }} display="flex" flexDirection="column">
-        <Box pb={3}>
+        <Box mb={2}>
           <Box
             display="flex"
-            justifyContent="space-between"
             alignItems="center"
-            sx={{ flexWrap: "wrap" }}
+            justifyContent="space-between"
+            flexWrap="wrap"
           >
-            <Typography
-              variant={isSm ? "h4" : "h5"}
-              fontWeight="700"
-              // sx={{ textTransform: "capitalize" }}
-            >
-              Explore{" "}
+            <Box>
               <Typography
-                component="span"
-                variant={isSm ? "h4" : "h5"}
                 color="secondary"
-                fontWeight="700"
+                fontWeight="600"
+                variant="subtitle1"
               >
+                Explore{" "}
+              </Typography>
+              <Typography variant="h4" fontWeight="700">
                 Breweries
               </Typography>
-            </Typography>
+            </Box>
             {category === "list" && (
               <Box>
                 <SortMenu setSort={setSort} />

@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 const getUserBadge = (rating_total, align = "none") => {
   let label;
   let badgeColor;
+
   if (rating_total <= 10) {
     label = "Bronze Badge";
     badgeColor = "#CD7F32";
@@ -22,6 +23,7 @@ const getUserBadge = (rating_total, align = "none") => {
     label = "Platinum Badge";
     badgeColor = "#EAFAFD";
   }
+
   return {
     label,
     value:

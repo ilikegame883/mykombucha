@@ -25,7 +25,7 @@ const UserProfile = ({ userData }) => {
         <title>User Profile</title>
       </Head>
       <MainLayout>
-        <Container maxWidth="xl" sx={{ py: 5 }}>
+        <Container maxWidth="lg" sx={{ py: 5 }}>
           <Profile userData={userData} userReviews={userReviews} name={name} />
         </Container>
       </MainLayout>

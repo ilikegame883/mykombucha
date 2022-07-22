@@ -51,14 +51,9 @@ const SearchLinkTabs = ({
 
   return (
     <>
-      <Box sx={{ width: "100%" }} display="flex" flexDirection="column">
-        <Box pb={3} mb={{ xs: 1, sm: 0 }}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="flex-end"
-            sx={{ flexWrap: "wrap" }}
-          >
+      <Box width={1} display="flex" flexDirection="column">
+        <Box mb={2}>
+          <Box display="flex" flexWrap="wrap">
             <Box>
               <Typography
                 color="primary.dark"

@@ -8,7 +8,7 @@ export const PAGE_SIZE = 5; //# of items for each page under tab
 const ExploreBreweries = ({ breweryData, category, page }) => {
   return (
     <MainLayout>
-      <Container maxWidth="lg" sx={{ py: { xs: 5, sm: 8 } }}>
+      <Container maxWidth="md" sx={{ py: { xs: 5, sm: 8 } }}>
         <Breweries breweryData={breweryData} category={category} page={page} />
       </Container>
     </MainLayout>

@@ -6,7 +6,7 @@ import { getData } from "../../../../src/utils/fetchData";
 const ExploreKombucha = ({ recentReviews, kombuchaData, category, page }) => {
   return (
     <MainLayout>
-      <Container maxWidth="lg" sx={{ py: { xs: 5, sm: 8 } }}>
+      <Container maxWidth="md" sx={{ py: { xs: 5, sm: 8 } }}>
         <Kombucha
           recentReviews={recentReviews}
           kombuchaData={kombuchaData}

@@ -41,7 +41,7 @@ const DeleteUserItem = ({ handleDelete, item }) => {
         <Divider />
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete {` ${item}?`}
+            Are you sure you want to delete this kombucha - {` ${item}?`}
           </DialogContentText>
         </DialogContent>
         <Divider />

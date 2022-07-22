@@ -67,7 +67,7 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
         </Box>
       </Box>
       <Box>
-        <Typography variant="body2" color="text.primary" mb={2}>
+        <Typography variant="body2" color="text.primary" mb={{ xs: 2, sm: 3 }}>
           {review.comment}
         </Typography>
       </Box>

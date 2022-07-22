@@ -51,23 +51,27 @@ const KombuchaLinkTabs = ({ children, category, pageCount, currentPage }) => {
   return (
     <>
       <Box sx={{ width: "100%" }} display="flex" flexDirection="column">
-        <Box pb={3}>
-          <Typography
-            variant={isSm ? "h4" : "h5"}
-            fontWeight="700"
-            // sx={{ textTransform: "capitalize" }}
-          >
-            Explore{" "}
-            <Typography
-              component="span"
-              variant={isSm ? "h4" : "h5"}
-              color="secondary"
-              fontWeight="700"
-            >
-              Kombucha
-            </Typography>
-          </Typography>
+        <Box mb={2}>
+          <Box display="flex" flexWrap="wrap">
+            <Box>
+              <Typography
+                color="secondary"
+                fontWeight="600"
+                variant="subtitle1"
+              >
+                Explore
+              </Typography>
+              <Typography
+                variant="h4"
+                fontWeight="700"
+                sx={{ textTransform: "capitalize" }}
+              >
+                Kombucha
+              </Typography>
+            </Box>
+          </Box>
         </Box>
+
         <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}>
           {/* //Tabs children  must have prop named value */}
           <Tabs

@@ -16,7 +16,7 @@ const UserWishList = ({ wishList }) => {
           variant="h6"
           align="center"
           color="text.primary"
-          fontWeight="700"
+          fontWeight="600"
         >
           Wish List ({wishList.length})
         </Typography>

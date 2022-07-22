@@ -8,8 +8,8 @@ const getCloudinaryUrl = (url) => {
     transformations: {
       resize: {
         type: "pad",
-        width: 200,
-        height: 200,
+        width: 150,
+        height: 150,
       },
       format: "webp",
     },
