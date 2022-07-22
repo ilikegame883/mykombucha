@@ -18,8 +18,9 @@ import HorizontalStats from "./HorizontalStats";
 import { patchData } from "../../../utils/fetchData";
 import AlertToast from "../../AlertToast";
 import RevealText from "../../RevealText";
-import ProductTypeChips from "./ProductTypeChips";
-import SocialIcons from "./SocialIcons/SocialIcons";
+import CustomChips from "../../../components/CustomChips";
+import SocialIcons from "./SocialIcons";
+import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 
 const BreweryProfile = ({ breweryData, session }) => {
   const router = useRouter();
@@ -100,29 +101,38 @@ const BreweryProfile = ({ breweryData, session }) => {
       <AlertToast />
       <Divider />
 
-      <Box px={3} py={{ xs: 2, sm: 3 }}>
-        <Box display="flex" flexDirection={{ xs: "column", sm: "row" }}>
+      <Box p={2.5}>
+        <Box
+          display="flex"
+          alignItems={{ sm: "center" }}
+          flexDirection={{ xs: "column", sm: "row" }}
+        >
           <Box
             component="img"
             alt={name}
-            src={image}
-            width={110}
-            height={110}
-            mb={{ xs: 2, sm: 0 }}
+            src={getCloudinaryUrl(image)}
+            width={100}
+            height={100}
             mr={{ xs: 0, sm: 2 }}
+            mb={{ xs: 1, sm: 0 }}
           />
           <Stack justifyContent="center" pl={1}>
             <Typography
-              variant={isSm ? "h4" : "h5"}
+              variant={isSm ? "h5" : "h6"}
               fontWeight="700"
             >{`${name} Brewing Company`}</Typography>
-            <Box display="flex" alignItems="center">
-              <Typography variant="body1" color="text.primary" fontWeight="600">
+            <Box display="flex" alignItems="center" flexWrap="wrap" mb={0.5}>
+              <Typography
+                variant="body1"
+                color="text.secondary"
+                fontWeight="600"
+                mr={1}
+              >
                 {type}
               </Typography>
-              <ProductTypeChips list={product_type} />
+              <CustomChips type={product_type} />
             </Box>
-            <Typography variant="caption">
+            <Typography variant="caption" color="text.primary">
               {city}, {country}
             </Typography>
             <SocialIcons />
@@ -134,7 +144,7 @@ const BreweryProfile = ({ breweryData, session }) => {
       <HorizontalStats breweryData={breweryData} />
       <Divider />
 
-      <Box px={4} py={2}>
+      <Box px={3} py={2}>
         <RevealText text={description} maxLength={250} />
       </Box>
     </>

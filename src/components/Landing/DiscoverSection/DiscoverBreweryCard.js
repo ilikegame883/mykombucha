@@ -1,5 +1,6 @@
 import { Card, CardContent, Typography, Stack, Avatar } from "@mui/material";
 import Link from "next/link";
+import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 
 const DiscoverBreweryCard = ({ brewery }) => {
   const { name, city, country, image, type, slug } = brewery;
@@ -16,7 +17,7 @@ const DiscoverBreweryCard = ({ brewery }) => {
           <Avatar
             variant="square"
             alt={name}
-            src={image}
+            src={getCloudinaryUrl(image)}
             sx={{ height: 50, width: 50 }}
           />
           <Stack>

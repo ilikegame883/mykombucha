@@ -14,17 +14,19 @@ import {
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import DeleteUserItem from "../../DeleteUserItem";
+import CustomChips from "../../../../CustomChips";
+import getCloudinaryUrl from "../../../../../utils/getCloudinaryUrl";
 
 const ReviewRow = ({ row, handleDelete, session }) => {
   const [openReview, setOpenReview] = useState(false);
 
   const router = useRouter();
   const { name } = router.query;
-
+  console.log(row);
   return (
     <>
       <TableRow>
-        <TableCell size="small" sx={{ px: 0, width: 20 }}>
+        <TableCell size="small" sx={{ pr: 0, pl: 0.5, width: 20 }}>
           <IconButton onClick={() => setOpenReview(!openReview)}>
             {openReview ? (
               <KeyboardArrowUpIcon sx={{ color: "text.secondary" }} />
@@ -37,10 +39,10 @@ const ReviewRow = ({ row, handleDelete, session }) => {
           <Stack direction="row" alignItems="center">
             <Avatar
               variant="square"
-              src={row.image}
+              src={getCloudinaryUrl(row.image)}
               sx={{ height: 50, width: 50 }}
             />
-            <Box>
+            <Box ml={1}>
               <Link href={`/kombucha/${row.product_id}`} passHref>
                 <Typography
                   component="a"
@@ -76,27 +78,28 @@ const ReviewRow = ({ row, handleDelete, session }) => {
             </Box>
           </Stack>
         </TableCell>
-        <TableCell align="right" sx={{ p: 2 }}>
-          {row.type}
+        <TableCell align="right">
+          <CustomChips type={row.product_type} />
         </TableCell>
         <TableCell align="right" sx={{ fontWeight: 700 }}>
           {row.rating}
         </TableCell>
-        <TableCell align="right" sx={{ p: 2 }}>
-          {row.avg}
-        </TableCell>
-        <TableCell align="right" sx={{ p: 2 }}>
+        <TableCell align="right">{row.avg}</TableCell>
+        <TableCell
+          align="right"
+          sx={{ fontSize: { xs: "0.6rem", sm: "0.875rem" } }}
+        >
           {row.date}
         </TableCell>
         {session && session.user.username === name ? (
-          <TableCell align="left" sx={{ p: 0 }}>
+          <TableCell align="left">
             <DeleteUserItem
               handleDelete={() => handleDelete(row)}
               item="review"
             />
           </TableCell>
         ) : (
-          <TableCell align="left" sx={{ p: 0 }} />
+          <TableCell align="left" />
         )}
       </TableRow>
       <TableRow>

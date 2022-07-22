@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import RevealText from "../../../RevealText";
+import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 
 const RecentItemList = ({ reviewList }) => {
   const theme = useTheme();
@@ -32,22 +33,22 @@ const RecentItemList = ({ reviewList }) => {
               },
             }}
           >
-            <Box p={3} display="flex" alignItems="center">
+            <Box p={2.5} display="flex" alignItems="center">
               <Box
                 display="flex"
                 flexDirection={{ xs: "column", sm: "row" }}
                 flex={"1 1 100%"}
                 alignItems={{ sm: "center" }}
               >
-                <Box pr={2} mb={{ xs: 1, sm: 0 }} width={60} height={60}>
+                <Box pr={2} mb={{ xs: 1, sm: 0 }}>
                   <Avatar
                     variant="square"
-                    src={item.kombucha.image}
+                    src={getCloudinaryUrl(item.kombucha.image)}
                     alt={item.kombucha.name}
-                    sx={{ width: 1, height: 1 }}
+                    sx={{ width: 50, height: 50 }}
                   />
                 </Box>
-                <Stack marginBottom={{ xs: 1, sm: 0 }} sx={{ flexGrow: 1 }}>
+                <Stack mb={{ xs: 1, sm: 0 }} pr={{ xs: 0, sm: 10 }}>
                   <Box>
                     <Link href={`/kombucha/${item.kombucha._id}`} passHref>
                       <Typography
@@ -69,7 +70,7 @@ const RecentItemList = ({ reviewList }) => {
                       </Typography>
                     </Link>
                   </Box>
-                  <Box pb={0.5}>
+                  <Box mb={0.5}>
                     <Link
                       href={`/breweries/${item.kombucha.brewery_slug}`}
                       passHref
@@ -77,9 +78,9 @@ const RecentItemList = ({ reviewList }) => {
                       <Typography
                         variant="body2"
                         component="a"
-                        color="text.primary"
+                        color="text.secondary"
+                        fontWeight="600"
                         sx={{
-                          textDecoration: "none",
                           "&:hover": { textDecoration: "underline" },
                         }}
                       >
@@ -87,20 +88,24 @@ const RecentItemList = ({ reviewList }) => {
                       </Typography>
                     </Link>
                   </Box>
-                  <Box sx={{ fontStyle: "italic" }} mb={0.5}>
+                  <Box mb={0.5}>
                     <RevealText text={item.comment} maxLength={75} />
                   </Box>
                 </Stack>
                 <Box
+                  pl={2}
                   sx={{
                     position: "absolute",
-                    top: { xs: 25, sm: 40 },
+                    top: 25,
                     right: 15,
                   }}
                 >
                   <Link href={`/users/${item.username}`} passHref>
                     <Box component="a" display="flex" alignItems="center">
-                      <Avatar src={item.userAvatar} alt={item.username} />
+                      <Avatar
+                        src={getCloudinaryUrl(item.userAvatar)}
+                        alt={item.username}
+                      />
                       <Typography
                         variant={isSm ? "h6" : "body1"}
                         color="text.primary"
@@ -114,7 +119,7 @@ const RecentItemList = ({ reviewList }) => {
                 </Box>
                 <Typography
                   variant="caption"
-                  color="text.primary"
+                  color="text.secondary"
                   sx={{ position: "absolute", bottom: 5, right: 10 }}
                 >
                   Reviewed:{" "}

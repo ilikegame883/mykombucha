@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { alpha, useTheme } from "@mui/material/styles";
+import { alpha } from "@mui/material/styles";
 import {
   Box,
   Divider,
@@ -21,10 +21,13 @@ import {
   ListItemAvatar,
   useMediaQuery,
   Stack,
+  useTheme,
 } from "@mui/material";
 import ProductTableSearchBar from "../../ProductTable/ProductTableSearchBar";
 import ProductSearchNotFound from "../../ProductTable/ProductSearchNotFound";
 import { getData } from "../../../utils/fetchData";
+import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
+import CustomChips from "../../CustomChips";
 
 const descendingComparator = (a, b, orderBy) => {
   //a & b is an {} from row array
@@ -114,11 +117,11 @@ const SearchTable = ({ category }) => {
     //create link for breweries search results
     return `/${category}/${resultItem.slug}`;
   };
-  //   if (!breweryData) return <CircularProgress color="primary" />;
+
   return (
     <>
       <TableContainer component={Paper}>
-        <Box display="flex" p={3}>
+        <Box display="flex" p={2}>
           <ProductTableSearchBar
             searchQuery={searchQuery}
             handleSearchBar={handleSearchBar}
@@ -137,7 +140,10 @@ const SearchTable = ({ category }) => {
                     <List sx={{ p: 0, m: 0 }}>
                       <ListItem sx={{ p: 0, m: 0 }}>
                         <ListItemAvatar>
-                          <Avatar variant="square" src={item.image} />
+                          <Avatar
+                            variant="square"
+                            src={getCloudinaryUrl(item.image)}
+                          />
                         </ListItemAvatar>
                         <ListItemText
                           disableTypography
@@ -162,8 +168,12 @@ const SearchTable = ({ category }) => {
                             </Box>
                           }
                           secondary={
-                            <Stack direction="row" spacing={1}>
-                              <Box>
+                            <Stack
+                              direction="row"
+                              alignItems="center"
+                              flexWrap="wrap"
+                            >
+                              <Box pr={0.5}>
                                 <Link
                                   href={`/breweries/${
                                     item.brewery_slug || item.slug
@@ -174,7 +184,6 @@ const SearchTable = ({ category }) => {
                                     variant="body2"
                                     component="a"
                                     sx={{
-                                      textDecoration: "none",
                                       "&:hover": {
                                         textDecoration: "underline",
                                       },
@@ -184,22 +193,7 @@ const SearchTable = ({ category }) => {
                                   </Typography>
                                 </Link>
                               </Box>
-                              <Box>
-                                <Typography
-                                  variant="caption"
-                                  fontWeight="500"
-                                  sx={{
-                                    bgcolor: alpha(
-                                      theme.palette.success.light,
-                                      0.5
-                                    ),
-                                    px: 1,
-                                    borderRadius: 4,
-                                  }}
-                                >
-                                  Active
-                                </Typography>
-                              </Box>
+                              <CustomChips type={item.product_type} />
                             </Stack>
                           }
                         />

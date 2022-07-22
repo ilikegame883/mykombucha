@@ -25,7 +25,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PublicIcon from "@mui/icons-material/Public";
 import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
-import getChipColor from "../../../utils/getChipColor";
+import CustomChips from "../../CustomChips";
 
 const KombuchaProfile = ({ kombuchaData }) => {
   const router = useRouter();
@@ -47,6 +47,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
     image,
     brewery_slug,
     description,
+    flavor,
   } = kombuchaData;
 
   const [addToList, setAddToList] = useState(false);
@@ -129,13 +130,26 @@ const KombuchaProfile = ({ kombuchaData }) => {
             mb={{ xs: 2, sm: 0 }}
             mr={{ xs: 0, sm: 2 }}
           />
-          <Stack>
-            <Box display="flex" flexWrap="wrap">
+          <Stack justifyContent="center">
+            <Box display="flex" alignItems="center" flexWrap="wrap">
               <Typography variant="h5" fontWeight="700" mr={1}>
                 {name}
               </Typography>
+              <CustomChips type={product_type} />
+            </Box>
+
+            <Link href={`/breweries/${brewery_slug}`} passHref>
+              <Typography
+                variant={isSm ? "h6" : "body1"}
+                component="a"
+                color="text.secondary"
+                fontWeight="500"
+                mb={0.25}
+              >{`${brewery_name} Brewing Company`}</Typography>
+            </Link>
+            <Box display="flex">
               {Boolean(avg) && (
-                <Box display="flex" alignItems="center">
+                <Box display="flex" alignItems="center" mr={1}>
                   <Rating
                     name="kombucha-rating"
                     precision={0.25}
@@ -153,27 +167,6 @@ const KombuchaProfile = ({ kombuchaData }) => {
                   </Typography>
                 </Box>
               )}
-            </Box>
-
-            <Link href={`/breweries/${brewery_slug}`} passHref>
-              <Typography
-                variant={isSm ? "h6" : "body1"}
-                component="a"
-                color="text.secondary"
-                fontWeight="500"
-                gutterBottom
-              >{`${brewery_name} Brewing Company`}</Typography>
-            </Link>
-            <Box>
-              <Chip
-                label={product_type}
-                size="small"
-                sx={{
-                  mr: 1,
-                  color: "text.primary",
-                  bgcolor: getChipColor(product_type),
-                }}
-              />
 
               <IconButton sx={{ p: 0 }}>
                 <PublicIcon />
@@ -183,7 +176,7 @@ const KombuchaProfile = ({ kombuchaData }) => {
         </Box>
       </Box>
       <Divider />
-      <HorizontalStats served_in={served_in} ABV={ABV} />
+      <HorizontalStats served_in={served_in} ABV={ABV} flavor={flavor} />
       <Divider />
       <Box px={{ xs: 2, sm: 3 }} py={2}>
         <Typography variant="body2">{description}</Typography>

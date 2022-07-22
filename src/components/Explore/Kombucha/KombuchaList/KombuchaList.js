@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useTheme } from "@mui/material/styles";
 import {
   Avatar,
   Rating,
@@ -8,8 +7,10 @@ import {
   Box,
   Typography,
   Paper,
+  useTheme,
 } from "@mui/material";
 import RevealText from "../../../RevealText";
+import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 
 const KombuchaList = ({ kombuchaList, category }) => {
   const theme = useTheme();
@@ -29,7 +30,7 @@ const KombuchaList = ({ kombuchaList, category }) => {
               },
             }}
           >
-            <Box p={3} display="flex" alignItems="center">
+            <Box p={2.5} display="flex" alignItems="center">
               <Box
                 display={"flex"}
                 flexDirection={{ xs: "column", sm: "row" }}
@@ -39,12 +40,12 @@ const KombuchaList = ({ kombuchaList, category }) => {
                 <Box pr={2} mb={{ xs: 1, sm: 0 }}>
                   <Avatar
                     variant="square"
-                    src={item.image}
+                    src={getCloudinaryUrl(item.image)}
                     alt={item.name}
                     sx={{ width: 60, height: 60 }}
                   />
                 </Box>
-                <Box marginBottom={{ xs: 1, sm: 0 }} sx={{ flexGrow: 1 }}>
+                <Box mb={{ xs: 1.5, sm: 0 }}>
                   <Box>
                     <Link href={`/kombucha/${item._id}`} passHref>
                       <Typography
@@ -52,9 +53,6 @@ const KombuchaList = ({ kombuchaList, category }) => {
                         variant="subtitle1"
                         fontWeight="700"
                         color="text.primary"
-                        sx={{
-                          textDecoration: "none",
-                        }}
                       >
                         {item.name}
                       </Typography>
@@ -65,9 +63,9 @@ const KombuchaList = ({ kombuchaList, category }) => {
                       <Typography
                         component="a"
                         variant="body2"
-                        color={"text.primary"}
+                        color="text.secondary"
+                        fontWeight="600"
                         sx={{
-                          textDecoration: "none",
                           "&:hover": { textDecoration: "underline" },
                         }}
                       >
@@ -79,11 +77,10 @@ const KombuchaList = ({ kombuchaList, category }) => {
                 </Box>
                 <Box
                   display="flex"
-                  // bgcolor="#F7F9FC"
                   p={1.5}
                   sx={{
                     position: "absolute",
-                    top: { xs: 25, sm: 20 },
+                    top: 20,
                     right: 10,
                     borderRadius: 10,
                   }}
@@ -99,14 +96,12 @@ const KombuchaList = ({ kombuchaList, category }) => {
                     variant="body1"
                     color="text.primary"
                     fontWeight="500"
-                    // sx={{ lineHeight: 0 }}
                   >
-                    {item.avg ? `${item.avg} / 5` : "N/A"}
+                    {item.avg ? item.avg : "N/A"}
                   </Typography>
                 </Box>
                 <Stack
                   alignItems="center"
-                  spacing={1}
                   sx={{
                     position: "absolute",
                     bottom: 10,
@@ -114,7 +109,7 @@ const KombuchaList = ({ kombuchaList, category }) => {
                   }}
                 >
                   {category === "new" ? (
-                    <Typography variant="caption" color="text.primary">
+                    <Typography variant="caption" color="text.secondary">
                       Date added:{" "}
                       {item.insertTime.slice(
                         0,
@@ -124,8 +119,8 @@ const KombuchaList = ({ kombuchaList, category }) => {
                   ) : (
                     <Typography
                       variant="body2"
-                      color="text.primary"
-                      fontWeight="600"
+                      color="text.secondary"
+                      fontWeight="500"
                     >
                       {item.review_count} ratings
                     </Typography>

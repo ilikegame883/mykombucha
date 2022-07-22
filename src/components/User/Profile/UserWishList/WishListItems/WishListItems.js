@@ -16,6 +16,7 @@ import {
 import StarIcon from "@mui/icons-material/Star";
 import DeleteUserItem from "../../DeleteUserItem";
 import { patchData } from "../../../../../utils/fetchData";
+import getCloudinaryUrl from "../../../../../utils/getCloudinaryUrl";
 
 const WishListItems = ({ wishList }) => {
   const { data: session } = useSession();
@@ -51,14 +52,14 @@ const WishListItems = ({ wishList }) => {
             key={i}
             sx={{ "&:last-child hr": { display: "none" } }}
           >
-            <Box p={2}>
+            <Box p={1.5}>
               <ListItem disableGutters sx={{ padding: 0 }}>
-                <ListItemAvatar sx={{ mr: 1 }}>
+                <ListItemAvatar>
                   <Avatar
                     variant="square"
                     alt={k.name}
-                    src={k.image}
-                    sx={{ width: 56, height: 56 }}
+                    src={getCloudinaryUrl(k.image)}
+                    sx={{ width: 50, height: 50 }}
                   />
                 </ListItemAvatar>
                 <Stack flexGrow={1}>
@@ -66,11 +67,10 @@ const WishListItems = ({ wishList }) => {
                     <Link href={`/kombucha/${k._id}`} passHref>
                       <Typography
                         component="a"
-                        variant="body1"
+                        variant="body2"
                         color="text.primary"
                         fontWeight="600"
                         sx={{
-                          textDecoration: "none",
                           "&:hover": { textDecoration: "underline" },
                         }}
                       >
@@ -85,7 +85,6 @@ const WishListItems = ({ wishList }) => {
                         color="text.primary"
                         component="a"
                         sx={{
-                          textDecoration: "none",
                           "&:hover": { textDecoration: "underline" },
                         }}
                       >
@@ -102,22 +101,6 @@ const WishListItems = ({ wishList }) => {
                   </Typography>
                 </Stack>
                 <Stack alignItems="flex-end">
-                  <Typography
-                    variant="body2"
-                    color="text.primary"
-                    fontWeight="500"
-                    gutterBottom
-                  >
-                    <StarIcon
-                      color="primary"
-                      sx={{
-                        fontSize: "18px",
-                        verticalAlign: "sub",
-                        pr: 0.5,
-                      }}
-                    />
-                    {Boolean(k.avg) ? k.avg : "N/A"}
-                  </Typography>
                   {session && session.user.username === name && (
                     <DeleteUserItem
                       handleDelete={() => handleDelete(k._id)}

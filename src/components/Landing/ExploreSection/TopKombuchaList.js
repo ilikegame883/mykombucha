@@ -1,19 +1,17 @@
-import React, { Fragment } from "react";
+import React from "react";
+import Link from "next/link";
 import {
+  Box,
   Divider,
   List,
   ListItem,
   ListItemAvatar,
-  ListItemText,
   Typography,
   Avatar,
-  Paper,
   Rating,
   Stack,
-  Card,
 } from "@mui/material";
-import Link from "next/link";
-import { Box } from "@mui/system";
+import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 
 const TopKombuchaList = ({ kombuchaList }) => {
   return (
@@ -39,13 +37,13 @@ const TopKombuchaList = ({ kombuchaList }) => {
           }}
         >
           {kombuchaList.map((k) => (
-            <Fragment key={k.name}>
+            <React.Fragment key={k.name}>
               <ListItem alignItems="center" sx={{ p: 2 }}>
                 <ListItemAvatar sx={{ mr: 1 }}>
                   <Avatar
                     variant="square"
                     alt={k.name}
-                    src={k.image}
+                    src={getCloudinaryUrl(k.image)}
                     sx={{ height: 60, width: 60 }}
                   />
                 </ListItemAvatar>
@@ -101,7 +99,7 @@ const TopKombuchaList = ({ kombuchaList }) => {
               </ListItem>
 
               <Divider component="li" />
-            </Fragment>
+            </React.Fragment>
           ))}
         </List>
         <Box width={1} py={1.5} sx={{ textAlign: "center" }}>

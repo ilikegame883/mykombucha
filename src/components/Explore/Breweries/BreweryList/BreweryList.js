@@ -8,9 +8,9 @@ import {
   Paper,
   useTheme,
 } from "@mui/material";
-import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import ProductTypeChips from "../../../Brewery/BreweryProfile/ProductTypeChips";
+import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
+import CustomChips from "../../../CustomChips";
 
 const BreweryList = ({ breweryList, category, sort }) => {
   const theme = useTheme();
@@ -64,13 +64,18 @@ const BreweryList = ({ breweryList, category, sort }) => {
           >
             <Box
               p={{ xs: 2, sm: 2.5 }}
-              display={"flex"}
+              display="flex"
               flexDirection={{ xs: "column", sm: "row" }}
             >
-              <Box display="flex" alignItems="center" flexGrow={1}>
+              <Box
+                display="flex"
+                alignItems="center"
+                flexGrow={1}
+                mb={{ xs: 1, sm: 0 }}
+              >
                 <Avatar
                   variant="square"
-                  src={item.image}
+                  src={getCloudinaryUrl(item.image)}
                   alt={item.name}
                   sx={{ width: 60, height: 60 }}
                 />
@@ -79,35 +84,42 @@ const BreweryList = ({ breweryList, category, sort }) => {
                     <Typography
                       component="a"
                       variant="body1"
-                      fontWeight="700"
+                      fontWeight="600"
                       color="text.primary"
                       sx={{
-                        textDecoration: "none",
                         "&:hover": { textDecoration: "underline" },
                       }}
                     >
                       {item.name}
                     </Typography>
                   </Link>
-                  <Typography variant="body2">
+
+                  <Typography
+                    variant="caption"
+                    component="div"
+                    color="text.secondary"
+                  >
                     {item.city}, {item.country}
-                    <LocationOnOutlinedIcon
-                      color="disabled"
-                      fontSize="small"
-                      sx={{ verticalAlign: "text-bottom" }}
-                    />
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {item.type}
-                  </Typography>
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    flexWrap="wrap"
+                  >
+                    <Typography variant="body2" color="text.primary" pr={0.5}>
+                      {item.type}
+                    </Typography>
+                    <CustomChips type={item.product_type} />
+                  </Box>
                 </Box>
               </Box>
               {category === "popular" && (
                 <Box position="absolute" right={20} top={15}>
-                  <Typography variant="body1" color="text.primary">
+                  <Typography variant="body1" color="text.secondary">
                     {item.favorite_count}{" "}
                     <FavoriteIcon
-                      color="error"
+                      color="primary"
                       fontSize="small"
                       sx={{ verticalAlign: "text-top" }}
                     />
@@ -115,26 +127,16 @@ const BreweryList = ({ breweryList, category, sort }) => {
                 </Box>
               )}
 
-              <Stack
-                direction={{ xs: "row", sm: "column" }}
-                alignItems={{ xs: "flex-start", sm: "flex-end" }}
-                justifyContent={{ xs: "flex-end", sm: "center" }}
-                spacing={1}
-              >
-                <Stack
-                  direction="row"
-                  spacing={1}
-                  sx={{ display: { xs: "none", sm: "inline" }, opacity: 0.8 }}
+              {category !== "popular" && (
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  align="end"
                 >
-                  <ProductTypeChips list={item.product_type} />
-                </Stack>
-                {category !== "popular" && (
-                  <Typography variant="caption" color="text.secondary">
-                    Added on:{" "}
-                    {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
-                  </Typography>
-                )}
-              </Stack>
+                  Added:{" "}
+                  {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
+                </Typography>
+              )}
             </Box>
           </Grid>
         ))}
