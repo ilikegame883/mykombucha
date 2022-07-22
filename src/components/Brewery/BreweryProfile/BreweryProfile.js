@@ -68,13 +68,13 @@ const BreweryProfile = ({ breweryData, session }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          p: 2,
+          p: 1.5,
         }}
       >
         <Stack direction="row" spacing={1} alignItems="center">
           <Tooltip title="Edit brewery info">
             <IconButton sx={{ padding: 0 }}>
-              <EditOutlinedIcon color="secondary" />
+              <EditOutlinedIcon color="action" />
             </IconButton>
           </Tooltip>
         </Stack>

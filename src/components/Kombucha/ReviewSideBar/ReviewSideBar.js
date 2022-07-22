@@ -26,7 +26,7 @@ const StatItem = ({ kombuchaData }) => {
           <Box sx={{ mb: 0.5 }}>
             <RateReviewIcon sx={{ color: "secondary.main" }} />
           </Box>
-          <Typography variant="h6">{review_count}</Typography>
+          <Typography variant="body1">{review_count}</Typography>
           <Typography variant="body2">Total Reviews</Typography>
         </Paper>
       </Grid>
@@ -35,7 +35,7 @@ const StatItem = ({ kombuchaData }) => {
           <Box sx={{ mb: 0.5 }}>
             <StarsIcon sx={{ color: "#FAAF00" }} />
           </Box>
-          <Typography variant="h6">#</Typography>
+          <Typography variant="body1">#</Typography>
           <Typography variant="body2">Rank</Typography>
         </Paper>
       </Grid>
