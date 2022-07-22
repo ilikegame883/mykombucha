@@ -29,6 +29,7 @@ const getUserBadge = (rating_total, align = "none") => {
         <MilitaryTechIcon
           sx={{
             color: badgeColor,
+            verticalAlign: align,
           }}
         />
       ) : (
