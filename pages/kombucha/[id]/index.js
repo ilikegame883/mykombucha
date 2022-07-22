@@ -1,27 +1,26 @@
 import useSWR from "swr";
-import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
+import Kombucha from "../../../src/models/kombuchaModel";
 import { Container, Grid, Paper, Typography } from "@mui/material";
-import { getData } from "../../src/utils/fetchData";
-import KombuchaProfile from "../../src/components/Kombucha/KombuchaProfile";
-import KombuchaSideBar from "../../src/components/Kombucha/ReviewSideBar";
+import { getData } from "../../../src/utils/fetchData";
+import KombuchaProfile from "../../../src/components/Kombucha/KombuchaProfile";
+import ReviewSideBar from "../../../src/components/Kombucha/ReviewSideBar";
 import {
-  KombuchaTopReview,
   KombuchaReviews,
-} from "../../src/components/Kombucha/ReviewTable";
-import { MainLayout } from "../../src/components/Layout";
+  KombuchaTopReview,
+} from "../../../src/components/Kombucha/ReviewTable";
+import { MainLayout } from "../../../src/components/Layout";
+import connectDB from "../../../src/lib/connectDB";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const Kombucha = ({ singleKombuchaData }) => {
+const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
   const { review_count } = singleKombuchaData;
-
-  const router = useRouter();
-  const { id } = router.query;
 
   //load reviews, client side with useSWR
   const { data: kombuchaReviews, error } = useSWR(
-    `/api/kombucha/${id}/reviews`,
+    // `/api/kombucha/${id}/reviews`,
+    `/api/kombucha/${kombuchaId}/reviews`,
+
     fetcher
   );
 
@@ -36,7 +35,7 @@ const Kombucha = ({ singleKombuchaData }) => {
           </Grid>
 
           <Grid item xs={12} md={3} mb={1.5}>
-            <KombuchaSideBar
+            <ReviewSideBar
               kombuchaReviews={kombuchaReviews}
               kombuchaData={singleKombuchaData}
             />
@@ -71,18 +70,25 @@ const Kombucha = ({ singleKombuchaData }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  //fetch kombucha profile data serverside
-  const [singleKombuchaData] = await getData("kombucha", ctx.params.id);
-  // const kombuchaReviews = await getData(`kombucha/${ctx.params.id}`, "reviews");
-  const session = await getSession(ctx);
+export async function getStaticPaths() {
+  await connectDB();
+
+  const idList = await Kombucha.distinct("_id");
+  const params = idList.map((id) => ({ params: { id: id.toString() } }));
+
+  return {
+    fallback: false,
+    paths: params,
+  };
+}
+export async function getStaticProps({ params }) {
+  const [singleKombuchaData] = await getData("kombucha", params.id);
   return {
     props: {
       singleKombuchaData,
-      session,
-      // kombuchaReviews,
+      kombuchaId: params.id,
     },
   };
 }
 
-export default Kombucha;
+export default KombuchaPage;
