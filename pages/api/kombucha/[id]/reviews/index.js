@@ -15,7 +15,8 @@ const handler = async (req, res) => {
 
     const kombuchaReviews = await Review.aggregate([
       { $match: { product: id } },
-
+      //sort reviews by newest to oldest
+      { $sort: { createdAt: -1 } },
       {
         $lookup: {
           from: "users",
