@@ -1,9 +1,7 @@
-import { Box, Grid, Typography, Chip } from "@mui/material";
-import { useTheme } from "@mui/material/styles";
+import { Box, Grid, Typography, Chip, useTheme } from "@mui/material";
 
-const HorizontalStats = ({ served_in, ABV }) => {
+const HorizontalStats = ({ served_in, ABV, flavor }) => {
   const theme = useTheme();
-
   return (
     <Box>
       <Grid container>
@@ -64,15 +62,19 @@ const HorizontalStats = ({ served_in, ABV }) => {
             }}
           >
             <Typography variant="body1" color="text.primary" fontWeight="600">
-              Flavors:{" "}
-              <Typography
-                variant="body1"
-                component="span"
-                color="text.secondary"
-                fontWeight="600"
-              >
-                Peach
-              </Typography>
+              Flavor:{" "}
+              {flavor.map((f, idx) => (
+                <Typography
+                  key={f}
+                  variant="body1"
+                  component="span"
+                  color="text.secondary"
+                  fontWeight="500"
+                >
+                  {f}
+                  {idx !== flavor.length - 1 && ","}{" "}
+                </Typography>
+              ))}
             </Typography>
           </Box>
         </Grid>
