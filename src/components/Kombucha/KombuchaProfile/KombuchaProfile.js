@@ -84,15 +84,17 @@ const KombuchaProfile = ({ kombuchaData }) => {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          p: 2,
+          p: 1.5,
         }}
       >
         <Stack direction="row" spacing={1} alignItems="center">
-          <Tooltip title="Edit product info">
-            <IconButton sx={{ padding: 0 }}>
-              <EditOutlinedIcon color="secondary" />
-            </IconButton>
-          </Tooltip>
+          <Link href={`/kombucha/${_id}/corrections`}>
+            <a>
+              <Tooltip title="Edit product info">
+                <EditOutlinedIcon color="action" />
+              </Tooltip>
+            </a>
+          </Link>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={2}>
           {addToList && (
