@@ -19,10 +19,10 @@ import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 const UserInfo = ({ userData, userReviews }) => {
   const { username, createdAt, avatar, city, country, bio } = userData;
 
-  const { data: session } = useSession();
   const router = useRouter();
-
   const { name } = router.query;
+
+  const { data: session, status } = useSession();
 
   return (
     <>
@@ -41,7 +41,7 @@ const UserInfo = ({ userData, userReviews }) => {
           </Typography>
         </Stack>
         <Stack spacing={2}>
-          {session && session.user.username === name ? (
+          {status === "authenticated" ? (
             <Typography variant="caption" color="text.primary" fontWeight="500">
               Account Settings
               <Link
@@ -76,16 +76,16 @@ const UserInfo = ({ userData, userReviews }) => {
         </Box>
         <Box ml={2}>
           <Stack justifyContent="center">
-            <Typography variant="h5" fontWeight="700">
+            <Typography variant="h5" color="text.primary" fontWeight="700">
               {username}
             </Typography>
 
-            <Typography variant="body1" color="text.secondary">
-              {city}, {country}
+            <Typography variant="body2" color="text.secondary" mb={0.25}>
+              {city && country && `${city}, ${country}`}
               <LocationOnOutlinedIcon
                 color="disabled"
                 fontSize="small"
-                sx={{ verticalAlign: "sub" }}
+                sx={{ verticalAlign: "middle" }}
               />
             </Typography>
             <Typography
@@ -93,7 +93,11 @@ const UserInfo = ({ userData, userReviews }) => {
               color="text.primary"
               sx={{ fontStyle: "italic" }}
             >
-              {bio}
+              {bio
+                ? `${bio}`
+                : status === "authenticated"
+                ? "Update your profile info in Account Settings"
+                : ""}
             </Typography>
           </Stack>
         </Box>

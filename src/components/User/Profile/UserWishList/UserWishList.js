@@ -11,7 +11,7 @@ const UserWishList = ({ wishList }) => {
   };
   return (
     <Box mb={2}>
-      <Box p={1.5}>
+      <Box p={1}>
         <Typography
           variant="h6"
           align="center"

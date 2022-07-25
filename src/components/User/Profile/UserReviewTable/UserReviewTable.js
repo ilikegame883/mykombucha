@@ -240,18 +240,9 @@ const UserReviewTable = ({ userReviews }) => {
                   />
                 );
               })}
-            {emptyRows > 0 && (
-              <TableRow
-                style={{
-                  height: 53 * emptyRows,
-                }}
-              >
-                <TableCell align="center" colSpan={5} />
-              </TableRow>
-            )}
             {isReviewNotFound && (
               <TableRow>
-                <TableCell align="center" colSpan={5} sx={{ py: 3 }}>
+                <TableCell align="center" colSpan={7} sx={{ py: 3 }}>
                   <ReviewNotFound
                     searchUserReview={searchUserReview}
                     userReviews={userReviews}

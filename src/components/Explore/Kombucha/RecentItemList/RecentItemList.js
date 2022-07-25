@@ -33,7 +33,7 @@ const RecentItemList = ({ reviewList }) => {
               },
             }}
           >
-            <Box p={2.5} display="flex" alignItems="center">
+            <Box px={2.5} py={2} display="flex" alignItems="center">
               <Box
                 display="flex"
                 flexDirection={{ xs: "column", sm: "row" }}
@@ -88,7 +88,7 @@ const RecentItemList = ({ reviewList }) => {
                       </Typography>
                     </Link>
                   </Box>
-                  <Box mb={0.5}>
+                  <Box mb={{ xs: 1.5, sm: 0 }}>
                     <RevealText text={item.comment} maxLength={75} />
                   </Box>
                 </Stack>
@@ -105,12 +105,12 @@ const RecentItemList = ({ reviewList }) => {
                       <Avatar
                         src={getCloudinaryUrl(item.userAvatar)}
                         alt={item.username}
+                        sx={{ height: 30, width: 30 }}
                       />
                       <Typography
-                        variant={isSm ? "h6" : "body1"}
+                        variant="body1"
                         color="text.primary"
-                        fontWeight="500"
-                        sx={{ pl: 1 }}
+                        sx={{ pl: 0.75 }}
                       >
                         {item.username}
                       </Typography>
@@ -120,7 +120,7 @@ const RecentItemList = ({ reviewList }) => {
                 <Typography
                   variant="caption"
                   color="text.secondary"
-                  sx={{ position: "absolute", bottom: 5, right: 10 }}
+                  sx={{ position: "absolute", bottom: 10, right: 20 }}
                 >
                   Reviewed:{" "}
                   {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}

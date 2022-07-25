@@ -1,4 +1,5 @@
-import { Link, Typography } from "@mui/material";
+import Link from "next/link";
+import { Typography } from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 
 const ReviewNotFound = ({ searchUserReview, userReviews }) => {
@@ -13,11 +14,18 @@ const ReviewNotFound = ({ searchUserReview, userReviews }) => {
           You have no reviews
         </Typography>
         <Typography variant="body2">
-          Search or click{" "}
-          <Link href="/kombucha/explore/recent/1">
-            <a>here</a>
+          Click{" "}
+          <Link href="/kombucha/explore/recent/1" passHref>
+            <Typography
+              variant="body2"
+              component="a"
+              color="secondary"
+              fontWeight="500"
+            >
+              here
+            </Typography>
           </Link>{" "}
-          to browse kombuchas and add your first review!
+          to explore kombuchas and add your first review!
         </Typography>
       </>
     );
