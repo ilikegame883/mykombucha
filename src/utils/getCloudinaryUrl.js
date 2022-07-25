@@ -1,6 +1,9 @@
 import { buildUrl } from "cloudinary-build-url";
 
 const getCloudinaryUrl = (url) => {
+  if (url == undefined) {
+    return "";
+  }
   const src = buildUrl(url, {
     cloud: {
       cloudName: "mykombucha",
