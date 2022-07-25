@@ -1,6 +1,13 @@
 import Link from "next/link";
-import { Drawer, Divider, Box, Button, Typography } from "@mui/material/";
-import { useTheme } from "@mui/material/styles";
+import { useSession, signOut } from "next-auth/react";
+import {
+  Drawer,
+  Divider,
+  Box,
+  Button,
+  Typography,
+  useTheme,
+} from "@mui/material/";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
 import SearchIcon from "@mui/icons-material/Search";
@@ -79,8 +86,11 @@ const sideBarLinks = [
   },
 ];
 
-const Sidebar = ({ open, variant, onClose, session, loading }) => {
+const Sidebar = ({ open, variant, onClose }) => {
   const theme = useTheme();
+
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
   const showUserAccountGroup = (displayInSideBar) => {
     if (!loading && session) {
@@ -216,7 +226,11 @@ const Sidebar = ({ open, variant, onClose, session, loading }) => {
             color="secondary"
             fullWidth
             component="a"
-            href="/signout"
+            onClick={() =>
+              signOut({
+                callbackUrl: `${window.location.origin}`,
+              })
+            }
             startIcon={<ExitToAppOutlinedIcon />}
           >
             Logout

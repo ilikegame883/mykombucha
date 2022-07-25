@@ -24,16 +24,18 @@ import UserMenuDropDown from "./UserMenuDropDown";
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-const Topbar = ({ onSidebarOpen, session, loading }) => {
+const Topbar = ({ onSidebarOpen }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const router = useRouter();
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
+  const router = useRouter();
   //when user decides to update the avatar picture on settings page,
   //userdata is fetched clientside to display a live update of avatar photo on the topbar
   const { data: userData } = useSWR(
-    session ? `/api/users/${session.user.username}` : null,
+    session?.user && `/api/users/${session.user.username}`,
     fetcher,
     { revalidateOnFocus: false }
   );
@@ -41,7 +43,7 @@ const Topbar = ({ onSidebarOpen, session, loading }) => {
   const userSessionAvatar = userData ? userData[0].avatar : "";
 
   const isAuthPage =
-    router.pathname === "/signin" && router.pathname === "/register";
+    router.pathname === "/signin" || router.pathname === "/register";
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,15 +55,17 @@ const Topbar = ({ onSidebarOpen, session, loading }) => {
 
   return (
     <Toolbar
-      sx={{ justifyContent: "space-between", height: 65, my: 0.5 }}
+      sx={{
+        justifyContent: "space-between",
+      }}
       disableGutters
     >
       <Box
         component="a"
         href="/"
         title="home"
+        pt={0.75}
         width={{ xs: 180, sm: 200, md: 220 }}
-        height={1}
       >
         <Box
           component="img"
@@ -195,6 +199,7 @@ const Topbar = ({ onSidebarOpen, session, loading }) => {
         </Menu>
 
         {!session && !loading && !isAuthPage && (
+          //if not in session and not on sign in or register page
           <>
             <Box display="flex">
               <Divider
@@ -232,16 +237,18 @@ const Topbar = ({ onSidebarOpen, session, loading }) => {
             </Stack>
           </>
         )}
+
         {session && (
           <UserMenuDropDown
             userSessionAvatar={userSessionAvatar}
-            session={session}
+            username={session.user.username}
           />
         )}
       </Stack>
 
+      {/* For mobile view */}
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
-        {!session ? (
+        {!session && !loading ? (
           <>
             <Link href="/signin" passHref>
               <Button

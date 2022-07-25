@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import {
@@ -20,16 +19,12 @@ const MainLayout = ({
   title,
   children,
 }) => {
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
-
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const router = useRouter();
+
   const theme = useTheme();
-  const isMd = useMediaQuery(theme.breakpoints.up("md"), {
-    defaultMatches: true,
-  });
+  const isMd = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleSidebarOpen = () => {
     setOpenSidebar(true);
@@ -86,22 +81,12 @@ const MainLayout = ({
         }}
         elevation={0}
       >
-        <Container maxWidth="xl">
-          <Topbar
-            onSidebarOpen={handleSidebarOpen}
-            session={session}
-            loading={loading}
-          />
+        <Container maxWidth="lg">
+          <Topbar onSidebarOpen={handleSidebarOpen} />
         </Container>
       </AppBar>
 
-      <Sidebar
-        onClose={handleSidebarClose}
-        open={open}
-        session={session}
-        loading={loading}
-        variant="temporary"
-      />
+      <Sidebar onClose={handleSidebarClose} open={open} variant="temporary" />
       <Box component="main" flexGrow={1}>
         {children}
       </Box>
