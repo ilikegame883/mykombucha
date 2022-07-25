@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
@@ -16,13 +15,11 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import UserStats from "./UserStats/UserStats";
 import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 
-const UserInfo = ({ userData, userReviews }) => {
+const UserInfo = ({ userData, userReviews, name }) => {
   const { username, createdAt, avatar, city, country, bio } = userData;
 
-  const router = useRouter();
-  const { name } = router.query;
-
   const { data: session, status } = useSession();
+  const loading = status === "loading";
 
   return (
     <>
@@ -40,21 +37,27 @@ const UserInfo = ({ userData, userReviews }) => {
             <b>{createdAt.slice(0, createdAt.lastIndexOf("T"))}</b>
           </Typography>
         </Stack>
-        <Stack spacing={2}>
-          {status === "authenticated" ? (
-            <Typography variant="caption" color="text.primary" fontWeight="500">
-              Account Settings
-              <Link
-                href={`/users/${session.user.username}/general-settings`}
-                passHref
+        <Box sx={{ display: loading && "none" }}>
+          {session && session.user.username === name ? (
+            <Stack spacing={2}>
+              <Typography
+                variant="caption"
+                color="text.primary"
+                fontWeight="500"
               >
-                <IconButton sx={{ p: 0, pl: 1 }} component="a">
-                  <Tooltip title="Go to Account Settings">
-                    <SettingsIcon color="info" />
-                  </Tooltip>
-                </IconButton>
-              </Link>
-            </Typography>
+                Account Settings
+                <Link
+                  href={`/users/${session.user.username}/general-settings`}
+                  passHref
+                >
+                  <IconButton sx={{ p: 0, pl: 1 }} component="a">
+                    <Tooltip title="Go to Account Settings">
+                      <SettingsIcon color="info" />
+                    </Tooltip>
+                  </IconButton>
+                </Link>
+              </Typography>
+            </Stack>
           ) : (
             <IconButton sx={{ p: 0 }}>
               <Tooltip title="Send Message: Coming Soon">
@@ -62,7 +65,7 @@ const UserInfo = ({ userData, userReviews }) => {
               </Tooltip>
             </IconButton>
           )}
-        </Stack>
+        </Box>
       </Box>
 
       <Divider />
@@ -95,7 +98,7 @@ const UserInfo = ({ userData, userReviews }) => {
             >
               {bio
                 ? `${bio}`
-                : status === "authenticated"
+                : session && session.user.username === name
                 ? "Update your profile info in Account Settings"
                 : ""}
             </Typography>

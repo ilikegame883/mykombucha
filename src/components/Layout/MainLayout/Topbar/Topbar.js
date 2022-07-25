@@ -33,9 +33,9 @@ const Topbar = ({ onSidebarOpen }) => {
 
   const router = useRouter();
   //when user decides to update the avatar picture on settings page,
-  //userdata is fetched clientside to display a live update of avatar photo on the topbar
+  //userdata is fetched clientside for live update of avatar photo on the topbar
   const { data: userData } = useSWR(
-    session?.user && `/api/users/${session.user.username}`,
+    session?.user ? `/api/users/${session.user.username}` : null,
     fetcher,
     { revalidateOnFocus: false }
   );
@@ -238,7 +238,7 @@ const Topbar = ({ onSidebarOpen }) => {
           </>
         )}
 
-        {session && (
+        {session && userData && (
           <UserMenuDropDown
             userSessionAvatar={userSessionAvatar}
             username={session.user.username}
@@ -248,7 +248,7 @@ const Topbar = ({ onSidebarOpen }) => {
 
       {/* For mobile view */}
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
-        {!session && !loading ? (
+        {!session && !loading && (
           <>
             <Link href="/signin" passHref>
               <Button
@@ -276,7 +276,9 @@ const Topbar = ({ onSidebarOpen }) => {
               <MenuIcon />
             </Button>
           </>
-        ) : (
+        )}
+
+        {session && userData && (
           <IconButton onClick={() => onSidebarOpen()} aria-label="Menu">
             <Avatar
               src={userSessionAvatar}
