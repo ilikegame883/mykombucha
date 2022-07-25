@@ -1,7 +1,7 @@
 import { buildUrl } from "cloudinary-build-url";
 
 const getCloudinaryUrl = (url) => {
-  if (url == undefined) {
+  if (url == undefined || url === "") {
     return "";
   }
   const src = buildUrl(url, {

@@ -22,7 +22,6 @@ const ReviewRow = ({ row, handleDelete, session }) => {
 
   const router = useRouter();
   const { name } = router.query;
-  console.log(row);
   return (
     <>
       <TableRow>

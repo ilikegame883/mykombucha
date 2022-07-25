@@ -216,6 +216,9 @@ const General = ({ userData }) => {
               multiline
               rows={5}
               fullWidth
+              inputProps={{
+                maxLength: 200,
+              }}
             />
           </Grid>
           <Grid item container xs={12}>
