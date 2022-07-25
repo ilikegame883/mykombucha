@@ -1,5 +1,4 @@
 import connectDB from "../../../../../src/lib/connectDB";
-import Kombucha from "../../../../../src/models/kombuchaModel";
 import Brewery from "../../../../../src/models/breweryModel";
 
 // Similar to 'limit' (# of items per page - page size)
@@ -23,8 +22,8 @@ const handler = async (req, res) => {
   }
 };
 
-//1. Get list of breweries by highest to lowest number of ratings
-//2. Match breweries that has an rating count > 0
+//1. Get list of breweries by highest to lowest number of favorites given
+//2. Match breweries that has an favorite count > 0
 //3. Paginate result based on page number from req.query.page
 const getPopularBreweries = async (req, res) => {
   const { page } = req.query;
@@ -36,7 +35,7 @@ const getPopularBreweries = async (req, res) => {
       {
         $facet: {
           sorted_list: [
-            { $sort: { avg: -1 } },
+            { $sort: { favorite_count: -1 } },
             { $skip: skip },
             { $limit: PAGE_SIZE },
             { $addFields: { insertTime: { $toDate: "$_id" } } },
