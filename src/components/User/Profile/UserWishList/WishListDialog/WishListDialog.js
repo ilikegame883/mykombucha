@@ -4,6 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
 } from "@mui/material";
 import WishListItems from "../WishListItems";
 
@@ -20,7 +21,6 @@ const WishListDialog = ({ openDialog, setOpenDialog, wishList, name }) => {
         scroll="paper"
         aria-labelledby="user-wish-list-dialog"
         aria-describedby="user-wish-list-items"
-        // fullWidth ?
         sx={{
           height: 600,
           "& .MuiPaper-root": {
@@ -32,7 +32,8 @@ const WishListDialog = ({ openDialog, setOpenDialog, wishList, name }) => {
         <DialogTitle id="scroll-dialog-title" fontWeight="700">
           Wish List
         </DialogTitle>
-        <DialogContent sx={{ p: 0 }} dividers={true}>
+        <Divider />
+        <DialogContent sx={{ p: 0 }}>
           <WishListItems wishList={wishList} />
         </DialogContent>
         <DialogActions sx={{ p: 2 }}>

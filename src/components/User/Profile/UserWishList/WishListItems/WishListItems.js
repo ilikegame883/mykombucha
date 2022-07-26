@@ -13,7 +13,6 @@ import {
   ListItemAvatar,
   Stack,
 } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
 import DeleteUserItem from "../../DeleteUserItem";
 import { patchData } from "../../../../../utils/fetchData";
 import getCloudinaryUrl from "../../../../../utils/getCloudinaryUrl";
@@ -58,51 +57,43 @@ const WishListItems = ({ wishList }) => {
                   />
                 </ListItemAvatar>
                 <Stack flexGrow={1}>
-                  <Box>
-                    <Link href={`/kombucha/${k._id}`} passHref>
-                      <Typography
-                        component="a"
-                        variant="body2"
-                        color="text.primary"
-                        fontWeight="600"
-                        sx={{
-                          "&:hover": { textDecoration: "underline" },
-                        }}
-                      >
-                        {k.name}
-                      </Typography>
-                    </Link>
-                  </Box>
-                  <Box>
-                    <Link href={`/breweries/${k.brewery_slug}`} passHref>
-                      <Typography
-                        variant="caption"
-                        color="text.primary"
-                        component="a"
-                        sx={{
-                          "&:hover": { textDecoration: "underline" },
-                        }}
-                      >
-                        {k.brewery_name} Brewery
-                      </Typography>
-                    </Link>
-                  </Box>
-                  <Typography
-                    variant="caption"
-                    color="text.secondary"
-                    component="div"
-                  >
+                  <Link href={`/kombucha/${k._id}`} passHref>
+                    <Typography
+                      component="a"
+                      variant="body2"
+                      color="text.primary"
+                      fontWeight="600"
+                      sx={{
+                        "&:hover": { textDecoration: "underline" },
+                      }}
+                    >
+                      {k.name}
+                    </Typography>
+                  </Link>
+                  <Link href={`/breweries/${k.brewery_slug}`} passHref>
+                    <Typography
+                      variant="caption"
+                      color="text.primary"
+                      component="a"
+                      sx={{
+                        "&:hover": { textDecoration: "underline" },
+                      }}
+                    >
+                      {k.brewery_name} Brewery
+                    </Typography>
+                  </Link>
+                  <Typography variant="caption" color="text.secondary">
                     Added - {userWishList.date}
                   </Typography>
                 </Stack>
-                <Stack alignItems="flex-end">
+                <Box>
                   {session && session.user.username === name && (
                     <DeleteUserItem
                       handleDelete={() => handleDelete(k._id)}
                       item={k.name}
                     />
                   )}
-                </Stack>
+                </Box>
               </ListItem>
             </Box>
             <Divider />
