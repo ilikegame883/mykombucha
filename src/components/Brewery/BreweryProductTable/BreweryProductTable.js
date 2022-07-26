@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   Box,
   Divider,
   TablePagination,
-  CircularProgress,
   Table,
   TableBody,
   TableCell,
@@ -18,13 +18,12 @@ import {
   ListItemText,
   ListItemAvatar,
   useMediaQuery,
-  Chip,
   useTheme,
 } from "@mui/material";
 import ProductTableSearchBar from "../../ProductTable/ProductTableSearchBar";
 import ProductSearchNotFound from "../../ProductTable/ProductSearchNotFound";
 import ProductTableHead from "../../ProductTable/ProductTableHead";
-import getChipColor from "../../../utils/getChipColor";
+import CustomChips from "../../CustomChips";
 
 const TABLE_HEAD = [
   {
@@ -109,11 +108,9 @@ const applySearchFilter = (array, query) => {
   return array;
 };
 
-const BreweryProductTable = ({ breweryData, session }) => {
+const BreweryProductTable = ({ singleBreweryData }) => {
   const theme = useTheme();
   const isSM = useMediaQuery(theme.breakpoints.up("sm"));
-
-  const { kombuchas, reviews } = breweryData;
 
   const [page, setPage] = useState(0);
   const [orderDirection, setOrderDirection] = useState("asc");
@@ -121,7 +118,12 @@ const BreweryProductTable = ({ breweryData, session }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  //For Brewery Product Table
+  const { data: session } = useSession();
+
+  const { kombuchas, reviews } = singleBreweryData;
+
+  //If user in session has rated a kombucha from brewery
+  //Show user rating on brewery kombucha list table
   const getUserSessionRating = (_id) => {
     if (session) {
       const findUserSessionReview = reviews.find(
@@ -138,6 +140,7 @@ const BreweryProductTable = ({ breweryData, session }) => {
   const rows = kombuchas.map(
     ({ name, product_type, review_count, updatedAt, _id, avg, image }) => {
       const dateOnly = updatedAt.slice(0, updatedAt.lastIndexOf("T"));
+
       const userSessionRating = getUserSessionRating(_id);
       return createTableData(
         name,
@@ -175,14 +178,8 @@ const BreweryProductTable = ({ breweryData, session }) => {
     setSearchQuery("");
   };
 
-  //get # of emptyRows if row items are less than the set amount of rows per page (5)
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   const filteredKombucha = applySearchFilter(rows, searchQuery);
   const isKombuchaNotFound = filteredKombucha.length === 0;
-
-  if (!breweryData) return <CircularProgress color="primary" />;
 
   return (
     <>
@@ -253,43 +250,29 @@ const BreweryProductTable = ({ breweryData, session }) => {
                     </List>
                   </TableCell>
                   <TableCell align="right">
-                    <Chip
-                      label={item.product_type}
-                      size="small"
-                      sx={{
-                        color: "text.primary",
-                        bgcolor: getChipColor(item.product_type),
-                      }}
-                    />
+                    <CustomChips type={item.product_type} />
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant={"subtitle2"} color="text.secondary">
+                    <Typography variant="subtitle2" fontWeight="600">
                       {item.userSessionRating}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant={"subtitle2"}>{item.avg}</Typography>
+                    <Typography variant="subtitle2" color="text.secondary">
+                      {item.avg}
+                    </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant={"subtitle2"}>
+                    <Typography variant="subtitle2">
                       {item.total_ratings}
                     </Typography>
                   </TableCell>
                   <TableCell align="right">
-                    <Typography variant={"caption"}>{item.added}</Typography>
+                    <Typography variant="caption">{item.added}</Typography>
                   </TableCell>
                 </TableRow>
               ))}
 
-            {/* {emptyRows > 0 && (
-              <TableRow
-                style={{
-                  height: 90 * emptyRows,
-                }}
-              >
-                <TableCell align="center" colSpan={6} />
-              </TableRow>
-            )} */}
             {isKombuchaNotFound && (
               <TableRow>
                 <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
