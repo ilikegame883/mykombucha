@@ -1,18 +1,32 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
-import { useTheme } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
-import Grid from "@mui/material/Grid";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import { Divider, Stack } from "@mui/material";
+import useSWR from "swr";
+import {
+  Box,
+  useTheme,
+  Typography,
+  Avatar,
+  Grid,
+  CircularProgress,
+  ListItem,
+  ListItemText,
+  ListItemAvatar,
+  Divider,
+  Stack,
+} from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 
-const TopRaters = ({ topRaters }) => {
+const fetcher = (url) => fetch(url).then((r) => r.json());
+
+const TopRaters = ({ slug }) => {
   const theme = useTheme();
+
+  const { data: topRaters } = useSWR(
+    `/api/breweries/${slug}/top-users`,
+    fetcher
+  );
+
+  if (!topRaters) return <CircularProgress />;
   return (
     <Box pt={1}>
       <Box>

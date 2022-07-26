@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Divider,
@@ -20,6 +19,7 @@ import {
   ListItemAvatar,
   useMediaQuery,
   Chip,
+  useTheme,
 } from "@mui/material";
 import ProductTableSearchBar from "../../ProductTable/ProductTableSearchBar";
 import ProductSearchNotFound from "../../ProductTable/ProductSearchNotFound";

@@ -39,12 +39,12 @@ const BreweryProfile = ({ breweryData, session }) => {
     product_type,
   } = breweryData;
 
-  const [addToList, setAddToList] = useState(false);
+  const [favoriteGivenByUser, setFavoriteGivenByUser] = useState(false);
 
   useEffect(() => {
     if (session) {
-      const userInFavoriteList = favorite_list.includes(session.user._id);
-      userInFavoriteList && setAddToList(true);
+      const findUserInFavoriteList = favorite_list.includes(session.user._id);
+      findUserInFavoriteList && setFavoriteGivenByUser(true);
     }
     return;
   }, []);
@@ -59,7 +59,7 @@ const BreweryProfile = ({ breweryData, session }) => {
       user_id: session.user._id,
     });
     mutate(`/api/breweries/${slug}`);
-    setAddToList(!addToList);
+    setFavoriteGivenByUser(!favoriteGivenByUser);
   };
 
   return (
@@ -72,24 +72,27 @@ const BreweryProfile = ({ breweryData, session }) => {
           p: 1.5,
         }}
       >
-        <Stack direction="row" spacing={1} alignItems="center">
+        <Box>
           <Tooltip title="Edit brewery info">
             <IconButton sx={{ padding: 0 }}>
               <EditOutlinedIcon color="action" />
             </IconButton>
           </Tooltip>
-        </Stack>
+        </Box>
+
         <Stack direction="row" spacing={2} alignItems="center">
           <Typography variant="caption" color="text.primary" fontWeight="500">
-            {addToList && "You favorited this brewery"}
+            {favoriteGivenByUser && "You favorited this brewery"}
           </Typography>
           <Tooltip
             title={
-              addToList ? "Remove from favorites" : "Favorite this Brewery"
+              favoriteGivenByUser
+                ? "Remove from favorites"
+                : "Favorite this Brewery"
             }
           >
             <IconButton sx={{ padding: 0 }} onClick={handleClickFavorite}>
-              {addToList ? (
+              {favoriteGivenByUser ? (
                 <FavoriteIcon color="primary" />
               ) : (
                 <FavoriteBorderIcon color="primary" />

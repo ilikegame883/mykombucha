@@ -1,31 +1,20 @@
 import Head from "next/head";
-import useSWR from "swr";
-import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
-import { Box, Container, Grid, Paper, CircularProgress } from "@mui/material";
+import { useSession } from "next-auth/react";
+import { Box, Container, Grid, Paper } from "@mui/material";
 import { getData } from "../../src/utils/fetchData";
+import { default as BreweryModel } from "../../src/models/breweryModel";
 import { BreweryProductTable, TopRaters } from "../../src/components/Brewery";
 import BreweryProfile from "../../src/components/Brewery/BreweryProfile";
 import { MainLayout } from "../../src/components/Layout";
+import connectDB from "../../src/lib/connectDB";
 
-const fetcher = (url) => fetch(url).then((r) => r.json());
-
-const Brewery = ({ topRaters, session }) => {
-  //Client fetch for SINGLEBREWERYDATA??
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const { data: singleBreweryData, error } = useSWR(
-    `/api/breweries/${slug}`,
-    fetcher
-  );
-
-  if (!singleBreweryData) return <CircularProgress color="primary" />;
+const Brewery = ({ singleBreweryData, slug }) => {
+  const { data: session } = useSession();
 
   return (
     <>
       <Head>
-        <title>{singleBreweryData[0].name}</title>
+        <title>{singleBreweryData.name}</title>
       </Head>
       <MainLayout>
         <Container maxWidth="lg" sx={{ py: 5 }}>
@@ -33,7 +22,7 @@ const Brewery = ({ topRaters, session }) => {
             <Grid item xs={12} md={9}>
               <Paper sx={{ mb: 1.5 }}>
                 <BreweryProfile
-                  breweryData={singleBreweryData[0]}
+                  breweryData={singleBreweryData}
                   session={session}
                 />
               </Paper>
@@ -41,14 +30,14 @@ const Brewery = ({ topRaters, session }) => {
 
             <Grid item xs={12} md={3} sx={{ mb: { xs: 2 } }}>
               <Paper>
-                <TopRaters topRaters={topRaters} />
+                <TopRaters slug={slug} />
               </Paper>
             </Grid>
 
             <Grid item xs={12} md={9}>
               <Box sx={{ mb: 1.5 }}>
                 <BreweryProductTable
-                  breweryData={singleBreweryData[0]}
+                  breweryData={singleBreweryData}
                   session={session}
                 />
               </Box>
@@ -60,17 +49,25 @@ const Brewery = ({ topRaters, session }) => {
   );
 };
 
-export async function getServerSideProps(ctx) {
-  const session = await getSession(ctx);
-  // const [singleBreweryData] = await getData("brewery", ctx.params.slug);
-  const topRaters = await getData(`breweries/${ctx.params.slug}/top-users`);
+export async function getStaticPaths() {
+  await connectDB();
+
+  const brewerySlugList = await BreweryModel.distinct("slug");
+  const params = brewerySlugList.map((slug) => ({ params: { slug } }));
 
   return {
+    fallback: false,
+    paths: params,
+  };
+}
+export async function getStaticProps({ params }) {
+  const [singleBreweryData] = await getData(`breweries`, params.slug);
+  return {
     props: {
-      session,
-      // singleBreweryData,
-      topRaters,
+      singleBreweryData,
+      slug: params.slug,
     },
+    revalidate: 45,
   };
 }
 
