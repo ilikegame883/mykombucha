@@ -23,9 +23,9 @@ const Profile = ({ userData }) => {
   return (
     <>
       <AlertToast />
-      <Grid container columnSpacing={2}>
+      <Grid container columnSpacing={1.5}>
         <Grid item xs={12} md={8} lg={9}>
-          <Paper sx={{ mb: 2.5 }}>
+          <Paper sx={{ mb: 1.5 }}>
             <UserInfo
               userData={userData}
               userReviews={userReviews}
