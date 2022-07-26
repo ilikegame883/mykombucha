@@ -10,7 +10,7 @@ import {
   KombuchaTopReview,
 } from "../../../src/components/Kombucha/ReviewTable";
 import { MainLayout } from "../../../src/components/Layout";
-import ProfileTopBar from "../../../src/components/Kombucha/KombuchaProfile/ProfileTopBar.js/ProfileTopBar";
+import ProfileTopBar from "../../../src/components/Kombucha/KombuchaProfile/ProfileTopBar";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -19,7 +19,6 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
 
   //load reviews, client side with useSWR
   const { data: kombuchaReviews, error } = useSWR(
-    // `/api/kombucha/${id}/reviews`,
     `/api/kombucha/${kombuchaId}/reviews`,
     fetcher
   );
