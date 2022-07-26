@@ -92,7 +92,7 @@ const TopKombuchaList = ({ kombuchaList }) => {
                       component="span"
                       sx={{ verticalAlign: "top" }}
                     >
-                      ({k.avg})
+                      ({k.avg.toFixed(2)})
                     </Typography>
                   </Box>
                 </Stack>

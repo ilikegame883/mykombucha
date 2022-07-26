@@ -141,7 +141,7 @@ const UserReviewTable = ({ userReviews }) => {
         brewery,
         kombucha_info.product_type,
         rating,
-        kombucha_info.avg,
+        kombucha_info.avg.toFixed(2),
         dateOnly,
         kombucha_info._id,
         user,

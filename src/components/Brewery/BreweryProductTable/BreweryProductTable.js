@@ -143,7 +143,7 @@ const BreweryProductTable = ({ breweryData, session }) => {
         name,
         product_type,
         userSessionRating,
-        avg,
+        avg.toFixed(2),
         review_count,
         dateOnly,
         _id,
