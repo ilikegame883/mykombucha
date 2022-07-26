@@ -11,6 +11,7 @@ import {
 } from "../../../src/components/Kombucha/ReviewTable";
 import { MainLayout } from "../../../src/components/Layout";
 import ProfileTopBar from "../../../src/components/Kombucha/KombuchaProfile/ProfileTopBar";
+import AlertToast from "../../../src/components/AlertToast";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -24,6 +25,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
 
   return (
     <MainLayout>
+      <AlertToast />
       <Container maxWidth="lg" sx={{ py: 5 }}>
         <Grid container columnSpacing={2}>
           <Grid item xs={12} md={9}>

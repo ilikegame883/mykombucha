@@ -8,7 +8,6 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
-import AlertToast from "../../../AlertToast";
 import { patchData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
 import { toggleToast } from "../../../../stores/actions";
@@ -54,7 +53,6 @@ const ProfileTopBar = ({ kombuchaId }) => {
 
   return (
     <>
-      <AlertToast />
       <Box
         sx={{
           display: "flex",
