@@ -1,7 +1,8 @@
 import useSWR from "swr";
 import Kombucha from "../../../src/models/kombuchaModel";
-import { Container, Grid, Paper, Typography } from "@mui/material";
+import { Container, Grid, Paper, Typography, Divider } from "@mui/material";
 import { getData } from "../../../src/utils/fetchData";
+import connectDB from "../../../src/lib/connectDB";
 import KombuchaProfile from "../../../src/components/Kombucha/KombuchaProfile";
 import ReviewSideBar from "../../../src/components/Kombucha/ReviewSideBar";
 import {
@@ -9,7 +10,7 @@ import {
   KombuchaTopReview,
 } from "../../../src/components/Kombucha/ReviewTable";
 import { MainLayout } from "../../../src/components/Layout";
-import connectDB from "../../../src/lib/connectDB";
+import ProfileTopBar from "../../../src/components/Kombucha/KombuchaProfile/ProfileTopBar.js/ProfileTopBar";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -29,6 +30,9 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
         <Grid container columnSpacing={2}>
           <Grid item xs={12} md={9}>
             <Paper sx={{ mb: 1.5 }}>
+              <ProfileTopBar kombuchaId={kombuchaId} />
+              <Divider />
+
               <KombuchaProfile kombuchaData={singleKombuchaData} />
             </Paper>
           </Grid>
