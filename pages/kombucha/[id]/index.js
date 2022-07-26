@@ -20,7 +20,6 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
   const { data: kombuchaReviews, error } = useSWR(
     // `/api/kombucha/${id}/reviews`,
     `/api/kombucha/${kombuchaId}/reviews`,
-
     fetcher
   );
 
@@ -88,6 +87,7 @@ export async function getStaticProps({ params }) {
       singleKombuchaData,
       kombuchaId: params.id,
     },
+    revalidate: 1,
   };
 }
 
