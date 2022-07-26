@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 import Link from "next/link";
 import {
   Box,
@@ -17,9 +16,7 @@ import PublicIcon from "@mui/icons-material/Public";
 import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 import CustomChips from "../../CustomChips";
 
-const KombuchaProfile = ({ kombuchaData }) => {
-  const router = useRouter();
-
+const KombuchaProfile = ({ singleKombuchaData }) => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -29,14 +26,12 @@ const KombuchaProfile = ({ kombuchaData }) => {
     name,
     served_in,
     ABV,
-    wish_list_users,
-    _id,
     avg,
     image,
     brewery_slug,
     description,
     flavor,
-  } = kombuchaData;
+  } = singleKombuchaData;
 
   return (
     <>

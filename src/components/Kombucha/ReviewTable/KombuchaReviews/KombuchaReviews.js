@@ -1,17 +1,17 @@
 import React from "react";
-import useSWR, { mutate } from "swr";
-import { useRouter } from "next/router";
+import { mutate } from "swr";
 import { useSession } from "next-auth/react";
 import { Typography, Box, CircularProgress, Divider } from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 import { patchData } from "../../../../utils/fetchData";
 import ReviewCard from "../ReviewCard";
 
-const KombuchaReviews = ({ kombuchaReviews }) => {
+const KombuchaReviews = ({
+  kombuchaReviews,
+  isReviewDataLoading,
+  kombuchaId,
+}) => {
   const { data: session } = useSession();
-  const router = useRouter();
-
-  const { id } = router.query;
 
   const handleClickLikeIcon = async (reviewId) => {
     if (!session) {
@@ -25,11 +25,11 @@ const KombuchaReviews = ({ kombuchaReviews }) => {
     //remove review id from list if user removes their like
     //use useSWR mutate for live update
     await patchData(`reviews/${reviewId}/like`, { user: session.user._id });
-    mutate(`/api/kombucha/${id}/reviews`);
-    mutate(`/api/kombucha/${id}/reviews/top-review`);
+    mutate(`/api/kombucha/${kombuchaId}/reviews`);
+    mutate(`/api/kombucha/${kombuchaId}/reviews/top-review`);
   };
 
-  if (!kombuchaReviews) return <CircularProgress color="primary" />;
+  if (isReviewDataLoading) return <CircularProgress color="primary" />;
 
   return (
     <>

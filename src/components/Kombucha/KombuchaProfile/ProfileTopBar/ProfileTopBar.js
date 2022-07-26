@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { Box, Typography, Stack, IconButton, Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -15,25 +16,24 @@ import { toggleToast } from "../../../../stores/actions";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const ProfileTopBar = ({ kombuchaId }) => {
-  const [addToList, setAddToList] = useState(false);
   const { dispatch } = useContext(AlertContext);
   const { data: session } = useSession();
+
+  const router = useRouter();
 
   const { data: kombuchaData } = useSWR(
     session?.user ? `/api/kombucha/${kombuchaId}` : null,
     fetcher
   );
 
-  useEffect(() => {
-    if (session) {
-      const usernameSession = session.user.username || null;
-      kombuchaData &&
-        kombuchaData[0].wish_list_users.forEach(
-          (list) => list.username === usernameSession && setAddToList(true)
-        );
-    }
-    return;
-  }, [kombuchaData]);
+  //check if user in session has already added kombucha to wish list
+  //each kombucha document contains wish_list array field
+  const checkUserSessionWishList =
+    session &&
+    kombuchaData &&
+    kombuchaData[0].wish_list_users.find(
+      ({ username }) => username === session.user.username
+    );
 
   const handleClickAddIcon = async () => {
     if (!session) {
@@ -44,8 +44,9 @@ const ProfileTopBar = ({ kombuchaId }) => {
       kombucha_id: kombuchaId,
       date: moment().format("YYYY/MM/DD"),
     });
+
     if (res?.msg) {
-      setAddToList(!addToList);
+      mutate(`/api/kombucha/${kombuchaId}`);
       dispatch(toggleToast("success", res.msg, true));
     }
     if (res?.err) dispatch(toggleToast("error", res.err, true));
@@ -72,16 +73,20 @@ const ProfileTopBar = ({ kombuchaId }) => {
           </Link>
         </Stack>
         <Stack direction="row" alignItems="center" spacing={2}>
-          {addToList && (
+          {checkUserSessionWishList && (
             <Typography component="span" sx={{ fontSize: 12 }}>
               This item is in your wish list
             </Typography>
           )}
           <Tooltip
-            title={addToList ? "Remove from wish list" : "Add to wish list"}
+            title={
+              checkUserSessionWishList
+                ? "Remove from wish list"
+                : "Add to wish list"
+            }
           >
             <IconButton sx={{ padding: 0 }} onClick={handleClickAddIcon}>
-              {addToList ? (
+              {checkUserSessionWishList ? (
                 <AddCircleIcon color="primary" />
               ) : (
                 <AddCircleOutlineIcon color="primary" />

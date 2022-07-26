@@ -15,13 +15,12 @@ import ProfileTopBar from "../../../src/components/Kombucha/KombuchaProfile/Prof
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
-  const { review_count } = singleKombuchaData;
-
   //load reviews, client side with useSWR
   const { data: kombuchaReviews, error } = useSWR(
     `/api/kombucha/${kombuchaId}/reviews`,
     fetcher
   );
+  const isReviewDataLoading = !error && !kombuchaReviews;
 
   return (
     <MainLayout>
@@ -31,15 +30,15 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
             <Paper sx={{ mb: 1.5 }}>
               <ProfileTopBar kombuchaId={kombuchaId} />
               <Divider />
-
-              <KombuchaProfile kombuchaData={singleKombuchaData} />
+              <KombuchaProfile singleKombuchaData={singleKombuchaData} />
             </Paper>
           </Grid>
 
           <Grid item xs={12} md={3} mb={1.5}>
             <ReviewSideBar
+              singleKombuchaData={singleKombuchaData}
               kombuchaReviews={kombuchaReviews}
-              kombuchaData={singleKombuchaData}
+              isReviewDataLoading={isReviewDataLoading}
             />
           </Grid>
 
@@ -48,7 +47,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
               <Typography variant="h6" color="text.primary" fontWeight="600">
                 Top Review
               </Typography>
-              <KombuchaTopReview />
+              <KombuchaTopReview kombuchaId={kombuchaId} />
             </Paper>
           </Grid>
 
@@ -60,10 +59,14 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
                 fontWeight="600"
                 gutterBottom
               >
-                Reviews ({review_count})
+                Reviews ({!isReviewDataLoading && kombuchaReviews.length})
               </Typography>
 
-              <KombuchaReviews kombuchaReviews={kombuchaReviews} />
+              <KombuchaReviews
+                kombuchaReviews={kombuchaReviews}
+                isReviewDataLoading={isReviewDataLoading}
+                kombuchaId={kombuchaId}
+              />
             </Paper>
           </Grid>
         </Grid>

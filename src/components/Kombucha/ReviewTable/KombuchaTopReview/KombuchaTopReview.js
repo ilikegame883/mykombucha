@@ -1,22 +1,18 @@
 import useSWR from "swr";
-import { useRouter } from "next/router";
 import { Typography, Box, CircularProgress } from "@mui/material";
 import ReviewCard from "../ReviewCard";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-const KombuchaTopReview = () => {
-  const router = useRouter();
-  const { id } = router.query;
-
+const KombuchaTopReview = ({ kombuchaId }) => {
   //load top review client side with useSWR
   const { data: topReview, error } = useSWR(
-    `/api/kombucha/${id}/reviews/top-review`,
+    `/api/kombucha/${kombuchaId}/reviews/top-review`,
     fetcher
   );
+  const isTopReviewDataLoading = !error && !topReview;
 
-  if (error) return <div>Failed to load</div>;
-  if (!topReview) return <CircularProgress color="primary" />;
+  if (isTopReviewDataLoading) return <CircularProgress color="primary" />;
 
   return (
     <Box>

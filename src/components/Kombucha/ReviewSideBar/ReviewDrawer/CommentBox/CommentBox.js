@@ -1,11 +1,11 @@
-import { TextField, Box } from "@mui/material";
+import { TextField, Box, FormHelperText } from "@mui/material";
 
 const CommentBox = ({ comment, handleChange }) => {
   return (
     <Box>
       <TextField
         id="review-comments"
-        placeholder="Must be at least 10 characters in length."
+        placeholder="Share your experience with this kombucha."
         required
         multiline
         fullWidth
@@ -14,10 +14,10 @@ const CommentBox = ({ comment, handleChange }) => {
         value={comment}
         onChange={handleChange}
         type="text"
-        inputProps={{
-          minLength: 10,
-        }}
       />
+      <FormHelperText error>
+        {comment.length <= 10 && "Must be at least 10 char in length"}
+      </FormHelperText>
     </Box>
   );
 };
