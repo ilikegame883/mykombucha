@@ -14,26 +14,18 @@ const validationSchema = yup.object({
   username: yup
     .string()
     .trim()
-    .min(2, "Username must be longer than 2 characters")
-    .max(20, "Please enter a valid username")
-    .required("Please specify your username"),
+    .min(3, "Username must be longer than 3 characters")
+    .max(12, "Please enter a valid username")
+    .required("Please specify your username")
+    .matches(
+      /^[a-zA-Z0-9@]+$/,
+      "This field cannot contain white space and special character"
+    ),
   email: yup
     .string()
     .trim()
     .email("Please enter a valid email address")
     .required("Email is required."),
-  firstname: yup
-    .string()
-    .trim()
-    .min(2, "Please enter a valid name")
-    .max(25, "Please enter a valid name")
-    .required("Please specify your first name"),
-  lastname: yup
-    .string()
-    .trim()
-    .min(2, "Please enter a valid name")
-    .max(25, "Please enter a valid name")
-    .required("Please specify your last name"),
   password: yup
     .string()
     .trim()
@@ -48,8 +40,6 @@ const validationSchema = yup.object({
 
 const RegisterForm = () => {
   const initialValues = {
-    firstname: "",
-    lastname: "",
     username: "",
     email: "",
     password: "",
@@ -82,45 +72,11 @@ const RegisterForm = () => {
           Create an Account
         </Typography>
         <Typography color="text.secondary" variant="subtitle1">
-          Register to access all myKombucha features!
+          Sign up to access all of myKombucha features!
         </Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={3}>
-          <Grid item xs={6} sm={6}>
-            <Typography variant="body1" mb={1.5} fontWeight="600">
-              First Name
-            </Typography>
-            <TextField
-              size="small"
-              label="First Name *"
-              variant="outlined"
-              name="firstname"
-              fullWidth
-              value={formik.values.firstname}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.firstname && Boolean(formik.errors.firstname)
-              }
-              helperText={formik.touched.firstname && formik.errors.firstname}
-            />
-          </Grid>
-          <Grid item xs={6} sm={6}>
-            <Typography variant="body1" mb={1.5} fontWeight="700">
-              Last Name
-            </Typography>
-            <TextField
-              size="small"
-              label="Last Name *"
-              variant="outlined"
-              name="lastname"
-              fullWidth
-              value={formik.values.lastname}
-              onChange={formik.handleChange}
-              error={formik.touched.lastname && Boolean(formik.errors.lastname)}
-              helperText={formik.touched.lastname && formik.errors.lastname}
-            />
-          </Grid>
           <Grid item xs={12} sm={6}>
             <Typography variant="body1" mb={1.5} fontWeight="600">
               Enter a username
