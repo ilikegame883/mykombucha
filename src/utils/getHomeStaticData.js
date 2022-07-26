@@ -10,9 +10,9 @@ const getHomeStaticData = async () => {
   const breweryList = breweryResult.map((doc) => {
     doc._id = doc._id.toString();
     doc.updatedAt = doc.updatedAt.toString();
+    doc.favorite_list = doc.favorite_list.toString();
     return doc;
   });
-
   const kombuchaResult = await Kombucha.aggregate([
     //search kombucha with user reviews greater than 1
     //set to 0 for now since not enough ratings
@@ -36,7 +36,7 @@ const getHomeStaticData = async () => {
     doc.updatedAt = doc.updatedAt.toString();
     doc.brewery._id = doc.brewery._id.toString();
     doc.brewery.updatedAt = doc.brewery.updatedAt.toString();
-
+    doc.brewery.favorite_list = doc.brewery.favorite_list.toString();
     return doc;
   });
 

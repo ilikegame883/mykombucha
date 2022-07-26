@@ -23,17 +23,22 @@ const brewerySchema = new mongoose.Schema(
     image: {
       type: String,
     },
-
+    slug: {
+      type: String,
+      required: true,
+    },
     product_type: [String],
-    // products: [{ type: mongoose.Types.ObjectId, ref: "Kombucha" }],
-
-    love_list: [{ type: mongoose.Types.ObjectId, ref: "User" }],
-
+    type: {
+      type: String,
+    },
+    favorite_list: [{ type: mongoose.Types.ObjectId, ref: "User" }],
+    favorite_count: {
+      type: Number,
+    },
     category: {
       type: String,
       required: true,
     },
-    //should be an array
     urls: [
       {
         website: { type: String },
@@ -42,10 +47,6 @@ const brewerySchema = new mongoose.Schema(
         facebook: { type: String },
       },
     ],
-    love_count: {
-      type: Number,
-      required: true,
-    },
   },
   {
     timestamps: true,

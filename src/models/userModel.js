@@ -6,24 +6,17 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    firstname: {
-      type: String,
-      required: true,
-    },
-    lastname: {
-      type: String,
-      required: true,
-    },
     email: {
       type: String,
       required: true,
       unique: true,
+      lowercase: true,
     },
     password: {
       type: String,
       required: true,
       // select: false,
-      //password will be not accesssible by default with select false
+      //password will be not accesssible by default with select: false
     },
     role: {
       type: String,
@@ -37,12 +30,9 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    // likes_received: {
-    //   type: Number,
-    //   default: 0,
-    // },
     avatar: {
       type: String,
+      default: "",
     },
     city: {
       type: String,
@@ -56,7 +46,6 @@ const userSchema = new mongoose.Schema(
 
     wish_list: [{ type: mongoose.Types.ObjectId, ref: "Kombucha" }],
     favorite_brewery: [{ type: mongoose.Types.ObjectId, ref: "Brewery" }],
-    // reviews_liked: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
   },
   {
     timestamps: true,
