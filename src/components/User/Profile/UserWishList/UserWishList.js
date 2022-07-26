@@ -24,7 +24,6 @@ const UserWishList = ({ wishList }) => {
       <Divider />
 
       <WishListItems wishList={wishList} />
-      <Divider />
       <Box display="flex" justifyContent="center">
         <Button
           variant="text"

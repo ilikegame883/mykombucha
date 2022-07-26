@@ -99,7 +99,7 @@ const UserInfo = ({ userData, userReviews, name }) => {
               {bio
                 ? `${bio}`
                 : session && session.user.username === name
-                ? "Update your profile info in Account Settings"
+                ? "Go to Account Settings to update your location & bio"
                 : ""}
             </Typography>
           </Stack>

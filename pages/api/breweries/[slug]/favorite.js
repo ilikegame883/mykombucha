@@ -14,7 +14,7 @@ const handler = async (req, res) => {
 
     const userObjectId = mongoose.Types.ObjectId(user_id);
 
-    //add or remove favorite (heart) for brewery
+    //add or remove users who gave favorite to brewery
     await Brewery.updateOne({ slug }, [
       {
         $set: {

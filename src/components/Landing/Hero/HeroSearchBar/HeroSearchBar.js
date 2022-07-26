@@ -30,12 +30,11 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
     "&& li.Mui-focused": {
       backgroundColor: "#fff",
     },
-    "&:hover": {},
     [`& .${autocompleteClasses.option}`]: {
       //option is the search result list item
-      alignItems: "flex-start",
-      padding: 10,
-      borderBottom: "1px solid  #eaecef",
+      padding: "0px 10px",
+      alignItems: "center",
+      borderBottom: "1px solid #eaecef",
     },
   },
 }));
@@ -79,16 +78,7 @@ const HeroSearchBar = () => {
         groupBy={(option) => option.category}
         getOptionLabel={(option) => option.name || ""}
         renderInput={(params) => (
-          <Box
-            component={Card}
-            sx={
-              {
-                //remove the bottom border radius on the textfield when search dropdown is open and inputValue is not empty
-                // borderBottomLeftRadius: searchData && 0,
-                // borderBottomRightRadius: searchData && 0,
-              }
-            }
-          >
+          <Box component={Card}>
             <TextField
               {...params}
               variant="outlined"
@@ -163,7 +153,9 @@ const HeroSearchBar = () => {
                         fontWeight: 600,
                         component: "a",
                       }}
-                      // secondary={category === "kombucha" && brewery_name}
+                      secondary={
+                        category === "kombucha" ? brewery_name : "Brewery"
+                      }
                     />
                   </ListItem>
                 </Box>

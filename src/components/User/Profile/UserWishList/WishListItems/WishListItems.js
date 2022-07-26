@@ -46,12 +46,7 @@ const WishListItems = ({ wishList }) => {
           (list) => list.username === name
         );
         return (
-          <Grid
-            item
-            xs={12}
-            key={i}
-            sx={{ "&:last-child hr": { display: "none" } }}
-          >
+          <Grid item xs={12} key={i}>
             <Box p={1.5}>
               <ListItem disableGutters sx={{ padding: 0 }}>
                 <ListItemAvatar>

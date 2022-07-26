@@ -34,13 +34,14 @@ const Topbar = ({ onSidebarOpen }) => {
   const router = useRouter();
   //when user decides to update the avatar picture on settings page,
   //userdata is fetched clientside for live update of avatar photo on the topbar
+  //fetch only when user is in session
   const { data: userData } = useSWR(
     session?.user ? `/api/users/${session.user.username}` : null,
     fetcher,
     { revalidateOnFocus: false }
   );
 
-  const userSessionAvatar = userData ? userData[0].avatar : "";
+  const userSessionAvatar = userData && userData[0].avatar;
 
   const isAuthPage =
     router.pathname === "/signin" || router.pathname === "/register";
@@ -57,6 +58,7 @@ const Topbar = ({ onSidebarOpen }) => {
     <Toolbar
       sx={{
         justifyContent: "space-between",
+        mt: { xs: 1, sm: 0 },
       }}
       disableGutters
     >
@@ -254,10 +256,12 @@ const Topbar = ({ onSidebarOpen }) => {
               <Button
                 variant="outlined"
                 disableRipple
+                size="small"
                 sx={{
                   color: "common.white",
                   fontWeight: "500",
                   border: "1px solid #fff",
+                  "&:hover": { borderColor: "common.white" },
                 }}
               >
                 Login

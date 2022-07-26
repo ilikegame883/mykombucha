@@ -9,8 +9,7 @@ const handler = async (req, res) => {
     return;
   }
   try {
-    const { username, email, password, cf_password, firstname, lastname } =
-      req.body;
+    const { username, email, password, cf_password } = req.body;
 
     const existingUser = await Users.findOne({ email });
     if (existingUser)
@@ -19,8 +18,6 @@ const handler = async (req, res) => {
     const passwordHash = await bcrypt.hash(password, 12);
 
     const newUser = new Users({
-      firstname,
-      lastname,
       username,
       email,
       password: passwordHash,
