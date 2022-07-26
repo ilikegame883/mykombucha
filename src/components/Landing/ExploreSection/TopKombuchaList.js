@@ -49,30 +49,32 @@ const TopKombuchaList = ({ kombuchaList }) => {
                 </ListItemAvatar>
 
                 <Stack>
-                  <Box>
-                    <Link href={`/kombucha/${k._id}`} passHref>
-                      <Typography
-                        component="a"
-                        variant="body1"
-                        color="text.primary"
-                        fontWeight="700"
-                        sx={{
-                          textDecoration: "none",
-                          "&:hover": {
-                            textDecoration: "underline",
-                          },
-                        }}
-                      >
-                        {k.name}
-                      </Typography>
-                    </Link>
-                  </Box>
+                  <Link href={`/kombucha/${k._id}`} passHref>
+                    <Typography
+                      component="a"
+                      variant="body1"
+                      color="text.primary"
+                      fontWeight="600"
+                      sx={{
+                        "&:hover": {
+                          textDecoration: "underline",
+                        },
+                      }}
+                    >
+                      {k.name}
+                    </Typography>
+                  </Link>
                   <Box mb={0.25}>
                     <Link href={`/breweries/${k.brewery_slug}`} passHref>
                       <Typography
                         component="a"
                         variant="body2"
                         color="text.primary"
+                        sx={{
+                          "&:hover": {
+                            textDecoration: "underline",
+                          },
+                        }}
                       >
                         {k.brewery.name} Brewery
                       </Typography>

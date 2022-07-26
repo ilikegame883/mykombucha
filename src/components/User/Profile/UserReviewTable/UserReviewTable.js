@@ -19,7 +19,6 @@ import ReviewNotFound from "./ReviewNotFound";
 import { deleteData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
 import { toggleToast } from "../../../../stores/actions";
-import AlertToast from "../../../AlertToast";
 import ReviewRow from "./ReviewRow/ReviewRow";
 
 const TABLE_HEAD = [
@@ -177,21 +176,16 @@ const UserReviewTable = ({ userReviews }) => {
   };
 
   const handleDelete = async (reviewData) => {
-    try {
-      await deleteData("reviews", reviewData);
+    const res = await deleteData("reviews", reviewData);
+    if (res?.msg) {
+      //swr will not revalidate unless mutate is called
       mutate(`/api/users/${session.user.username}/reviews`);
-      //swr will not update with refresh unless mutate is called?
-      // router.replace(router.asPath);
-      dispatch(toggleToast("success", "Review Deleted"));
-    } catch (err) {
-      console.log(err);
-      dispatch(toggleToast("error", "Something went wrong"));
+      dispatch(toggleToast("success", msg, true));
+    }
+    if (res?.err) {
+      dispatch(toggleToast("error", "Something went wrong", true));
     }
   };
-
-  //get # of emptyRows if row items are less than the set amount of rows per page (5)
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - reviewRows.length) : 0;
 
   const filteredReview = applySearchFilter(reviewRows, searchUserReview);
   const isReviewNotFound = filteredReview.length === 0;
@@ -262,7 +256,6 @@ const UserReviewTable = ({ userReviews }) => {
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
-      <AlertToast />
     </>
   );
 };

@@ -23,7 +23,7 @@ const DeleteUserItem = ({ handleDelete, item }) => {
   };
 
   return (
-    <div>
+    <>
       <IconButton sx={{ p: 0 }} onClick={handleClickOpenAlert}>
         <DeleteOutlineIcon fontSize="small" />
       </IconButton>
@@ -66,7 +66,7 @@ const DeleteUserItem = ({ handleDelete, item }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import { Grid, Paper, CircularProgress } from "@mui/material";
 import UserInfo from "./UserInfo";
 import UserWishList from "./UserWishList";
 import UserReviewTable from "./UserReviewTable";
+import AlertToast from "../../AlertToast";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -21,6 +22,7 @@ const Profile = ({ userData }) => {
 
   return (
     <>
+      <AlertToast />
       <Grid container columnSpacing={2}>
         <Grid item xs={12} md={8} lg={9}>
           <Paper sx={{ mb: 2.5 }}>

@@ -1,7 +1,8 @@
 import { Chip, Box } from "@mui/material";
 import getChipColor from "../utils/getChipColor";
 
-//Render custom chips based on  Kombucha and/or Brewery product types (e.g. "kombucha, hard kombucha, jun, etc...")
+//Render custom chips based on  Kombucha and/or Brewery product types
+//(e.g. "kombucha, hard kombucha, jun, etc...")
 const CustomChips = ({ type }) => {
   if (!Array.isArray(type))
     return (
@@ -10,7 +11,7 @@ const CustomChips = ({ type }) => {
         size="small"
         sx={{
           mr: 0.25,
-          fontSize: "0.80em",
+          fontSize: "0.85em",
           height: 20,
 
           color: "text.primary",

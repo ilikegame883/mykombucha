@@ -23,11 +23,7 @@ const ReviewSearchBar = ({
             <ClearIcon fontSize="small" color="disabled" />
           </IconButton>
         }
-        sx={{
-          height: 35,
-          width: { xs: 180, md: "auto" },
-          borderRadius: 5,
-        }}
+        sx={{ height: 35, borderRadius: 2.5, width: { xs: 200, sm: 250 } }}
       />
     </>
   );

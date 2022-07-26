@@ -63,14 +63,13 @@ const ReviewRow = ({ row, handleDelete, session }) => {
                     variant="caption"
                     color="text.secondary"
                     sx={{
-                      textDecoration: "none",
                       "&:hover": {
                         textDecoration: "underline",
                       },
                     }}
                     noWrap
                   >
-                    {row.brewery} Brewing Co.
+                    {row.brewery} Brewery
                   </Typography>
                 </Link>
               </Box>
@@ -80,15 +79,12 @@ const ReviewRow = ({ row, handleDelete, session }) => {
         <TableCell align="right">
           <CustomChips type={row.product_type} />
         </TableCell>
-        <TableCell align="right" sx={{ fontWeight: 700 }}>
+        <TableCell align="right" sx={{ fontWeight: 600 }}>
           {row.rating}
         </TableCell>
         <TableCell align="right">{row.avg}</TableCell>
-        <TableCell
-          align="right"
-          sx={{ fontSize: { xs: "0.6rem", sm: "0.875rem" } }}
-        >
-          {row.date}
+        <TableCell align="right">
+          <Typography variant="caption">{row.date}</Typography>
         </TableCell>
         {session && session.user.username === name ? (
           <TableCell align="left">
