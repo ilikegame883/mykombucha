@@ -4,40 +4,36 @@ import { getData } from "../../src/utils/fetchData";
 import { BreweryProductTable, TopRaters } from "../../src/components/Brewery";
 import BreweryProfile from "../../src/components/Brewery/BreweryProfile";
 import { MainLayout } from "../../src/components/Layout";
-import AlertToast from "../../src/components/AlertToast";
 import ProfileTopBar from "../../src/components/Brewery/BreweryProfile/ProfileTopBar";
 import connectDB from "../../src/lib/connectDB";
 
 const Brewery = ({ singleBreweryData, topRaters }) => {
   return (
-    <>
-      <AlertToast />
-      <MainLayout title={`${singleBreweryData.name} Brewery`}>
-        <Container maxWidth="lg" sx={{ py: 5 }}>
-          <Grid container columnSpacing={2}>
-            <Grid item xs={12} md={9}>
-              <Paper sx={{ mb: 1.5 }}>
-                <ProfileTopBar />
-                <Divider />
-                <BreweryProfile singleBreweryData={singleBreweryData} />
-              </Paper>
-            </Grid>
-
-            <Grid item xs={12} md={3} sx={{ mb: { xs: 2 } }}>
-              <Paper>
-                <TopRaters topRaters={topRaters} />
-              </Paper>
-            </Grid>
-
-            <Grid item xs={12} md={9}>
-              <Box sx={{ mb: 1.5 }}>
-                <BreweryProductTable singleBreweryData={singleBreweryData} />
-              </Box>
-            </Grid>
+    <MainLayout title={`${singleBreweryData.name} Brewery`}>
+      <Container maxWidth="lg" sx={{ py: 5 }}>
+        <Grid container columnSpacing={2}>
+          <Grid item xs={12} md={9}>
+            <Paper sx={{ mb: 1.5 }}>
+              <ProfileTopBar />
+              <Divider />
+              <BreweryProfile singleBreweryData={singleBreweryData} />
+            </Paper>
           </Grid>
-        </Container>
-      </MainLayout>
-    </>
+
+          <Grid item xs={12} md={3} sx={{ mb: { xs: 2 } }}>
+            <Paper>
+              <TopRaters topRaters={topRaters} />
+            </Paper>
+          </Grid>
+
+          <Grid item xs={12} md={9}>
+            <Box sx={{ mb: 1.5 }}>
+              <BreweryProductTable singleBreweryData={singleBreweryData} />
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </MainLayout>
   );
 };
 

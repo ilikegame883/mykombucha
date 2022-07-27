@@ -12,6 +12,7 @@ import {
 import Topbar from "./Topbar";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
+import AlertToast from "../../AlertToast";
 
 const MainLayout = ({
   bgcolor = "primary.main",
@@ -72,6 +73,7 @@ const MainLayout = ({
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
       </Head>
+      <AlertToast />
       <AppBar
         position={position}
         width={1}

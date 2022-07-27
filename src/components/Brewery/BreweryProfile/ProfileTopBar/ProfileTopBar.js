@@ -42,6 +42,7 @@ const ProfileTopBar = () => {
     });
     if (res?.msg) {
       mutate(`/api/breweries/${slug}`);
+      dispatch(toggleToast("success", res.msg, true));
     }
     if (res?.err) dispatch(toggleToast("error", res.err, true));
   };

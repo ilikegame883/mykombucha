@@ -180,10 +180,10 @@ const UserReviewTable = ({ userReviews }) => {
     if (res?.msg) {
       //swr will not revalidate unless mutate is called
       mutate(`/api/users/${session.user.username}/reviews`);
-      dispatch(toggleToast("success", msg, true));
+      dispatch(toggleToast("success", res.msg, true));
     }
     if (res?.err) {
-      dispatch(toggleToast("error", "Something went wrong", true));
+      dispatch(toggleToast("error", res.err, true));
     }
   };
 

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { mutate } from "swr";
 import {
   IconButton,
   Box,
@@ -17,12 +18,16 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { imageUpload } from "../../../../utils/imageUpload";
 import { patchData } from "../../../../utils/fetchData";
 import { useRouter } from "next/router";
+import { AlertContext } from "../../../../stores/context/alert.context";
+import { toggleToast } from "../../../../stores/actions";
 
 const Input = styled("input")({
   display: "none",
 });
 
 const EditProfilePicPopup = ({ username, currentPhoto }) => {
+  const { dispatch } = useContext(AlertContext);
+
   const [open, setOpen] = useState(false);
   const [profilePic, setProfilePic] = useState("");
   const [deleteAlert, setDeleteAlert] = useState(false);
@@ -30,21 +35,31 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
 
   const changeProfilePic = (e) => {
     const file = e.target.files[0];
-    if (!file) return alert("File does not exist");
+    if (!file) return toggleToast("error", "File does not exist.", true);
 
     if (file.size > 1024 * 1024)
       //1mb
-      return alert("The largest image size is 1mb.");
+      return dispatch(
+        toggleToast("error", "The largest image size is 1mb.", true)
+      );
 
     if (file.type !== "image/jpeg" && file.type !== "image/png")
       //jpeg & png
-      return alert("Image format is incorrect. Please use jpeg or png photo");
+      return dispatch(
+        toggleToast(
+          "error",
+          "Image format is incorrect. Please use jpeg or png photo.",
+          true
+        )
+      );
 
     setProfilePic(file);
   };
 
   const handleClose = () => {
     setOpen(false);
+    //mutate to real time update user avatar on navbar
+    mutate(`/api/users/${username}`);
     setDeleteAlert(false);
     setProfilePic("");
   };
@@ -55,23 +70,35 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
     if (profilePic) {
       media = await imageUpload(profilePic);
       //add error handling
-      await patchData(`users/${username}`, {
+      const res = await patchData(`users/${username}`, {
         avatar: media.url,
       });
+      if (res?.msg) {
+        dispatch(toggleToast("success", res.msg, true));
+        handleClose();
+        router.replace(router.asPath);
+      }
+      if (res?.err) {
+        dispatch(toggleToast("error", res.err, true));
+      }
     }
-    handleClose();
-    router.replace(router.asPath);
   };
 
   const removePhoto = async () => {
     //add error handling
     if (currentPhoto) {
-      await patchData(`users/${username}`, {
+      const res = await patchData(`users/${username}`, {
         avatar: "",
       });
+      if (res?.msg) {
+        dispatch(toggleToast("success", res.msg, true));
+        handleClose();
+        router.replace(router.asPath);
+      }
+      if (res?.err) {
+        dispatch(toggleToast("error", res.err, true));
+      }
     }
-    handleClose();
-    router.replace(router.asPath);
   };
   return (
     <>
@@ -118,7 +145,7 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
             <CloseOutlinedIcon />
           </IconButton>
           <Box>
-            <Typography variant="h5" fontWeight="500" marginBottom={2}>
+            <Typography variant="h5" fontWeight="600" mb={2}>
               Profile Picture
             </Typography>
 
@@ -191,7 +218,7 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
                   variant="outlined"
                   color="info"
                   onClick={() => {
-                    setOpen(false);
+                    // setOpen(false);
                     setDeleteAlert(false);
                   }}
                 >
