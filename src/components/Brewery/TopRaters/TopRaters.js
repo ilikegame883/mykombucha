@@ -1,13 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 import Link from "next/link";
-import useSWR from "swr";
 import {
   Box,
   useTheme,
   Typography,
   Avatar,
   Grid,
-  CircularProgress,
   ListItem,
   ListItemText,
   ListItemAvatar,
@@ -16,17 +14,9 @@ import {
 } from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 
-const fetcher = (url) => fetch(url).then((r) => r.json());
-
-const TopRaters = ({ slug }) => {
+const TopRaters = ({ topRaters }) => {
   const theme = useTheme();
 
-  const { data: topRaters } = useSWR(
-    `/api/breweries/${slug}/top-users`,
-    fetcher
-  );
-
-  if (!topRaters) return <CircularProgress />;
   return (
     <Box pt={1}>
       <Box>
@@ -65,38 +55,34 @@ const TopRaters = ({ slug }) => {
               },
             }}
           >
-            <Box p={1}>
-              <Box>
-                <ListItem component="div" sx={{ p: 0, pl: 1 }}>
-                  <ListItemAvatar>
-                    <Avatar src={user.avatar} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    sx={{ margin: 0 }}
-                    primary={
-                      <>
-                        <Link href={`/users/${user.username}`} passHref>
-                          <Typography
-                            component="a"
-                            variant="body1"
-                            color="text.primary"
-                            fontWeight="500"
-                            sx={{
-                              "&:hover": { textDecoration: "underline" },
-                            }}
-                          >
-                            {user.username}
-                          </Typography>
-                        </Link>
-                        <Typography variant="body2" color="text.secondary">
-                          {total_reviews} Reviews
-                        </Typography>
-                      </>
-                    }
-                  />
-                </ListItem>
-              </Box>
-            </Box>
+            <ListItem sx={{ py: 1.5, px: 2 }}>
+              <ListItemAvatar>
+                <Avatar src={user.avatar} />
+              </ListItemAvatar>
+              <ListItemText
+                sx={{ margin: 0 }}
+                primary={
+                  <>
+                    <Link href={`/users/${user.username}`} passHref>
+                      <Typography
+                        component="a"
+                        variant="body1"
+                        color="text.primary"
+                        fontWeight="500"
+                        sx={{
+                          "&:hover": { textDecoration: "underline" },
+                        }}
+                      >
+                        {user.username}
+                      </Typography>
+                    </Link>
+                    <Typography variant="body2" color="text.secondary">
+                      {total_reviews} Reviews
+                    </Typography>
+                  </>
+                }
+              />
+            </ListItem>
           </Grid>
         ))}
       </Grid>

@@ -8,7 +8,7 @@ import AlertToast from "../../src/components/AlertToast";
 import ProfileTopBar from "../../src/components/Brewery/BreweryProfile/ProfileTopBar";
 import connectDB from "../../src/lib/connectDB";
 
-const Brewery = ({ singleBreweryData, topRaters, slug }) => {
+const Brewery = ({ singleBreweryData, topRaters }) => {
   return (
     <>
       <AlertToast />
@@ -25,7 +25,7 @@ const Brewery = ({ singleBreweryData, topRaters, slug }) => {
 
             <Grid item xs={12} md={3} sx={{ mb: { xs: 2 } }}>
               <Paper>
-                <TopRaters slug={slug} />
+                <TopRaters topRaters={topRaters} />
               </Paper>
             </Grid>
 
@@ -57,7 +57,7 @@ export async function getStaticProps({ params }) {
   const topRaters = await getData(`breweries/${params.slug}/top-users`);
 
   return {
-    props: { singleBreweryData, topRaters, slug: params.slug },
+    props: { singleBreweryData, topRaters },
     revalidate: 5,
   };
 }
