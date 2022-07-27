@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 import { MainLayout, SettingsLayout } from "../../../../src/components/Layout";
-import Security from "../../../../src/components/User/Settings/Security";
+import { Security } from "../../../../src/components/Forms";
 import { getData } from "../../../../src/utils/fetchData";
 
 const SecuritySettingsPage = ({ userData }) => {

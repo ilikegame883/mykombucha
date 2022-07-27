@@ -1,13 +1,13 @@
 import { getSession } from "next-auth/react";
 import { getData } from "../../../../src/utils/fetchData";
-import { General } from "../../../../src/components/User/Settings";
+import { GeneralSettings } from "../../../../src/components/Forms";
 import { MainLayout, SettingsLayout } from "../../../../src/components/Layout";
 
 const GeneralSettingsPage = ({ userData }) => {
   return (
     <MainLayout position="fixed">
       <SettingsLayout userData={userData}>
-        <General userData={userData} />
+        <GeneralSettings userData={userData} />
       </SettingsLayout>
     </MainLayout>
   );

@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useFormik } from "formik";
@@ -10,6 +11,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { postData } from "../../../utils/fetchData";
 import { Container } from "@mui/material";
+import { AlertContext } from "../../../stores/context/alert.context";
+import { toggleToast } from "../../../stores/actions";
 
 const validationSchema = yup.object({
   username: yup
@@ -40,6 +43,8 @@ const validationSchema = yup.object({
 });
 
 const RegisterForm = () => {
+  const { dispatch } = useContext(AlertContext);
+
   const initialValues = {
     username: "",
     email: "",
@@ -48,15 +53,17 @@ const RegisterForm = () => {
   };
 
   const onSubmit = async (values) => {
-    try {
-      await postData("auth/register", values);
+    const res = await postData("auth/register", values);
+    if (res?.msg) {
+      dispatch(toggleToast("success", res.msg, true));
       await signIn("credentials", {
         email: values.email,
         password: values.password,
         callbackUrl: `${window.location.origin}`,
       });
-    } catch (err) {
-      console.log("loc: catch register handleSubmit" + err);
+      if (res?.err) {
+        dispatch(toggleToast("error", res.err, true));
+      }
     }
   };
 

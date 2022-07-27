@@ -7,10 +7,10 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { patchData } from "../../../../utils/fetchData";
-import AlertSnackBar from "../../../AlertSnackBar";
-import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleAlert } from "../../../../stores/actions";
+import { patchData } from "../../../utils/fetchData";
+import AlertSnackBar from "../../../components/AlertSnackBar";
+import { AlertContext } from "../../../stores/context/alert.context";
+import { toggleAlert } from "../../../stores/actions";
 
 const validationSchema = yup.object({
   currentPassword: yup.string().required("Please specify your password"),
@@ -43,14 +43,14 @@ const Security = () => {
 
     const url = `auth/change-pass`;
     const res = await patchData(url, values);
-    if (res.msg) {
-      resetForm.resetForm();
+    if (res?.msg) {
       dispatch(toggleAlert("success", res.msg));
+      resetForm.resetForm();
       return;
     }
     if (res?.err) {
-      resetForm.resetForm();
       dispatch(toggleAlert("error", res.err));
+      resetForm.resetForm();
       return;
     }
   };
@@ -62,7 +62,7 @@ const Security = () => {
   });
 
   return (
-    <div>
+    <>
       <Box>
         <Box
           display={"flex"}
@@ -78,13 +78,9 @@ const Security = () => {
           <Divider />
         </Box>
         <form onSubmit={formik.handleSubmit}>
-          <Grid container spacing={4}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
-              <Typography
-                variant={"subtitle2"}
-                sx={{ marginBottom: 2 }}
-                fontWeight="700"
-              >
+              <Typography variant="subtitle2" fontWeight="600" mb={1}>
                 Current password
               </Typography>
               <TextField
@@ -105,11 +101,7 @@ const Security = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Typography
-                variant={"subtitle2"}
-                sx={{ marginBottom: 2 }}
-                fontWeight="700"
-              >
+              <Typography variant="subtitle2" fontWeight="600" mb={1}>
                 New password
               </Typography>
               <TextField
@@ -129,11 +121,7 @@ const Security = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Typography
-                variant={"subtitle2"}
-                sx={{ marginBottom: 2 }}
-                fontWeight="700"
-              >
+              <Typography variant="subtitle2" fontWeight="600" mb={1}>
                 Repeat new password
               </Typography>
               <TextField
@@ -160,9 +148,9 @@ const Security = () => {
               <Box>
                 <AlertSnackBar />
                 <Button
-                  size={"large"}
-                  variant={"contained"}
-                  type={"submit"}
+                  size="large"
+                  variant="contained"
+                  type="submit"
                   color="secondary"
                 >
                   Submit
@@ -172,7 +160,7 @@ const Security = () => {
           </Grid>
         </form>
       </Box>
-    </div>
+    </>
   );
 };
 

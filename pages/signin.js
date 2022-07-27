@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 import { Box } from "@mui/material";
-import { SigninForm } from "../src/components/auth";
+import { SigninForm } from "../src/components/Forms";
 import { MainLayout } from "../src/components/Layout";
 
 const Signin = () => {

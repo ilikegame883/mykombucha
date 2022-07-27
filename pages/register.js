@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 import { Box } from "@mui/material";
-import { RegisterForm } from "../src/components/auth";
+import { RegisterForm } from "../src/components/Forms";
 import { MainLayout } from "../src/components/Layout";
 
 const Register = () => {

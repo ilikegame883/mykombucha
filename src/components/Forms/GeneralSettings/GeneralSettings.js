@@ -8,40 +8,26 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { patchData } from "../../../../utils/fetchData";
-import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleAlert } from "../../../../stores/actions";
-import AlertSnackBar from "../../../AlertSnackBar";
+import { patchData } from "../../../utils/fetchData";
+import { AlertContext } from "../../../stores/context/alert.context";
+import { toggleAlert } from "../../../stores/actions";
+import AlertSnackBar from "../../AlertSnackBar";
 
 const validationSchema = yup.object({
-  firstname: yup
-    .string()
-    .trim()
-    .min(2, "Please enter a valid name")
-    .max(25, "Please enter a valid name")
-    .required("Please specify your first name"),
-  lastname: yup
-    .string()
-    .trim()
-    .min(2, "Please enter a valid name")
-    .max(25, "Please enter a valid name")
-    .required("Please specify your last name"),
-  city: yup.string().trim().max(25, "Please enter a valid city"),
-  country: yup.string().trim().max(25, "Please enter a valid country"),
+  city: yup.string().trim().max(20, "Please enter a valid city"),
+  country: yup.string().trim().max(20, "Please enter a valid country"),
 });
 
-const General = ({ userData }) => {
+const GeneralSettings = ({ userData }) => {
   const { dispatch } = useContext(AlertContext);
 
   const router = useRouter();
 
-  const { firstname, lastname, email, username, city, country, bio } = userData;
+  const { email, username, city, country, bio } = userData;
 
   //prefill current user info
   const initialValues = {
     username,
-    firstname,
-    lastname,
     email,
     city,
     country,
@@ -60,20 +46,19 @@ const General = ({ userData }) => {
         break;
       }
     }
-
     if (sameInputValue) {
       dispatch(toggleAlert("error", "No fields have been changed"));
-    } else {
-      try {
-        const url = `user/${username}`;
-        await patchData(url, values);
-        dispatch(toggleAlert("success", "Changes Saved!"));
+      return;
+    }
+    const res = await patchData(`users/${username}`, values);
 
-        //refresh page to show updated value
-        router.replace(`${router.asPath}`);
-      } catch (err) {
-        console.log(err);
-      }
+    if (res?.msg) {
+      dispatch(toggleAlert("success", res.msg));
+      //refresh page to show updated value
+      router.replace(`${router.asPath}`);
+    }
+    if (res?.err) {
+      dispatch(toggleAlert("error", res.err));
     }
   };
 
@@ -85,20 +70,16 @@ const General = ({ userData }) => {
 
   return (
     <div>
-      <Typography variant="h6" gutterBottom fontWeight="700">
+      <Typography variant="h6" gutterBottom fontWeight="600">
         Edit Profile
       </Typography>
       <Box pb={4}>
         <Divider />
       </Box>
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={4}>
+        <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
-            <Typography
-              variant={"subtitle2"}
-              sx={{ marginBottom: 2 }}
-              fontWeight="700"
-            >
+            <Typography variant="subtitle2" fontWeight="600" mb={1}>
               Username
             </Typography>
             <TextField
@@ -110,11 +91,7 @@ const General = ({ userData }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography
-              variant={"subtitle2"}
-              sx={{ marginBottom: 2 }}
-              fontWeight="700"
-            >
+            <Typography variant="subtitle2" fontWeight="600" mb={1}>
               E-mail
             </Typography>
             <TextField
@@ -126,50 +103,7 @@ const General = ({ userData }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography
-              variant={"subtitle2"}
-              sx={{ marginBottom: 2 }}
-              fontWeight="700"
-            >
-              First Name*
-            </Typography>
-            <TextField
-              variant="outlined"
-              name="firstname"
-              fullWidth
-              value={formik.values.firstname}
-              onChange={formik.handleChange}
-              error={
-                formik.touched.firstname && Boolean(formik.errors.firstname)
-              }
-              helperText={formik.touched.firstname && formik.errors.firstname}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography
-              variant={"subtitle2"}
-              sx={{ marginBottom: 2 }}
-              fontWeight="700"
-            >
-              Last Name*
-            </Typography>
-            <TextField
-              variant="outlined"
-              name="lastname"
-              fullWidth
-              value={formik.values.lastname}
-              onChange={formik.handleChange}
-              error={formik.touched.lastname && Boolean(formik.errors.lastname)}
-              helperText={formik.touched.lastname && formik.errors.lastname}
-            />
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <Typography
-              variant={"subtitle2"}
-              sx={{ marginBottom: 2 }}
-              fontWeight="700"
-            >
+            <Typography variant="subtitle2" fontWeight="600" mb={1}>
               City
             </Typography>
             <TextField
@@ -183,11 +117,7 @@ const General = ({ userData }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <Typography
-              variant={"subtitle2"}
-              sx={{ marginBottom: 2 }}
-              fontWeight="700"
-            >
+            <Typography variant="subtitle2" fontWeight="600" mb={1}>
               Country
             </Typography>
             <TextField
@@ -201,11 +131,7 @@ const General = ({ userData }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography
-              variant={"subtitle2"}
-              sx={{ marginBottom: 2 }}
-              fontWeight="700"
-            >
+            <Typography variant="subtitle2" fontWeight="600" mb={1}>
               Bio
             </Typography>
             <TextField
@@ -240,4 +166,4 @@ const General = ({ userData }) => {
   );
 };
 
-export default General;
+export default GeneralSettings;
