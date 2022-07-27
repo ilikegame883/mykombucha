@@ -1,4 +1,3 @@
-//http request method to api route
 const dev = process.env.NODE_ENV !== "production";
 
 const baseUrl = dev
@@ -13,10 +12,6 @@ export const postData = async (url, post) => {
     },
     body: JSON.stringify(post), //post type = object
   });
-  if (!res.ok) {
-    throw new Error(`Error: ${res.status}`);
-  }
-
   const data = await res.json();
   return data;
 };
@@ -29,9 +24,6 @@ export const patchData = async (url, patch) => {
     },
     body: JSON.stringify(patch), //post type = object
   });
-  // if (!res.ok) {
-  //   throw new Error(`Error: ${res.status}`);
-  // }
   const data = await res.json();
   return data;
 };
@@ -53,10 +45,6 @@ export const getData = async (path, params = null) => {
     //   Authorization: token,
     // },
   });
-  if (!res.ok) {
-    throw new Error(`Error: ${res.status}`);
-  }
-
   const data = await res.json();
   return data;
 };
@@ -69,9 +57,6 @@ export const deleteData = async (url, post) => {
     },
     body: JSON.stringify(post), //post type = object
   });
-  if (!res.ok) {
-    throw new Error(`Error: ${res.status}`);
-  }
 
   const data = await res.json();
   return data;
