@@ -61,28 +61,36 @@ const SigninForm = () => {
   });
 
   return (
-    <Container maxWidth="sm" sx={{ py: 5 }}>
-      <Box marginBottom={3}>
-        <Typography variant="h4" color="text.primary" fontWeight="700">
-          Login
-        </Typography>
+    <Container maxWidth="xs">
+      <Box mb={3}>
+        <Box display="flex" alignItems="center">
+          <Box
+            component="img"
+            src="/static/favicons/android-chrome-192x192.png"
+            width={40}
+            height={40}
+          />
+          <Typography variant="h4" color="text.primary" fontWeight="700" ml={1}>
+            Login
+          </Typography>
+        </Box>
         <Typography color="text.secondary" variant="subtitle1">
           Login to your myKombucha account
         </Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography
               variant="body1"
               color="text.primary"
-              mb={1.5}
+              mb={1}
               fontWeight="600"
             >
               Enter your email
             </Typography>
             <TextField
-              label="Email *"
+              size="small"
               variant="outlined"
               name="email"
               fullWidth
@@ -97,22 +105,12 @@ const SigninForm = () => {
               variant="body1"
               fontWeight="600"
               color="text.primary"
-              mb={1.5}
+              mb={1}
             >
               Enter your password
             </Typography>
-            {/* <Typography variant="subtitle2">
-                <Link
-                  component="a"
-                  color="primary"
-                  href="/password-reset-simple"
-                  underline="none"
-                >
-                  Forgot your password?
-                </Link>
-              </Typography> */}
             <TextField
-              label="Password *"
+              size="small"
               variant="outlined"
               name="password"
               type="password"
@@ -131,8 +129,6 @@ const SigninForm = () => {
               alignItems={{ xs: "stretched", sm: "center" }}
               justifyContent="space-between"
               width={1}
-              maxWidth={600}
-              // margin="0 auto"
             >
               <Box marginBottom={{ xs: 2, sm: 0 }}>
                 <Typography variant="subtitle1">
@@ -150,12 +146,7 @@ const SigninForm = () => {
                   </Link>
                 </Typography>
               </Box>
-              <Button
-                size="large"
-                variant="contained"
-                type="submit"
-                color="secondary"
-              >
+              <Button variant="contained" type="submit" color="secondary">
                 Login
               </Button>
             </Box>

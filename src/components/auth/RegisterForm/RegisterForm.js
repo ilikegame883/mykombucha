@@ -9,6 +9,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { postData } from "../../../utils/fetchData";
+import { Container } from "@mui/material";
 
 const validationSchema = yup.object({
   username: yup
@@ -66,7 +67,7 @@ const RegisterForm = () => {
   });
 
   return (
-    <Box py={5}>
+    <Container maxWidth="xs">
       <Box mb={3}>
         <Typography variant="h4" fontWeight="700">
           Create an Account
@@ -76,9 +77,9 @@ const RegisterForm = () => {
         </Typography>
       </Box>
       <form onSubmit={formik.handleSubmit}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="body1" mb={1.5} fontWeight="600">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography variant="body1" mb={1} fontWeight="600">
               Enter a username
             </Typography>
             <TextField
@@ -93,8 +94,8 @@ const RegisterForm = () => {
               helperText={formik.touched.username && formik.errors.username}
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="body1" mb={1.5} fontWeight="600">
+          <Grid item xs={12}>
+            <Typography variant="body1" mb={1} fontWeight="600">
               Enter your email
             </Typography>
             <TextField
@@ -111,7 +112,7 @@ const RegisterForm = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant="body1" mb={1.5} fontWeight="600">
+            <Typography variant="body1" mb={1} fontWeight="600">
               Enter password
             </Typography>
             <TextField
@@ -128,7 +129,7 @@ const RegisterForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="body1" mb={1.5} fontWeight="600">
+            <Typography variant="body1" mb={1} fontWeight="600">
               Confirm password
             </Typography>
             <TextField
@@ -148,49 +149,38 @@ const RegisterForm = () => {
               }
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid item xs={12} my={1}>
             <Divider />
           </Grid>
-
           <Grid item container xs={12}>
-            <Box
-              display="flex"
-              flexDirection={{ xs: "column", sm: "row" }}
-              alignItems={{ xs: "stretched", sm: "center" }}
-              justifyContent="space-between"
-              width={1}
-              maxWidth={600}
-              margin="0 auto"
+            <Button
+              variant="contained"
+              type="submit"
+              color="secondary"
+              fullWidth
             >
-              <Box marginBottom={{ xs: 2, sm: 0 }}>
-                <Typography variant="subtitle1">
-                  Already have an account?{" "}
-                  <Link href="/signin" passHref>
-                    <Typography
-                      component="a"
-                      variant="subtitle1"
-                      color="primary.dark"
-                      underline="none"
-                      fontWeight="700"
-                    >
-                      Login
-                    </Typography>
-                  </Link>
+              Create Account
+            </Button>
+          </Grid>
+          <Grid item container xs={12}>
+            <Typography variant="subtitle1">
+              Already have an account?{" "}
+              <Link href="/signin" passHref>
+                <Typography
+                  component="a"
+                  variant="subtitle1"
+                  color="primary.dark"
+                  underline="none"
+                  fontWeight="700"
+                >
+                  Login
                 </Typography>
-              </Box>
-              <Button
-                size="large"
-                variant="contained"
-                type="submit"
-                color="secondary"
-              >
-                Create Account
-              </Button>
-            </Box>
+              </Link>
+            </Typography>
           </Grid>
         </Grid>
       </form>
-    </Box>
+    </Container>
   );
 };
 

@@ -1,22 +1,22 @@
 import { getSession } from "next-auth/react";
-import { Container, Box } from "@mui/material";
+import { Box } from "@mui/material";
 import { RegisterForm } from "../src/components/auth";
 import { MainLayout } from "../src/components/Layout";
 
 const Register = () => {
   return (
     <Box>
-      <MainLayout justify="center" title="Register">
-        <Container
-          maxWidth="sm"
+      <MainLayout title="Register">
+        <Box
+          py={10}
+          display="flex"
+          alignItems="center"
           sx={{
-            display: "flex",
-            alignItems: "center",
             minHeight: "calc(100vh - 345px)",
           }}
         >
           <RegisterForm />
-        </Container>
+        </Box>
       </MainLayout>
     </Box>
   );
