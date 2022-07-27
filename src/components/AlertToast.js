@@ -7,7 +7,6 @@ import { toggleToast } from "../stores/actions";
 const AlertToast = () => {
   const { state, dispatch } = useContext(AlertContext);
   const { status, alertMessage, alertToast } = state;
-
   // const Alert = React.forwardRef(function Alert(props, ref) {
   //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   // });

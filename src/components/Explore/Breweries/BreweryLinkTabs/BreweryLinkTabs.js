@@ -73,8 +73,14 @@ const BreweryLinkTabs = ({
               >
                 Explore{" "}
               </Typography>
-              <Typography variant="h4" fontWeight="700">
-                Breweries
+              <Typography
+                variant="h4"
+                fontWeight="700"
+                sx={{ textTransform: "capitalize" }}
+              >
+                {category === "list"
+                  ? `Brewery ${category}`
+                  : `${category} Breweries`}
               </Typography>
             </Box>
             {category === "list" && (

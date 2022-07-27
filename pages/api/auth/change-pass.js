@@ -23,7 +23,6 @@ async function handler(req, res) {
 
   if (!user) {
     res.status(404).json({ err: "User not found." });
-
     return;
   }
 
@@ -39,7 +38,6 @@ async function handler(req, res) {
 
   //what does updateOne return?
   await Users.updateOne({ _id }, { $set: { password: hashedPassword } });
-
   res.status(200).json({ msg: "Password updated!" });
 }
 

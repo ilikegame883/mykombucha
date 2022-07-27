@@ -46,7 +46,7 @@ const ReviewSideBar = ({
   singleKombuchaData,
   isReviewDataLoading,
 }) => {
-  const [state, setState] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   const router = useRouter();
 
@@ -62,7 +62,7 @@ const ReviewSideBar = ({
     if (!session) {
       router.push("/signin");
     } else {
-      setState(!state);
+      setOpenDrawer(!openDrawer);
     }
   };
 
@@ -121,7 +121,7 @@ const ReviewSideBar = ({
           )}
         </CardContent>
       </Card>
-      <Drawer anchor="right" open={state} onClose={toggleDrawer}>
+      <Drawer anchor="right" open={openDrawer} onClose={toggleDrawer}>
         <ReviewDrawer
           singleKombuchaData={singleKombuchaData}
           toggleDrawer={toggleDrawer}

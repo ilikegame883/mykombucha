@@ -54,9 +54,9 @@ const handler = async (req, res) => {
       },
     ]);
 
-    return res.json({ msg: "Update Success!" });
+    return res.json({ msg: "Brewery Updated!" });
   } catch (err) {
-    return res.status(500).json({ err: err.message });
+    return res.status(500).json({ err: "Something went wrong." });
   }
 };
 

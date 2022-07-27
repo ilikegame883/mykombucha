@@ -28,12 +28,7 @@ const postReview = async (req, res) => {
       username,
       userAvatar,
     } = req.body;
-    // const existingReview = await Review.findOne({ product });
 
-    // if (existingReview)
-    //   return res
-    //     .status(400)
-    //     .json({ err: "Review already exists for this product." });
     const newReview = new Review({
       rating,
       comment,
@@ -59,7 +54,7 @@ const postReview = async (req, res) => {
 
     //move to new endpoint?
     //1. find kombucha by name and update review count and get sum of ratings
-    //2. create a new $set stage to add avg field with the latest count and sum ratings
+    //2. create a new $set stage to add avg field with the latest count / rating sum total
     await Kombucha.updateOne({ _id: product }, [
       {
         $set: {
@@ -78,10 +73,10 @@ const postReview = async (req, res) => {
       },
     ]);
 
-    res.json({ msg: "Review Added!" });
+    res.json({ msg: "Review Added Successfully!" });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ err: err.message });
+    return res.status(500).json({ err: "Unable to submit review." });
   }
 };
 

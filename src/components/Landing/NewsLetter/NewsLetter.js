@@ -55,7 +55,7 @@ const NewsLetter = () => {
           <Button
             variant="contained"
             color="secondary"
-            sx={{ px: 4, py: { xs: 2, sm: 0 }, ml: { sm: 1.5 } }}
+            sx={{ px: 4, py: { xs: 1, sm: 0 }, ml: { sm: 1.5 } }}
           >
             Subscribe
           </Button>

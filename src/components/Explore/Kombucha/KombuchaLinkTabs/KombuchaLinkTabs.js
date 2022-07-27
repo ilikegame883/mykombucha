@@ -66,7 +66,7 @@ const KombuchaLinkTabs = ({ children, category, pageCount, currentPage }) => {
                 fontWeight="700"
                 sx={{ textTransform: "capitalize" }}
               >
-                Kombucha
+                {value === "recent" ? "Kombucha Reviews" : `${value} Kombucha`}
               </Typography>
             </Box>
           </Box>

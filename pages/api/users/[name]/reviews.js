@@ -53,11 +53,11 @@ const getUserReviews = async (req, res) => {
     ]);
 
     if (!userReviews)
-      return res.status(400).json({ err: "Reviews do not exist." });
+      return res.status(400).json({ err: "Review does not exist." });
     res.json(userReviews);
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ err: err.message });
+    return res.status(500).json({ err: "Something went wrong." });
   }
 };
 

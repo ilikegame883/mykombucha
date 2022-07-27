@@ -75,7 +75,7 @@ const handler = async (req, res) => {
     return res.json({ msg: "Wish List Updated!" });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ err: err.message });
+    return res.status(500).json({ err: "Something went wrong." });
   }
 };
 

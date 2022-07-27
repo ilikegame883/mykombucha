@@ -27,7 +27,7 @@ const handler = async (req, res) => {
     await newUser.save();
     res.json({ msg: "Register Success!" });
   } catch (err) {
-    return res.status(500).json({ err: err.message });
+    return res.status(500).json({ err: "Something went wrong." });
   }
 };
 

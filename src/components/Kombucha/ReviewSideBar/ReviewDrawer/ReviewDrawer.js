@@ -16,7 +16,6 @@ import { postData } from "../../../../utils/fetchData";
 import RatingSlider from "./RatingSlider";
 import CommentBox from "./CommentBox";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import AlertToast from "../../../AlertToast";
 import { toggleToast } from "../../../../stores/actions";
 
 const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {

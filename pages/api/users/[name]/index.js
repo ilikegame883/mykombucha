@@ -69,11 +69,9 @@ const updateUser = async (req, res) => {
     const { name: username } = req.query;
 
     //get revised info
-    const { firstname, lastname, avatar, city, country, bio } = req.body;
+    const { avatar, city, country, bio } = req.body;
 
     const update = {
-      firstname,
-      lastname,
       avatar,
       city,
       country,
@@ -90,7 +88,7 @@ const updateUser = async (req, res) => {
     if (!updatedUser)
       return res.status(400).json({ err: "This user does not exist." });
 
-    res.json({ msg: "Update Success!" });
+    res.json({ msg: "Changes Saved!" });
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }

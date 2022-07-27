@@ -32,8 +32,10 @@ const Topbar = ({ onSidebarOpen }) => {
   const loading = status === "loading";
 
   const router = useRouter();
-  //when user decides to update the avatar picture on settings page,
+  //when user decides to update the avatar picture on general settings page,
   //userdata is fetched clientside for live update of avatar photo on the topbar
+  //use avatar does not update user session object, only after logging back in
+  //use avatar picture from user collection
   //fetch only when user is in session
   const { data: userData } = useSWR(
     session?.user ? `/api/users/${session.user.username}` : null,
@@ -92,7 +94,6 @@ const Topbar = ({ onSidebarOpen }) => {
             disableRipple
             sx={{
               color: "common.white",
-              fontWeight: 700,
               "&:hover": { bgcolor: "transparent", color: "secondary.main" },
             }}
             component="a"
@@ -106,7 +107,6 @@ const Topbar = ({ onSidebarOpen }) => {
             disableRipple
             sx={{
               color: "common.white",
-              fontWeight: 700,
               "&:hover": { bgcolor: "transparent", color: "secondary.main" },
             }}
           >
@@ -124,15 +124,17 @@ const Topbar = ({ onSidebarOpen }) => {
             <ExpandMoreIcon
               sx={{
                 transform: open ? "rotate(180deg)" : "none",
-                color: "common.white",
               }}
             />
           }
           sx={{
-            "&:hover": { bgcolor: "transparent", color: "secondary.main" },
+            "&:hover": {
+              bgcolor: "transparent",
+              color: "secondary.main",
+              "& span": { color: "secondary.main" },
+            },
             color: "common.white",
             "& span": { marginLeft: "4px" },
-            fontWeight: 700,
           }}
         >
           Explore
@@ -217,7 +219,6 @@ const Topbar = ({ onSidebarOpen }) => {
                   disableRipple
                   sx={{
                     color: "common.white",
-                    fontWeight: "500",
                   }}
                 >
                   Login
@@ -229,7 +230,7 @@ const Topbar = ({ onSidebarOpen }) => {
                   variant="contained"
                   color="secondary"
                   sx={{
-                    px: 4,
+                    px: 3,
                     color: "common.white",
                   }}
                 >
