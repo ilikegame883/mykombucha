@@ -1,11 +1,14 @@
 import { Box, Container, Grid, Paper, Divider } from "@mui/material";
-import { default as BreweryModel } from "../../src/models/breweryModel";
-import { getData } from "../../src/utils/fetchData";
-import { BreweryProductTable, TopRaters } from "../../src/components/Brewery";
-import BreweryProfile from "../../src/components/Brewery/BreweryProfile";
-import { MainLayout } from "../../src/components/Layout";
-import ProfileTopBar from "../../src/components/Brewery/BreweryProfile/ProfileTopBar";
-import connectDB from "../../src/lib/connectDB";
+import { default as BreweryModel } from "../../../src/models/breweryModel";
+import { getData } from "../../../src/utils/fetchData";
+import {
+  BreweryProductTable,
+  TopRaters,
+} from "../../../src/components/Brewery";
+import BreweryProfile from "../../../src/components/Brewery/BreweryProfile";
+import { MainLayout } from "../../../src/components/Layout";
+import ProfileTopBar from "../../../src/components/Brewery/BreweryProfile/ProfileTopBar";
+import connectDB from "../../../src/lib/connectDB";
 
 const Brewery = ({ singleBreweryData, topRaters }) => {
   return (
