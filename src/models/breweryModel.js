@@ -39,14 +39,12 @@ const brewerySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    urls: [
-      {
-        website: { type: String },
-        twitter: { type: String },
-        instagram: { type: String },
-        facebook: { type: String },
-      },
-    ],
+    urls: {
+      website: { type: String },
+      twitter: { type: String },
+      instagram: { type: String },
+      facebook: { type: String },
+    },
   },
   {
     timestamps: true,
