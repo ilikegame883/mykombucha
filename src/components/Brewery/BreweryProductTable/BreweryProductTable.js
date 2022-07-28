@@ -98,6 +98,7 @@ const getComparator = (orderDirection, orderBy) => {
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 };
+
 const applySearchFilter = (array, query) => {
   if (query) {
     return array.filter(

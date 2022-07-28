@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import useSWR, { mutate } from "swr";
@@ -56,13 +57,13 @@ const ProfileTopBar = () => {
         p: 1.5,
       }}
     >
-      <Box>
-        <Tooltip title="Edit brewery info">
-          <IconButton sx={{ padding: 0 }}>
+      <Link href={`/breweries/${slug}/corrections`}>
+        <a style={{ maxHeight: 24 }}>
+          <Tooltip title="Edit brewery info">
             <EditOutlinedIcon color="action" />
-          </IconButton>
-        </Tooltip>
-      </Box>
+          </Tooltip>
+        </a>
+      </Link>
 
       <Stack direction="row" spacing={2} alignItems="center">
         <Typography variant="caption" color="text.primary" fontWeight="500">

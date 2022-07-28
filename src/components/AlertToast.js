@@ -2,14 +2,11 @@ import React, { useContext } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import { AlertContext } from "../stores/context/alert.context";
 import { toggleToast } from "../stores/actions";
-// import MuiAlert from "@mui/material/Alert";
 
 const AlertToast = () => {
   const { state, dispatch } = useContext(AlertContext);
   const { status, alertMessage, alertToast } = state;
-  // const Alert = React.forwardRef(function Alert(props, ref) {
-  //   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  // });
+
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -25,10 +22,10 @@ const AlertToast = () => {
     >
       <Alert
         onClose={handleClose}
-        severity={status}
+        severity={status || "success"}
         variant="filled"
         elevation={5}
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", color: "common.white", fontWeight: "600" }}
       >
         {alertMessage}
       </Alert>

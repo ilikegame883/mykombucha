@@ -17,9 +17,8 @@ const BreweryProfile = ({ singleBreweryData }) => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
-  const { name, type, city, country, description, image, product_type } =
+  const { name, type, city, country, description, image, product_type, urls } =
     singleBreweryData;
-
   return (
     <Box>
       <Box p={2.5}>
@@ -56,7 +55,7 @@ const BreweryProfile = ({ singleBreweryData }) => {
             <Typography variant="caption" color="text.primary">
               {city}, {country}
             </Typography>
-            <SocialIcons />
+            <SocialIcons urls={urls} />
           </Stack>
         </Box>
       </Box>

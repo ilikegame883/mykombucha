@@ -61,15 +61,14 @@ const ProfileTopBar = ({ kombuchaId }) => {
           p: 1.5,
         }}
       >
-        <Stack direction="row" alignItems="center">
-          <Link href={`/kombucha/${kombuchaId}/corrections`}>
-            <a style={{ maxHeight: 24 }}>
-              <Tooltip title="Edit product info">
-                <EditOutlinedIcon color="action" />
-              </Tooltip>
-            </a>
-          </Link>
-        </Stack>
+        <Link href={`/kombucha/${kombuchaId}/corrections`}>
+          <a style={{ maxHeight: 24 }}>
+            <Tooltip title="Edit product info">
+              <EditOutlinedIcon color="action" />
+            </Tooltip>
+          </a>
+        </Link>
+
         <Stack direction="row" alignItems="center" spacing={2}>
           {checkUserSessionWishList && (
             <Typography component="span" sx={{ fontSize: 12 }}>
