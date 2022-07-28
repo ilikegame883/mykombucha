@@ -4,24 +4,37 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import PublicIcon from "@mui/icons-material/Public";
 
-const SocialIcons = () => {
+const SocialIcons = ({ urls }) => {
+  const { website, twitter, instagram, facebook } = urls;
   return (
-    <div>
-      <Stack direction="row" alignItems="center">
+    <Stack direction="row" alignItems="center">
+      <a href={website}>
         <IconButton sx={{ pl: 0 }}>
-          <TwitterIcon />
-        </IconButton>
-        <IconButton>
-          <FacebookIcon />
-        </IconButton>
-        <IconButton>
-          <InstagramIcon />
-        </IconButton>
-        <IconButton>
           <PublicIcon />
         </IconButton>
-      </Stack>
-    </div>
+      </a>
+      {twitter && (
+        <a href={twitter}>
+          <IconButton>
+            <TwitterIcon />
+          </IconButton>
+        </a>
+      )}
+      {instagram && (
+        <a href={instagram}>
+          <IconButton>
+            <InstagramIcon />
+          </IconButton>
+        </a>
+      )}
+      {facebook && (
+        <a href={facebook}>
+          <IconButton>
+            <FacebookIcon />
+          </IconButton>
+        </a>
+      )}
+    </Stack>
   );
 };
 
