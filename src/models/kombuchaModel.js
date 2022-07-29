@@ -45,9 +45,7 @@ const kombuchaSchema = new mongoose.Schema(
     ABV: {
       type: Number,
     },
-    served_in: {
-      type: String,
-    },
+    served_in: [String],
     avg: {
       type: Number,
       default: null,
