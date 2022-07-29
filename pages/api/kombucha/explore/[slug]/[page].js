@@ -104,7 +104,7 @@ const getPopularKombucha = async (req, res) => {
       {
         $facet: {
           sorted_list: [
-            { $sort: { avg: -1 } },
+            { $sort: { review_count: -1 } },
             { $skip: skip },
             { $limit: PAGE_SIZE },
             { $addFields: { insertTime: { $toDate: "$_id" } } },
