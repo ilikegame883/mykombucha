@@ -35,8 +35,9 @@ const HorizontalStats = ({ served_in, ABV, flavor }) => {
             >
               Served in:
             </Typography>
-
-            <Chip label={served_in} size="small" sx={{ mr: 1 }} />
+            {served_in.map((item) => (
+              <Chip key={item} label={item} size="small" sx={{ mr: 0.5 }} />
+            ))}
           </Box>
         </Grid>
         <Grid
@@ -95,7 +96,7 @@ const HorizontalStats = ({ served_in, ABV, flavor }) => {
                 color="text.secondary"
                 fontWeight="600"
               >
-                {ABV ? `${ABV}%` : "N/A"}
+                {ABV}%
               </Typography>
             </Typography>
           </Box>

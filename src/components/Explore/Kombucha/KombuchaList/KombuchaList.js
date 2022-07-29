@@ -89,17 +89,18 @@ const KombuchaList = ({ kombuchaList, category }) => {
                   alignItems="center"
                 >
                   <Rating
+                    size="small"
                     value={item.avg}
                     readOnly
                     precision={0.25}
                     sx={{ mr: 1 }}
                   />
                   <Typography
-                    variant="body1"
+                    variant="body2"
                     color="text.primary"
                     fontWeight="500"
                   >
-                    {item.avg ? item.avg : "N/A"}
+                    {item.avg ? item.avg.toFixed(2) : "N/A"}
                   </Typography>
                 </Box>
                 <Stack
