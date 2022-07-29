@@ -8,27 +8,27 @@ const SocialIcons = ({ urls }) => {
   const { website, twitter, instagram, facebook } = urls;
   return (
     <Stack direction="row" alignItems="center">
-      <a href={website}>
+      <a href={website} target="_blank" rel="noreferrer">
         <IconButton sx={{ pl: 0 }}>
           <PublicIcon />
         </IconButton>
       </a>
       {twitter && (
-        <a href={twitter}>
+        <a href={twitter} target="_blank" rel="noreferrer">
           <IconButton>
             <TwitterIcon />
           </IconButton>
         </a>
       )}
       {instagram && (
-        <a href={instagram}>
+        <a href={instagram} target="_blank" rel="noreferrer">
           <IconButton>
             <InstagramIcon />
           </IconButton>
         </a>
       )}
       {facebook && (
-        <a href={facebook}>
+        <a href={facebook} target="_blank" rel="noreferrer">
           <IconButton>
             <FacebookIcon />
           </IconButton>
