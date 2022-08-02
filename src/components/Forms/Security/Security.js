@@ -41,7 +41,7 @@ const Security = () => {
       return;
     }
 
-    const url = `auth/change-pass`;
+    const url = `auth/password`;
     const res = await patchData(url, values);
     if (res?.msg) {
       dispatch(toggleAlert("success", res.msg));
