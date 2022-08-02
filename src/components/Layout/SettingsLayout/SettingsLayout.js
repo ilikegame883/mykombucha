@@ -41,7 +41,7 @@ const SettingsLayout = ({ children, userData }) => {
 
   return (
     <Box>
-      <Box bgcolor={"primary.main"} py={15}>
+      <Box bgcolor={"primary.light"} py={10}>
         <Container>
           <Typography
             variant={isSm ? "h3" : "h4"}

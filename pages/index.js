@@ -13,16 +13,24 @@ import getHomeStaticData from "../src/utils/getHomeStaticData";
 export default function Home({ breweryList, kombuchaList }) {
   return (
     <Box>
-      <MainLayout position="absolute" bgcolor="transparent">
+      <MainLayout position="sticky">
         <Hero />
-        <Container maxWidth="lg" sx={{ py: 10 }}>
-          <Stack spacing={{ xs: 15, sm: 20 }} mb={5}>
-            <ExploreSection kombuchaList={kombuchaList} />
-            <DiscoverSection breweryList={breweryList} />
-            <MobileApp />
-            <NewsLetter />
-          </Stack>
+        <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
+          <ExploreSection kombuchaList={kombuchaList} />
         </Container>
+        <Box bgcolor="#fff">
+          <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
+            <DiscoverSection breweryList={breweryList} />
+          </Container>
+        </Box>
+        <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
+          <MobileApp />
+        </Container>
+        <Box bgcolor="#fff">
+          <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
+            <NewsLetter />
+          </Container>
+        </Box>
       </MainLayout>
     </Box>
   );

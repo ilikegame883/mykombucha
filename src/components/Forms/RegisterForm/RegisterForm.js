@@ -176,7 +176,7 @@ const RegisterForm = () => {
                 <Typography
                   component="a"
                   variant="subtitle1"
-                  color="primary.dark"
+                  color="secondary"
                   underline="none"
                   fontWeight="700"
                 >

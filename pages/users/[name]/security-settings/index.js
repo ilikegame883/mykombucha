@@ -5,7 +5,7 @@ import { getData } from "../../../../src/utils/fetchData";
 
 const SecuritySettingsPage = ({ userData }) => {
   return (
-    <MainLayout position="fixed">
+    <MainLayout>
       <SettingsLayout userData={userData}>
         <Security />
       </SettingsLayout>

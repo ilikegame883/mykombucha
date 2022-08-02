@@ -86,7 +86,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
         <IconButton
           size="large"
           aria-label="close"
-          sx={{ color: "primary.contrastText" }}
+          sx={{ color: "common.white", "&:hover": { color: "common.white" } }}
           onClick={toggleDrawer}
         >
           <CloseIcon />
@@ -126,7 +126,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
         <Divider sx={{ my: 3 }} />
 
         <Box mb={3}>
-          <Typography variant="h6" color="primary.dark" gutterBottom>
+          <Typography variant="h6" color="text.primary" gutterBottom>
             Your Review:
           </Typography>
           <CommentBox
@@ -134,7 +134,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
             handleChange={handleCommentChange}
           />
         </Box>
-        <Typography variant="h6" color="primary.dark">
+        <Typography variant="h6" color="text.primary">
           Served in:
         </Typography>
         <Stack direction="row" spacing={1} marginTop={1}>

@@ -4,15 +4,15 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      light: "#FFEBCE",
-      main: "#FFBD59",
-      dark: "#B39565",
+      light: "#ffc369",
+      main: "#FFBE58",
+      dark: "#FFBD59",
       contrastText: "#fff",
     },
     secondary: {
-      light: "#00ECD4",
-      main: "#b36c00",
-      dark: "#2F4858",
+      light: "#cea15e",
+      main: "#ba7a19 ",
+      dark: "#7b6038",
     },
     text: {
       primary: "#1e2022",
@@ -29,7 +29,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: `"Nunito", "Source Serif Pro", "Roboto", sans-serif`,
+    fontFamily: `"Nunito", "Source Serif Pro", sans-serif`,
   },
   components: {
     MuiButton: {

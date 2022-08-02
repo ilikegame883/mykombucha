@@ -15,7 +15,7 @@ import Footer from "./Footer";
 import AlertToast from "../../AlertToast";
 
 const MainLayout = ({
-  bgcolor = "primary.main",
+  bgcolor = "#FFF",
   position = "sticky",
   title,
   children,
@@ -80,6 +80,7 @@ const MainLayout = ({
         sx={{
           backgroundColor: bgcolor,
           top: 0,
+          borderBottom: `0.5px solid ${theme.palette.divider}`,
         }}
         elevation={0}
       >

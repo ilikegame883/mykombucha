@@ -14,9 +14,15 @@ import {
   Card,
   Box,
   autocompleteClasses,
+  CircularProgress,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { getData } from "../../../../utils/fetchData";
+
+const StyledAutoComplete = styled(Autocomplete)(({ theme }) => ({
+  width: "100%",
+  maxWidth: 600,
+}));
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   [`& .${autocompleteClasses.paper}`]: {
@@ -65,7 +71,7 @@ const HeroSearchBar = () => {
   };
   return (
     <Box>
-      <Autocomplete
+      <StyledAutoComplete
         loading
         loadingText={`No results for "${value}"`}
         id="search-bar"
@@ -81,9 +87,9 @@ const HeroSearchBar = () => {
           <Box component={Card}>
             <TextField
               {...params}
+              fullWidth
               variant="outlined"
               color="primary"
-              fullWidth
               focused
               placeholder="Search for Kombucha, Breweries..."
               // onChange={(e) => onChangeSearch(e)}
@@ -95,26 +101,29 @@ const HeroSearchBar = () => {
               }}
               InputProps={{
                 ...params.InputProps,
-
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Box
-                      component={"svg"}
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      width={24}
-                      height={24}
-                      color="disabled"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                      />
-                    </Box>
+                    {value.length > 1 && !searchData.length ? (
+                      <CircularProgress />
+                    ) : (
+                      <Box
+                        component={"svg"}
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        width={24}
+                        height={24}
+                        color="disabled"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
+                      </Box>
+                    )}
                   </InputAdornment>
                 ),
               }}

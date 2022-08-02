@@ -4,64 +4,70 @@ import {
   TextField,
   Box,
   useTheme,
-  Stack,
   useMediaQuery,
+  Grid,
 } from "@mui/material";
 
 const NewsLetter = () => {
   const theme = useTheme();
-  const isSm = useMediaQuery(theme.breakpoints.up("sm"), {
-    defaultMatches: true,
-  });
-
-  const alignPosition = isSm ? "center" : "left";
+  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
-    <Stack>
-      <Box sx={{ textAlign: alignPosition }} mb={4}>
-        <Typography variant="h4" fontWeight="800" gutterBottom>
-          Subscribe to our newsletter
-        </Typography>
-        <Typography variant={isSm ? "h6" : "subtitle1"} color="text.secondary">
-          Be among the firsts to know about our upcoming news and updates.
-        </Typography>
-      </Box>
-      <Box
-        component={"form"}
-        noValidate
-        autoComplete="off"
-        display="flex"
-        justifyContent="center"
-        sx={{
-          "& .MuiInputBase-input.MuiOutlinedInput-input": {
-            bgcolor: "background.paper",
-          },
-        }}
-      >
-        <Box
-          display="flex"
-          flexDirection={{ xs: "column", sm: "row" }}
-          width={{ xs: 1, md: "50%" }}
-        >
-          <Box
-            fullWidth
-            component={TextField}
-            label="Enter your email"
-            variant="outlined"
-            disabled
-            color="primary"
-            mb={{ xs: 2, sm: 0 }}
-          />
-          <Button
-            variant="contained"
+    <Grid container alignItems="center">
+      <Grid item xs={12} md={8}>
+        <Box mb={5} textAlign="left">
+          <Typography
+            variant="h6"
             color="secondary"
-            sx={{ px: 4, py: { xs: 1, sm: 0 }, ml: { sm: 1.5 } }}
+            fontWeight="700"
+            gutterBottom
           >
-            Subscribe
-          </Button>
+            Newsletter
+          </Typography>
+          <Typography
+            variant={isSm ? "h3" : "h4"}
+            fontWeight="700"
+            gutterBottom
+          >
+            Subscribe to our Newsletter
+          </Typography>
+          <Typography
+            variant={isSm ? "h6" : "subtitle1"}
+            color="text.secondary"
+          >
+            Be among the firsts to know about our upcoming news and updates.
+          </Typography>
         </Box>
-      </Box>
-    </Stack>
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <Box component="form">
+          <Box
+            display="flex"
+            flexDirection={{ xs: "column", sm: "row" }}
+            justifyContent="flex-start"
+            width={1}
+          >
+            <Box
+              fullWidth
+              component={TextField}
+              label="Enter your email"
+              variant="outlined"
+              disabled
+              color="primary"
+              pb={{ xs: 1, sm: 0 }}
+              sx={{ width: 1, maxWidth: 400 }}
+            />
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ px: 3, py: { xs: 1, sm: 0 }, ml: { sm: 1 } }}
+            >
+              Subscribe
+            </Button>
+          </Box>
+        </Box>
+      </Grid>
+    </Grid>
   );
 };
 

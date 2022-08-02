@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleAlert } from "../../../stores/actions";
 import AlertSnackBar from "../../AlertSnackBar";
-import { Container } from "@mui/material";
+import { Container, Divider } from "@mui/material";
 
 const validationSchema = yup.object({
   email: yup
@@ -121,6 +121,19 @@ const SigninForm = () => {
               helperText={formik.touched.password && formik.errors.password}
             />
           </Grid>
+          <Grid item xs={12} my={1}>
+            <Divider />
+          </Grid>
+          <Grid item container xs={12}>
+            <Button
+              variant="contained"
+              type="submit"
+              color="secondary"
+              fullWidth
+            >
+              Login{" "}
+            </Button>
+          </Grid>
           <Grid item container xs={12}>
             <AlertSnackBar />
             <Box
@@ -137,7 +150,7 @@ const SigninForm = () => {
                     <Typography
                       component="a"
                       variant="subtitle1"
-                      color="primary.dark"
+                      color="secondary"
                       underline="none"
                       fontWeight="700"
                     >
@@ -146,9 +159,6 @@ const SigninForm = () => {
                   </Link>
                 </Typography>
               </Box>
-              <Button variant="contained" type="submit" color="secondary">
-                Login
-              </Button>
             </Box>
           </Grid>
         </Grid>

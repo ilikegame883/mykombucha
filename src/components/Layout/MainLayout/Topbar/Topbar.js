@@ -16,11 +16,19 @@ import {
   Avatar,
   IconButton,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import UserMenuDropDown from "./UserMenuDropDown";
+import SearchBar from "../SearchBar.js/SearchBar";
+import HeroSearchBar from "../../../Landing/Hero/HeroSearchBar";
+
+const StyledNavButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.text.primary,
+  fontWeight: 600,
+}));
 
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -60,7 +68,7 @@ const Topbar = ({ onSidebarOpen }) => {
     <Toolbar
       sx={{
         justifyContent: "space-between",
-        mt: { xs: 1, sm: 0 },
+        my: { xs: 0.75, sm: 0.25 },
       }}
       disableGutters
     >
@@ -68,53 +76,28 @@ const Topbar = ({ onSidebarOpen }) => {
         component="a"
         href="/"
         title="home"
-        pt={0.75}
-        width={{ xs: 180, sm: 200, md: 220 }}
+        mr={0.5}
+        width={{ xs: 180, sm: 200 }}
       >
         <Box
           component="img"
-          src={
-            router.pathname === "/"
-              ? "https://res.cloudinary.com/jjo/image/upload/v1651018045/myKombucha/Logo/topbar-neg_ovtkl1.svg"
-              : "https://res.cloudinary.com/jjo/image/upload/v1651109316/myKombucha/Logo/nav-logo-negative_aslqfl.svg"
-          }
+          src="https://res.cloudinary.com/jjo/image/upload/v1651018664/myKombucha/Logo/topbar-logo_ha3vu9.svg"
           height={1}
           width={1}
         />
       </Box>
-
+      {router.pathname !== "/search/[category]" && <SearchBar />}
       <Stack
         direction="row"
-        spacing={2}
+        spacing={1.5}
         sx={{ display: { xs: "none", sm: "flex" } }}
       >
-        <Link href="/search/kombucha" passHref>
-          <Button
-            variant="text"
-            disableRipple
-            sx={{
-              color: "common.white",
-              "&:hover": { bgcolor: "transparent", color: "secondary.main" },
-            }}
-            component="a"
-          >
-            Search
-          </Button>
-        </Link>
         <Link href="/local" passHref>
-          <Button
-            variant="text"
-            disableRipple
-            sx={{
-              color: "common.white",
-              "&:hover": { bgcolor: "transparent", color: "secondary.main" },
-            }}
-          >
+          <StyledNavButton variant="text" disableRipple>
             Local
-          </Button>
+          </StyledNavButton>
         </Link>
-
-        <Button
+        <StyledNavButton
           id="basic-button"
           aria-controls={open ? "expore-menu" : undefined}
           aria-haspopup="true"
@@ -128,17 +111,11 @@ const Topbar = ({ onSidebarOpen }) => {
             />
           }
           sx={{
-            "&:hover": {
-              bgcolor: "transparent",
-              color: "secondary.main",
-              "& span": { color: "secondary.main" },
-            },
-            color: "common.white",
-            "& span": { marginLeft: "4px" },
+            "& span": { marginLeft: "2px" },
           }}
         >
           Explore
-        </Button>
+        </StyledNavButton>
 
         <Menu
           id="expore-menu"
@@ -210,19 +187,12 @@ const Topbar = ({ onSidebarOpen }) => {
                 orientation="vertical"
                 variant="middle"
                 flexItem
-                sx={{ my: 0.5, bgcolor: "common.white" }}
+                sx={{ my: 0.5, bgcolor: "text.primary" }}
               />
             </Box>
             <Stack direction="row" spacing={2}>
               <Link href="/signin" passHref>
-                <Button
-                  disableRipple
-                  sx={{
-                    color: "common.white",
-                  }}
-                >
-                  Login
-                </Button>
+                <StyledNavButton disableRipple>Login</StyledNavButton>
               </Link>
               <Link href="/register" passHref>
                 <Button
@@ -248,7 +218,6 @@ const Topbar = ({ onSidebarOpen }) => {
           />
         )}
       </Stack>
-
       {/* For mobile view */}
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
         {!session && !loading && (
@@ -258,11 +227,9 @@ const Topbar = ({ onSidebarOpen }) => {
                 variant="outlined"
                 disableRipple
                 size="small"
+                color="secondary"
                 sx={{
-                  color: "common.white",
-                  fontWeight: "500",
-                  border: "1px solid #fff",
-                  "&:hover": { borderColor: "common.white" },
+                  fontWeight: 700,
                 }}
               >
                 Login
@@ -271,10 +238,10 @@ const Topbar = ({ onSidebarOpen }) => {
             <Button
               onClick={() => onSidebarOpen()}
               aria-label="Menu"
+              color="secondary"
               sx={{
                 borderRadius: 2,
                 minWidth: "auto",
-                color: "#fff",
                 ml: 0.5,
               }}
             >

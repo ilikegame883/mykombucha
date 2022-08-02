@@ -2,7 +2,7 @@ import { Card, CardContent, Typography, Stack, Avatar } from "@mui/material";
 import Link from "next/link";
 import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 
-const DiscoverBreweryCard = ({ brewery }) => {
+const ExploreCard = ({ brewery }) => {
   const { name, city, country, image, type, slug } = brewery;
   return (
     <Card sx={{ borderRadius: 2, m: { xs: 0.5, md: 1 } }} elevation={1}>
@@ -53,4 +53,4 @@ const DiscoverBreweryCard = ({ brewery }) => {
   );
 };
 
-export default DiscoverBreweryCard;
+export default ExploreCard;

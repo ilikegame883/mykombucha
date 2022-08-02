@@ -5,7 +5,7 @@ import { MainLayout, SettingsLayout } from "../../../../src/components/Layout";
 
 const GeneralSettingsPage = ({ userData }) => {
   return (
-    <MainLayout position="fixed">
+    <MainLayout>
       <SettingsLayout userData={userData}>
         <GeneralSettings userData={userData} />
       </SettingsLayout>

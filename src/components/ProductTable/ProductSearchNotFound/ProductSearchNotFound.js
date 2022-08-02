@@ -14,7 +14,7 @@ const ProductSearchNotFound = ({ searchQuery }) => {
       <Typography variant="body1">
         {/* No results found for <b>{`"${searchBar}"`}</b>. Try checking for typos
         or using complete words. */}
-        Try checking for typos or using complete words.
+        Try using complete words or check the other category.
       </Typography>
     </>
   );

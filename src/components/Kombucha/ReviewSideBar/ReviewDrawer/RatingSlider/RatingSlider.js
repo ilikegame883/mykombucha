@@ -38,7 +38,7 @@ const RatingSlider = ({ rating, handleSliderChange }) => {
       <Stack alignItems="center" mb={2}>
         <Typography
           variant="h5"
-          color="primary.dark"
+          color="text.primary"
           align="center"
           fontWeight="700"
         >
