@@ -12,9 +12,10 @@ export default class MyDocument extends Document {
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/static/favicons/favicon.ico" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
           <link
-            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
             rel="stylesheet"
           />
           <link
@@ -41,8 +42,12 @@ export default class MyDocument extends Document {
             href="/static/favicons/safari-pinned-tab.svg"
             color="#ffbd59"
           />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="default"
+          />
           <meta name="msapplication-TileColor" content="#FAFAFA" />
-          <meta name="theme-color" content="#ffffff" />
+          <meta name="theme-color" content="#FAFAFA" />
           <meta
             content="/static/favicons/browserconfig.xml"
             name="msapplication-config"
