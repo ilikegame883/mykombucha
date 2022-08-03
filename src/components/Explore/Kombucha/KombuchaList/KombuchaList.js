@@ -79,41 +79,27 @@ const KombuchaList = ({ kombuchaList, category }) => {
                 </Box>
                 <Box
                   display="flex"
-                  p={1.5}
+                  flexDirection="column"
                   sx={{
                     position: "absolute",
-                    top: 20,
-                    right: 10,
-                    borderRadius: 10,
-                  }}
-                  alignItems="center"
-                >
-                  <Rating
-                    size="small"
-                    value={item.avg}
-                    readOnly
-                    precision={0.25}
-                    sx={{ mr: 1 }}
-                  />
-                  <Typography
-                    variant="body2"
-                    color="text.primary"
-                    fontWeight="500"
-                  >
-                    {item.avg ? item.avg.toFixed(2) : "N/A"}
-                  </Typography>
-                </Box>
-                <Stack
-                  alignItems="center"
-                  sx={{
-                    position: "absolute",
-                    bottom: 10,
+                    top: 15,
                     right: 20,
                   }}
                 >
+                  <Typography variant="h6" align="end">
+                    {item.avg ? item.avg.toFixed(2) : "N/A"}
+                  </Typography>
+                  <Box display="flex" justifyContent="flex-end" mb={0.5}>
+                    <Rating
+                      size="small"
+                      value={item.avg}
+                      readOnly
+                      precision={0.25}
+                    />
+                  </Box>
                   {category === "new" ? (
                     <Typography variant="caption" color="text.secondary">
-                      Date added:{" "}
+                      Added:{" "}
                       {item.insertTime.slice(
                         0,
                         item.insertTime.lastIndexOf("T")
@@ -124,11 +110,12 @@ const KombuchaList = ({ kombuchaList, category }) => {
                       variant="body2"
                       color="text.secondary"
                       fontWeight="500"
+                      align="right"
                     >
                       {item.review_count} ratings
                     </Typography>
                   )}
-                </Stack>
+                </Box>
               </Box>
             </Box>
           </Grid>

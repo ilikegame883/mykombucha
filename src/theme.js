@@ -6,16 +6,16 @@ const theme = createTheme({
     primary: {
       light: "#ffc369",
       main: "#FFBE58",
-      dark: "#FFBD59",
+      dark: "#FFBE58",
       contrastText: "#fff",
     },
     secondary: {
       light: "#cea15e",
       main: "#ba7a19 ",
-      dark: "#7b6038",
+      dark: "#ba7a19",
     },
     text: {
-      primary: "#1e2022",
+      primary: "#2E2E2E",
       secondary: "#677788",
     },
     error: {
@@ -34,14 +34,19 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
-        contained: {
+        root: {
           boxShadow: "none",
+          textTransform: "none",
+          fontSize: "1em",
           "&:hover": {
-            backgroundColor: "#b36c00",
             boxShadow: "none",
           },
         },
-
+        outlined: {
+          "&:hover": {
+            backgroundColor: "transparent",
+          },
+        },
         text: {
           "&:hover": {
             backgroundColor: "transparent",

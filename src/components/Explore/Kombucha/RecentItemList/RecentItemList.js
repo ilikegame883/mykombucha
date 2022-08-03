@@ -45,7 +45,7 @@ const RecentItemList = ({ reviewList }) => {
                     variant="square"
                     src={getCloudinaryUrl(item.kombucha.image)}
                     alt={item.kombucha.name}
-                    sx={{ width: 50, height: 50 }}
+                    sx={{ width: 60, height: 60 }}
                   />
                 </Box>
                 <Stack mb={{ xs: 1, sm: 0 }} pr={{ xs: 0, sm: 10 }}>
@@ -88,15 +88,15 @@ const RecentItemList = ({ reviewList }) => {
                       </Typography>
                     </Link>
                   </Box>
-                  <Box mb={{ xs: 1.5, sm: 0 }}>
+                  <Box>
                     <RevealText text={item.comment} maxLength={75} />
                   </Box>
                 </Stack>
+
                 <Box
-                  pl={2}
                   sx={{
                     position: "absolute",
-                    top: 25,
+                    top: { xs: 20, sm: 30 },
                     right: 15,
                   }}
                 >
@@ -105,26 +105,29 @@ const RecentItemList = ({ reviewList }) => {
                       <Avatar
                         src={getCloudinaryUrl(item.userAvatar)}
                         alt={item.username}
-                        sx={{ height: 30, width: 30 }}
+                        sx={{ height: 40, width: 40 }}
                       />
                       <Typography
                         variant="body1"
                         color="text.primary"
-                        sx={{ pl: 0.75 }}
+                        pl={1}
+                        fontWeight="600"
                       >
                         {item.username}
+                        <Typography
+                          variant="caption"
+                          component="p"
+                          color="text.secondary"
+                        >
+                          {item.insertTime.slice(
+                            0,
+                            item.insertTime.lastIndexOf("T")
+                          )}
+                        </Typography>
                       </Typography>
                     </Box>
                   </Link>
                 </Box>
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                  sx={{ position: "absolute", bottom: 10, right: 20 }}
-                >
-                  Reviewed:{" "}
-                  {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
-                </Typography>
               </Box>
             </Box>
           </Grid>

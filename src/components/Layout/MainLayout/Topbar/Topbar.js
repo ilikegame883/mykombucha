@@ -68,7 +68,7 @@ const Topbar = ({ onSidebarOpen }) => {
     <Toolbar
       sx={{
         justifyContent: "space-between",
-        my: { xs: 0.75, sm: 0.25 },
+        my: { xs: 0.5, sm: 0 },
       }}
       disableGutters
     >
@@ -89,7 +89,7 @@ const Topbar = ({ onSidebarOpen }) => {
       {router.pathname !== "/search/[category]" && <SearchBar />}
       <Stack
         direction="row"
-        spacing={1.5}
+        spacing={1}
         sx={{ display: { xs: "none", sm: "flex" } }}
       >
         <Link href="/local" passHref>
@@ -190,7 +190,7 @@ const Topbar = ({ onSidebarOpen }) => {
                 sx={{ my: 0.5, bgcolor: "text.primary" }}
               />
             </Box>
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={1}>
               <Link href="/signin" passHref>
                 <StyledNavButton disableRipple>Login</StyledNavButton>
               </Link>
@@ -200,7 +200,7 @@ const Topbar = ({ onSidebarOpen }) => {
                   variant="contained"
                   color="secondary"
                   sx={{
-                    px: 3,
+                    px: 3.5,
                     color: "common.white",
                   }}
                 >

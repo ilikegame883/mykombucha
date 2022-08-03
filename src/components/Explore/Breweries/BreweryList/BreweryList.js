@@ -114,8 +114,16 @@ const BreweryList = ({ breweryList, category, sort }) => {
                   </Box>
                 </Box>
               </Box>
+              {category !== "popular" && (
+                <Box position="absolute" right={20} top={18}>
+                  <Typography variant="caption" color="text.secondary">
+                    Added:{" "}
+                    {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
+                  </Typography>
+                </Box>
+              )}
               {category === "popular" && (
-                <Box position="absolute" right={20} top={15}>
+                <Box position="absolute" right={20} top={18}>
                   <Typography variant="body1" color="text.secondary">
                     {item.favorite_count}{" "}
                     <FavoriteIcon
@@ -125,17 +133,6 @@ const BreweryList = ({ breweryList, category, sort }) => {
                     />
                   </Typography>
                 </Box>
-              )}
-
-              {category !== "popular" && (
-                <Typography
-                  variant="caption"
-                  color="text.secondary"
-                  align="end"
-                >
-                  Added:{" "}
-                  {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
-                </Typography>
               )}
             </Box>
           </Grid>

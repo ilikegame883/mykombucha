@@ -14,8 +14,8 @@ const NewsLetter = () => {
 
   return (
     <Grid container alignItems="center">
-      <Grid item xs={12} md={8}>
-        <Box mb={5} textAlign="left">
+      <Grid item xs={12}>
+        <Box mb={4} textAlign="left">
           <Typography
             variant="h6"
             color="secondary"
@@ -39,7 +39,7 @@ const NewsLetter = () => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid item xs={12}>
         <Box component="form">
           <Box
             display="flex"
@@ -55,7 +55,7 @@ const NewsLetter = () => {
               disabled
               color="primary"
               pb={{ xs: 1, sm: 0 }}
-              sx={{ width: 1, maxWidth: 400 }}
+              sx={{ width: 1, maxWidth: 460 }}
             />
             <Button
               variant="contained"

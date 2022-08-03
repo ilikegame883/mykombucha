@@ -38,7 +38,7 @@ const TopKombuchaList = ({ kombuchaList }) => {
         >
           {kombuchaList.map((k) => (
             <React.Fragment key={k.name}>
-              <ListItem alignItems="center" sx={{ p: 2 }}>
+              <ListItem alignItems="center" sx={{ py: 1.5, pl: 3 }}>
                 <ListItemAvatar sx={{ mr: 1 }}>
                   <Avatar
                     variant="square"
