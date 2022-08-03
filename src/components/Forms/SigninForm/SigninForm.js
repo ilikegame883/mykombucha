@@ -12,7 +12,8 @@ import Typography from "@mui/material/Typography";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleAlert } from "../../../stores/actions";
 import AlertSnackBar from "../../AlertSnackBar";
-import { Container, Divider } from "@mui/material";
+import { Avatar, Container, Divider } from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
 
 const validationSchema = yup.object({
   email: yup
@@ -27,7 +28,7 @@ const validationSchema = yup.object({
     .min(7, "The password should have at minimum length of 7"),
 });
 
-const SigninForm = () => {
+const SigninForm = ({ providers }) => {
   const { dispatch } = useContext(AlertContext);
   const router = useRouter();
 
@@ -63,17 +64,9 @@ const SigninForm = () => {
   return (
     <Container maxWidth="xs">
       <Box mb={3}>
-        <Box display="flex" alignItems="center">
-          <Box
-            component="img"
-            src="/static/favicons/android-chrome-192x192.png"
-            width={40}
-            height={40}
-          />
-          <Typography variant="h4" color="text.primary" fontWeight="700" ml={1}>
-            Login
-          </Typography>
-        </Box>
+        <Typography variant="h4" color="text.primary" fontWeight="700">
+          Login
+        </Typography>
         <Typography color="text.secondary" variant="subtitle1">
           Login to your myKombucha account
         </Typography>
@@ -81,15 +74,38 @@ const SigninForm = () => {
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography
+            <Button
+              variant="outlined"
+              fullWidth
+              startIcon={<GoogleIcon />}
+              onClick={() => signIn(providers.google.id, { callbackUrl: "/" })}
+              sx={{
+                color: "text.primary",
+                borderColor: "text.secondary",
+                textTransform: "none",
+              }}
+            >
+              Sign in with Google
+            </Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Divider>
+              <Typography color="text.secondary" variant="body1">
+                or
+              </Typography>
+            </Divider>
+          </Grid>
+          <Grid item xs={12}>
+            {/* <Typography
               variant="body1"
               color="text.primary"
               mb={1}
               fontWeight="600"
             >
               Enter your email
-            </Typography>
+            </Typography> */}
             <TextField
+              placeholder="E-mail"
               size="small"
               variant="outlined"
               name="email"
@@ -101,15 +117,16 @@ const SigninForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography
+            {/* <Typography
               variant="body1"
               fontWeight="600"
               color="text.primary"
               mb={1}
             >
               Enter your password
-            </Typography>
+            </Typography> */}
             <TextField
+              placeholder="Password"
               size="small"
               variant="outlined"
               name="password"
@@ -124,7 +141,7 @@ const SigninForm = () => {
           <Grid item xs={12} my={1}>
             <Divider />
           </Grid>
-          <Grid item container xs={12}>
+          <Grid item xs={12}>
             <Button
               variant="contained"
               type="submit"
@@ -134,7 +151,8 @@ const SigninForm = () => {
               Login{" "}
             </Button>
           </Grid>
-          <Grid item container xs={12}>
+
+          <Grid item xs={12}>
             <AlertSnackBar />
             <Box
               display="flex"

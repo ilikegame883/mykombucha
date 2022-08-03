@@ -8,7 +8,7 @@ const Register = () => {
     <Box>
       <MainLayout title="Register">
         <Box
-          py={10}
+          py={5}
           display="flex"
           alignItems="center"
           sx={{

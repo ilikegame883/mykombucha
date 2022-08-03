@@ -73,6 +73,7 @@ const UserInfo = ({ userData, userReviews, name }) => {
         <Box>
           <Avatar
             src={getCloudinaryUrl(avatar)}
+            referrerPolicy="no-referrer"
             alt={`${username}'s photo`}
             sx={{ height: { xs: 80, sm: 80 }, width: { xs: 80, sm: 80 } }}
           />

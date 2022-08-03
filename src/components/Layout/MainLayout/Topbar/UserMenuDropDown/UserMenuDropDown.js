@@ -33,6 +33,7 @@ const UserMenuDropDown = ({ userSessionAvatar, username }) => {
         <IconButton onClick={handleClick}>
           <Avatar
             src={userSessionAvatar}
+            referrerPolicy="no-referrer"
             alt="top bar avatar"
             sx={{ width: 40, height: 40, border: "0.5px solid black" }}
           />

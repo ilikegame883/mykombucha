@@ -1,19 +1,19 @@
-import { getSession } from "next-auth/react";
+import { getSession, getProviders } from "next-auth/react";
 import { Box } from "@mui/material";
 import { SigninForm } from "../src/components/Forms";
 import { MainLayout } from "../src/components/Layout";
 
-const Signin = () => {
+const Signin = ({ providers }) => {
   return (
     <Box>
       <MainLayout title="Login">
         <Box
-          py={10}
+          py={5}
           display="flex"
           alignItems="center"
           sx={{ minHeight: "calc(100vh - 345px)" }}
         >
-          <SigninForm />
+          <SigninForm providers={providers} />
         </Box>
       </MainLayout>
     </Box>
@@ -21,6 +21,7 @@ const Signin = () => {
 };
 
 export async function getServerSideProps({ req }) {
+  const providers = await getProviders();
   const session = await getSession({ req });
   if (session) {
     return {
@@ -30,6 +31,6 @@ export async function getServerSideProps({ req }) {
       },
     };
   }
-  return { props: {} };
+  return { props: { providers, session } };
 }
 export default Signin;
