@@ -43,16 +43,11 @@ const KombuchaProfile = ({ singleKombuchaData }) => {
             src={getCloudinaryUrl(image)}
             width={100}
             height={100}
-            mb={{ xs: 2, sm: 0 }}
+            mb={{ xs: 1, sm: 0 }}
             mr={{ xs: 0, sm: 2 }}
           />
           <Stack justifyContent="center">
-            <Box
-              display="flex"
-              alignItems="center"
-              flexWrap="wrap"
-              mb={{ xs: 0.5, sm: 0 }}
-            >
+            <Box display="flex" alignItems="center" mb={{ xs: 0.5, sm: 0 }}>
               <Typography variant="h5" fontWeight="700" mr={0.5}>
                 {name}
               </Typography>
@@ -61,11 +56,11 @@ const KombuchaProfile = ({ singleKombuchaData }) => {
             <Box mb={0.25}>
               <Link href={`/breweries/${brewery_slug}`} passHref>
                 <Typography
-                  variant={isSm ? "h6" : "body1"}
+                  variant="body1"
                   component="a"
                   color="text.secondary"
                   fontWeight="500"
-                  lineHeight={1.4}
+                  gutterBottom
                 >{`${brewery_name} Brewing Company`}</Typography>
               </Link>
             </Box>

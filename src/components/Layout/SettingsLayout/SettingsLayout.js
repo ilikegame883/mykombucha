@@ -41,7 +41,7 @@ const SettingsLayout = ({ children, userData }) => {
 
   return (
     <Box>
-      <Box bgcolor={"primary.light"} py={10}>
+      <Box bgcolor={"primary.light"} py={13}>
         <Container>
           <Typography
             variant={isSm ? "h3" : "h4"}
@@ -62,7 +62,7 @@ const SettingsLayout = ({ children, userData }) => {
             <Card sx={{ boxShadow: 3, pt: 3 }}>
               <Box display="flex" justifyContent="center" mb={1}>
                 <Box position="relative">
-                  <Avatar src={avatar} sx={{ width: 150, height: 150 }} />
+                  <Avatar src={avatar} sx={{ width: 125, height: 125 }} />
 
                   <Box
                     sx={{
@@ -100,20 +100,20 @@ const SettingsLayout = ({ children, userData }) => {
                   overflow: "auto",
                   flexWrap: "nowrap",
                   width: "100%",
-                  paddingY: { xs: 3, md: 2 },
-                  paddingX: { xs: 4, md: 0 },
+                  paddingY: { xs: 2, md: 2 },
+                  paddingX: { xs: 3, md: 0 },
                 }}
               >
                 {pages.map((item) => (
                   <ListItem
                     key={item.id}
-                    component={"a"}
+                    component="a"
                     href={`/users/${username}${item.href}`}
                     disableGutters
                     sx={{
                       marginRight: { xs: 2, md: 0 },
                       flex: 0,
-                      paddingX: { xs: 0, md: 3 },
+                      paddingX: { xs: 0, md: 2 },
                       borderLeft: {
                         xs: "none",
                         md: "2px solid transparent",
@@ -156,7 +156,7 @@ const SettingsLayout = ({ children, userData }) => {
             </Card>
           </Grid>
           <Grid item xs={12} md={9}>
-            <Card sx={{ boxShadow: 3, padding: 4 }}>{children}</Card>
+            <Card sx={{ boxShadow: 3, p: { xs: 3, sm: 4 } }}>{children}</Card>
           </Grid>
         </Grid>
       </Container>

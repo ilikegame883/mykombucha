@@ -75,7 +75,6 @@ const SearchTable = ({ category }) => {
     try {
       let data = await getData(category, `search/${str}`);
       setSearchData(data);
-      //   return [...data];
     } catch (error) {
       console.error(error);
     }

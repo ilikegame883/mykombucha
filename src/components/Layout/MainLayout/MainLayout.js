@@ -94,7 +94,7 @@ const MainLayout = ({
         {children}
       </Box>
       <Divider />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ py: 5 }}>
         <Footer />
       </Container>
     </Box>

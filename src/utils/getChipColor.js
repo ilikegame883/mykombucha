@@ -6,7 +6,7 @@ const getChipColor = (name) => {
       return "#DDEBF1";
     case "Hard Kombucha":
       return "#FBE4E4";
-    case "Jun":
+    case "Kombucha (CBD)":
       return "#DDEDEA";
     default:
       return "#FFEBCE";

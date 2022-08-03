@@ -64,6 +64,7 @@ const Hero = () => {
               variant={matches ? "h3" : "h4"}
               color="text.primary"
               fontWeight="700"
+              mb={1.5}
             >
               your favorite{" "}
               <Typography
@@ -74,6 +75,12 @@ const Hero = () => {
               >
                 Kombucha.
               </Typography>
+            </Typography>
+            <Typography
+              variant={matches ? "h6" : "subtitle1"}
+              color="text.secondary"
+            >
+              Online resource and community for kombucha enthusists.
             </Typography>
           </Box>
           <HeroSearchBar />

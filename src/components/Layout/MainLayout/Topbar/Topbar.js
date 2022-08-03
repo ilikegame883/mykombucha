@@ -15,6 +15,7 @@ import {
   Divider,
   Avatar,
   IconButton,
+  Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -66,38 +67,43 @@ const Topbar = ({ onSidebarOpen }) => {
 
   return (
     <Toolbar
+      disableGutters
       sx={{
         justifyContent: "space-between",
         my: { xs: 0.5, sm: 0 },
       }}
-      disableGutters
     >
-      <Box
-        component="a"
-        href="/"
-        title="home"
-        mr={0.5}
-        width={{ xs: 180, sm: 200 }}
-      >
-        <Box
-          component="img"
-          src="https://res.cloudinary.com/jjo/image/upload/v1651018664/myKombucha/Logo/topbar-logo_ha3vu9.svg"
-          height={1}
-          width={1}
-        />
+      <Link href="/" passHref>
+        <Box display="flex" alignItems="center" component="a">
+          <Box
+            component="img"
+            src="/static/favicons/android-chrome-192x192.png"
+            height={30}
+            width={30}
+          />
+          <Typography
+            variant="h6"
+            color="text.primary"
+            fontWeight="700"
+            ml={0.75}
+          >
+            myKombucha
+          </Typography>
+        </Box>
+      </Link>
+      <Box flex={1} ml={1}>
+        {router.pathname !== "/search/[category]" && <SearchBar />}
       </Box>
-      {router.pathname !== "/search/[category]" && <SearchBar />}
       <Stack
         direction="row"
         spacing={1}
         sx={{ display: { xs: "none", sm: "flex" } }}
       >
         <Link href="/local" passHref>
-          <StyledNavButton variant="text" disableRipple>
-            Local
-          </StyledNavButton>
+          <StyledNavButton disableRipple>Local</StyledNavButton>
         </Link>
         <StyledNavButton
+          disableRipple
           id="basic-button"
           aria-controls={open ? "expore-menu" : undefined}
           aria-haspopup="true"
@@ -187,7 +193,7 @@ const Topbar = ({ onSidebarOpen }) => {
                 orientation="vertical"
                 variant="middle"
                 flexItem
-                sx={{ my: 0.5, bgcolor: "text.primary" }}
+                sx={{ my: 0.75, bgcolor: "text.secondary" }}
               />
             </Box>
             <Stack direction="row" spacing={1}>
@@ -198,10 +204,12 @@ const Topbar = ({ onSidebarOpen }) => {
                 <Button
                   disableRipple
                   variant="contained"
-                  color="secondary"
+                  color="primary"
                   sx={{
+                    fontWeight: 600,
+                    borderRadius: 5,
                     px: 3.5,
-                    color: "common.white",
+                    color: "text.primary",
                   }}
                 >
                   Join
@@ -227,9 +235,10 @@ const Topbar = ({ onSidebarOpen }) => {
                 variant="outlined"
                 disableRipple
                 size="small"
-                color="secondary"
                 sx={{
-                  fontWeight: 700,
+                  color: "text.primary",
+                  border: "1px solid #0d172a",
+                  fontWeight: 600,
                 }}
               >
                 Login
@@ -238,8 +247,8 @@ const Topbar = ({ onSidebarOpen }) => {
             <Button
               onClick={() => onSidebarOpen()}
               aria-label="Menu"
-              color="secondary"
               sx={{
+                color: "text.primary",
                 borderRadius: 2,
                 minWidth: "auto",
                 ml: 0.5,

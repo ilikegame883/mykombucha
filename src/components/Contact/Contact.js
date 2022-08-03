@@ -2,12 +2,12 @@ import { Box, Stack, Typography } from "@mui/material";
 
 const Contact = () => {
   return (
-    <Stack spacing={4}>
+    <Stack spacing={3}>
       <Box>
-        <Typography variant="h3" fontWeight="700" align="center" gutterBottom>
+        <Typography variant="h4" fontWeight="700" gutterBottom>
           Contact us
         </Typography>
-        <Typography color="text.secondary" align="center" variant="subtitle1">
+        <Typography color="text.secondary" align="left" variant="subtitle1">
           myKombucha does not produce kombucha nor do we forward emails to
           brewers. If you would like to contact a brewery, you can look them up
           through our{" "}
@@ -23,7 +23,7 @@ const Contact = () => {
         </Typography>
       </Box>
       <Box textAlign="center">
-        <Typography variant="subtitle1" color="text.secondary">
+        <Typography variant="subtitle1" color="text.secondary" align="left">
           For all suggestions and all other enquiries reach us at:{" "}
           <Typography
             component="a"

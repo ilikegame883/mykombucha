@@ -73,7 +73,7 @@ const GeneralSettings = ({ userData }) => {
       <Typography variant="h6" gutterBottom fontWeight="600">
         Edit Profile
       </Typography>
-      <Box pb={4}>
+      <Box pb={3}>
         <Divider />
       </Box>
       <form onSubmit={formik.handleSubmit}>

@@ -20,20 +20,19 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
         flexWrap="wrap"
         mb={2}
       >
-        <Box display="inline-flex">
+        <Box display="flex" alignItems="center">
           <Avatar
             src={review.review_by.avatar}
             alt={review.username}
-            sx={{ width: 50, height: 50 }}
+            sx={{ width: 40, height: 40 }}
           />
-          <Box ml={1.5}>
+          <Box ml={1.2} pb={0.5}>
             <Link href={`/users/${review.username}`} passHref>
               <Typography
                 variant="h6"
-                fontWeight="500"
+                fontWeight="600"
                 component="a"
                 color="text.primary"
-                sx={{ textDecoration: "none" }}
               >
                 {review.username}
               </Typography>
@@ -48,7 +47,7 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
             </Typography>
           </Box>
         </Box>
-        <Box display="inline-flex" alignItems="center">
+        <Box display="flex" alignItems="center">
           <Rating
             name="user-rating"
             precision={0.25}
@@ -105,12 +104,12 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
             py={0.5}
             px={1}
             bgcolor="#F5F5F5"
+            fontWeight="500"
             sx={{ borderRadius: 1.5 }}
           >
             {review.served_in}
           </Typography>
           <Typography variant="caption" ml={1}>
-            Review Date:{" "}
             {review.createdAt.slice(0, review.createdAt.lastIndexOf("T"))}
           </Typography>
         </Box>

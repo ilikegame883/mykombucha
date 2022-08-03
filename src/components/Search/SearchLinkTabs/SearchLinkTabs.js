@@ -56,7 +56,7 @@ const SearchLinkTabs = ({
           <Box display="flex" flexWrap="wrap">
             <Box>
               <Typography
-                color="primary.dark"
+                color="secondary"
                 fontWeight="600"
                 variant="subtitle1"
               >

@@ -101,7 +101,7 @@ const SigninForm = ({ providers }) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="E-mail"
+                label="E-mail *"
                 size="small"
                 variant="outlined"
                 name="email"
@@ -114,7 +114,7 @@ const SigninForm = ({ providers }) => {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                label="Password"
+                label="Password *"
                 size="small"
                 variant="outlined"
                 name="password"

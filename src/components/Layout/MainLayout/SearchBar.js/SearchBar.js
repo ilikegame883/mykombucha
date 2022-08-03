@@ -22,7 +22,6 @@ const SearchBar = () => {
     <Box
       sx={{
         display: { xs: "none", md: "block" },
-        flexGrow: 1,
         marginX: 2,
         "& .MuiOutlinedInput-notchedOutline": {
           border: "0 !important",
@@ -41,6 +40,7 @@ const SearchBar = () => {
           sx={{
             background: theme.palette.background.paper,
             border: `1px solid ${theme.palette.divider}`,
+            maxWidth: 600,
           }}
           startAdornment={
             <InputAdornment position="start">

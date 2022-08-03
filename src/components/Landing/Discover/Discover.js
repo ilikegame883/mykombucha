@@ -6,7 +6,7 @@ const Discover = ({ kombuchaList }) => {
   const isSm = useMediaQuery(theme.breakpoints.up("sm"), {});
 
   return (
-    <Grid container alignItems="center" spacing={5}>
+    <Grid container alignItems="center" spacing={{ xs: 0, sm: 2.5, md: 5 }}>
       <Grid item xs={12} md={6} align="left">
         <Box mb={5}>
           <Box display="flex" justifyContent="flex-start" mb={1}>

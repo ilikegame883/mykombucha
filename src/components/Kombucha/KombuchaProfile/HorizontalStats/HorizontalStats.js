@@ -36,7 +36,12 @@ const HorizontalStats = ({ served_in, ABV, flavor }) => {
               Served in:
             </Typography>
             {served_in.map((item) => (
-              <Chip key={item} label={item} size="small" sx={{ mr: 0.5 }} />
+              <Chip
+                key={item}
+                label={item}
+                size="small"
+                sx={{ mr: 0.5, fontWeight: 500, borderRadius: 2 }}
+              />
             ))}
           </Box>
         </Grid>

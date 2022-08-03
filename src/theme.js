@@ -15,7 +15,7 @@ const theme = createTheme({
       dark: "#ba7a19",
     },
     text: {
-      primary: "#2E2E2E",
+      primary: "#0d172a",
       secondary: "#677788",
     },
     error: {
@@ -29,7 +29,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: `"Nunito", "Source Serif Pro", sans-serif`,
+    fontFamily: `"Quicksand", "Source Serif Pro", sans-serif`,
   },
   components: {
     MuiButton: {
