@@ -15,7 +15,7 @@ import Footer from "./Footer";
 import AlertToast from "../../AlertToast";
 
 const MainLayout = ({
-  bgcolor = "#FFF",
+  bgcolor = "#FAFAFA",
   position = "sticky",
   title,
   children,
