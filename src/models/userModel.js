@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
       // select: false,
       //password will be not accesssible by default with select: false
     },
@@ -43,9 +42,12 @@ const userSchema = new mongoose.Schema(
     bio: {
       type: String,
     },
-
-    wish_list: [{ type: mongoose.Types.ObjectId, ref: "Kombucha" }],
-    favorite_brewery: [{ type: mongoose.Types.ObjectId, ref: "Brewery" }],
+    wish_list: {
+      type: [{ type: mongoose.Types.ObjectId, ref: "Kombucha" }],
+    },
+    favorite_brewery: {
+      type: [{ type: mongoose.Types.ObjectId, ref: "Brewery" }],
+    },
   },
   {
     timestamps: true,
