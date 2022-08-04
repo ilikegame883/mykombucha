@@ -45,7 +45,7 @@ const kombuchaSchema = new mongoose.Schema(
     ABV: {
       type: Number,
     },
-    served_in: [String],
+    served_in: { type: [String] },
     avg: {
       type: Number,
       default: null,
@@ -55,7 +55,7 @@ const kombuchaSchema = new mongoose.Schema(
       default: 0,
     },
     // reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
-    wish_list_users: [{ username: { type: String }, date: Date }],
+    wish_list_users: { type: [{ username: { type: String }, date: Date }] },
   },
   {
     timestamps: true,
