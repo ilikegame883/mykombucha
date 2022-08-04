@@ -22,7 +22,7 @@ const Profile = ({ userData }) => {
   return (
     <Grid container columnSpacing={1.5}>
       <Grid item xs={12} md={8} lg={9}>
-        <Paper sx={{ mb: 1.5 }}>
+        <Paper sx={{ mb: 1.5 }} variant="outlined">
           <UserInfo userData={userData} userReviews={userReviews} name={name} />
         </Paper>
         <Paper sx={{ display: { xs: "block", md: "none" } }}>

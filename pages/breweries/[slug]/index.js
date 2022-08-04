@@ -16,7 +16,7 @@ const Brewery = ({ singleBreweryData, topRaters }) => {
       <Container maxWidth="lg" sx={{ py: 5 }}>
         <Grid container columnSpacing={2}>
           <Grid item xs={12} md={9}>
-            <Paper sx={{ mb: 1.5 }}>
+            <Paper sx={{ mb: 1.5 }} variant="outlined">
               <ProfileTopBar />
               <Divider />
               <BreweryProfile singleBreweryData={singleBreweryData} />
@@ -24,7 +24,7 @@ const Brewery = ({ singleBreweryData, topRaters }) => {
           </Grid>
 
           <Grid item xs={12} md={3} sx={{ mb: { xs: 2 } }}>
-            <Paper>
+            <Paper variant="outlined">
               <TopRaters topRaters={topRaters} />
             </Paper>
           </Grid>

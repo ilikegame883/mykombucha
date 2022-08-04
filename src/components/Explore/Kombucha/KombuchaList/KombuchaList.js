@@ -15,7 +15,7 @@ import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 const KombuchaList = ({ kombuchaList, category }) => {
   const theme = useTheme();
   return (
-    <Box component={Paper}>
+    <Box component={Paper} variant="outlined">
       <Grid container>
         {kombuchaList.map((item, i) => (
           <Grid
@@ -64,7 +64,7 @@ const KombuchaList = ({ kombuchaList, category }) => {
                         component="a"
                         variant="body2"
                         color="text.secondary"
-                        fontWeight="600"
+                        fontWeight="500"
                         sx={{
                           "&:hover": { textDecoration: "underline" },
                         }}

@@ -41,7 +41,11 @@ const SettingsLayout = ({ children, userData }) => {
 
   return (
     <Box>
-      <Box bgcolor={"primary.light"} py={13}>
+      <Box
+        bgcolor={"primary.light"}
+        pb={{ xs: 10, sm: 15 }}
+        pt={{ xs: 10, sm: 13 }}
+      >
         <Container>
           <Typography
             variant={isSm ? "h3" : "h4"}
@@ -56,7 +60,7 @@ const SettingsLayout = ({ children, userData }) => {
           </Typography>
         </Container>
       </Box>
-      <Container sx={{ pt: "0 !important", mt: -10 }}>
+      <Container sx={{ pt: "0 !important", mt: -8 }}>
         <Grid container spacing={4}>
           <Grid item xs={12} md={3}>
             <Card sx={{ boxShadow: 3, pt: 3 }}>

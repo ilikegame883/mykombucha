@@ -14,12 +14,7 @@ import Sidebar from "./Sidebar";
 import Footer from "./Footer";
 import AlertToast from "../../AlertToast";
 
-const MainLayout = ({
-  bgcolor = "#FAFAFA",
-  position = "sticky",
-  title,
-  children,
-}) => {
+const MainLayout = ({ position = "sticky", title, children }) => {
   const [openSidebar, setOpenSidebar] = useState(false);
 
   const router = useRouter();
@@ -78,7 +73,7 @@ const MainLayout = ({
         position={position}
         width={1}
         sx={{
-          backgroundColor: bgcolor,
+          backgroundColor: "#F7F9FC",
           top: 0,
           borderBottom: `0.5px solid ${theme.palette.divider}`,
         }}
@@ -94,9 +89,11 @@ const MainLayout = ({
         {children}
       </Box>
       <Divider />
-      <Container maxWidth="lg" sx={{ py: 5 }}>
-        <Footer />
-      </Container>
+      <Box bgcolor="#F7F9FC">
+        <Container maxWidth="lg" sx={{ py: 5 }}>
+          <Footer />
+        </Container>
+      </Box>
     </Box>
   );
 };

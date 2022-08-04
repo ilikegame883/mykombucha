@@ -119,8 +119,8 @@ const SearchTable = ({ category }) => {
 
   return (
     <>
-      <TableContainer component={Paper}>
-        <Box display="flex" p={2}>
+      <TableContainer component={Paper} variant="outlined">
+        <Box display="flex" p={2} bgcolor="#F7F9FC">
           <ProductTableSearchBar
             searchQuery={searchQuery}
             handleSearchBar={handleSearchBar}

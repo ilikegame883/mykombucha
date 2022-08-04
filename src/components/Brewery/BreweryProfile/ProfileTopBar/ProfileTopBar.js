@@ -24,7 +24,6 @@ const ProfileTopBar = () => {
     session?.user ? `/api/breweries/${slug}` : null,
     fetcher
   );
-
   //check if user in session has already added gave favorite to brewery
   //each brewery document contains favorite_list array field
   const checkUserFavoriteBrewery =
@@ -55,6 +54,7 @@ const ProfileTopBar = () => {
         justifyContent: "space-between",
         alignItems: "center",
         p: 1.5,
+        bgcolor: "#F7F9FC",
       }}
     >
       <Link href={`/breweries/${slug}/corrections`}>

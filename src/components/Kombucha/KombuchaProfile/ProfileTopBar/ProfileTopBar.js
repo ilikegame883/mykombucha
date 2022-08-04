@@ -59,6 +59,7 @@ const ProfileTopBar = ({ kombuchaId }) => {
           justifyContent: "space-between",
           alignItems: "center",
           p: 1.5,
+          bgcolor: "#F7F9FC",
         }}
       >
         <Link href={`/kombucha/${kombuchaId}/corrections`}>

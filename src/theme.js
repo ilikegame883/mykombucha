@@ -45,6 +45,7 @@ const theme = createTheme({
         outlined: {
           "&:hover": {
             backgroundColor: "transparent",
+            borderColor: "black",
           },
         },
         text: {

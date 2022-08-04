@@ -18,19 +18,19 @@ const TopRaters = ({ topRaters }) => {
   const theme = useTheme();
 
   return (
-    <Box pt={1}>
-      <Box>
+    <Box>
+      <Box bgcolor="#F7F9FC" py={1}>
         <Typography
           variant="h6"
           align="center"
           color="text.primary"
           fontWeight="500"
-          gutterBottom
         >
           Top Raters
         </Typography>
       </Box>
       <Divider />
+
       {!topRaters.length && (
         <Stack alignItems="center" py={2} spacing={2}>
           <FindInPageOutlinedIcon

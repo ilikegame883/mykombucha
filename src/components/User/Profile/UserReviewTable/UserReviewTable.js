@@ -192,14 +192,14 @@ const UserReviewTable = ({ userReviews }) => {
 
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} variant="outlined">
         <Box
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          p={3}
+          p={2}
         >
-          <Typography variant="h6" fontWeight="bold" color="text.primary">
+          <Typography variant="h6" fontWeight="600" color="text.primary">
             Reviews
           </Typography>
 

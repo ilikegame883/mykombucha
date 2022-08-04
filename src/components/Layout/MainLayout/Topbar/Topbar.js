@@ -264,7 +264,7 @@ const Topbar = ({ onSidebarOpen }) => {
             <Avatar
               src={userSessionAvatar}
               alt="mobile user avatar menu"
-              sx={{ width: 40, height: 40, border: "1px solid #fff" }}
+              sx={{ width: 40, height: 40, border: "0.5px solid black" }}
             />
           </IconButton>
         )}

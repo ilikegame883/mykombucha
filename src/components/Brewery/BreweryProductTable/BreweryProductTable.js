@@ -24,6 +24,7 @@ import ProductTableSearchBar from "../../ProductTable/ProductTableSearchBar";
 import ProductSearchNotFound from "../../ProductTable/ProductSearchNotFound";
 import ProductTableHead from "../../ProductTable/ProductTableHead";
 import CustomChips from "../../CustomChips";
+import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 
 const TABLE_HEAD = [
   {
@@ -184,7 +185,7 @@ const BreweryProductTable = ({ singleBreweryData }) => {
 
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} variant="outlined">
         <Box
           display="flex"
           justifyContent="space-between"
@@ -222,7 +223,10 @@ const BreweryProductTable = ({ singleBreweryData }) => {
                     <List sx={{ p: 0, m: 0 }}>
                       <ListItem sx={{ p: 0, m: 0 }}>
                         <ListItemAvatar>
-                          <Avatar variant="square" src={item.image} />
+                          <Avatar
+                            variant="square"
+                            src={getCloudinaryUrl(item.image)}
+                          />
                         </ListItemAvatar>
                         <ListItemText
                           disableTypography

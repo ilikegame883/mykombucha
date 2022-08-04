@@ -22,22 +22,31 @@ import { getData } from "../../../../utils/fetchData";
 const StyledAutoComplete = styled(Autocomplete)(({ theme }) => ({
   width: "100%",
   maxWidth: 600,
+  "& .MuiPaper-root": {
+    boxShadow: "none",
+    border: `1px solid #BDBDBD`,
+  },
 }));
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   [`& .${autocompleteClasses.paper}`]: {
     //paper is the listbox parent container
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
+    boxShadow: "none",
+    border: `1px solid #BDBDBD`,
   },
   [`& .${autocompleteClasses.listbox}`]: {
     //listbox is the search result list container
     padding: 0,
+    boxShadow: "none",
+
     "&& li.Mui-focused": {
       backgroundColor: "#fff",
+      boxShadow: "none",
     },
     [`& .${autocompleteClasses.option}`]: {
       //option is the search result list item
+      boxShadow: "none",
+
       padding: "0px 10px",
       alignItems: "center",
       borderBottom: "1px solid #eaecef",
@@ -179,7 +188,7 @@ const HeroSearchBar = () => {
               <Typography
                 variant="body1"
                 color="text.primary"
-                fontWeight="700"
+                fontWeight="600"
                 p={1.5}
                 sx={{ bgcolor: "#ECECEC", textTransform: "capitalize" }}
               >
@@ -192,7 +201,7 @@ const HeroSearchBar = () => {
                     component="a"
                     variant="subtitle2"
                     color="info.dark"
-                    fontWeight="700"
+                    fontWeight="600"
                   >
                     See more {group} results for {`"${value}"`}
                   </Typography>

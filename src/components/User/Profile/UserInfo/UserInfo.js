@@ -28,6 +28,7 @@ const UserInfo = ({ userData, userReviews, name }) => {
           justifyContent: "space-between",
           alignItems: "center",
           p: 1.5,
+          bgcolor: "#F7F9FC",
         }}
       >
         <Stack direction="row" spacing={1} alignItems="center">

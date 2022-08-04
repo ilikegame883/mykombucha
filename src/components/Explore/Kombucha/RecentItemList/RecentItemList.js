@@ -18,7 +18,7 @@ const RecentItemList = ({ reviewList }) => {
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
   return (
-    <Box component={Paper}>
+    <Box component={Paper} variant="outlined">
       <Grid container>
         {reviewList.map((item, i) => (
           <Grid
@@ -79,7 +79,7 @@ const RecentItemList = ({ reviewList }) => {
                         variant="body2"
                         component="a"
                         color="text.secondary"
-                        fontWeight="600"
+                        fontWeight="500"
                         sx={{
                           "&:hover": { textDecoration: "underline" },
                         }}

@@ -47,7 +47,7 @@ const BreweryList = ({ breweryList, category, sort }) => {
   };
 
   return (
-    <Box component={Paper}>
+    <Box component={Paper} variant="outlined">
       <Grid container>
         {sortedList().map((item, i) => (
           <Grid

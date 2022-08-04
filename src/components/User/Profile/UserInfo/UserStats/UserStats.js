@@ -32,7 +32,7 @@ const UserStats = ({ userData }) => {
             precision={0.25}
             sx={{ color: "primary.main" }}
           />
-          <Typography variant="body1" fontWeight="500" color="text.secondary">
+          <Typography variant="body2" fontWeight="500" color="text.secondary">
             ({Boolean(avg_rating) ? avg_rating.toFixed(2) : "N/A"})
           </Typography>
         </Box>

@@ -73,7 +73,7 @@ const SearchLinkTabs = ({
           </Box>
         </Box>
 
-        <Box sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}>
+        <Box mb={2}>
           {/* //Tabs children  must have prop named value */}
           <Tabs
             value={value}

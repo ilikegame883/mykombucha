@@ -11,12 +11,12 @@ const UserWishList = ({ wishList }) => {
   };
   return (
     <Box mb={2}>
-      <Box p={1}>
+      <Box p={1} bgcolor="#F7F9FC">
         <Typography
           variant="h6"
           align="center"
           color="text.primary"
-          fontWeight="600"
+          fontWeight="500"
         >
           Wish List ({wishList.length})
         </Typography>
@@ -29,7 +29,7 @@ const UserWishList = ({ wishList }) => {
           variant="text"
           color="secondary"
           onClick={handleClickWishList}
-          sx={{ textTransform: "none", fontWeight: 700 }}
+          sx={{ textTransform: "none", fontWeight: 600 }}
         >
           See all
         </Button>

@@ -41,11 +41,16 @@ const BreweryProfile = ({ singleBreweryData }) => {
               variant={isSm ? "h5" : "h6"}
               fontWeight="700"
             >{`${name} Brewing Company`}</Typography>
-            <Box display="flex" alignItems="center" flexWrap="wrap" mb={0.5}>
+            <Box
+              display="flex"
+              alignItems="center"
+              flexWrap="wrap"
+              mb={{ xs: 0.5, sm: 0.25 }}
+            >
               <Typography
                 variant="body1"
                 color="text.secondary"
-                fontWeight="600"
+                fontWeight="500"
                 mr={1}
               >
                 {type}
