@@ -13,7 +13,7 @@ const RootStyle = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("lg")]: {
     height: 420,
   },
-  height: 520,
+  height: 540,
   backgroundImage: `url("/static/images/hero.webp")`,
   backgroundSize: "cover",
   backgroundPosition: "center",

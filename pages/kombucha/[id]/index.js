@@ -27,7 +27,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
       <Container maxWidth="lg" sx={{ py: 5 }}>
         <Grid container columnSpacing={2}>
           <Grid item xs={12} md={9}>
-            <Paper sx={{ mb: 1.5 }}>
+            <Paper sx={{ mb: 1.5 }} variant="outlined">
               <ProfileTopBar kombuchaId={kombuchaId} />
               <Divider />
               <KombuchaProfile singleKombuchaData={singleKombuchaData} />
@@ -43,7 +43,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
           </Grid>
 
           <Grid item xs={12} md={9} mb={1.5}>
-            <Paper sx={{ p: 3 }}>
+            <Paper sx={{ p: 3 }} variant="outlined">
               <Typography variant="h6" color="text.primary" fontWeight="600">
                 Top Review
               </Typography>
@@ -52,7 +52,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
           </Grid>
 
           <Grid item xs={12} md={9}>
-            <Paper sx={{ px: 3, pt: 3, pb: 2 }}>
+            <Paper sx={{ px: 3, pt: 3, pb: 2 }} variant="outlined">
               <Typography
                 variant="h6"
                 color="text.primary"
@@ -61,7 +61,6 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
               >
                 Reviews ({!isReviewDataLoading && kombuchaReviews.length})
               </Typography>
-
               <KombuchaReviews
                 kombuchaReviews={kombuchaReviews}
                 isReviewDataLoading={isReviewDataLoading}

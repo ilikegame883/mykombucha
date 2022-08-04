@@ -13,7 +13,7 @@ const CustomChips = ({ type }) => {
           mr: 0.25,
           fontSize: "0.75em",
           fontWeight: "500",
-          height: 20,
+          height: 22,
           color: "text.primary",
           bgcolor: getChipColor(type),
         }}
@@ -29,7 +29,7 @@ const CustomChips = ({ type }) => {
             mr: 0.25,
             fontSize: "0.75em",
             fontWeight: "500",
-            height: 20,
+            height: 22,
             color: "text.primary",
             bgcolor: getChipColor(item),
           }}

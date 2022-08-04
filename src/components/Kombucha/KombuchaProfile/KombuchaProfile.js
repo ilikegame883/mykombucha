@@ -47,8 +47,18 @@ const KombuchaProfile = ({ singleKombuchaData }) => {
             mr={{ xs: 0, sm: 2 }}
           />
           <Stack justifyContent="center">
-            <Box display="flex" alignItems="center" mb={{ xs: 0.5, sm: 0 }}>
-              <Typography variant="h5" fontWeight="700" mr={0.5}>
+            <Box
+              display="flex"
+              alignItems="center"
+              flexWrap="wrap"
+              mb={{ xs: 0.5, sm: 0 }}
+            >
+              <Typography
+                variant="h5"
+                fontWeight="700"
+                mr={0.5}
+                mb={{ xs: 0.5, sm: 0 }}
+              >
                 {name}
               </Typography>
               <CustomChips type={product_type} />
@@ -96,7 +106,7 @@ const KombuchaProfile = ({ singleKombuchaData }) => {
       <HorizontalStats served_in={served_in} ABV={ABV} flavor={flavor} />
       <Divider />
       <Box px={{ xs: 2, sm: 3 }} py={2}>
-        <Typography variant="body2">{description}</Typography>
+        <Typography variant="body2">Description: {description}</Typography>
       </Box>
     </>
   );

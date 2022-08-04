@@ -30,7 +30,7 @@ const KombuchaList = ({ kombuchaList, category }) => {
               },
             }}
           >
-            <Box px={2.5} py={2} display="flex" alignItems="center">
+            <Box py={3} px={2.5} display="flex" alignItems="center">
               <Box
                 display={"flex"}
                 flexDirection={{ xs: "column", sm: "row" }}
@@ -73,7 +73,7 @@ const KombuchaList = ({ kombuchaList, category }) => {
                       </Typography>
                     </Link>
                   </Box>
-                  <Box mb={{ xs: 1.5, sm: 0 }}>
+                  <Box mb={{ xs: 0, sm: 0 }}>
                     <RevealText text={item.description} maxLength={75} />
                   </Box>
                 </Box>

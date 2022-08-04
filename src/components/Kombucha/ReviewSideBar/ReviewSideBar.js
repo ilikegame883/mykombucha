@@ -24,8 +24,12 @@ const StatItem = ({ kombuchaReviews }) => {
           <Box>
             <RateReviewIcon sx={{ color: "secondary.main" }} />
           </Box>
-          <Typography variant="body1">{kombuchaReviews.length}</Typography>
-          <Typography variant="body2">Total Reviews</Typography>
+          <Typography variant="body1" color="text.primary" fontWeight="600">
+            {kombuchaReviews.length}
+          </Typography>
+          <Typography variant="body2" color="text.primary" fontWeight="500">
+            Total Reviews
+          </Typography>
         </Paper>
       </Grid>
       <Grid item xs={6}>
@@ -33,8 +37,12 @@ const StatItem = ({ kombuchaReviews }) => {
           <Box>
             <StarsIcon sx={{ color: "#FAAF00" }} />
           </Box>
-          <Typography variant="body1">#</Typography>
-          <Typography variant="body2">Rank</Typography>
+          <Typography variant="body1" color="text.primary" fontWeight="600">
+            #
+          </Typography>
+          <Typography variant="body2" color="text.primary" fontWeight="500">
+            Rank
+          </Typography>
         </Paper>
       </Grid>
     </>
@@ -75,7 +83,7 @@ const ReviewSideBar = ({
 
   return (
     <>
-      <Card>
+      <Card variant="outlined">
         <CardContent sx={{ p: 2.5 }}>
           <Grid container spacing={1} mb={2}>
             <StatItem kombuchaReviews={kombuchaReviews} />

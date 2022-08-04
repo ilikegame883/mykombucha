@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 //React memo to prevent rerendering?
 const RevealText = ({ text, maxLength }) => {
@@ -35,7 +35,7 @@ const RevealText = ({ text, maxLength }) => {
   if (seeMoreDesc) {
     return (
       <>
-        <Typography variant="subtitle2" fontWeight="400">
+        <Typography variant="subtitle2" fontWeight="400" pt={{ xs: 0, md: 2 }}>
           {text}
         </Typography>
         <Typography
