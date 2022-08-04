@@ -11,10 +11,10 @@ import HeroSearchBar from "./HeroSearchBar";
 const RootStyle = styled("div")(({ theme }) => ({
   position: "relative",
   [theme.breakpoints.down("lg")]: {
-    height: 380,
+    height: 420,
   },
   height: 520,
-  backgroundImage: `url("/static/images/hero.png")`,
+  backgroundImage: `url("/static/images/hero.webp")`,
   backgroundSize: "cover",
   backgroundPosition: "center",
   display: "flex",
@@ -77,8 +77,9 @@ const Hero = () => {
               </Typography>
             </Typography>
             <Typography
-              variant={matches ? "h6" : "subtitle1"}
+              variant="h6"
               color="text.secondary"
+              pr={{ xs: 7, sm: 0 }}
             >
               Online resource and community for kombucha enthusists.
             </Typography>

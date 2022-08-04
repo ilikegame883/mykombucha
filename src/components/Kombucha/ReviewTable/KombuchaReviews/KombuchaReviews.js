@@ -41,12 +41,12 @@ const KombuchaReviews = ({
           </React.Fragment>
         ))
       ) : (
-        <Box mt={2}>
+        <Box mt={2} display="flex" alignItems="center">
           <FindInPageOutlinedIcon
             color="primary"
-            sx={{ fontSize: 84, opacity: 0.3 }}
+            sx={{ fontSize: 80, opacity: 0.3 }}
           />
-          <Typography variant="body1" color="text.primary" mt={2}>
+          <Typography variant="body1" color="text.primary" ml={2}>
             There are no reviews yet. Click the Rate button to add a review!
           </Typography>
         </Box>

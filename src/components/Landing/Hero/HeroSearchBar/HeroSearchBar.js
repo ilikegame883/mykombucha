@@ -18,6 +18,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { getData } from "../../../../utils/fetchData";
+import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 
 const StyledAutoComplete = styled(Autocomplete)(({ theme }) => ({
   width: "100%",
@@ -160,7 +161,7 @@ const HeroSearchBar = () => {
                       <Avatar
                         variant="square"
                         alt={name}
-                        src={image}
+                        src={getCloudinaryUrl(image)}
                         sx={{ width: 40, height: 40 }}
                       />
                     </ListItemAvatar>
