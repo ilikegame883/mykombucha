@@ -1,12 +1,29 @@
-import { buildUrl } from "cloudinary-build-url";
+import { buildImageUrl, buildUrl } from "cloudinary-build-url";
 
 const getCloudinaryUrl = (url) => {
   if (url == undefined || url === "") {
     return "";
   }
-  const src = buildUrl(url, {
+  if (url.includes("cloudinary")) {
+    const src = buildUrl(url, {
+      cloud: {
+        cloudName: "mykombucha",
+      },
+      transformations: {
+        resize: {
+          type: "pad",
+          width: 150,
+          height: 150,
+        },
+        format: "webp",
+      },
+    });
+    return src;
+  }
+  const image = buildImageUrl(url, {
     cloud: {
       cloudName: "mykombucha",
+      storageType: "fetch",
     },
     transformations: {
       resize: {
@@ -17,7 +34,7 @@ const getCloudinaryUrl = (url) => {
       format: "webp",
     },
   });
-  return src;
+  return image;
 };
 
 export default getCloudinaryUrl;
