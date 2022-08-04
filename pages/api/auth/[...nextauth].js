@@ -52,7 +52,7 @@ export default NextAuth({
       //first time jwt callback is ran, user object is available !important!
       if (user) {
         const findUser = await Users.findOne({ email: user.email });
-        let newUserId;
+        let oAuthUserId;
 
         //login with google does not provide username
         //create username using e-mail address if google is used to login
@@ -68,11 +68,13 @@ export default NextAuth({
           });
           //save new google login user data to DB and retrieve user _id
           await newUser.save();
-          newUserId = newUser._id;
+          oAuthUserId = newUser._id;
         }
-
+        if (findUser) {
+          oAuthUserId = findUser._id;
+        }
         //grab userdata and embed to token
-        token._id = user.userid || newUserId;
+        token._id = user.userid || oAuthUserId;
         token.username = setUserName;
         token.avatar = user.avatar || user.image;
       }
