@@ -28,7 +28,7 @@ const getHomeStaticData = async () => {
     },
     //sort by highest ratings to lowest
     { $sort: { avg: -1 } },
-    { $limit: 4 },
+    { $limit: 5 },
     { $unwind: "$brewery" },
   ]);
   const kombuchaList = kombuchaResult.map((doc) => {
