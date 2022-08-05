@@ -14,7 +14,7 @@ const RootStyle = styled("div")(({ theme }) => ({
     height: 420,
   },
   height: 540,
-  backgroundImage: `url("/static/images/hero.webp")`,
+  backgroundImage: `url("https://res.cloudinary.com/mykombucha/image/upload/v1659742968/site/hero_ws6lbz.webp")`,
   backgroundSize: "cover",
   backgroundPosition: "center",
   display: "flex",
