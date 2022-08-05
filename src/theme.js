@@ -32,6 +32,16 @@ const theme = createTheme({
     fontFamily: `"Quicksand", "Source Serif Pro", sans-serif`,
   },
   components: {
+    MuiChip: {
+      styleOverrides: {
+        root: {
+          fontSize: "0.75em",
+          fontWeight: "500",
+          height: 22,
+          borderRadius: 6,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {

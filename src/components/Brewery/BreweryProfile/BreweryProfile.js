@@ -43,7 +43,7 @@ const BreweryProfile = ({ singleBreweryData }) => {
             >{`${name} Brewing Company`}</Typography>
             <Box
               display="flex"
-              alignItems="center"
+              alignItems="flex-end"
               flexWrap="wrap"
               mb={{ xs: 0.5, sm: 0.25 }}
             >

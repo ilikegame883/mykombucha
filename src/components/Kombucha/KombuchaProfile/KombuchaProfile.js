@@ -10,11 +10,9 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-
 import HorizontalStats from "./HorizontalStats";
 import PublicIcon from "@mui/icons-material/Public";
 import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
-import CustomChips from "../../CustomChips";
 
 const KombuchaProfile = ({ singleKombuchaData }) => {
   const theme = useTheme();
@@ -47,22 +45,9 @@ const KombuchaProfile = ({ singleKombuchaData }) => {
             mr={{ xs: 0, sm: 2 }}
           />
           <Stack justifyContent="center">
-            <Box
-              display="flex"
-              alignItems="center"
-              flexWrap="wrap"
-              mb={{ xs: 0.5, sm: 0 }}
-            >
-              <Typography
-                variant="h5"
-                fontWeight="700"
-                mr={0.5}
-                mb={{ xs: 0.5, sm: 0 }}
-              >
-                {name}
-              </Typography>
-              <CustomChips type={product_type} />
-            </Box>
+            <Typography variant="h5" fontWeight="700">
+              {name}
+            </Typography>
             <Box mb={0.25}>
               <Link href={`/breweries/${brewery_slug}`} passHref>
                 <Typography
@@ -103,9 +88,13 @@ const KombuchaProfile = ({ singleKombuchaData }) => {
         </Box>
       </Box>
       <Divider />
-      <HorizontalStats served_in={served_in} ABV={ABV} flavor={flavor} />
+      <HorizontalStats served_in={served_in} ABV={ABV} style={product_type} />
       <Divider />
       <Box px={{ xs: 2, sm: 3 }} py={2}>
+        <Typography variant="body2" gutterBottom>
+          <b>Flavor</b>: {flavor.map((f) => f).join(", ")}
+        </Typography>
+
         <Typography variant="body2">Description: {description}</Typography>
       </Box>
     </>

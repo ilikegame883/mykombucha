@@ -38,7 +38,7 @@ const WishListItems = ({ wishList }) => {
       {/* 1. wishList is list of kombuchas user added to wish list.
         Use individual kombucha data to populate kombucha wish list sidebar in user profile page
 
-        2. Each kombucha item logs users who have added the kombucha to 
+        2. Each kombucha item will store users that add kombucha to 
         their wish list, as well as the date the kombucha was added to their list. */}
       {wishList.map((k, i) => {
         const [userWishList] = k.wish_list_users.filter(

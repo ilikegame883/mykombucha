@@ -41,6 +41,7 @@ const SearchBar = () => {
             background: theme.palette.background.paper,
             border: `1px solid ${theme.palette.divider}`,
             maxWidth: 600,
+            fontSize: "0.85rem",
           }}
           startAdornment={
             <InputAdornment position="start">

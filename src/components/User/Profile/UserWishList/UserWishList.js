@@ -23,7 +23,7 @@ const UserWishList = ({ wishList }) => {
       </Box>
       <Divider />
 
-      <WishListItems wishList={wishList} />
+      <WishListItems wishList={wishList.slice(0, 4)} />
       <Box display="flex" justifyContent="center">
         <Button
           variant="text"
