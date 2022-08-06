@@ -1,8 +1,9 @@
 import useSWR from "swr";
-import Kombucha from "../../../src/models/kombuchaModel";
+import { useRouter } from "next/router";
 import { Container, Grid, Paper, Typography, Divider } from "@mui/material";
 import { getData } from "../../../src/utils/fetchData";
 import connectDB from "../../../src/lib/connectDB";
+import Kombucha from "../../../src/models/kombuchaModel";
 import KombuchaProfile from "../../../src/components/Kombucha/KombuchaProfile";
 import ReviewSideBar from "../../../src/components/Kombucha/ReviewSideBar";
 import {
@@ -15,12 +16,18 @@ import ProfileTopBar from "../../../src/components/Kombucha/KombuchaProfile/Prof
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
+  const router = useRouter();
+
   //load reviews, client side with useSWR
   const { data: kombuchaReviews, error } = useSWR(
     `/api/kombucha/${kombuchaId}/reviews`,
     fetcher
   );
   const isReviewDataLoading = !error && !kombuchaReviews;
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <MainLayout>
@@ -81,7 +88,7 @@ export async function getStaticPaths() {
   const params = idList.map((id) => ({ params: { id: id.toString() } }));
 
   return {
-    fallback: false,
+    fallback: true,
     paths: params,
   };
 }

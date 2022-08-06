@@ -1,16 +1,23 @@
+import { useRouter } from "next/router";
 import { Box, Container, Grid, Paper, Divider } from "@mui/material";
-import { default as BreweryModel } from "../../../src/models/breweryModel";
-import { getData } from "../../../src/utils/fetchData";
 import {
   BreweryProductTable,
   TopRaters,
 } from "../../../src/components/Brewery";
+import { getData } from "../../../src/utils/fetchData";
+import { default as BreweryModel } from "../../../src/models/breweryModel";
 import BreweryProfile from "../../../src/components/Brewery/BreweryProfile";
 import { MainLayout } from "../../../src/components/Layout";
 import ProfileTopBar from "../../../src/components/Brewery/BreweryProfile/ProfileTopBar";
 import connectDB from "../../../src/lib/connectDB";
 
 const Brewery = ({ singleBreweryData, topRaters }) => {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <MainLayout title={`${singleBreweryData.name} Brewery`}>
       <Container maxWidth="lg" sx={{ py: 5 }}>
@@ -46,7 +53,7 @@ export async function getStaticPaths() {
   const params = slugList.map((slug) => ({ params: { slug } }));
 
   return {
-    fallback: false,
+    fallback: true,
     paths: params,
   };
 }
