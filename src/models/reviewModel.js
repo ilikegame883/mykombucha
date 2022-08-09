@@ -33,6 +33,10 @@ const reviewSchema = new mongoose.Schema(
       ref: "Kombucha",
     },
 
+    brewery_slug: {
+      type: String,
+      required: true,
+    },
     brewery: {
       type: String,
       required: true,
