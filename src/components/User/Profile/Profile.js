@@ -18,7 +18,6 @@ const Profile = ({ userData }) => {
   const { data: userReviews } = useSWR(`/api/users/${name}/reviews`, fetcher, {
     revalidateOnFocus: false,
   });
-
   return (
     <Grid container columnSpacing={1.5}>
       <Grid item xs={12} md={8} lg={9}>

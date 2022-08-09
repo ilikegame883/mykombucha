@@ -1,5 +1,4 @@
 import connectDB from "../../../../src/lib/connectDB";
-import Kombucha from "../../../../src/models/kombuchaModel";
 import Review from "../../../../src/models/reviewModel";
 
 const handler = async (req, res) => {
@@ -8,9 +7,6 @@ const handler = async (req, res) => {
   switch (req.method) {
     case "GET":
       await getUserReviews(req, res);
-      break;
-    case "DELETE":
-      await deleteUserReview(req, res);
       break;
   }
 };
@@ -34,22 +30,6 @@ const getUserReviews = async (req, res) => {
       {
         $unwind: "$kombucha_info",
       },
-      {
-        $lookup: {
-          from: "breweries",
-          as: "brewery_slug",
-          localField: "brewery",
-          foreignField: "name",
-        },
-      },
-      {
-        $addFields: {
-          brewery_slug: "$brewery_slug.slug",
-        },
-      },
-      {
-        $unwind: "$brewery_slug",
-      },
     ]);
 
     if (!userReviews)
@@ -60,9 +40,6 @@ const getUserReviews = async (req, res) => {
     return res.status(500).json({ err: "Something went wrong." });
   }
 };
-
-const deleteUserReview = async (req, res) => {};
-
 export default handler;
 
 //protect api route

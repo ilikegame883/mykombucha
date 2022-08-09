@@ -13,7 +13,6 @@ import connectDB from "../../../src/lib/connectDB";
 
 const Brewery = ({ singleBreweryData, topRaters }) => {
   const router = useRouter();
-
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
