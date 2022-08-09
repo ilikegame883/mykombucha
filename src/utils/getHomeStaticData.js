@@ -5,7 +5,7 @@ import Kombucha from "../models/kombuchaModel";
 const getHomeStaticData = async () => {
   //when more user data is avaiable, fetch breweries documents based on popularity (number of hearts given)
   // lean converts mongoose.Document to Plain Javascript Object
-  const breweryResult = await Brewery.find().limit(6).lean();
+  const breweryResult = await Brewery.find().sort({ _id: -1 }).limit(6).lean();
 
   const breweryList = breweryResult.map((doc) => {
     doc._id = doc._id.toString();
