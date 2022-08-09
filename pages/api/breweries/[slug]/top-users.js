@@ -8,28 +8,21 @@ const handler = async (req, res) => {
     case "GET":
       await getTopUsers(req, res);
       break;
-    // case "PATCH":
-    //   await updateKombucha(req, res);
-    //   break;
   }
 };
 
 const getTopUsers = async (req, res) => {
   try {
     const { slug } = req.query;
-
-    const newSlugStr = slug.replace(/-/g, "");
-
-    //get top 5 raters for brewery
+    //get top 3 raters for brewery
     //find users with the most kombucha reviews coming from the same brewery
     const topRaters = await Review.aggregate([
-      //search reviews by brewery name
+      //search reviews by brewery slug
       {
         $match: {
-          brewery: { $regex: `^${newSlugStr}$`, $options: "i" },
+          brewery_slug: slug,
         },
       },
-
       //group by users
       //get total count of reviews by each user
       {
@@ -38,7 +31,6 @@ const getTopUsers = async (req, res) => {
           total_reviews: { $sum: 1 },
         },
       },
-
       {
         $lookup: {
           from: "users",
@@ -56,12 +48,11 @@ const getTopUsers = async (req, res) => {
               },
             },
             //$project has to be inside pipeline []
-            //get only required fields in User collection required for top users
+            //get only the required fields in User collection for top users
             {
               $project: {
                 avatar: 1,
                 username: 1,
-                //add in city and country, username?
               },
             },
           ],
@@ -69,7 +60,7 @@ const getTopUsers = async (req, res) => {
       },
       //sort by highest review to lowest
       { $sort: { total_reviews: -1 } },
-      { $limit: 5 },
+      { $limit: 3 },
       { $unwind: "$user" },
     ]);
     return res.json(topRaters);
@@ -80,6 +71,3 @@ const getTopUsers = async (req, res) => {
 };
 
 export default handler;
-
-//need total rating count for brewery - add all review_count for each kombucha
-//total number likes for brewery
