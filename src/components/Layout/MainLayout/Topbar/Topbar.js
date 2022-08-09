@@ -233,13 +233,14 @@ const Topbar = ({ onSidebarOpen }) => {
           <>
             <Link href="/signin" passHref>
               <Button
-                variant="outlined"
+                variant="contained"
                 disableRipple
                 size="small"
+                color="primary"
                 sx={{
-                  color: "text.primary",
-                  border: "1px solid #0d172a",
+                  borderRadius: 5,
                   fontWeight: 600,
+                  color: "text.primary",
                 }}
               >
                 Login

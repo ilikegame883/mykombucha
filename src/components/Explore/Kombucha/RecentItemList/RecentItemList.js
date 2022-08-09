@@ -100,33 +100,32 @@ const RecentItemList = ({ reviewList }) => {
                     right: 15,
                   }}
                 >
-                  <Link href={`/users/${item.username}`} passHref>
-                    <Box component="a" display="flex" alignItems="center">
-                      <Avatar
-                        src={getCloudinaryUrl(item.userAvatar)}
-                        alt={item.username}
-                        sx={{ height: 40, width: 40 }}
-                      />
-                      <Typography
-                        variant="body1"
-                        color="text.primary"
-                        pl={1}
-                        fontWeight="600"
-                      >
-                        {item.username}
+                  <Box display="flex" alignItems="center">
+                    <Avatar
+                      src={getCloudinaryUrl(item.userAvatar)}
+                      alt={item.username}
+                      sx={{ height: 40, width: 40 }}
+                    />
+                    <Box display="flex" flexDirection="column" pl={1}>
+                      <Link href={`/users/${item.username}`} passHref>
                         <Typography
-                          variant="caption"
-                          component="p"
-                          color="text.secondary"
+                          component="a"
+                          variant="body1"
+                          color="text.primary"
+                          fontWeight="600"
                         >
-                          {item.insertTime.slice(
-                            0,
-                            item.insertTime.lastIndexOf("T")
-                          )}
+                          {item.username}
                         </Typography>
+                      </Link>
+
+                      <Typography variant="caption" color="text.secondary">
+                        {item.insertTime.slice(
+                          0,
+                          item.insertTime.lastIndexOf("T")
+                        )}
                       </Typography>
                     </Box>
-                  </Link>
+                  </Box>
                 </Box>
               </Box>
             </Box>

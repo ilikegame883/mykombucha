@@ -38,7 +38,6 @@ const SigninForm = ({ providers }) => {
   };
 
   const onSubmit = async (values) => {
-    // e.preventDefault();
     //if redirect false, signIn returns an object with
     // error: string | undefined // Error code based on the type of error
     // status: number // HTTP status code
@@ -62,115 +61,105 @@ const SigninForm = ({ providers }) => {
   });
 
   return (
-    <Container maxWidth="xs">
-      <Paper variant="outlined" sx={{ p: 4 }}>
-        <Box mb={2}>
-          <Typography variant="h4" color="text.primary" fontWeight="700">
-            Sign In
-          </Typography>
-          <Typography color="text.secondary" variant="subtitle1">
-            Sign in to your myKombucha account
-          </Typography>
-        </Box>
-        <form onSubmit={formik.handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Button
-                variant="outlined"
-                fullWidth
-                startIcon={<GoogleIcon sx={{ color: "info.main" }} />}
-                onClick={() =>
-                  signIn(providers.google.id, { callbackUrl: "/" })
-                }
-                sx={{
-                  color: "text.secondary",
-                  fontWeight: 50,
-                  borderColor: "#CACACA",
-                  textTransform: "none",
-                }}
-              >
-                Sign in with Google
-              </Button>
-            </Grid>
-            <Grid item xs={12}>
-              <Divider>
-                <Typography color="text.secondary" variant="body1">
-                  or
-                </Typography>
-              </Divider>
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="E-mail *"
-                size="small"
-                variant="outlined"
-                name="email"
-                fullWidth
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Password *"
-                size="small"
-                variant="outlined"
-                name="password"
-                type="password"
-                fullWidth
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                error={
-                  formik.touched.password && Boolean(formik.errors.password)
-                }
-                helperText={formik.touched.password && formik.errors.password}
-              />
-            </Grid>
-            <Grid item xs={12} my={1}>
-              <Divider />
-            </Grid>
-            <Grid item xs={12}>
-              <Button
-                variant="contained"
-                type="submit"
-                color="secondary"
-                fullWidth
-              >
-                Login
-              </Button>
-            </Grid>
-
-            <Grid item xs={12}>
-              <AlertSnackBar />
-              <Box
-                display="flex"
-                flexDirection={{ xs: "column", sm: "row" }}
-                alignItems={{ xs: "stretched", sm: "center" }}
-                justifyContent="space-between"
-                width={1}
-              >
-                <Box marginBottom={{ xs: 2, sm: 0 }}>
-                  <Typography variant="subtitle1">
-                    {`Don't have an account yet?`}{" "}
-                    <Link href="/register" passHref>
-                      <Typography
-                        component="a"
-                        variant="subtitle1"
-                        color="secondary"
-                        fontWeight="700"
-                      >
-                        Sign up
-                      </Typography>
-                    </Link>
-                  </Typography>
-                </Box>
-              </Box>
-            </Grid>
+    <Container maxWidth="xs" sx={{ px: { xs: 3 } }}>
+      <Box mb={3}>
+        <Typography variant="h4" color="text.primary" fontWeight="700">
+          Sign in
+        </Typography>
+        <Typography color="text.primary" variant="subtitle1">
+          Sign in to your myKombucha account
+        </Typography>
+      </Box>
+      <form onSubmit={formik.handleSubmit}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Button
+              variant="outlined"
+              fullWidth
+              startIcon={<GoogleIcon sx={{ color: "info.main" }} />}
+              onClick={() => signIn(providers.google.id, { callbackUrl: "/" })}
+              sx={{
+                height: 50,
+                color: "text.primary",
+                borderColor: "#CACACA",
+                textTransform: "none",
+              }}
+            >
+              Sign in with Google
+            </Button>
           </Grid>
-        </form>
-      </Paper>
+          <Grid item xs={12}>
+            <Divider>
+              <Typography color="text.secondary" variant="body1">
+                or
+              </Typography>
+            </Divider>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="E-mail *"
+              name="email"
+              fullWidth
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Password *"
+              name="password"
+              type="password"
+              fullWidth
+              value={formik.values.password}
+              onChange={formik.handleChange}
+              error={formik.touched.password && Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
+            />
+          </Grid>
+          <Grid item xs={12} my={1}>
+            <Divider />
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              type="submit"
+              color="secondary"
+              fullWidth
+            >
+              Login
+            </Button>
+          </Grid>
+
+          <Grid item xs={12}>
+            <AlertSnackBar />
+            <Box
+              display="flex"
+              flexDirection={{ xs: "column", sm: "row" }}
+              alignItems={{ xs: "stretched", sm: "center" }}
+              justifyContent="space-between"
+              width={1}
+            >
+              <Box mb={{ xs: 2, sm: 0 }}>
+                <Typography variant="subtitle1">
+                  {`Don't have an account yet?`}{" "}
+                  <Link href="/register" passHref>
+                    <Typography
+                      component="a"
+                      variant="subtitle1"
+                      color="secondary"
+                      fontWeight="700"
+                    >
+                      Sign up
+                    </Typography>
+                  </Link>
+                </Typography>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </form>
     </Container>
   );
 };

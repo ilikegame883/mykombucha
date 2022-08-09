@@ -24,19 +24,19 @@ const BreweryProfile = ({ singleBreweryData }) => {
       <Box p={2.5}>
         <Box
           display="flex"
-          alignItems={{ sm: "center" }}
+          alignItems={{ xs: "flex-start", sm: "center" }}
           flexDirection={{ xs: "column", sm: "row" }}
         >
           <Box
             component="img"
             alt={name}
             src={getCloudinaryUrl(image)}
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             mr={{ xs: 0, sm: 2 }}
             mb={{ xs: 1, sm: 0 }}
           />
-          <Stack justifyContent="center" pl={1}>
+          <Stack justifyContent="center">
             <Typography
               variant={isSm ? "h5" : "h6"}
               fontWeight="700"
