@@ -29,15 +29,13 @@ export default NextAuth({
         if (!isMatch) {
           throw new Error("E-mail or Password is Invalid");
         }
-        // Any object returned will be saved in `user` property received by JWT()
-        //make sure to only return username and _id
+        // Return values are passed in as 'user' to jwt callback
         return {
           userid: user._id,
           username: user.username,
           avatar: user.avatar,
           email: user.email,
         };
-        //return value is passed in as user to jwt callback
       },
     }),
     GoogleProvider({
@@ -47,15 +45,14 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      //INITIAL SIGN IN
+      //RUNS ON INITIAL SIGN IN
       //Must re-login to update any changes!
-      //first time jwt callback is ran, user object is available !important!
+      //When jwt callback is called, user object is available !important!
       if (user) {
         const findUser = await Users.findOne({ email: user.email });
         let oAuthUserId;
-
-        //login with google does not provide username
-        //create username using e-mail address if google is used to login
+        //logging in with google will not provide a username
+        //set new users a username using e-mail address if google is used to login
         const setUserName = user?.username
           ? user.username
           : user.email.slice(0, user.email.indexOf("@"));
@@ -64,7 +61,7 @@ export default NextAuth({
           const newUser = new Users({
             username: setUserName,
             email: user.email,
-            avatar: user.image, //(user.image = provided by google);
+            avatar: user.image, //(user.image = google profile image);
           });
           //save new google login user data to DB and retrieve user _id
           await newUser.save();
@@ -82,13 +79,14 @@ export default NextAuth({
     },
     async session({ session, token }) {
       if (session) {
-        // Add additional user properties to user session obj on client
+        // Add additional user properties to user session obj from client
         session.user.username = token.username;
         session.user._id = token._id;
         session.user.avatar = token.avatar;
       }
       if (session.user.image) {
-        //delete image property for google login users
+        //since token.avatar is set to user.image
+        //delete image property for google login user to prevent duplicate
         delete session.user.image;
       }
       return session;
@@ -99,7 +97,6 @@ export default NextAuth({
     encryption: true,
   },
   pages: {
-    newUser: "/newuser",
     signIn: "/signin",
     error: "/signin",
   },
