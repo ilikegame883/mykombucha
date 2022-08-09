@@ -3,7 +3,7 @@ import Kombucha from "../../../../../src/models/kombuchaModel";
 import Review from "../../../../../src/models/reviewModel";
 
 // Similar to 'limit' (# of items per page - page size)
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 8;
 
 const handler = async (req, res) => {
   await connectDB();

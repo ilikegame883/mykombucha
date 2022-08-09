@@ -2,7 +2,7 @@ import connectDB from "../../../../../src/lib/connectDB";
 import Brewery from "../../../../../src/models/breweryModel";
 
 // Similar to 'limit' (# of items per page - page size)
-const PAGE_SIZE = 5;
+const PAGE_SIZE = 8;
 
 const handler = async (req, res) => {
   await connectDB();
