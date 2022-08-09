@@ -7,17 +7,12 @@ import {
   Divider,
   Stack,
   IconButton,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 import HorizontalStats from "./HorizontalStats";
 import PublicIcon from "@mui/icons-material/Public";
 import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 
 const KombuchaProfile = ({ singleKombuchaData }) => {
-  const theme = useTheme();
-  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
-
   const {
     brewery_name,
     product_type,

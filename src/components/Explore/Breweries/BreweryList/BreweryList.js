@@ -1,13 +1,5 @@
 import Link from "next/link";
-import {
-  Avatar,
-  Stack,
-  Grid,
-  Box,
-  Typography,
-  Paper,
-  useTheme,
-} from "@mui/material";
+import { Avatar, Grid, Box, Typography, Paper, useTheme } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 import CustomChips from "../../../CustomChips";
@@ -107,7 +99,7 @@ const BreweryList = ({ breweryList, category, sort }) => {
                     justifyContent="space-between"
                     flexWrap="wrap"
                   >
-                    <Typography variant="body2" color="text.primary" pr={0.5}>
+                    <Typography variant="body2" color="text.primary" pr={1}>
                       {item.type}
                     </Typography>
                     <CustomChips type={item.product_type} />

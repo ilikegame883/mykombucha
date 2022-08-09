@@ -92,14 +92,14 @@ const KombuchaLinkTabs = ({ children, category, pageCount, currentPage }) => {
               value="recent"
             />
             <NextLinkTab
-              label="New"
-              href="/kombucha/explore/new/1"
-              value="new"
-            />
-            <NextLinkTab
               label="Top Rated"
               href="/kombucha/explore/top-rated/1"
               value="top-rated"
+            />
+            <NextLinkTab
+              label="New"
+              href="/kombucha/explore/new/1"
+              value="new"
             />
             <NextLinkTab
               label="Popular"

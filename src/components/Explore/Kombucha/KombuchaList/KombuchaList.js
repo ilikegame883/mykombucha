@@ -30,7 +30,7 @@ const KombuchaList = ({ kombuchaList, category }) => {
               },
             }}
           >
-            <Box py={3} px={2.5} display="flex" alignItems="center">
+            <Box py={2} px={2.5} display="flex" alignItems="center">
               <Box
                 display={"flex"}
                 flexDirection={{ xs: "column", sm: "row" }}
@@ -89,34 +89,38 @@ const KombuchaList = ({ kombuchaList, category }) => {
                   <Typography variant="h6" align="end">
                     {item.avg ? item.avg.toFixed(2) : "N/A"}
                   </Typography>
-                  <Box display="flex" justifyContent="flex-end" mb={0.5}>
-                    <Rating
-                      size="small"
-                      value={item.avg}
-                      readOnly
-                      precision={0.25}
-                    />
-                  </Box>
-                  {category === "new" ? (
-                    <Typography variant="caption" color="text.secondary">
-                      Added:{" "}
-                      {item.insertTime.slice(
-                        0,
-                        item.insertTime.lastIndexOf("T")
-                      )}
-                    </Typography>
-                  ) : (
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      fontWeight="500"
-                      align="right"
-                    >
-                      {item.review_count} ratings
-                    </Typography>
-                  )}
+                  <Rating
+                    size="small"
+                    value={item.avg}
+                    readOnly
+                    precision={0.25}
+                  />
                 </Box>
               </Box>
+            </Box>
+            <Box
+              sx={{
+                position: "absolute",
+                bottom: 10,
+                right: 20,
+              }}
+            >
+              {category === "new" ? (
+                <Typography variant="caption" color="text.secondary">
+                  Added:{" "}
+                  {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  fontWeight="500"
+                  align="right"
+                >
+                  {item.review_count}{" "}
+                  {item.review_count > 1 ? "ratings" : "rating"}
+                </Typography>
+              )}
             </Box>
           </Grid>
         ))}

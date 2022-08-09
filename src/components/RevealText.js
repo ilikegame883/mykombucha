@@ -35,7 +35,7 @@ const RevealText = ({ text, maxLength }) => {
   if (seeMoreDesc) {
     return (
       <>
-        <Typography variant="subtitle2" fontWeight="400" pt={{ xs: 0, md: 2 }}>
+        <Typography variant="subtitle2" fontWeight="400">
           {text}
         </Typography>
         <Typography
