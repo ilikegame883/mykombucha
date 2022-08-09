@@ -19,7 +19,7 @@ import { AlertContext } from "../../../../stores/context/alert.context";
 import { toggleToast } from "../../../../stores/actions";
 
 const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
-  const { brewery_name } = singleKombuchaData;
+  const { brewery_slug, brewery_name } = singleKombuchaData;
   const { dispatch } = useContext(AlertContext);
 
   const theme = useTheme();
@@ -31,7 +31,8 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
     rating: 0,
     comment: "",
     product: singleKombuchaData._id,
-    brewery: brewery_name,
+    brewery_slug: brewery_slug,
+    brewery_name: brewery_name,
     served_in: "",
     user: session.user._id,
     username: session.user.username,

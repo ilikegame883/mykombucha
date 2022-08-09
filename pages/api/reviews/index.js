@@ -24,7 +24,8 @@ const postReview = async (req, res) => {
       served_in,
       user,
       product,
-      brewery,
+      brewery_slug,
+      brewery_name,
       username,
       userAvatar,
     } = req.body;
@@ -37,7 +38,8 @@ const postReview = async (req, res) => {
       username,
       userAvatar,
       product,
-      brewery,
+      brewery: brewery_name,
+      brewery_slug,
     });
     await newReview.save();
 
