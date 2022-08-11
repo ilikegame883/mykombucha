@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="theme-color" content={theme.palette.primary.light} />
           <link rel="shortcut icon" href="/static/favicons/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -46,11 +46,11 @@ export default class MyDocument extends Document {
             href="/static/favicons/safari-pinned-tab.svg"
             color="#ffbd59"
           />
-          <meta name="apple-mobile-web-app-capable" content="yes" />
+          {/* <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
             name="apple-mobile-web-app-status-bar-style"
             content="default"
-          />
+          /> */}
           <meta name="msapplication-TileColor" content="#FAFAFA" />
           <meta name="theme-color" content="#FAFAFA" />
           <meta
