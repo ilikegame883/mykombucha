@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Link from "next/link";
-// import useSWR from "swr";
 import {
   Autocomplete,
   TextField,
@@ -58,6 +57,7 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
 const HeroSearchBar = () => {
   const [searchData, setSearchData] = useState([]);
   const [value, setValue] = useState("");
+
   const getSearchData = async (str) => {
     try {
       let kombuchaSearchData = await getData("kombucha/search", `${str}`);
@@ -102,7 +102,6 @@ const HeroSearchBar = () => {
               color="primary"
               focused
               placeholder="Search for Kombucha, Breweries..."
-              // onChange={(e) => onChangeSearch(e)}
               sx={{
                 "& .MuiOutlinedInput-notchedOutline": {
                   //remove preset outline from textfield
@@ -197,7 +196,7 @@ const HeroSearchBar = () => {
               </Typography>
               {children}
               <Box p={1}>
-                <Link href={`/search/${group}/?q=${value}`} passHref>
+                <Link href={`/search/${group}/?search=${value}`} passHref>
                   <Typography
                     component="a"
                     variant="subtitle2"

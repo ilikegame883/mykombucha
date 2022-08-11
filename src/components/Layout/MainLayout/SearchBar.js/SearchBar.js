@@ -14,7 +14,7 @@ const SearchBar = () => {
 
   const onSubmit = (e) => {
     if (e.key === "Enter") {
-      router.push(`/search/kombucha/?q=${e.target.value}`);
+      router.push(`/search/kombucha/?search=${e.target.value}`);
     }
   };
 
