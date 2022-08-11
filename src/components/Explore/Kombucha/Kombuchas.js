@@ -1,6 +1,6 @@
 import KombuchaLinkTabs from "./KombuchaLinkTabs/KombuchaLinkTabs";
 import KombuchaList from "./KombuchaList";
-import RecentItemList from "./RecentItemList";
+import RecentReviewList from "./RecentReviewList";
 
 export const PAGE_SIZE = 5; //# of items for each page under tab
 
@@ -24,7 +24,7 @@ const Kombucha = ({ recentReviews, kombuchaData, category, page }) => {
         />
       )}
       {recentReviews && (
-        <RecentItemList reviewList={recentReviews.sorted_list} />
+        <RecentReviewList reviewList={recentReviews.sorted_list} />
       )}
     </KombuchaLinkTabs>
   );

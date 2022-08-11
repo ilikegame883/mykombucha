@@ -13,7 +13,7 @@ import StarIcon from "@mui/icons-material/Star";
 import RevealText from "../../../RevealText";
 import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 
-const RecentItemList = ({ reviewList }) => {
+const RecentReviewList = ({ reviewList }) => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
 
@@ -102,7 +102,7 @@ const RecentItemList = ({ reviewList }) => {
                 >
                   <Box display="flex" alignItems="center">
                     <Avatar
-                      src={getCloudinaryUrl(item.userAvatar)}
+                      src={getCloudinaryUrl(item.review_user.avatar)}
                       alt={item.username}
                       sx={{ height: 40, width: 40 }}
                     />
@@ -136,4 +136,4 @@ const RecentItemList = ({ reviewList }) => {
   );
 };
 
-export default RecentItemList;
+export default RecentReviewList;
