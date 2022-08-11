@@ -29,9 +29,9 @@
 ## Project Overview
 
 - `pages/breweries/[slug]` - Static pre-rendered brewery profile pages.
-- `pages/breweries/explore/*` - Static pre-rendered paginated brewery list pages with various categories.
+- `pages/breweries/explore/*` - Static pre-rendered paginated brewery list pages from various categories.
 - `pages/kombucha/[id]` - Static pre-rendered kombucha profile pages.
-- `pages/kombucha/explore/*`- Static pre-rendered paginated kombucha list pages with various categories.
+- `pages/kombucha/explore/*`- Static pre-rendered paginated kombucha list pages from various categories.
 - `pages/search/[category]` - Kombucha and brewery search pages.
 - `pages/users/[name]/*` - User profile pages and settings pages (General & Security) for registered users.
 - `pages/*` - All other static pages.
@@ -47,39 +47,39 @@
 
 **auth**
 
-- **`GET`** **/api/auth/[...nextauth]/\*** - [Next-Auth REST API](https://next-auth-docs.vercel.app/getting-started/rest-api).
-- **`POST`** **/api/auth/[...nextauth]/\*** - [Next-Auth REST API](https://next-auth-docs.vercel.app/getting-started/rest-api).
-- **`PATCH`** **/api/auth/password** - Update brewery favorite count given by registered user.
-- **`POST`** **/api/auth/register**- Returns top 3 raters for single brewery.
+- **`GET`** /api/auth/[...nextauth]/\* - [Next-Auth REST API](https://next-auth-docs.vercel.app/getting-started/rest-api).
+- **`POST`** /api/auth/[...nextauth]/\* - [Next-Auth REST API](https://next-auth-docs.vercel.app/getting-started/rest-api).
+- **`PATCH`** /api/auth/password - Update brewery favorite count given by registered user.
+- **`POST`** /api/auth/register - Returns top 3 raters for single brewery.
 
 **breweries**
 
-- **`GET`** **/api/breweries/[slug]** - Returns single brewery data by brewery slug.
-- **`PATCH`** **/api/breweries/[slug]/favorite** - Update brewery favorite count given by registered user.
-- **`GET`** **/api/breweries/[slug]/top-users**- Returns top 3 raters for single brewery.
-- **`GET`** **/api/breweries/search/[str]** - Returns a list of breweries from search bar by string.
-- **`GET`** **/api/breweries/explore/[category]/[page]** - Returns paginated list of breweries by category type.
+- **`GET`** /api/breweries/[slug] - Returns single brewery data by brewery slug.
+- **`PATCH`** /api/breweries/[slug]/favorite - Update brewery favorite count given by registered user.
+- **`GET`** /api/breweries/[slug]/top-users - Returns top 3 raters for single brewery.
+- **`GET`** /api/breweries/search/[str] - Returns a list of breweries from search bar by string.
+- **`GET`** /api/breweries/explore/[category]/[page] - Returns paginated list of breweries by category- path params.
 
 **kombucha**
 
-- **`GET`** **/api/kombucha/[id]** - Returns single kombucha data by kombucha id.
-- **`GET`** **api/kombucha/[id]/reviews** - Returns a list of reviews by kombucha id.
-- **`GET`** **api/kombucha/[id]/reviews/[top-review]** - Returns a top user review by kombucha id.
-- **`GET`** **api/kombucha/search/[str]** - Returns a list of kombucha from search bar by string.
-- **`GET`** **api/kombucha/explore/[slug]/[page]**- Returns paginated list of kombucha by category type.
+- **`GET`** /api/kombucha/[id] - Returns single kombucha data by kombucha id.
+- **`GET`** api/kombucha/[id]/reviews - Returns a list of reviews by kombucha id.
+- **`GET`** api/kombucha/[id]/reviews/[top-review] - Returns a top user review by kombucha id.
+- **`GET`** api/kombucha/search/[str] - Returns a list of kombucha from search bar by string.
+- **`GET`** api/kombucha/explore/[category]/[page]- Returns paginated list of kombucha by by category- path params.
 
 **users**
 
-- **`GET`** **/api/users/[name]** - Returns user data by username.
-- **`PATCH`** **/api/users/[name]** - Update authenticated user info by username.
-- **`PATCH`** **/api/users/[name]/reviews** - Returns a list of reviews from user by username.
-- **`PATCH`** **/api/users/[name]/wish-list** - Returns a list of kombucha in user's wish list by username.
+- **`GET`** /api/users/[name] - Returns user data by username.
+- **`PATCH`** /api/users/[name] - Update authenticated user info by username.
+- **`PATCH`** /api/users/[name]/reviews - Returns a list of reviews from user by username.
+- **`PATCH`** /api/users/[name]/wish-list - Returns a list of kombucha in user's wish list by username.
 
 **reviews**
 
-- **`POST`** **/api/review/** - Add a user kombucha review.
-- **`DELETE`** **/api/review/** - Delete a user review.
-- **`PATCH`** **/api/review/[id]/like** - Update user review like count given by other users.
+- **`POST`** /api/review/ - Add a user kombucha review.
+- **`DELETE`** /api/review/ - Delete a user review.
+- **`PATCH`** /api/review/[id]/like - Update user review like count given by other users.
 
 ## Upcoming Features
 
