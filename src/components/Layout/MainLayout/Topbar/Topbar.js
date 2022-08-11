@@ -24,7 +24,6 @@ import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import UserMenuDropDown from "./UserMenuDropDown";
 import SearchBar from "../SearchBar.js/SearchBar";
-import HeroSearchBar from "../../../Landing/Hero/HeroSearchBar";
 
 const StyledNavButton = styled(Button)(({ theme }) => ({
   color: theme.palette.text.primary,
