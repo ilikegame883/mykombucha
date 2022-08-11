@@ -12,8 +12,9 @@ const handler = async (req, res) => {
     return;
   }
   //Switch case used to create dynamic handler
-  //hander function will be chosen by req.query slug type, e.g., slug = "new" will run getNewKombucha list
-  switch (req.query.slug) {
+  //hander function will be chosen by req.query.category
+  //(e.g., /kombucha/explore/new/[page]) will run getNewKombucha list
+  switch (req.query.category) {
     case "new":
       await getNewKombucha(req, res);
       break;
@@ -52,7 +53,6 @@ const getNewKombucha = async (req, res) => {
       },
       { $unwind: "$total" },
     ]);
-    // res.status(200).json(newKombuchaList) or is it
     res.json(newKombuchaList);
   } catch (err) {
     return res.status(500).json({ err: err.message });
@@ -84,7 +84,6 @@ const getTopRatedKombucha = async (req, res) => {
       { $unwind: "$total" },
     ]);
 
-    // res.status(200).json(topRatedKombuchaList) or is it
     res.json(topRatedKombuchaList);
   } catch (err) {
     return res.status(500).json({ err: err.message });
@@ -116,7 +115,6 @@ const getPopularKombucha = async (req, res) => {
       { $unwind: "$total" },
     ]);
 
-    // res.status(200).json(topRatedKombuchaList) or is it
     res.json(popularKombuchaList);
   } catch (err) {
     return res.status(500).json({ err: err.message });
@@ -141,12 +139,24 @@ const getRecentKombuchaReviews = async (req, res) => {
             {
               $lookup: {
                 from: "kombuchas",
-                localField: "product",
-                foreignField: "_id",
+                localField: "product", //product = kombucha _id saved in submitted review
+                foreignField: "_id", //_id = kombucha _id in kombuchas collection
                 as: "kombucha",
               },
             },
+            {
+              $lookup: {
+                from: "users",
+                localField: "username",
+                foreignField: "username",
+                as: "review_user",
+                pipeline: [{ $project: { avatar: 1 } }],
+              },
+            },
+
             { $unwind: "$kombucha" },
+            { $unwind: "$review_user" },
+
             { $addFields: { insertTime: { $toDate: "$_id" } } },
           ],
           total: [{ $count: "count" }],
@@ -155,7 +165,6 @@ const getRecentKombuchaReviews = async (req, res) => {
       { $unwind: "$total" },
     ]);
 
-    // res.status(200).json(topRatedKombuchaList) or is it
     res.json(recentKombuchaReviews);
   } catch (err) {
     return res.status(500).json({ err: err.message });
