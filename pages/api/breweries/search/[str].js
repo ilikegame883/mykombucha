@@ -1,14 +1,19 @@
 import connectDB from "../../../../src/lib/connectDB";
 import Brewery from "../../../../src/models/breweryModel";
 
+const DEFAULT_LIMIT_VALUE = 5;
+
 const handler = async (req, res) => {
   await connectDB();
 
   if (req.method !== "GET") {
     return;
   }
+  const { str, limit } = req.query;
+
+  const limitNumber = Number(limit) ? +limit : DEFAULT_LIMIT_VALUE;
+
   try {
-    const { str } = req.query;
     if (str) {
       const searchBreweryData = await Brewery.aggregate([
         {
@@ -28,17 +33,8 @@ const handler = async (req, res) => {
           },
         },
         {
-          $limit: 5,
+          $limit: limitNumber,
         },
-        // {
-        //   $project: {
-        //     _id: 1,
-        //     name: 1,
-        //     brewery_name: 1,
-        //     avg: 1,
-        //     score: { $meta: "searchScore" },
-        //   },
-        // },
       ]);
       if (!searchBreweryData) {
         return res.status(400).json({ err: "This item does not exist." });

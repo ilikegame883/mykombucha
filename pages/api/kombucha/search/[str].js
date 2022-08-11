@@ -1,17 +1,20 @@
 import connectDB from "../../../../src/lib/connectDB";
 import Kombucha from "../../../../src/models/kombuchaModel";
 
+const DEFAULT_LIMIT_VALUE = 5;
+
 const handler = async (req, res) => {
   await connectDB();
 
   if (req.method !== "GET") {
     return;
   }
-  const { str } = req.query;
+  const { str, limit } = req.query;
+  const limitNumber = Number(limit) ? +limit : DEFAULT_LIMIT_VALUE;
+
   try {
-    let searchKombuchaData;
     if (str) {
-      searchKombuchaData = await Kombucha.aggregate([
+      const searchKombuchaData = await Kombucha.aggregate([
         {
           $search: {
             index: "kombucha",
@@ -28,17 +31,8 @@ const handler = async (req, res) => {
           },
         },
         {
-          $limit: 5,
+          $limit: limitNumber,
         },
-        // {
-        //   $project: {
-        //     _id: 1,
-        //     name: 1,
-        //     brewery_name: 1,
-        //     avg: 1,
-        //     score: { $meta: "searchScore" },
-        //   },
-        // },
       ]);
 
       if (!searchKombuchaData) {
