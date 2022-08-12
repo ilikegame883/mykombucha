@@ -46,9 +46,12 @@ const Topbar = ({ onSidebarOpen }) => {
   //use avatar picture from user collection
   //fetch only when user is in session
   const { data: userData } = useSWR(
-    session?.user ? `/api/users/${session.user.username}` : null,
+    session ? `/api/users/${session.user.username}` : null,
     fetcher,
-    { revalidateOnFocus: false }
+    {
+      revalidateOnFocus: false,
+      revalidateIfStale: false, //only revalidate if user avatar image is changed by mutate()
+    }
   );
 
   const userSessionAvatar = userData && userData[0].avatar;
@@ -103,7 +106,7 @@ const Topbar = ({ onSidebarOpen }) => {
         </Link>
         <StyledNavButton
           disableRipple
-          id="basic-button"
+          id="expore-menu"
           aria-controls={open ? "expore-menu" : undefined}
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
@@ -219,7 +222,7 @@ const Topbar = ({ onSidebarOpen }) => {
           </>
         )}
 
-        {session && userData && (
+        {session && (
           <UserMenuDropDown
             userSessionAvatar={userSessionAvatar}
             username={session.user.username}
@@ -260,7 +263,7 @@ const Topbar = ({ onSidebarOpen }) => {
           </>
         )}
 
-        {session && userData && (
+        {session && (
           <IconButton onClick={() => onSidebarOpen()} aria-label="Menu">
             <Avatar
               src={userSessionAvatar}
