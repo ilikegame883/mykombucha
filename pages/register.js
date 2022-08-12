@@ -1,4 +1,5 @@
-import { getSession } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { Box } from "@mui/material";
 import { RegisterForm } from "../src/components/Forms";
 import { MainLayout } from "../src/components/Layout";
@@ -22,8 +23,12 @@ const Register = () => {
   );
 };
 
-export async function getServerSideProps({ req }) {
-  const session = await getSession({ req });
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
   if (session) {
     return {
       redirect: {
@@ -34,5 +39,4 @@ export async function getServerSideProps({ req }) {
   }
   return { props: {} };
 }
-
 export default Register;

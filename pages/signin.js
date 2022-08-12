@@ -1,9 +1,10 @@
-import { getSession, getProviders } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { Box } from "@mui/material";
 import { SigninForm } from "../src/components/Forms";
 import { MainLayout } from "../src/components/Layout";
 
-const Signin = ({ providers }) => {
+const Signin = () => {
   return (
     <Box>
       <MainLayout title="Login">
@@ -13,16 +14,19 @@ const Signin = ({ providers }) => {
           alignItems="center"
           sx={{ minHeight: "calc(100vh - 345px)" }}
         >
-          <SigninForm providers={providers} />
+          <SigninForm />
         </Box>
       </MainLayout>
     </Box>
   );
 };
 
-export async function getServerSideProps({ req }) {
-  const providers = await getProviders();
-  const session = await getSession({ req });
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
   if (session) {
     return {
       redirect: {
@@ -31,6 +35,6 @@ export async function getServerSideProps({ req }) {
       },
     };
   }
-  return { props: { providers, session } };
+  return { props: {} };
 }
 export default Signin;
