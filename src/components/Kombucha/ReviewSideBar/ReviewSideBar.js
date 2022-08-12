@@ -49,17 +49,12 @@ const StatItem = ({ kombuchaReviews }) => {
   );
 };
 
-const ReviewSideBar = ({
-  kombuchaReviews,
-  singleKombuchaData,
-  isReviewDataLoading,
-}) => {
+const ReviewSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const router = useRouter();
 
   const { data: session } = useSession();
-
   const toggleDrawer = (event) => {
     if (
       event.type === "keydown" &&
@@ -77,9 +72,7 @@ const ReviewSideBar = ({
   if (!kombuchaReviews) return <CircularProgress color="primary" />;
 
   const findUserSessionReview =
-    session &&
-    !isReviewDataLoading &&
-    kombuchaReviews.find(({ user }) => user === session.user._id);
+    session && kombuchaReviews.find(({ user }) => user === session.user._id);
 
   return (
     <>

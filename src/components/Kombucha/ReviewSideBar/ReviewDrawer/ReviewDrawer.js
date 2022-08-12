@@ -92,7 +92,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
         >
           <CloseIcon />
         </IconButton>
-        <Typography color="primary.contrastText">Submit your review</Typography>
+        <Typography color="primary.contrastText">Submit a review</Typography>
       </Box>
       <Box component="form" onSubmit={handleSubmitReview} p={3}>
         <RatingSlider
@@ -159,7 +159,13 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
             </Box>
           ))}
         </Stack>
-        <Button variant="contained" fullWidth sx={{ mt: 3 }} type="submit">
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{ mt: 3 }}
+          type="submit"
+          size="large"
+        >
           Submit Review
         </Button>
         {error && (

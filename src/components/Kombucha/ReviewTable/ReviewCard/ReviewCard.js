@@ -7,63 +7,61 @@ import getUserBadge from "../../../../utils/getUserBadge";
 const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
   const { data: session } = useSession();
 
-  const thumbsUpClickedByUser =
+  const checkIfUserLikedReview =
     session && review.likes.includes(session.user._id);
 
-  const disableThumbsUp = session && session.user_id === review._id;
+  //disable like button for own review
+  const disableLikeBtn =
+    session && session.user._id === review.review_by.username;
   return (
-    <Box py={3}>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        flexWrap="wrap"
-        mb={2}
-      >
+    <Box py={2.5}>
+      <Box display="flex" alignItems="center" flexWrap="wrap">
         <Box display="flex" alignItems="center">
           <Avatar
             src={review.review_by.avatar}
-            alt={review.username}
+            alt={review.review_by.username}
             sx={{ width: 40, height: 40 }}
           />
-          <Box ml={1.2} pb={0.5}>
-            <Link href={`/users/${review.username}`} passHref>
+          <Box ml={1}>
+            <Link href={`/users/${review.review_by.username}`} passHref>
               <Typography
                 variant="h6"
                 fontWeight="600"
                 component="a"
                 color="text.primary"
+                lineHeight={1.35}
               >
-                {review.username}
+                {review.review_by.username}
               </Typography>
             </Link>
             {getUserBadge(review.review_by.review_total, "sub").value}
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ lineHeight: 1 }}
-            >
-              City, Country
+
+            <Typography variant="caption" component="p" color="text.secondary">
+              {review.review_by.city ? `${review.review_by.city}, ` : "City, "}
+              {review.review_by.country
+                ? `${review.review_by.country}`
+                : "State"}
             </Typography>
           </Box>
         </Box>
-        <Box display="flex" alignItems="center">
-          <Rating
-            name="user-rating"
-            precision={0.25}
-            value={review.rating}
-            size="small"
-            readOnly
-          />
-          <Typography
-            variant="body2"
-            color="text.primary"
-            component="span"
-            ml={0.5}
-          >
-            ({review.rating.toFixed(2)})
-          </Typography>
-        </Box>
+      </Box>
+      <Box display="flex" alignItems="center" my={2}>
+        <Rating
+          name="user-rating"
+          precision={0.25}
+          value={review.rating}
+          size="small"
+          readOnly
+        />
+        <Typography
+          variant="body2"
+          color="text.primary"
+          fontWeight="600"
+          component="span"
+          ml={0.5}
+        >
+          ({review.rating.toFixed(2)})
+        </Typography>
       </Box>
       <Box>
         <Typography variant="body2" color="text.primary" mb={{ xs: 2, sm: 3 }}>
@@ -81,9 +79,9 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
             disableRipple
             sx={{
               p: 0,
-              color: thumbsUpClickedByUser ? "secondary.main" : "inherit",
+              color: checkIfUserLikedReview ? "secondary.main" : "inherit",
             }}
-            disabled={disableThumbsUp}
+            disabled={disableLikeBtn}
             onClick={() => handleClickLikeIcon(review._id)}
           >
             <ThumbUpOutlinedIcon sx={{ fontSize: 14 }} />
