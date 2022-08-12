@@ -3,7 +3,7 @@ import connectDB from "../../../../../src/lib/connectDB";
 import mongoose from "mongoose";
 
 //KombuchaReviews.js
-//get top-review for kombucha with highest number of user likes
+//get top-review for kombucha with highest number of user likes and > 1 like
 const handler = async (req, res) => {
   await connectDB();
 
@@ -49,6 +49,8 @@ const handler = async (req, res) => {
                 review_total: 1,
                 avatar: 1,
                 username: 1,
+                city: 1,
+                country: 1,
                 //add in city and country, username?
               },
             },

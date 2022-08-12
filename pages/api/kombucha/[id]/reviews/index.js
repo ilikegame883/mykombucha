@@ -38,8 +38,10 @@ const handler = async (req, res) => {
             {
               $project: {
                 review_total: 1,
+                username: 1,
                 avatar: 1,
-                //add in city and country, username?
+                city: 1,
+                country: 1,
               },
             },
           ],
