@@ -47,7 +47,6 @@ const theme = createTheme({
         root: {
           boxShadow: "none",
           textTransform: "none",
-          fontSize: "1em",
           "&:hover": {
             boxShadow: "none",
           },
