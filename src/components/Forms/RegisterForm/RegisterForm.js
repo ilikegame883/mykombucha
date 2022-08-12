@@ -90,6 +90,7 @@ const RegisterForm = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Button
+              disabled
               variant="outlined"
               fullWidth
               size="large"
