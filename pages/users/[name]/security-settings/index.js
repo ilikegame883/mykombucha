@@ -1,7 +1,8 @@
-import { getSession } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth/next";
 import { MainLayout, SettingsLayout } from "../../../../src/components/Layout";
 import { Security } from "../../../../src/components/Forms";
 import { getData } from "../../../../src/utils/fetchData";
+import { authOptions } from "../../../api/auth/[...nextauth]";
 
 const SecuritySettingsPage = ({ userData }) => {
   return (
@@ -15,8 +16,12 @@ const SecuritySettingsPage = ({ userData }) => {
 
 export default SecuritySettingsPage;
 
-export async function getServerSideProps({ req }) {
-  const session = await getSession({ req });
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
   if (!session) {
     return {
       redirect: {

@@ -1,7 +1,8 @@
-import { getSession } from "next-auth/react";
+import { unstable_getServerSession } from "next-auth/next";
 import { getData } from "../../../../src/utils/fetchData";
 import { GeneralSettings } from "../../../../src/components/Forms";
 import { MainLayout, SettingsLayout } from "../../../../src/components/Layout";
+import { authOptions } from "../../../api/auth/[...nextauth]";
 
 const GeneralSettingsPage = ({ userData }) => {
   return (
@@ -15,8 +16,12 @@ const GeneralSettingsPage = ({ userData }) => {
 
 export default GeneralSettingsPage;
 
-export async function getServerSideProps({ req }) {
-  const session = await getSession({ req });
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
 
   if (!session) {
     return {
@@ -26,6 +31,7 @@ export async function getServerSideProps({ req }) {
       },
     };
   }
+
   const { username } = session.user;
   const [userData] = await getData("users", username);
 
