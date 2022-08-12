@@ -5,18 +5,20 @@ import Users from "../../../src/models/userModel";
 import connectDB from "./../../../src/lib/connectDB";
 import bcrypt from "bcrypt";
 
-connectDB();
-
 export const authOptions = {
   session: {
     // The default is `"jwt"`, an encrypted JWT (JWE) in the session cookie.
     maxAge: 60 * 60 * 24 * 30, // 30 days
+  },
+  jwt: {
+    encryption: true,
   },
   providers: [
     CredentialsProvider({
       name: "Credentials",
 
       authorize: async (credentials) => {
+        await connectDB();
         const email = credentials.email;
         const password = credentials.password;
         //verify credentials against DB
@@ -42,6 +44,9 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+
+  secret: process.env.SECRET,
+
   callbacks: {
     async jwt({ token, user }) {
       //jwt callback is only called when token is created (signin)
@@ -91,10 +96,7 @@ export const authOptions = {
       return session;
     },
   },
-  jwt: {
-    secret: process.env.SECRET,
-    encryption: true,
-  },
+
   pages: {
     signIn: "/signin",
     error: "/signin",
