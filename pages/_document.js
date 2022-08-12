@@ -10,7 +10,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* PWA primary color */}
-          <meta name="theme-color" content={theme.palette.primary.light} />
+          <meta name="theme-color" content="#F7F9FC" />
           <link rel="shortcut icon" href="/static/favicons/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link
@@ -52,7 +52,6 @@ export default class MyDocument extends Document {
             content="default"
           /> */}
           <meta name="msapplication-TileColor" content="#FAFAFA" />
-          <meta name="theme-color" content="#FAFAFA" />
           <meta
             content="/static/favicons/browserconfig.xml"
             name="msapplication-config"
