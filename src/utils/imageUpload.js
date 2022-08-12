@@ -1,4 +1,4 @@
-const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_NAME;
+const cloudName = process.env.CLOUDINARY_NAME;
 
 export const imageUpload = async (image) => {
   const formData = new FormData();
