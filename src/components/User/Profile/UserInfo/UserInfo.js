@@ -17,8 +17,7 @@ import UserStats from "./UserStats/UserStats";
 const UserInfo = ({ userData, userReviews, name }) => {
   const { username, createdAt, avatar, city, country, bio } = userData;
 
-  const { data: session, status } = useSession();
-  const loading = status === "loading";
+  const { data: session } = useSession();
 
   return (
     <>
@@ -37,7 +36,7 @@ const UserInfo = ({ userData, userReviews, name }) => {
             <b>{createdAt.slice(0, createdAt.lastIndexOf("T"))}</b>
           </Typography>
         </Stack>
-        <Box sx={{ display: loading && "none" }}>
+        <Box>
           {session && session.user.username === name ? (
             <Stack spacing={2}>
               <Typography
@@ -84,8 +83,8 @@ const UserInfo = ({ userData, userReviews, name }) => {
               {username}
             </Typography>
 
-            <Typography variant="body2" color="text.secondary" mb={0.25}>
-              {city && country && `${city}, ${country}`}
+            <Typography variant="body2" color="text.primary" mb={0.25}>
+              {city && `${city},`} {country && `${country}`}
               <LocationOnOutlinedIcon
                 color="disabled"
                 fontSize="small"
@@ -94,7 +93,7 @@ const UserInfo = ({ userData, userReviews, name }) => {
             </Typography>
             <Typography
               variant="caption"
-              color="text.primary"
+              color="text.secondary"
               sx={{ fontStyle: "italic" }}
             >
               {bio

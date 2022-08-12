@@ -34,7 +34,7 @@ const MobileApp = () => {
             released.
           </Typography>
         </Box>
-        <Box ml={{ xs: 0, sm: -4 }}>
+        <Box ml={{ xs: 0, sm: -4.5 }}>
           <Image
             src="https://res.cloudinary.com/jjo/image/upload/v1650763471/myKombucha/Logo/apple-google-logo_tjv1by.svg"
             alt="app stores"

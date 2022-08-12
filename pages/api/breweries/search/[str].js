@@ -23,9 +23,9 @@ const handler = async (req, res) => {
               query: str,
               path: "name",
               fuzzy: {
-                //maxEdits field represents how many consecutive characters must match
+                //Indicates that only one character variation is allowed in the query string to match the query to a word in the documents.
                 maxEdits: 1,
-                //prefixLength indicates the number of characters at the beginning of each term in the result that must match exactly
+                //Indicates that the first character in the query string can't change when matching the query to a word in the documents.
                 prefixLength: 1,
               },
               tokenOrder: "any",

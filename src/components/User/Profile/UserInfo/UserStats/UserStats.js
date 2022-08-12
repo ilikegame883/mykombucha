@@ -11,6 +11,7 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 const UserStats = ({ userData }) => {
   const { review_total, avg_rating } = userData;
+
   const theme = useTheme();
 
   const STATS = [

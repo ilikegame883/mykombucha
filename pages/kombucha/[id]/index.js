@@ -19,11 +19,11 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
   const router = useRouter();
 
   //load reviews, client side with useSWR
-  const { data: kombuchaReviews, error } = useSWR(
+  const { data: kombuchaReviews, isValidating } = useSWR(
     `/api/kombucha/${kombuchaId}/reviews`,
-    fetcher
+    fetcher,
+    { revalidateOnFocus: false }
   );
-  const isReviewDataLoading = !error && !kombuchaReviews;
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -45,7 +45,6 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
             <ReviewSideBar
               singleKombuchaData={singleKombuchaData}
               kombuchaReviews={kombuchaReviews}
-              isReviewDataLoading={isReviewDataLoading}
             />
           </Grid>
 
@@ -66,11 +65,11 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
                 fontWeight="600"
                 gutterBottom
               >
-                Reviews ({!isReviewDataLoading && kombuchaReviews.length})
+                Reviews ({!isValidating && kombuchaReviews.length})
               </Typography>
               <KombuchaReviews
                 kombuchaReviews={kombuchaReviews}
-                isReviewDataLoading={isReviewDataLoading}
+                isValidating={isValidating}
                 kombuchaId={kombuchaId}
               />
             </Paper>

@@ -3,7 +3,7 @@ import { MainLayout } from "../../src/components/Layout";
 
 const LocalPage = () => {
   return (
-    <MainLayout title="Local Breweries">
+    <MainLayout title="Local breweries near your area">
       <Container maxWidth="sm" sx={{ py: { xs: 5, sm: 8 } }}>
         <Box px={2}>
           <Typography variant="h4" fontWeight="700" align="left" gutterBottom>

@@ -13,11 +13,13 @@ const Profile = ({ userData }) => {
   const router = useRouter();
   const { name } = router.query;
 
-  //to show a live update of user review list when a review is deleted,
+  //registered users can delete their own review
+  //to show a live update when a review is deleted,
   //load user reviews from client side with useSWR,
   const { data: userReviews } = useSWR(`/api/users/${name}/reviews`, fetcher, {
     revalidateOnFocus: false,
   });
+
   return (
     <Grid container columnSpacing={1.5}>
       <Grid item xs={12} md={8} lg={9}>

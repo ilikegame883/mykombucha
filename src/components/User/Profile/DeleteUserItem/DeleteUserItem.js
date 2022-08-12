@@ -35,12 +35,15 @@ const DeleteUserItem = ({ handleDelete, item }) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-delete-review" fontWeight="700">
+        <DialogTitle
+          id="alert-dialog-delete-review"
+          fontWeight="600"
+          sx={{ mb: 0.5 }}
+        >
           Confirm Delete
         </DialogTitle>
-        <Divider />
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText sx={{ color: "black" }}>
             Are you sure you want to delete this kombucha - {` ${item}?`}
           </DialogContentText>
         </DialogContent>
@@ -50,7 +53,7 @@ const DeleteUserItem = ({ handleDelete, item }) => {
             onClick={handleCloseAlert}
             autoFocus
             variant="text"
-            sx={{ color: "common.black", fontWeight: 700 }}
+            sx={{ color: "common.black", fontWeight: 600 }}
           >
             Cancel
           </Button>

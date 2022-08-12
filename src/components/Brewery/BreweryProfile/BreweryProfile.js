@@ -31,8 +31,8 @@ const BreweryProfile = ({ singleBreweryData }) => {
             component="img"
             alt={name}
             src={getCloudinaryUrl(image)}
-            width={80}
-            height={80}
+            width={100}
+            height={100}
             mr={{ xs: 0, sm: 2 }}
             mb={{ xs: 1, sm: 0 }}
           />

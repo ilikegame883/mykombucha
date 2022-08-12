@@ -22,7 +22,7 @@ const AlertToast = () => {
     >
       <Alert
         onClose={handleClose}
-        severity={status || "success"}
+        severity={status}
         variant="filled"
         elevation={5}
         sx={{ width: "100%", color: "common.white", fontWeight: "600" }}

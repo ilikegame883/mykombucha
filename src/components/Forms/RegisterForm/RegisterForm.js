@@ -92,6 +92,7 @@ const RegisterForm = () => {
             <Button
               variant="outlined"
               fullWidth
+              size="large"
               startIcon={<GoogleIcon sx={{ color: "info.main" }} />}
               onClick={() => signIn("google", { callbackUrl: "/" })}
               sx={{

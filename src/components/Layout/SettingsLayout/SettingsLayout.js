@@ -42,7 +42,7 @@ const SettingsLayout = ({ children, userData }) => {
   return (
     <Box>
       <Box
-        bgcolor={"primary.light"}
+        bgcolor="primary.main"
         pb={{ xs: 10, sm: 15 }}
         pt={{ xs: 10, sm: 13 }}
       >

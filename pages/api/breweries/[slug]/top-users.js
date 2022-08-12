@@ -59,6 +59,7 @@ const getTopUsers = async (req, res) => {
         },
       },
       //sort by highest review to lowest
+      //limit to 3 users
       { $sort: { total_reviews: -1 } },
       { $limit: 3 },
       { $unwind: "$user" },
