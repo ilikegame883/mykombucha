@@ -7,11 +7,10 @@ import bcrypt from "bcrypt";
 
 connectDB();
 
-export default NextAuth({
+export const authOptions = {
   session: {
     // The default is `"jwt"`, an encrypted JWT (JWE) in the session cookie.
-    jwt: true,
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 60 * 60 * 24 * 30, // 30 days
   },
   providers: [
     CredentialsProvider({
@@ -45,14 +44,13 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, user }) {
-      //RUNS ON INITIAL SIGN IN
-      //Must re-login to update any changes!
-      //When jwt callback is called, user object is available !important!
+      //jwt callback is only called when token is created (signin)
+      //When jwt callback is called, user object is available
       if (user) {
         const findUser = await Users.findOne({ email: user.email });
         let oAuthUserId;
         //logging in with google will not provide a username
-        //set new users a username using e-mail address if google is used to login
+        //set new users a username using e-mail address if google is used to signup
         const setUserName = user?.username
           ? user.username
           : user.email.slice(0, user.email.indexOf("@"));
@@ -63,7 +61,7 @@ export default NextAuth({
             email: user.email,
             avatar: user.image, //(user.image = google profile image);
           });
-          //save new google login user data to DB and retrieve user _id
+          //save google login user data to DB and retrieve user _id for new users
           await newUser.save();
           oAuthUserId = newUser._id;
         }
@@ -75,20 +73,21 @@ export default NextAuth({
         token.username = setUserName;
         token.avatar = user.avatar || user.image;
       }
-      return token;
+      return token; //forwarded to session
     },
     async session({ session, token }) {
       if (session) {
-        // Add additional user properties to user session obj from client
+        // Add the updated user token properties to user session obj shown to client
         session.user.username = token.username;
         session.user._id = token._id;
         session.user.avatar = token.avatar;
       }
-      if (session.user.image) {
-        //since token.avatar is set to user.image
-        //delete image property for google login user to prevent duplicate
-        delete session.user.image;
-      }
+      //delete unused properties
+      //unstable_getServerSession() will return image: "undefined", name: "undefined" since they are default token properties
+      delete session.user.image;
+      delete session.user.name;
+
+      //session avaiable to the client
       return session;
     },
   },
@@ -100,4 +99,5 @@ export default NextAuth({
     signIn: "/signin",
     error: "/signin",
   },
-});
+};
+export default NextAuth(authOptions);
