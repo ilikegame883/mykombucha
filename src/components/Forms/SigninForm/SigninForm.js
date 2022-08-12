@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleAlert } from "../../../stores/actions";
 import AlertSnackBar from "../../AlertSnackBar";
-import { Container, Divider, Paper } from "@mui/material";
+import { Container, Divider } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 
 const validationSchema = yup.object({
@@ -28,7 +28,7 @@ const validationSchema = yup.object({
     .min(7, "The password should have at minimum length of 7"),
 });
 
-const SigninForm = ({ providers }) => {
+const SigninForm = () => {
   const { dispatch } = useContext(AlertContext);
   const router = useRouter();
 
@@ -76,8 +76,9 @@ const SigninForm = ({ providers }) => {
             <Button
               variant="outlined"
               fullWidth
+              size="large"
               startIcon={<GoogleIcon sx={{ color: "info.main" }} />}
-              onClick={() => signIn(providers.google.id, { callbackUrl: "/" })}
+              onClick={() => signIn("google", { callbackUrl: "/" })}
               sx={{
                 height: 50,
                 color: "text.primary",
