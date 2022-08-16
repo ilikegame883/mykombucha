@@ -59,8 +59,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const [singleBreweryData] = await getData("breweries", params.slug);
-  const topRaters = await getData(`breweries/${params.slug}/top-users`);
-
+  const topRaters = await getData(`breweries/${params.slug}/users/top`);
   return {
     props: { singleBreweryData, topRaters },
     revalidate: 5,
