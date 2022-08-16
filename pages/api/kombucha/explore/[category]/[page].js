@@ -2,7 +2,7 @@ import connectDB from "../../../../../src/lib/connectDB";
 import Kombucha from "../../../../../src/models/kombuchaModel";
 import Review from "../../../../../src/models/reviewModel";
 
-// Similar to 'limit' (# of items per page - page size)
+// Similar to 'limit' (# of items per page)
 const PAGE_SIZE = 8;
 
 const handler = async (req, res) => {
@@ -15,6 +15,9 @@ const handler = async (req, res) => {
   //hander function will be chosen by req.query.category
   //(e.g., /kombucha/explore/new/[page]) will run getNewKombucha list
   switch (req.query.category) {
+    case "recent":
+      await getRecentKombuchaReviews(req, res);
+      break;
     case "new":
       await getNewKombucha(req, res);
       break;
@@ -24,110 +27,19 @@ const handler = async (req, res) => {
     case "popular":
       await getPopularKombucha(req, res);
       break;
-    case "recent":
-      await getRecentKombuchaReviews(req, res);
-      break;
-  }
-};
-
-//1. Get list of kombucha by date created for now
-//2. MongoDB ObjectId contain a timestamp, you can sort by 'created date' if you sort by objectId
-//3. Paginate result based on page number from req.query
-//Note: need to add in start date of production for each kombucha and sort by that field
-const getNewKombucha = async (req, res) => {
-  const { page } = req.query;
-  const skip = (page - 1) * PAGE_SIZE; // For page 1, the skip is: (1 - 1) * 20 => 0 * 20 = 0
-  //e.g, Page 1 = Skip 0 (from skip) items, limit to 2 (from PAGE_SIZE) items per page
-  try {
-    const newKombuchaList = await Kombucha.aggregate([
-      {
-        $facet: {
-          sorted_list: [
-            { $sort: { _id: -1 } },
-            { $skip: skip },
-            { $limit: PAGE_SIZE },
-            { $addFields: { insertTime: { $toDate: "$_id" } } },
-          ],
-          total: [{ $count: "count" }],
-        },
-      },
-      { $unwind: "$total" },
-    ]);
-    res.json(newKombuchaList);
-  } catch (err) {
-    return res.status(500).json({ err: err.message });
-  }
-};
-
-//1. Get list of kombucha by highest to lowest avg ratings
-//2. Match all kombuchas that has an avg rating > 0 (no rating = 0 avg)
-//3. Paginate result based on page number from req.query.page
-const getTopRatedKombucha = async (req, res) => {
-  const { page } = req.query;
-  const skip = (page - 1) * PAGE_SIZE; // For page 1, the skip is: (1 - 1) * 20 => 0 * 20 = 0
-  //e.g, Page 1 = Skip 0 (from skip) items, limit to 2 (from PAGE_SIZE) items per page
-  try {
-    const topRatedKombuchaList = await Kombucha.aggregate([
-      { $match: { avg: { $gt: 0 } } },
-      {
-        $facet: {
-          sorted_list: [
-            { $sort: { avg: -1 } },
-            { $skip: skip },
-            { $limit: PAGE_SIZE },
-            { $addFields: { insertTime: { $toDate: "$_id" } } },
-          ],
-          total: [{ $count: "count" }],
-        },
-      },
-
-      { $unwind: "$total" },
-    ]);
-
-    res.json(topRatedKombuchaList);
-  } catch (err) {
-    return res.status(500).json({ err: err.message });
-  }
-};
-
-//1. Get list of kombucha by highest to lowest number of ratings
-//2. Match all kombuchas that has an rating count > 0
-//3. Paginate result based on page number from req.query.page
-const getPopularKombucha = async (req, res) => {
-  const { page } = req.query;
-  const skip = (page - 1) * PAGE_SIZE; // For page 1, the skip is: (1 - 1) * 20 => 0 * 20 = 0
-  //e.g, Page 1 = Skip 0 (from skip) items, limit to 2 (from PAGE_SIZE) items per page
-  try {
-    const popularKombuchaList = await Kombucha.aggregate([
-      { $match: { review_count: { $gt: 0 } } },
-      {
-        $facet: {
-          sorted_list: [
-            { $sort: { review_count: -1 } },
-            { $skip: skip },
-            { $limit: PAGE_SIZE },
-            { $addFields: { insertTime: { $toDate: "$_id" } } },
-          ],
-          total: [{ $count: "count" }],
-        },
-      },
-
-      { $unwind: "$total" },
-    ]);
-
-    res.json(popularKombuchaList);
-  } catch (err) {
-    return res.status(500).json({ err: err.message });
   }
 };
 
 //1. Get list of kombucha reviews and sort by most recent
-//2. Populate kombucha date with each review
-//3. Paginate result based on page number from req.query.page
+//2. Return kombucha review date with each review
+//3. Fetch results based on page number passed in from req.query
 const getRecentKombuchaReviews = async (req, res) => {
   const { page } = req.query;
-  const skip = (page - 1) * PAGE_SIZE; // For page 1, the skip is: (1 - 1) * 20 => 0 * 20 = 0
-  //e.g, Page 1 = Skip 0 (from skip) items, limit to 2 (from PAGE_SIZE) items per page
+
+  // skip = # of items to skip over to display the next set of fetched items for upcoming pages
+  //e.g, Page 1 = Skip 0 items, show first 8 items (from PAGE_SIZE) per page
+  //e.g. Page 2 = Skip 8 items, and display next set of items after skipping 8 items from page 1
+  const skip = (page - 1) * PAGE_SIZE;
   try {
     const recentKombuchaReviews = await Review.aggregate([
       {
@@ -166,6 +78,93 @@ const getRecentKombuchaReviews = async (req, res) => {
     ]);
 
     res.json(recentKombuchaReviews);
+  } catch (err) {
+    return res.status(500).json({ err: err.message });
+  }
+};
+
+//1. Get list of kombucha by date created for now
+//2. MongoDB ObjectId contain a timestamp, you can sort by 'created date' if you sort by objectId
+//3. Fetch results based on page number passed in from req.query
+const getNewKombucha = async (req, res) => {
+  const { page } = req.query;
+  const skip = (page - 1) * PAGE_SIZE;
+  try {
+    const newKombuchaList = await Kombucha.aggregate([
+      {
+        $facet: {
+          sorted_list: [
+            { $sort: { _id: -1 } },
+            { $skip: skip },
+            { $limit: PAGE_SIZE },
+            { $addFields: { insertTime: { $toDate: "$_id" } } },
+          ],
+          total: [{ $count: "count" }],
+        },
+      },
+      { $unwind: "$total" },
+    ]);
+    res.json(newKombuchaList);
+  } catch (err) {
+    return res.status(500).json({ err: err.message });
+  }
+};
+
+//1. Get list of kombucha by highest to lowest avg ratings
+//2. Match all kombuchas that has an avg rating >= 3.50 (no rating = 0 avg)
+//3. Fetch results based on page number passed in from req.query
+const getTopRatedKombucha = async (req, res) => {
+  const { page } = req.query;
+  const skip = (page - 1) * PAGE_SIZE;
+  try {
+    const topRatedKombuchaList = await Kombucha.aggregate([
+      { $match: { avg: { $gt: 3.75 }, review_count: { $gt: 0 } } },
+      {
+        $facet: {
+          sorted_list: [
+            { $sort: { avg: -1 } },
+            { $skip: skip },
+            { $limit: PAGE_SIZE },
+            { $addFields: { insertTime: { $toDate: "$_id" } } },
+          ],
+          total: [{ $count: "count" }],
+        },
+      },
+
+      { $unwind: "$total" },
+    ]);
+
+    res.json(topRatedKombuchaList);
+  } catch (err) {
+    return res.status(500).json({ err: err.message });
+  }
+};
+
+//1. Get list of kombucha by highest to lowest number of ratings
+//2. Match all kombuchas that has an rating count > 0
+//3. Fetch results based on page number passed in from req.query
+const getPopularKombucha = async (req, res) => {
+  const { page } = req.query;
+  const skip = (page - 1) * PAGE_SIZE;
+  try {
+    const popularKombuchaList = await Kombucha.aggregate([
+      { $match: { review_count: { $gt: 0 } } },
+      {
+        $facet: {
+          sorted_list: [
+            { $sort: { review_count: -1 } },
+            { $skip: skip },
+            { $limit: PAGE_SIZE },
+            { $addFields: { insertTime: { $toDate: "$_id" } } },
+          ],
+          total: [{ $count: "count" }],
+        },
+      },
+
+      { $unwind: "$total" },
+    ]);
+
+    res.json(popularKombuchaList);
   } catch (err) {
     return res.status(500).json({ err: err.message });
   }

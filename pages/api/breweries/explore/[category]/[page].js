@@ -1,7 +1,7 @@
 import connectDB from "../../../../../src/lib/connectDB";
 import Brewery from "../../../../../src/models/breweryModel";
 
-// Similar to 'limit' (# of items per page - page size)
+// Similar to 'limit' (# of items per page)
 const PAGE_SIZE = 8;
 
 const handler = async (req, res) => {
@@ -24,11 +24,13 @@ const handler = async (req, res) => {
 
 //1. Get list of breweries by highest to lowest number of favorites given
 //2. Match breweries that has an favorite count > 0
-//3. Paginate result based on page number from req.query.page
+//3. Fetch results based on page number passed in from req.query
 const getPopularBreweries = async (req, res) => {
   const { page } = req.query;
-  const skip = (page - 1) * PAGE_SIZE; // For page 1, the skip is: (1 - 1) * 20 => 0 * 20 = 0
-  //e.g, Page 1 = Skip 0 (from skip) items, limit to 2 (from PAGE_SIZE) items per page
+  // skip = # of items to skip over to display the next set of fetched items for upcoming pages
+  //e.g, Page 1 = Skip 0 items, show first 8 items (from PAGE_SIZE) per page
+  //e.g. Page 2 = Skip 8 items, and display next set of items after skipping 8 items from page 1
+  const skip = (page - 1) * PAGE_SIZE;
   try {
     const popularBreweryList = await Brewery.aggregate([
       { $match: { favorite_count: { $gt: 0 } } },
@@ -47,7 +49,6 @@ const getPopularBreweries = async (req, res) => {
       { $unwind: "$total" },
     ]);
 
-    // res.status(200).json(topRatedKombuchaList) or is it
     res.json(popularBreweryList);
   } catch (err) {
     return res.status(500).json({ err: err.message });
@@ -56,7 +57,7 @@ const getPopularBreweries = async (req, res) => {
 
 //1. Get list of Brewery and sort by most recent
 //2. Populate Brewery date with each review
-//3. Paginate result based on page number from req.query.page
+//3. Fetch results based on page number passed in from req.query
 const getRecentBreweries = async (req, res) => {
   const { page } = req.query;
   const skip = (page - 1) * PAGE_SIZE; // For page 1, the skip is: (1 - 1) * 20 => 0 * 20 = 0
@@ -77,7 +78,6 @@ const getRecentBreweries = async (req, res) => {
       { $unwind: "$total" },
     ]);
 
-    // res.status(200).json(topRatedKombuchaList) or is it
     res.json(recentBreweries);
   } catch (err) {
     return res.status(500).json({ err: err.message });
