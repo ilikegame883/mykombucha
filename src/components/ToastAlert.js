@@ -3,7 +3,7 @@ import { Alert, Collapse } from "@mui/material";
 import { AlertContext } from "../stores/context/alert.context";
 import { toggleAlert } from "../stores/actions";
 
-const AlertSnackBar = () => {
+const ToastAlert = () => {
   const { state, dispatch } = useContext(AlertContext);
   const { alert, status, alertMessage } = state;
 
@@ -22,4 +22,4 @@ const AlertSnackBar = () => {
   );
 };
 
-export default AlertSnackBar;
+export default ToastAlert;

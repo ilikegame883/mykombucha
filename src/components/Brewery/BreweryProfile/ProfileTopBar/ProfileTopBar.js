@@ -9,7 +9,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { patchData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleToast } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/actions";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -20,7 +20,7 @@ const ProfileTopBar = () => {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { data: singleBreweryData, error } = useSWR(
+  const { data: singleBreweryData } = useSWR(
     session?.user ? `/api/breweries/${slug}` : null,
     fetcher
   );
@@ -33,18 +33,24 @@ const ProfileTopBar = () => {
 
   const handleClickFavorite = async () => {
     if (!session) {
-      router.push("/signin");
+      dispatch(
+        toggleSnackBar(
+          "error",
+          "Login/Register to favorite this brewery!",
+          true
+        )
+      );
       return;
     }
 
-    const res = await patchData(`breweries/${slug}/favorite`, {
+    const res = await patchData(`breweries/${slug}/users/favorite`, {
       user_id: session.user._id,
     });
     if (res?.msg) {
       mutate(`/api/breweries/${slug}`);
-      dispatch(toggleToast("success", res.msg, true));
+      dispatch(toggleSnackBar("success", res.msg, true));
     }
-    if (res?.err) dispatch(toggleToast("error", res.err, true));
+    if (res?.err) dispatch(toggleSnackBar("error", res.err, true));
   };
 
   return (

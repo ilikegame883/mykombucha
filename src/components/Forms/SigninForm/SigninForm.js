@@ -11,7 +11,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleAlert } from "../../../stores/actions";
-import AlertSnackBar from "../../AlertSnackBar";
+import ToastAlert from "../../ToastAlert";
 import { Container, Divider } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
 
@@ -135,7 +135,7 @@ const SigninForm = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <AlertSnackBar />
+            <ToastAlert />
             <Box
               display="flex"
               flexDirection={{ xs: "column", sm: "row" }}

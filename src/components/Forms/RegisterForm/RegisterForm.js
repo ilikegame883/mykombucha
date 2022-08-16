@@ -12,9 +12,9 @@ import {
   Typography,
 } from "@mui/material";
 import { postData } from "../../../utils/fetchData";
-import { Container, Paper } from "@mui/material";
+import { Container } from "@mui/material";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleToast } from "../../../stores/actions";
+import { toggleSnackBar } from "../../../stores/actions";
 import GoogleIcon from "@mui/icons-material/Google";
 
 const validationSchema = yup.object({
@@ -58,14 +58,14 @@ const RegisterForm = () => {
   const onSubmit = async (values) => {
     const res = await postData("auth/register", values);
     if (res?.msg) {
-      dispatch(toggleToast("success", res.msg, true));
+      dispatch(toggleSnackBar("success", res.msg, true));
       await signIn("credentials", {
         email: values.email,
         password: values.password,
         callbackUrl: `${window.location.origin}`,
       });
       if (res?.err) {
-        dispatch(toggleToast("error", res.err, true));
+        dispatch(toggleSnackBar("error", res.err, true));
       }
     }
   };

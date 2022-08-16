@@ -16,7 +16,7 @@ import { postData } from "../../../../utils/fetchData";
 import RatingSlider from "./RatingSlider";
 import CommentBox from "./CommentBox";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleToast } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/actions";
 
 const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   const { brewery_slug, brewery_name } = singleKombuchaData;
@@ -36,7 +36,6 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
     served_in: "",
     user: session.user._id,
     username: session.user.username,
-    userAvatar: session.user.avatar,
   });
 
   const handleSliderChange = (event, newValue) => {
@@ -70,9 +69,9 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
 
     if (res?.msg) {
       toggleDrawer(e);
-      dispatch(toggleToast("success", res.msg, true));
+      dispatch(toggleSnackBar("success", res.msg, true));
     }
-    if (res?.err) dispatch(toggleToast("error", res.err, true));
+    if (res?.err) dispatch(toggleSnackBar("error", res.err, true));
   };
 
   return (

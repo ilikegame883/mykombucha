@@ -12,7 +12,7 @@ import {
 import Topbar from "./Topbar";
 import Sidebar from "./Sidebar";
 import Footer from "./Footer";
-import AlertToast from "../../AlertToast";
+import SnackBarAlert from "../../SnackBarAlert";
 
 const MainLayout = ({ position = "sticky", title, children }) => {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -68,7 +68,7 @@ const MainLayout = ({ position = "sticky", title, children }) => {
         <meta name="twitter:description" content={meta.description} />
         <meta name="twitter:image" content={meta.image} />
       </Head>
-      <AlertToast />
+      <SnackBarAlert />
       <AppBar
         position={position}
         width={1}

@@ -9,10 +9,10 @@ const alertReducer = (state, action) => {
         status: action.statusPayload,
         alertMessage: action.messagePayload,
       };
-    case ACTIONS.TOGGLE_TOAST:
+    case ACTIONS.TOGGLE_SNACKBAR:
       return {
         ...state,
-        alertToast: action.alertToastPayload,
+        alertSnackBar: action.alertSnackBarPayload,
         status: action.statusPayload,
         alertMessage: action.messagePayload,
       };

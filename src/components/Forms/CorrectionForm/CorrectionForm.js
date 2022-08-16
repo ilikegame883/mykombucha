@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleToast } from "../../../stores/actions";
+import { toggleSnackBar } from "../../../stores/actions";
 import { postData } from "../../../utils/fetchData";
 
 const CHECKBOX = {
@@ -59,10 +59,10 @@ const CorrectionForm = ({ name, type }) => {
     const res = await postData("mail", values);
     if (res?.msg) {
       resetForm.resetForm();
-      dispatch(toggleToast("success", res.msg, true));
+      dispatch(toggleSnackBar("success", res.msg, true));
     }
     if (res?.err) {
-      dispatch(toggleToast("error", res.err, true));
+      dispatch(toggleSnackBar("error", res.err, true));
     }
   };
 

@@ -18,7 +18,7 @@ import ReviewSearchBar from "./ReviewSearchBar";
 import ReviewNotFound from "./ReviewNotFound";
 import { deleteData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleToast } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/actions";
 import ReviewRow from "./ReviewRow/ReviewRow";
 
 const TABLE_HEAD = [
@@ -180,10 +180,10 @@ const UserReviewTable = ({ userReviews }) => {
     if (res?.msg) {
       //swr will not revalidate unless mutate is called
       mutate(`/api/users/${session.user.username}/reviews`);
-      dispatch(toggleToast("success", res.msg, true));
+      dispatch(toggleSnackBar("success", res.msg, true));
     }
     if (res?.err) {
-      dispatch(toggleToast("error", res.err, true));
+      dispatch(toggleSnackBar("error", res.err, true));
     }
   };
 

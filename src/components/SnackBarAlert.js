@@ -1,23 +1,23 @@
 import React, { useContext } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import { AlertContext } from "../stores/context/alert.context";
-import { toggleToast } from "../stores/actions";
+import { toggleSnackBar } from "../stores/actions";
 
-const AlertToast = () => {
+const SnackBarAlert = () => {
   const { state, dispatch } = useContext(AlertContext);
-  const { status, alertMessage, alertToast } = state;
+  const { status, alertMessage, alertSnackBar } = state;
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    dispatch(toggleToast("", "", false));
+    dispatch(toggleSnackBar("", "", false));
   };
   return (
     <Snackbar
       anchorOrigin={{ vertical: "top", horizontal: "center" }}
-      open={alertToast}
-      autoHideDuration={alertToast ? 3000 : null}
+      open={alertSnackBar}
+      autoHideDuration={alertSnackBar ? 3000 : null}
       onClose={handleClose}
     >
       <Alert
@@ -33,4 +33,4 @@ const AlertToast = () => {
   );
 };
 
-export default AlertToast;
+export default SnackBarAlert;

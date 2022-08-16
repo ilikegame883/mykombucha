@@ -19,7 +19,7 @@ import { imageUpload } from "../../../../utils/imageUpload";
 import { patchData } from "../../../../utils/fetchData";
 import { useRouter } from "next/router";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleToast } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/actions";
 
 const Input = styled("input")({
   display: "none",
@@ -35,18 +35,18 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
 
   const changeProfilePic = (e) => {
     const file = e.target.files[0];
-    if (!file) return toggleToast("error", "File does not exist.", true);
+    if (!file) return toggleSnackBar("error", "File does not exist.", true);
 
     if (file.size > 1024 * 1024)
       //1mb
       return dispatch(
-        toggleToast("error", "The largest image size is 1mb.", true)
+        toggleSnackBar("error", "The largest image size is 1mb.", true)
       );
 
     if (file.type !== "image/jpeg" && file.type !== "image/png")
       //jpeg & png
       return dispatch(
-        toggleToast(
+        toggleSnackBar(
           "error",
           "Image format is incorrect. Please use jpeg or png photo.",
           true
@@ -74,12 +74,12 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
         avatar: media.url,
       });
       if (res?.msg) {
-        dispatch(toggleToast("success", res.msg, true));
+        dispatch(toggleSnackBar("success", res.msg, true));
         handleClose();
         router.replace(router.asPath);
       }
       if (res?.err) {
-        dispatch(toggleToast("error", res.err, true));
+        dispatch(toggleSnackBar("error", res.err, true));
       }
     }
   };
@@ -91,12 +91,12 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
         avatar: "",
       });
       if (res?.msg) {
-        dispatch(toggleToast("success", res.msg, true));
+        dispatch(toggleSnackBar("success", res.msg, true));
         handleClose();
         router.replace(router.asPath);
       }
       if (res?.err) {
-        dispatch(toggleToast("error", res.err, true));
+        dispatch(toggleSnackBar("error", res.err, true));
       }
     }
   };

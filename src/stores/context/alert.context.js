@@ -3,7 +3,7 @@ import alertReducer from "../reducer/alert.reducer";
 
 const initialState = {
   alert: false,
-  alertToast: false,
+  alertSnackBar: false,
   status: "",
   alertMessage: "",
 };

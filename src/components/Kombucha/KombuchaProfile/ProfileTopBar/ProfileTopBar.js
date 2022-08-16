@@ -10,7 +10,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import moment from "moment";
 import { patchData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleToast } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/actions";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -36,7 +36,13 @@ const ProfileTopBar = ({ kombuchaId }) => {
 
   const handleClickAddIcon = async () => {
     if (!session) {
-      router.push("/signin");
+      dispatch(
+        toggleSnackBar(
+          "error",
+          "Login/Register to add to your wish list!",
+          true
+        )
+      );
       return;
     }
     const res = await patchData(`users/${session.user.username}/wish-list`, {
@@ -46,9 +52,9 @@ const ProfileTopBar = ({ kombuchaId }) => {
 
     if (res?.msg) {
       mutate(`/api/kombucha/${kombuchaId}`);
-      dispatch(toggleToast("success", res.msg, true));
+      dispatch(toggleSnackBar("success", res.msg, true));
     }
-    if (res?.err) dispatch(toggleToast("error", res.err, true));
+    if (res?.err) dispatch(toggleSnackBar("error", res.err, true));
   };
 
   return (

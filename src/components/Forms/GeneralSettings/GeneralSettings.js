@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import { patchData } from "../../../utils/fetchData";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleAlert } from "../../../stores/actions";
-import AlertSnackBar from "../../AlertSnackBar";
+import ToastAlert from "../../ToastAlert";
 
 const validationSchema = yup.object({
   city: yup.string().trim().max(20, "Please enter a valid city"),
@@ -149,7 +149,7 @@ const GeneralSettings = ({ userData }) => {
           </Grid>
           <Grid item container xs={12}>
             <Box>
-              <AlertSnackBar />
+              <ToastAlert />
               <Button
                 size="large"
                 variant="contained"

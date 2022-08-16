@@ -8,9 +8,9 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { patchData } from "../../../utils/fetchData";
-import AlertSnackBar from "../../../components/AlertSnackBar";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleAlert } from "../../../stores/actions";
+import ToastAlert from "../../../components/ToastAlert";
 
 const validationSchema = yup.object({
   currentPassword: yup.string().required("Please specify your password"),
@@ -146,7 +146,7 @@ const Security = () => {
 
             <Grid item container xs={12}>
               <Box>
-                <AlertSnackBar />
+                <ToastAlert />
                 <Button
                   size="large"
                   variant="contained"

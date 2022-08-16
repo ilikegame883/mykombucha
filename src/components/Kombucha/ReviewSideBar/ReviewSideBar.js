@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState, useContext } from "react";
 import {
   Box,
   Grid,
@@ -15,6 +14,8 @@ import StarsIcon from "@mui/icons-material/Stars";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import { useSession } from "next-auth/react";
 import ReviewDrawer from "./ReviewDrawer";
+import { AlertContext } from "../../../stores/context/alert.context";
+import { toggleSnackBar } from "../../../stores/actions";
 
 const StatItem = ({ kombuchaReviews }) => {
   return (
@@ -50,9 +51,9 @@ const StatItem = ({ kombuchaReviews }) => {
 };
 
 const ReviewSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
-  const [openDrawer, setOpenDrawer] = useState(false);
+  const { dispatch } = useContext(AlertContext);
 
-  const router = useRouter();
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   const { data: session } = useSession();
   const toggleDrawer = (event) => {
@@ -63,7 +64,9 @@ const ReviewSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
       return;
     }
     if (!session) {
-      router.push("/signin");
+      dispatch(
+        toggleSnackBar("error", "Login/Register to rate this kombucha!", true)
+      );
     } else {
       setOpenDrawer(!openDrawer);
     }
