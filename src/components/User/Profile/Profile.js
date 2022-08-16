@@ -26,7 +26,10 @@ const Profile = ({ userData }) => {
         <Paper sx={{ mb: 1.5 }} variant="outlined">
           <UserInfo userData={userData} userReviews={userReviews} name={name} />
         </Paper>
-        <Paper sx={{ display: { xs: "block", md: "none" } }}>
+        <Paper
+          sx={{ display: { xs: "block", md: "none" }, mb: 2 }}
+          variant="outlined"
+        >
           <UserWishList wishList={wish_list} />
         </Paper>
         {userReviews ? (
@@ -43,7 +46,7 @@ const Profile = ({ userData }) => {
         lg={3}
         sx={{ display: { xs: "none", md: "block" } }}
       >
-        <Paper>
+        <Paper variant="outlined">
           <UserWishList wishList={wish_list} />
         </Paper>
       </Grid>

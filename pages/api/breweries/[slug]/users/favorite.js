@@ -1,6 +1,6 @@
-import connectDB from "../../../../src/lib/connectDB";
-import Brewery from "../../../../src/models/breweryModel";
 import mongoose from "mongoose";
+import Brewery from "../../../../../src/models/breweryModel";
+import connectDB from "../../../../../src/lib/connectDB";
 
 const handler = async (req, res) => {
   await connectDB();

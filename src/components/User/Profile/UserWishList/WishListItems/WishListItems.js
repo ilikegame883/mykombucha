@@ -47,7 +47,7 @@ const WishListItems = ({ wishList }) => {
         return (
           <Grid item xs={12} key={i}>
             <Box p={1.5}>
-              <ListItem disableGutters sx={{ padding: 0 }}>
+              <ListItem disableGutters sx={{ p: 0 }}>
                 <ListItemAvatar>
                   <Avatar
                     variant="square"

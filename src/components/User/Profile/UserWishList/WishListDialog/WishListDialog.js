@@ -15,7 +15,7 @@ const WishListDialog = ({ openDialog, setOpenDialog, wishList, name }) => {
   };
 
   return (
-    <div>
+    <>
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
@@ -66,7 +66,7 @@ const WishListDialog = ({ openDialog, setOpenDialog, wishList, name }) => {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 };
 

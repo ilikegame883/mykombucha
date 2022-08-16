@@ -1,5 +1,5 @@
-import Review from "../../../../src/models/reviewModel";
-import connectDB from "../../../../src/lib/connectDB";
+import connectDB from "../../../../../src/lib/connectDB";
+import Review from "../../../../../src/models/reviewModel";
 
 const handler = async (req, res) => {
   await connectDB();
@@ -27,7 +27,7 @@ const getTopUsers = async (req, res) => {
       //get total count of reviews by each user
       {
         $group: {
-          _id: "$user",
+          _id: "$user_id",
           total_reviews: { $sum: 1 },
         },
       },
@@ -64,6 +64,7 @@ const getTopUsers = async (req, res) => {
       { $limit: 3 },
       { $unwind: "$user" },
     ]);
+    console.log(topRaters);
     return res.json(topRaters);
   } catch (err) {
     console.log(err);

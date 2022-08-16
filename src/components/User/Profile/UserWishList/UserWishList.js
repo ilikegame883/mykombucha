@@ -10,7 +10,7 @@ const UserWishList = ({ wishList }) => {
     setOpenDialog(true);
   };
   return (
-    <Box mb={2}>
+    <Box>
       <Box p={1} bgcolor="#F7F9FC">
         <Typography
           variant="h6"
