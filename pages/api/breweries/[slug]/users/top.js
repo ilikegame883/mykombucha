@@ -27,7 +27,7 @@ const getTopUsers = async (req, res) => {
       //get total count of reviews by each user
       {
         $group: {
-          _id: "$user_id",
+          _id: "$user",
           total_reviews: { $sum: 1 },
         },
       },
