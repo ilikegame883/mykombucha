@@ -2,7 +2,7 @@ import KombuchaLinkTabs from "./KombuchaLinkTabs/KombuchaLinkTabs";
 import KombuchaList from "./KombuchaList";
 import RecentReviewList from "./RecentReviewList";
 
-export const PAGE_SIZE = 5; //# of items for each page under tab
+export const PAGE_SIZE = 8; //# of items for each page under tab
 
 const Kombucha = ({ recentReviews, kombuchaData, category, page }) => {
   //total = total number of sorted items

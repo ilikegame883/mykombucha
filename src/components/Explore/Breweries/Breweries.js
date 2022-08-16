@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import BreweryList from "./BreweryList/BreweryList";
 import BreweryLinkTabs from "./BreweryLinkTabs";
 
-const PAGE_SIZE = 5; //# of items for each page under tab
+const PAGE_SIZE = 8; //# of items for each page under tab
 
 const Breweries = ({ breweryData, category, page }) => {
   const [sort, setSort] = useState("Recent");
