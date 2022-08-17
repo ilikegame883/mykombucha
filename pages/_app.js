@@ -8,6 +8,7 @@ import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import { AlertProvider } from "../src/stores/context/alert.context";
 import mailgo from "mailgo";
+import NextNProgress from "nextjs-progressbar";
 
 import "/src/styles/globals.css";
 
@@ -30,6 +31,8 @@ function MyApp({
       </Head>
       <SessionProvider session={pageProps.session}>
         <ThemeProvider theme={theme}>
+          <NextNProgress color={theme.palette.primary.main} />
+
           <AlertProvider>
             <Component {...pageProps} />
           </AlertProvider>
