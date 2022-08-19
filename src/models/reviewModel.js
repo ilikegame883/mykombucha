@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-import Brewery from "./breweryModel";
-import Kombucha from "./kombuchaModel";
 
 const reviewSchema = new mongoose.Schema(
   {
