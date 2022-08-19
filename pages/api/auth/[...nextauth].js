@@ -10,6 +10,7 @@ export const authOptions = {
     // The default is `"jwt"`, an encrypted JWT (JWE) in the session cookie.
     maxAge: 60 * 60 * 24 * 30, // 30 days
   },
+  secret: process.env.SECRET,
   jwt: {
     encryption: true,
   },
@@ -44,8 +45,6 @@ export const authOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-
-  secret: process.env.SECRET,
 
   callbacks: {
     async jwt({ token, user }) {
