@@ -16,7 +16,6 @@
     "@mui/material": "^5.9.2",
     "@next-auth/mongodb-adapter": "^1.0.4",
     "@sendgrid/mail": "^7.7.0",
-    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "cloudinary-build-url": "^0.2.4",
     "formik": "^2.2.9",
