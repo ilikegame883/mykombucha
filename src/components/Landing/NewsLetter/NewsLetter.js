@@ -1,3 +1,4 @@
+import React, { useState, useContext } from "react";
 import {
   Button,
   Typography,
@@ -7,10 +8,33 @@ import {
   useMediaQuery,
   Grid,
 } from "@mui/material";
+import { putData } from "../../../utils/fetchData";
+import { AlertContext } from "../../../stores/context/alert.context";
+import { toggleSnackBar } from "../../../stores/actions";
 
 const NewsLetter = () => {
+  const [mail, setMail] = useState("");
+  const { dispatch } = useContext(AlertContext);
+
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"));
+
+  const handleChange = (e) => {
+    setMail(e.target.value);
+  };
+
+  const subscribeNewsletter = async (e) => {
+    e.preventDefault();
+    if (!mail) return;
+    const res = await putData("newsletter", { mail });
+    if (res?.msg) {
+      dispatch(toggleSnackBar("success", res.msg, true));
+      setMail("");
+    }
+    if (res?.err) {
+      dispatch(toggleSnackBar("error", res.err, true));
+    }
+  };
 
   return (
     <Grid container alignItems="center">
@@ -40,24 +64,26 @@ const NewsLetter = () => {
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <Box component="form">
+        <form onSubmit={(e) => subscribeNewsletter(e)}>
           <Box
             display="flex"
             flexDirection={{ xs: "column", sm: "row" }}
             justifyContent="flex-start"
             width={1}
           >
-            <Box
+            <TextField
               fullWidth
-              component={TextField}
+              type="email"
               label="Enter your email"
               variant="outlined"
-              disabled
               color="primary"
+              value={mail}
+              onChange={(e) => handleChange(e)}
               pb={{ xs: 1, sm: 0 }}
               sx={{ width: 1, maxWidth: 460 }}
             />
             <Button
+              type="submit"
               variant="contained"
               color="secondary"
               sx={{ px: 3, py: { xs: 1, sm: 0 }, ml: { sm: 1 } }}
@@ -65,7 +91,7 @@ const NewsLetter = () => {
               Subscribe
             </Button>
           </Box>
-        </Box>
+        </form>
       </Grid>
     </Grid>
   );

@@ -61,3 +61,15 @@ export const deleteData = async (url, post) => {
   const data = await res.json();
   return data;
 };
+
+export const putData = async (url, post) => {
+  const res = await fetch(`${baseUrl}/api/${url}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(post),
+  });
+  const data = await res.json();
+  return data;
+};
