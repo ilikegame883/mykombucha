@@ -3,11 +3,12 @@ import bcrypt from "bcrypt";
 import connectDB from "./../../../src/lib/connectDB";
 
 const handler = async (req, res) => {
-  await connectDB();
-
   if (req.method !== "POST") {
     return;
   }
+
+  await connectDB();
+
   try {
     const { username, email, password, cf_password } = req.body;
 
