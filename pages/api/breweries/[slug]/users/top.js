@@ -64,7 +64,6 @@ const getTopUsers = async (req, res) => {
       { $limit: 3 },
       { $unwind: "$user" },
     ]);
-    console.log(topRaters);
     return res.json(topRaters);
   } catch (err) {
     console.log(err);
