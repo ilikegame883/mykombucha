@@ -54,7 +54,7 @@ const Topbar = ({ onSidebarOpen }) => {
     }
   );
 
-  const userSessionAvatar = userData && userData[0].avatar;
+  const userSessionAvatar = userData && userData[0].avatar.image;
 
   const isAuthPage =
     router.pathname === "/signin" || router.pathname === "/register";

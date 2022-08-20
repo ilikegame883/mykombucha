@@ -15,8 +15,6 @@ import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 
 const RecentReviewList = ({ reviewList }) => {
   const theme = useTheme();
-  const isSm = useMediaQuery(theme.breakpoints.up("sm"));
-
   return (
     <Box component={Paper} variant="outlined">
       <Grid container>
@@ -102,7 +100,7 @@ const RecentReviewList = ({ reviewList }) => {
                 >
                   <Box display="flex" alignItems="center">
                     <Avatar
-                      src={getCloudinaryUrl(item.review_user.avatar)}
+                      src={getCloudinaryUrl(item.review_user.avatar.image)}
                       alt={item.username}
                       sx={{ height: 40, width: 40 }}
                     />

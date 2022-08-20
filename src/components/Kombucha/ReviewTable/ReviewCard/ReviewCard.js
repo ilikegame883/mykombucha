@@ -11,14 +11,14 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
     session && review.likes.includes(session.user._id);
 
   //disable like button for own review
-  const disableLikeBtn =
-    session && session.user._id === review.review_by.username;
+  const disableLikeBtn = session && session.user._id === review.review_by._id;
+
   return (
     <Box py={2.5}>
       <Box display="flex" alignItems="center" flexWrap="wrap">
         <Box display="flex" alignItems="center">
           <Avatar
-            src={review.review_by.avatar}
+            src={review.review_by.avatar.image}
             alt={review.review_by.username}
             sx={{ width: 40, height: 40 }}
           />

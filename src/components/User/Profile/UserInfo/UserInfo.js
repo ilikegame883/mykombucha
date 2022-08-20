@@ -71,7 +71,7 @@ const UserInfo = ({ userData, userReviews, name }) => {
       <Box display="flex" alignItems="center" p={2.5}>
         <Box>
           <Avatar
-            src={avatar}
+            src={avatar.image}
             referrerPolicy="no-referrer"
             alt={`${username}'s photo`}
             sx={{ height: { xs: 80, sm: 80 }, width: { xs: 80, sm: 80 } }}

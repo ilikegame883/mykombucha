@@ -57,7 +57,7 @@ const TopRaters = ({ topRaters }) => {
           >
             <ListItem sx={{ py: 1.5, px: 2 }}>
               <ListItemAvatar>
-                <Avatar src={user.avatar} />
+                <Avatar src={user.avatar.image} />
               </ListItemAvatar>
               <ListItemText
                 sx={{ margin: 0 }}

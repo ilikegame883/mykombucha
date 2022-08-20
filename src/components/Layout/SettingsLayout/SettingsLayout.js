@@ -66,7 +66,7 @@ const SettingsLayout = ({ children, userData }) => {
             <Card sx={{ boxShadow: 3, pt: 3 }}>
               <Box display="flex" justifyContent="center" mb={1}>
                 <Box position="relative">
-                  <Avatar src={avatar} sx={{ width: 125, height: 125 }} />
+                  <Avatar src={avatar.image} sx={{ width: 125, height: 125 }} />
 
                   <Box
                     sx={{
