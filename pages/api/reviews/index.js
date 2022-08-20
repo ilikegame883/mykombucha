@@ -2,8 +2,16 @@ import Review from "../../../src/models/reviewModel";
 import User from "../../../src/models/userModel";
 import Kombucha from "../../../src/models/kombuchaModel";
 import connectDB from "../../../src/lib/connectDB";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
 
 const handler = async (req, res) => {
+  const session = await unstable_getServerSession(req, res, authOptions);
+  if (!session) {
+    res.status(401).json({ msg: "You must be logged in." });
+    return;
+  }
+
   await connectDB();
 
   switch (req.method) {
@@ -23,27 +31,26 @@ const postReview = async (req, res) => {
       comment,
       served_in,
       user,
-      product,
-      brewery_slug,
-      brewery_name,
       username,
-      userAvatar,
+      product,
+      brewery_name,
+      brewery_slug,
     } = req.body;
 
     const newReview = new Review({
       rating,
       comment,
       served_in,
-      user,
+      user, //user_id
       username,
-      userAvatar,
       product,
       brewery: brewery_name,
       brewery_slug,
     });
     await newReview.save();
 
-    // //find user by id, add +1 to review total for user
+    //find user by id, add +1 to review total for user
+    //user = user_id
     await User.updateOne({ _id: user }, [
       {
         $set: {
