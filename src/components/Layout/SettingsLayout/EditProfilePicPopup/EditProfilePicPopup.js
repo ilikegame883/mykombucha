@@ -15,7 +15,7 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { imageUpload } from "../../../../utils/imageUpload";
+import { deleteImage, imageUploadSDK } from "../../../../utils/imageUpload";
 import { patchData } from "../../../../utils/fetchData";
 import { useRouter } from "next/router";
 import { AlertContext } from "../../../../stores/context/alert.context";
@@ -27,18 +27,18 @@ const Input = styled("input")({
 
 const EditProfilePicPopup = ({ username, currentPhoto }) => {
   const { dispatch } = useContext(AlertContext);
-
   const [open, setOpen] = useState(false);
-  const [profilePic, setProfilePic] = useState("");
+  const [uploadImage, setUploadImage] = useState("");
   const [deleteAlert, setDeleteAlert] = useState(false);
   const router = useRouter();
 
   const changeProfilePic = (e) => {
     const file = e.target.files[0];
+    const maxSize = 2 * 1024 * 1024; //2mb
+
     if (!file) return toggleSnackBar("error", "File does not exist.", true);
 
-    if (file.size > 1024 * 1024)
-      //1mb
+    if (file.size > maxSize)
       return dispatch(
         toggleSnackBar("error", "The largest image size is 1mb.", true)
       );
@@ -53,7 +53,7 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
         )
       );
 
-    setProfilePic(file);
+    setUploadImage(file);
   };
 
   const handleClose = () => {
@@ -61,17 +61,18 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
     //mutate to real time update user avatar on navbar
     mutate(`/api/users/${username}`);
     setDeleteAlert(false);
-    setProfilePic("");
+    setUploadImage("");
   };
 
   const updatePhoto = async () => {
     let media;
 
-    if (profilePic) {
-      media = await imageUpload(profilePic);
+    if (uploadImage) {
+      media = await imageUploadSDK(uploadImage);
       //add error handling
+      await deleteImage(currentPhoto?.public_id);
       const res = await patchData(`users/${username}`, {
-        avatar: media.url,
+        avatar: { image: media.url, public_id: media.public_id },
       });
       if (res?.msg) {
         dispatch(toggleSnackBar("success", res.msg, true));
@@ -87,16 +88,17 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
   const removePhoto = async () => {
     //add error handling
     if (currentPhoto) {
-      const res = await patchData(`users/${username}`, {
-        avatar: "",
+      await deleteImage(currentPhoto?.public_id);
+      const resDB = await patchData(`users/${username}`, {
+        avatar: { image: "", public_id: "" },
       });
-      if (res?.msg) {
-        dispatch(toggleSnackBar("success", res.msg, true));
+      if (resDB?.msg) {
+        dispatch(toggleSnackBar("success", resDB.msg, true));
         handleClose();
         router.replace(router.asPath);
       }
-      if (res?.err) {
-        dispatch(toggleSnackBar("error", res.err, true));
+      if (resDB?.err) {
+        dispatch(toggleSnackBar("error", resDB.err, true));
       }
     }
   };
@@ -157,11 +159,15 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
           </Box>
           <Stack mb={4} spacing={1}>
             <Avatar
-              src={profilePic ? URL.createObjectURL(profilePic) : currentPhoto}
+              src={
+                uploadImage
+                  ? URL.createObjectURL(uploadImage)
+                  : currentPhoto.image
+              }
               sx={{ width: 180, height: 180, mb: 1.5 }}
             />
 
-            {profilePic && (
+            {uploadImage && (
               <Button variant="outlined" color="info" onClick={updatePhoto}>
                 Update Photo
               </Button>
@@ -195,7 +201,7 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
                 startIcon={<DeleteOutlineOutlinedIcon />}
                 sx={{ px: { xs: 3, sm: 5 } }}
                 onClick={() => setDeleteAlert(true)}
-                disabled={profilePic || !currentPhoto ? true : false}
+                disabled={uploadImage || !currentPhoto ? true : false}
               >
                 Remove
               </Button>
