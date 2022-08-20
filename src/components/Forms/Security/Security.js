@@ -24,9 +24,10 @@ const validationSchema = yup.object({
     .min(7, "The password should have at minimum length of 7"),
 });
 
-const Security = () => {
-  const { dispatch } = useContext(AlertContext);
+const Security = ({ provider }) => {
+  const disablePassword = provider === "google";
 
+  const { dispatch } = useContext(AlertContext);
   const initialValues = {
     currentPassword: "",
     newPassword: "",
@@ -84,6 +85,7 @@ const Security = () => {
                 Current password
               </Typography>
               <TextField
+                disabled={disablePassword}
                 variant="outlined"
                 name={"currentPassword"}
                 type={"password"}
@@ -105,6 +107,7 @@ const Security = () => {
                 New password
               </Typography>
               <TextField
+                disabled={disablePassword}
                 variant="outlined"
                 name={"newPassword"}
                 type={"password"}
@@ -125,6 +128,7 @@ const Security = () => {
                 Repeat new password
               </Typography>
               <TextField
+                disabled={disablePassword}
                 variant="outlined"
                 name={"repeatPassword"}
                 type={"password"}
@@ -145,17 +149,28 @@ const Security = () => {
             </Grid>
 
             <Grid item container xs={12}>
-              <Box>
-                <ToastAlert />
-                <Button
-                  size="large"
-                  variant="contained"
-                  type="submit"
-                  color="secondary"
+              {!disablePassword ? (
+                <Box>
+                  <ToastAlert />
+                  <Button
+                    size="large"
+                    variant="contained"
+                    type="submit"
+                    color="secondary"
+                  >
+                    Submit
+                  </Button>
+                </Box>
+              ) : (
+                <Typography
+                  variant="subtitle2"
+                  fontWeight="600"
+                  color="error"
+                  mb={1}
                 >
-                  Submit
-                </Button>
-              </Box>
+                  {`Signed in with ${provider}.`}
+                </Typography>
+              )}
             </Grid>
           </Grid>
         </form>

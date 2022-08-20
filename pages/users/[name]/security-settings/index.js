@@ -4,11 +4,11 @@ import { Security } from "../../../../src/components/Forms";
 import { getData } from "../../../../src/utils/fetchData";
 import { authOptions } from "../../../api/auth/[...nextauth]";
 
-const SecuritySettingsPage = ({ userData }) => {
+const SecuritySettingsPage = ({ userData, provider }) => {
   return (
     <MainLayout>
       <SettingsLayout userData={userData}>
-        <Security />
+        <Security provider={provider} />
       </SettingsLayout>
     </MainLayout>
   );
@@ -22,6 +22,8 @@ export async function getServerSideProps(context) {
     context.res,
     authOptions
   );
+  const { username, provider } = session.user;
+
   if (!session) {
     return {
       redirect: {
@@ -30,8 +32,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
-  const { username } = session.user;
   const [userData] = await getData("users", username);
 
-  return { props: { userData } };
+  return { props: { userData, provider } };
 }
