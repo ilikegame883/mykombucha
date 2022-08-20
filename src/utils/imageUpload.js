@@ -1,21 +1,44 @@
-const cloudName = process.env.CLOUDINARY_NAME;
+const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_NAME;
+const cloudinaryKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
 
-export const imageUpload = async (image) => {
+async function getSignature() {
+  const response = await fetch("/api/upload/sign");
+  const data = await response.json();
+  const { signature, timestamp } = data;
+  return { signature, timestamp };
+}
+
+export const imageUploadSDK = async (image) => {
+  const { signature, timestamp } = await getSignature();
+
   const formData = new FormData();
   formData.append("file", image);
-  formData.append("upload_preset", "user-profile-photo");
-  //   formData.append("cloud_name", process.env.CLOUD_NAME);
+  formData.append("signature", signature);
+  formData.append("timestamp", timestamp);
+  formData.append("api_key", cloudinaryKey);
 
-  const res = await fetch(
-    `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-    {
-      method: "POST",
-      body: formData,
-    }
-  );
+  const res = await fetch(url, {
+    method: "POST",
+    body: formData,
+  });
   if (!res.ok) {
     throw new Error(`Error: ${res.status}`);
   }
+  const data = await res.json();
+  return data;
+};
+
+export const deleteImage = async (public_id) => {
+  if (!public_id) return;
+  //destory image in Cloudinary
+  const res = await fetch(`/api/upload/destroy/${public_id}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
   const data = await res.json();
   return data;
 };
