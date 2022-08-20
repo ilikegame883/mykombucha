@@ -8,7 +8,7 @@ import bcrypt from "bcrypt";
 export const authOptions = {
   session: {
     // The default is `"jwt"`, an encrypted JWT (JWE) in the session cookie.
-    maxAge: 60 * 60 * 24 * 30, // 30 days
+    maxAge: 60 * 30 * 24 * 30, // 15 days
   },
   secret: process.env.SECRET,
   jwt: {
@@ -32,10 +32,12 @@ export const authOptions = {
           throw new Error("E-mail or Password is Invalid");
         }
         // Return values are passed in as 'user' to jwt callback
+        //session object by default only returns name, email, image
+        //these values are additional values that will be added on to session object to client
         return {
           userid: user._id,
           username: user.username,
-          avatar: user.avatar,
+          avatar: user.avatar.image,
           email: user.email,
         };
       },
@@ -47,51 +49,74 @@ export const authOptions = {
   ],
 
   callbacks: {
-    async jwt({ token, user }) {
-      //jwt callback is only called when token is created (signin)
-      //When jwt callback is called, user object is available
-      if (user) {
+    //jwt callback is only called when token is created (signin)
+    //When jwt callback is called, user object is available
+    async jwt({ token, user, account }) {
+      //if user is logged in with credentials (e-mail/pass)
+      //userid is only returned from credentials provider
+      if (user && user?.userid) {
+        console.log("credential userrrr");
+
+        //grab userdata from user object returned by provider and embed to token
+        token._id = user.userid;
+        token.username = user.username;
+        token.avatar = user.avatar;
+        token.provider = account.provider;
+      }
+
+      //if user is logged in with google
+      if (user && !user?.userid) {
+        let setOauthUserId;
+        //logging in with google will not provide a username only nam
+        //set new google login users a username using the e-mail address
+        const setUserName = user.email.slice(0, user.email.indexOf("@"));
+
+        //check if user data is stored in DB for google login users
         const findUser = await Users.findOne({ email: user.email });
-        let oAuthUserId;
-        //logging in with google will not provide a username
-        //set new users a username using e-mail address if google is used to signup
-        const setUserName = user?.username
-          ? user.username
-          : user.email.slice(0, user.email.indexOf("@"));
+
+        if (findUser) {
+          console.log("found userrr");
+          setOauthUserId = findUser._id;
+        }
 
         if (!findUser) {
+          console.log("new userrrrrrrrrrrrrrrrrrrrrrrrrr");
+          //store user data provided by google if first time signing in
           const newUser = new Users({
             username: setUserName,
-            email: user.email,
-            avatar: user.image, //(user.image = google profile image);
+            email: user.email, //(user.email) = google email
+            avatar: { image: user.image }, //(user.image = google profile image);
           });
-          //save google login user data to DB and retrieve user _id for new users
+
+          //save google login user data to users collection and retrieve new generated user _id
+          //new users will automatically be assigned a id from DB
           await newUser.save();
-          oAuthUserId = newUser._id;
+          setOauthUserId = newUser._id;
         }
-        if (findUser) {
-          oAuthUserId = findUser._id;
-        }
-        //grab userdata and embed to token
-        token._id = user.userid || oAuthUserId;
-        token.username = setUserName;
-        token.avatar = user.avatar || user.image;
+
+        //grab userdata from google profile and embed to token
+        token._id = setOauthUserId;
+        token.username = findUser?.username ?? setUserName;
+        token.avatar = findUser?.avatar.image ?? user.image;
+        token.provider = account.provider;
       }
       return token; //forwarded to session
     },
     async session({ session, token }) {
+      //session object by default only returns name, email and image
       if (session) {
-        // Add the updated user token properties to user session obj shown to client
+        // Add the updated token properties to user session obj which is available to client as http only cookie
         session.user.username = token.username;
         session.user._id = token._id;
         session.user.avatar = token.avatar;
+        session.user.provider = token.provider;
       }
-      //delete unused properties
-      //unstable_getServerSession() will return image: "undefined", name: "undefined" since they are default token properties
+      //delete unused properties to prevent undefined errors
+      //unstable_getServerSession() will return image: "undefined", name: "undefined" since they are default set jwt properties
       delete session.user.image;
       delete session.user.name;
 
-      //session avaiable to the client
+      //return the session to client
       return session;
     },
   },
