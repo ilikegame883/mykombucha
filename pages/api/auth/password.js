@@ -1,21 +1,23 @@
-import { getSession } from "next-auth/react";
 import Users from "../../../src/models/userModel";
 import connectDB from "../../../src/lib/connectDB";
 import { hashPassword, verifyPassword } from "../../../src/utils/verify";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "./[...nextauth]";
 
 async function handler(req, res) {
-  await connectDB();
+  const session = await unstable_getServerSession(req, res, authOptions);
+
+  if (!session) {
+    res.status(401).json({ msg: "Not authenticated!" });
+    return;
+  }
 
   if (req.method !== "PATCH") {
     return;
   }
 
-  const session = await getSession({ req: req });
+  await connectDB();
 
-  if (!session) {
-    res.status(401).json({ message: "Not authenticated!" });
-    return;
-  }
   const { _id } = session.user;
   const { currentPassword, newPassword } = req.body;
 

@@ -1,8 +1,16 @@
 import Review from "../../../../src/models/reviewModel";
 import connectDB from "../../../../src/lib/connectDB";
 import mongoose from "mongoose";
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../../auth/[...nextauth]";
 
 const handler = async (req, res) => {
+  const session = await unstable_getServerSession(req, res, authOptions);
+  if (!session) {
+    res.status(401).json({ msg: "You must be logged in." });
+    return;
+  }
+
   await connectDB();
 
   switch (req.method) {

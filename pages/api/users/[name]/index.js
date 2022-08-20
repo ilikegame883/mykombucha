@@ -1,5 +1,7 @@
 import connectDB from "../../../../src/lib/connectDB";
 import User from "../../../../src/models/userModel";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../../auth/[...nextauth]";
 
 const handler = async (req, res) => {
   await connectDB();
@@ -64,6 +66,13 @@ const getSingleUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  const session = await unstable_getServerSession(req, res, authOptions);
+
+  if (!session) {
+    res.status(401).json({ msg: "Not authenticated!" });
+    return;
+  }
+
   try {
     //get current username
     const { name: username } = req.query;
