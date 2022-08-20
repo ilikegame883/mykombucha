@@ -11,10 +11,10 @@ const handler = async (req, res) => {
     return;
   }
   try {
-    let id = mongoose.Types.ObjectId(req.query.id);
+    let kombucha_id = mongoose.Types.ObjectId(req.query.id);
 
     const kombuchaReviews = await Review.aggregate([
-      { $match: { product: id } },
+      { $match: { product: kombucha_id } },
       //sort reviews by newest to oldest
       { $sort: { createdAt: -1 } },
       {
@@ -28,13 +28,13 @@ const handler = async (req, res) => {
             {
               $match: {
                 $expr: {
-                  //match each review with associated user
+                  //match the user_id stored in review item from with _id from users collection to get user data
                   $eq: ["$_id", "$$user_id"],
                 },
               },
             },
             //$project has to be inside pipeline []
-            //get only required fields in User collection required for review list
+            //get only required fields in users collection required for review list
             {
               $project: {
                 review_total: 1,
@@ -60,6 +60,3 @@ const handler = async (req, res) => {
 };
 
 export default handler;
-
-//need total rating count for brewery - add all review_count for each kombucha
-//total number likes for brewery

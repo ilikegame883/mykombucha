@@ -79,8 +79,7 @@ const NewsLetter = () => {
               color="primary"
               value={mail}
               onChange={(e) => handleChange(e)}
-              pb={{ xs: 1, sm: 0 }}
-              sx={{ width: 1, maxWidth: 460 }}
+              sx={{ width: 1, maxWidth: 460, mb: { xs: 1.5, sm: 0 } }}
             />
             <Button
               type="submit"

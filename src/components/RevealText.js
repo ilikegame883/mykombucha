@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
-//React memo to prevent rerendering?
 const RevealText = ({ text, maxLength }) => {
   const MAX_DESC_LENGTH = maxLength;
   const [seeMoreDesc, setSeeMoreDesc] = useState(false);
