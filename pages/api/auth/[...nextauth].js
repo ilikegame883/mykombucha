@@ -52,12 +52,11 @@ export const authOptions = {
     //jwt callback is only called when token is created (signin)
     //When jwt callback is called, user object is available
     async jwt({ token, user, account }) {
-      //if user is logged in with credentials (e-mail/pass)
-      //userid is only returned from credentials provider
-      if (user && user?.userid) {
-        console.log("credential userrrr");
+      const isCredentialProvider =
+        account && account.provider === "credentials";
 
-        //grab userdata from user object returned by provider and embed to token
+      if (user && isCredentialProvider) {
+        //grab userdata from user object returned by credentials provider and embed to token
         token._id = user.userid;
         token.username = user.username;
         token.avatar = user.avatar;
@@ -65,7 +64,7 @@ export const authOptions = {
       }
 
       //if user is logged in with google
-      if (user && !user?.userid) {
+      if (user && !isCredentialProvider) {
         let setOauthUserId;
         //logging in with google will not provide a username only nam
         //set new google login users a username using the e-mail address
@@ -75,12 +74,8 @@ export const authOptions = {
         const findUser = await Users.findOne({ email: user.email });
 
         if (findUser) {
-          console.log("found userrr");
           setOauthUserId = findUser._id;
-        }
-
-        if (!findUser) {
-          console.log("new userrrrrrrrrrrrrrrrrrrrrrrrrr");
+        } else {
           //store user data provided by google if first time signing in
           const newUser = new Users({
             username: setUserName,
@@ -88,13 +83,13 @@ export const authOptions = {
             avatar: { image: user.image }, //(user.image = google profile image);
           });
 
-          //save google login user data to users collection and retrieve new generated user _id
           //new users will automatically be assigned a id from DB
+          //save google login user data to users collection and retrieve generated user _id
           await newUser.save();
           setOauthUserId = newUser._id;
         }
 
-        //grab userdata from google profile and embed to token
+        //grab userdata from google profile and user _ID and embed to token
         token._id = setOauthUserId;
         token.username = findUser?.username ?? setUserName;
         token.avatar = findUser?.avatar.image ?? user.image;
