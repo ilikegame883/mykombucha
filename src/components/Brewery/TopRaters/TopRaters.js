@@ -77,7 +77,7 @@ const TopRaters = ({ topRaters }) => {
                       </Typography>
                     </Link>
                     <Typography variant="body2" color="text.secondary">
-                      {total_reviews} Reviews
+                      {total_reviews} {total_reviews > 1 ? "Reviews" : "Review"}
                     </Typography>
                   </>
                 }

@@ -190,10 +190,19 @@ const BreweryProductTable = ({ singleBreweryData }) => {
           display="flex"
           justifyContent="space-between"
           alignItems="center"
-          p={2}
+          py={1.5}
+          px={2}
         >
           <Typography variant="h6" fontWeight="600" color="text.primary" mr={2}>
-            Kombuchas
+            Kombuchas{" "}
+            <Typography
+              variant="caption"
+              component="p"
+              color="text.secondary"
+              fontWeight="500"
+            >
+              {reviews.length} {reviews.length > 1 ? "Reviews" : "Review"}
+            </Typography>
           </Typography>
           <ProductTableSearchBar
             searchQuery={searchQuery}

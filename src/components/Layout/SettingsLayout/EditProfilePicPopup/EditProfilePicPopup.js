@@ -57,23 +57,25 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
   };
 
   const handleClose = () => {
-    setOpen(false);
-    //mutate to real time update user avatar on navbar
+    //call mutate to show live update of avatar image change
     mutate(`/api/users/${username}`);
+    setOpen(false);
     setDeleteAlert(false);
     setUploadImage("");
   };
 
   const updatePhoto = async () => {
-    let media;
-
     if (uploadImage) {
-      media = await imageUploadSDK(uploadImage);
-      //add error handling
+      //delete the user's current photo from cloudinary
       await deleteImage(currentPhoto?.public_id);
+
+      //upload new uploaded image to cloudinary
+      //add image and public_id received from cloudinary to user's document in DB
+      const mediaRes = await imageUploadSDK(uploadImage);
       const res = await patchData(`users/${username}`, {
-        avatar: { image: media.url, public_id: media.public_id },
+        avatar: { image: mediaRes.url, public_id: mediaRes.public_id },
       });
+
       if (res?.msg) {
         dispatch(toggleSnackBar("success", res.msg, true));
         handleClose();
@@ -86,7 +88,6 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
   };
 
   const removePhoto = async () => {
-    //add error handling
     if (currentPhoto) {
       await deleteImage(currentPhoto?.public_id);
       const resDB = await patchData(`users/${username}`, {
@@ -110,7 +111,7 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
         component="span"
         onClick={() => setOpen(true)}
         sx={{
-          padding: "6px",
+          p: "6px",
         }}
       >
         <PhotoCamera />
@@ -119,7 +120,7 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
       <Dialog
         onClose={handleClose}
         open={open}
-        maxWidth={"xs"}
+        maxWidth="xs"
         sx={{
           "& .MuiPaper-root": {
             borderRadius: 2,
@@ -131,8 +132,8 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            paddingY: { xs: 4, sm: 6 },
-            paddingX: 4,
+            py: { xs: 4, sm: 5 },
+            px: 3,
           }}
         >
           <IconButton
@@ -147,7 +148,12 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
             <CloseOutlinedIcon />
           </IconButton>
           <Box>
-            <Typography variant="h5" fontWeight="600" mb={2}>
+            <Typography
+              variant="h5"
+              color="text.primary"
+              fontWeight="600"
+              gutterBottom
+            >
               Profile Picture
             </Typography>
 
@@ -157,23 +163,21 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
             </Typography>
             <Divider sx={{ my: 3 }} />
           </Box>
-          <Stack mb={4} spacing={1}>
+          <Stack mb={4} spacing={2}>
             <Avatar
               src={
                 uploadImage
                   ? URL.createObjectURL(uploadImage)
                   : currentPhoto.image
               }
-              sx={{ width: 180, height: 180, mb: 1.5 }}
+              sx={{ width: 180, height: 180 }}
             />
-
             {uploadImage && (
-              <Button variant="outlined" color="info" onClick={updatePhoto}>
+              <Button variant="contained" color="info" onClick={updatePhoto}>
                 Update Photo
               </Button>
             )}
           </Stack>
-
           {!deleteAlert ? (
             <Stack direction="row" spacing={2}>
               <label htmlFor="outlined-button-file">
@@ -201,21 +205,21 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
                 startIcon={<DeleteOutlineOutlinedIcon />}
                 sx={{ px: { xs: 3, sm: 5 } }}
                 onClick={() => setDeleteAlert(true)}
-                disabled={uploadImage || !currentPhoto ? true : false}
+                disabled={uploadImage || !currentPhoto?.image}
               >
                 Remove
               </Button>
             </Stack>
           ) : (
             <Stack>
-              <Typography color="info" mb={2} fontWeight="500">
-                Are you sure you want to remove your profile photo?
+              <Typography color="info" mb={2} variant="body1" fontWeight="600">
+                Are you sure you want to delete your photo?
               </Typography>
               <Box display="flex" justifyContent="center">
                 <Button
                   variant="outlined"
                   color="error"
-                  sx={{ mr: 2 }}
+                  sx={{ mr: 1 }}
                   onClick={removePhoto}
                 >
                   Confirm
@@ -224,7 +228,6 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
                   variant="outlined"
                   color="info"
                   onClick={() => {
-                    // setOpen(false);
                     setDeleteAlert(false);
                   }}
                 >

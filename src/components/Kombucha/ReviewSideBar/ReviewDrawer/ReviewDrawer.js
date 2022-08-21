@@ -57,14 +57,13 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   };
 
   const handleSubmitReview = async (e) => {
+    e.preventDefault();
     const { rating, served_in, comment } = userReview;
 
     if (!rating > 0 || !served_in || +comment <= 10) {
-      e.preventDefault();
       setError(true);
       return;
     }
-    //dont need e prevent default
     const res = await postData("/reviews", userReview);
 
     if (res?.msg) {
@@ -138,14 +137,14 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
           Served in:
         </Typography>
         <Stack direction="row" spacing={1} marginTop={1}>
-          {["Can", "Bottle", "Draft", "Other"].map((item) => (
+          {["Bottle", "Can", "Draft", "Other"].map((item) => (
             <Box
               key={item}
               onClick={() => handleServedInClick(item)}
               sx={{
                 width: 1,
                 borderRadius: 2,
-                padding: 1,
+                p: 1,
                 border: `2px solid ${
                   userReview.served_in === item
                     ? theme.palette.primary.main
@@ -161,9 +160,9 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
         <Button
           variant="contained"
           fullWidth
-          sx={{ mt: 3 }}
           type="submit"
           size="large"
+          sx={{ mt: 3 }}
         >
           Submit Review
         </Button>
