@@ -39,6 +39,9 @@ export const deleteImage = async (public_id) => {
       Accept: "application/json",
     },
   });
+  if (!res.ok) {
+    throw new Error(`Error: ${res.status}`);
+  }
   const data = await res.json();
-  return data;
+  console.log(data);
 };
