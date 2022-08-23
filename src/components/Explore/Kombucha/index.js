@@ -1,1 +1,1 @@
-export { default } from "./Kombuchas";
+export { default } from "./Kombucha";
