@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Typography } from "@mui/material";
 
-const RevealText = ({ text, maxLength }) => {
+const RevealText = ({ text = "N/A", maxLength }) => {
   const MAX_DESC_LENGTH = maxLength;
   const [seeMoreDesc, setSeeMoreDesc] = useState(false);
 
