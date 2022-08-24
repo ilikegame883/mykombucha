@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
       default: 0,
     },
     avatar: {
-      image: { type: String },
+      image: { type: String, default: "" },
       public_id: { type: String },
     },
     city: {
