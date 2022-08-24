@@ -1,7 +1,7 @@
 import connectDB from "../../../../src/lib/connectDB";
 import Brewery from "../../../../src/models/breweryModel";
 
-const DEFAULT_LIMIT_VALUE = 5;
+const DEFAULT_LIMIT_VALUE = 100;
 
 const handler = async (req, res) => {
   await connectDB();
