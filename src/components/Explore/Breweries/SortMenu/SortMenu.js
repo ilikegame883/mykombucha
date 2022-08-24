@@ -1,18 +1,20 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { useTheme } from "@mui/material/styles";
+import React, { useState } from "react";
+import {
+  Box,
+  InputLabel,
+  MenuItem,
+  FormControl,
+  Select,
+  useTheme,
+} from "@mui/material";
 
-const SortMenu = ({ setSort }) => {
+const SortMenu = ({ setFilterListBy }) => {
   const theme = useTheme();
-  const [sortValue, setSortValue] = React.useState("Recent");
+  const [value, setValue] = useState("Recent");
 
   const handleChange = (event) => {
-    setSortValue(event.target.value);
-    setSort(event.target.value);
+    setValue(event.target.value);
+    setFilterListBy(event.target.value);
   };
 
   return (
@@ -20,10 +22,10 @@ const SortMenu = ({ setSort }) => {
       <FormControl fullWidth sx={{ bgcolor: theme.palette.background.paper }}>
         <InputLabel id="demo-simple-select-label">Sort by</InputLabel>
         <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={sortValue}
-          label={sortValue}
+          labelId="brewery-filter-select-label"
+          id="brewery-filter-select"
+          value={value}
+          label={value}
           onChange={handleChange}
           sx={{ fontSize: "1rem", "& .MuiInputBase-input": { py: 1.5 } }}
         >

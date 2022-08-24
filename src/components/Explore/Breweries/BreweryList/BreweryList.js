@@ -4,44 +4,41 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
 import CustomChips from "../../../CustomChips";
 
-const BreweryList = ({ breweryList, category, sort }) => {
+function descendingComparator(a, b, orderBy) {
+  if (b[orderBy] < a[orderBy]) {
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+}
+
+function getComparator(filter, orderBy) {
+  return filter === "A-Z"
+    ? (a, b) => -descendingComparator(a, b, orderBy)
+    : (a, b) => descendingComparator(a, b, orderBy);
+}
+
+const BreweryList = ({ sorted_list, category, filterListBy }) => {
   const theme = useTheme();
 
-  const sortedList = () => {
-    const cloneList = [...breweryList];
+  const filterList = () => {
+    const cloneList = [...sorted_list];
 
-    switch (sort) {
+    switch (filterListBy) {
       case "Recent":
-        return breweryList;
+        return sorted_list;
       case "A-Z":
-        const sortAsc = cloneList.sort((a, b) => {
-          if (a.name < b.name) {
-            return -1;
-          }
-          if (a.name > b.name) {
-            return 1;
-          }
-          return 0;
-        });
-        return sortAsc;
+        return cloneList.sort(getComparator(filterListBy, "name"));
       case "Z-A":
-        const sortDes = cloneList.sort((a, b) => {
-          if (a.name < b.name) {
-            return 1;
-          }
-          if (a.name > b.name) {
-            return -1;
-          }
-          return 0;
-        });
-        return sortDes;
+        return cloneList.sort(getComparator(filterListBy, "name"));
     }
   };
-
   return (
     <Box component={Paper} variant="outlined">
       <Grid container>
-        {sortedList().map((item, i) => (
+        {filterList().map((item, i) => (
           <Grid
             item
             xs={12}
