@@ -66,6 +66,7 @@ export const authOptions = {
       //if user is logged in with google
       if (user && !isCredentialProvider) {
         let setOauthUserId;
+
         //logging in with google will not provide a username only nam
         //set new google login users a username using the e-mail address
         const setUserName = user.email.slice(0, user.email.indexOf("@"));
@@ -73,20 +74,23 @@ export const authOptions = {
         //check if user data is stored in DB for google login users
         const findUser = await Users.findOne({ email: user.email });
 
-        if (findUser) {
-          setOauthUserId = findUser._id;
-        } else {
+        async function saveNewUser(user) {
           //store user data provided by google if first time signing in
           const newUser = new Users({
             username: setUserName,
             email: user.email, //(user.email) = google email
             avatar: { image: user.image }, //(user.image = google profile image);
           });
-
           //new users will automatically be assigned a id from DB
           //save google login user data to users collection and retrieve generated user _id
           await newUser.save();
           setOauthUserId = newUser._id;
+        }
+
+        if (findUser) {
+          setOauthUserId = findUser._id;
+        } else {
+          saveNewUser(user);
         }
 
         //grab userdata from google profile and user _ID and embed to token
