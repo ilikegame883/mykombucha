@@ -1,12 +1,12 @@
 import { Pagination } from "@mui/material";
 import { useRouter } from "next/router";
 
-const ExplorePagination = ({ totalPages, currentPage, category }) => {
+const ExplorePagination = ({ totalPages, currentPage, category, path }) => {
   const router = useRouter();
 
   const handleChangePage = (event, page) => {
     //parameter page = selected page value passed in from <Pagination /> Component
-    router.push(`/kombucha/explore/${category}/${page}`);
+    router.push(`/${path}/explore/${category}/${page}`);
   };
 
   return (
