@@ -57,7 +57,6 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   };
 
   const handleSubmitReview = async (e) => {
-    e.preventDefault();
     const { rating, served_in, comment } = userReview;
 
     if (!rating > 0 || !served_in || +comment <= 10) {
