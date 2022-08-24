@@ -1,4 +1,4 @@
-import { Container, Stack, Box } from "@mui/material";
+import { Container, Box } from "@mui/material";
 import {
   DiscoverSection,
   ExploreSection,
@@ -18,19 +18,15 @@ export default function Home({ breweryList, kombuchaList }) {
         <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
           <ExploreSection kombuchaList={kombuchaList} />
         </Container>
-        <Box bgcolor="#fff">
-          <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
-            <DiscoverSection breweryList={breweryList} />
-          </Container>
-        </Box>
         <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
+          <DiscoverSection breweryList={breweryList} />
+        </Container>
+        <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 20 } }}>
           <MobileApp />
         </Container>
-        <Box bgcolor="#fff">
-          <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
-            <NewsLetter />
-          </Container>
-        </Box>
+        <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 20 } }}>
+          <NewsLetter />
+        </Container>
       </MainLayout>
     </Box>
   );
