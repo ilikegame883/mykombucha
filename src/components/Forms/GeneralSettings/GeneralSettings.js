@@ -1,21 +1,24 @@
 import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import { useFormik } from "formik";
+import {
+  Box,
+  Divider,
+  Grid,
+  TextField,
+  Button,
+  Typography,
+  MenuItem,
+} from "@mui/material";
 import * as yup from "yup";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import { patchData } from "../../../utils/fetchData";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleAlert } from "../../../stores/actions";
 import ToastAlert from "../../ToastAlert";
+import { countries } from "country-data-list";
 
 const validationSchema = yup.object({
   city: yup.string().trim().max(20, "Please enter a valid city"),
-  country: yup.string().trim().max(20, "Please enter a valid country"),
 });
 
 const GeneralSettings = ({ userData }) => {
@@ -34,19 +37,22 @@ const GeneralSettings = ({ userData }) => {
     bio,
   };
 
-  const onSubmit = async (values) => {
-    //check for new input value
-    let sameInputValue;
-
+  function inputNotChanged(values) {
+    //check if profile input fields has not been changed
+    let inputNotChanged;
     for (const prop in values) {
       if (values[prop] === initialValues[prop]) {
-        sameInputValue = true;
+        inputNotChanged = true;
       } else {
-        sameInputValue = false;
+        inputNotChanged = false;
         break;
       }
     }
-    if (sameInputValue) {
+    return inputNotChanged;
+  }
+
+  const onSubmit = async (values) => {
+    if (inputNotChanged(values)) {
       dispatch(toggleAlert("error", "No fields have been changed"));
       return;
     }
@@ -112,8 +118,8 @@ const GeneralSettings = ({ userData }) => {
               fullWidth
               value={formik.values.city}
               onChange={formik.handleChange}
-              error={formik.touched.lastname && Boolean(formik.errors.city)}
-              helperText={formik.touched.lastname && formik.errors.city}
+              error={formik.touched.city && Boolean(formik.errors.city)}
+              helperText={formik.touched.city && formik.errors.city}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -124,11 +130,24 @@ const GeneralSettings = ({ userData }) => {
               variant="outlined"
               name="country"
               fullWidth
+              select
               value={formik.values.country}
               onChange={formik.handleChange}
-              error={formik.touched.lastname && Boolean(formik.errors.country)}
-              helperText={formik.touched.lastname && formik.errors.country}
-            />
+              error={formik.touched.country && Boolean(formik.errors.country)}
+              helperText={formik.touched.country && formik.errors.country}
+              SelectProps={{
+                MenuProps: {
+                  sx: { maxHeight: 200 },
+                  PaperProps: { sx: { width: 200 } },
+                },
+              }}
+            >
+              {countries.all.map(({ name }) => (
+                <MenuItem key={name} value={name}>
+                  {name}
+                </MenuItem>
+              ))}
+            </TextField>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="subtitle2" fontWeight="600" mb={1}>
