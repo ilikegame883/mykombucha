@@ -38,8 +38,8 @@ const Topbar = ({ onSidebarOpen }) => {
 
   const { data: session, status } = useSession();
   const loading = status === "loading";
-
   const router = useRouter();
+
   //when user decides to update the avatar picture on general settings page,
   //userdata is fetched clientside for live update of avatar photo on the topbar
   //use avatar does not update user session object, only after logging back in
@@ -55,9 +55,6 @@ const Topbar = ({ onSidebarOpen }) => {
   );
 
   const userSessionAvatar = userData && userData[0].avatar.image;
-
-  const isAuthPage =
-    router.pathname === "/signin" || router.pathname === "/register";
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -188,8 +185,7 @@ const Topbar = ({ onSidebarOpen }) => {
           </Link>
         </Menu>
 
-        {!session && !loading && !isAuthPage && (
-          //if not in session and not on sign in or register page
+        {!session && (
           <>
             <Box display="flex">
               <Divider
@@ -231,7 +227,7 @@ const Topbar = ({ onSidebarOpen }) => {
       </Stack>
       {/* For mobile view */}
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
-        {!session && !loading && (
+        {!session && (
           <>
             <Link href="/signin" passHref>
               <Button
@@ -262,7 +258,6 @@ const Topbar = ({ onSidebarOpen }) => {
             </Button>
           </>
         )}
-
         {session && (
           <IconButton onClick={() => onSidebarOpen()} aria-label="Menu">
             <Avatar
