@@ -5,6 +5,8 @@ import Users from "../../../src/models/userModel";
 import connectDB from "./../../../src/lib/connectDB";
 import bcrypt from "bcrypt";
 
+connectDB();
+
 export const authOptions = {
   session: {
     // The default is `"jwt"`, an encrypted JWT (JWE) in the session cookie.
@@ -19,7 +21,7 @@ export const authOptions = {
       name: "Credentials",
 
       authorize: async (credentials) => {
-        await connectDB();
+        connectDB();
         const email = credentials.email;
         const password = credentials.password;
         //verify credentials against DB
@@ -67,9 +69,9 @@ export const authOptions = {
       if (user && !isCredentialProvider) {
         let setOauthUserId;
 
-        //logging in with google will not provide a username only nam
+        //logging in with google will not provide a username
         //set new google login users a username using the e-mail address
-        const setUserName = user.email.slice(0, user.email.indexOf("@"));
+        const setUserName = user.email.replace("@gmail.com", "");
 
         //check if user data is stored in DB for google login users
         const findUser = await Users.findOne({ email: user.email });
