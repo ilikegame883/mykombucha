@@ -198,8 +198,8 @@ const BreweryProductTable = ({ singleBreweryData }) => {
             <Typography
               variant="caption"
               component="p"
-              color="text.secondary"
-              fontWeight="500"
+              color="text.primary"
+              fontWeight="600"
             >
               {reviews.length} {reviews.length > 1 ? "Reviews" : "Review"}
             </Typography>
