@@ -63,7 +63,6 @@ const HeroSearchBar = () => {
       let kombuchaSearchData = await getData("kombucha/search", `${str}`);
       let brewerySearchData = await getData("breweries/search", `${str}`);
       setSearchData([...kombuchaSearchData, ...brewerySearchData]);
-      // return [...kombuchaSearchData, ...brewerySearchData];
     } catch (error) {
       console.error(error);
     }
@@ -110,6 +109,11 @@ const HeroSearchBar = () => {
               }}
               InputProps={{
                 ...params.InputProps,
+                onKeyDown: (e) => {
+                  if (e.key === "Enter") {
+                    e.stopPropagation();
+                  }
+                },
                 startAdornment: (
                   <InputAdornment position="start">
                     {value.length > 1 && !searchData.length ? (
