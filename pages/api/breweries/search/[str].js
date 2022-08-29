@@ -1,7 +1,7 @@
 import connectDB from "../../../../src/lib/connectDB";
 import Brewery from "../../../../src/models/breweryModel";
 
-const DEFAULT_LIMIT_VALUE = 100;
+const HERO_SEARCH_BAR_LIMIT = 5; //Number of results to show in the search bar
 
 const handler = async (req, res) => {
   await connectDB();
@@ -9,9 +9,9 @@ const handler = async (req, res) => {
   if (req.method !== "GET") {
     return;
   }
-  const { str, limit } = req.query;
+  const { str, limit } = req.query; //limit is the number of results to show on pages/search/[category]
 
-  const limitNumber = Number(limit) ? +limit : DEFAULT_LIMIT_VALUE;
+  const limitNumber = Number(limit) ? +limit : HERO_SEARCH_BAR_LIMIT;
 
   try {
     if (str) {
