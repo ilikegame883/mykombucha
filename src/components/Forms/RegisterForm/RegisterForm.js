@@ -22,11 +22,11 @@ const validationSchema = yup.object({
     .string()
     .trim()
     .min(3, "Username must be longer than 3 characters")
-    .max(12, "Please enter a valid username")
+    .max(15, "Please enter a valid username")
     .required("Please specify your username")
     .matches(
-      /^[a-zA-Z0-9@]+$/,
-      "This field cannot contain white space and special character"
+      /^[a-zA-Z0-9._]+$/,
+      "Username cannot contain white space and/or special character"
     ),
   email: yup
     .string()
