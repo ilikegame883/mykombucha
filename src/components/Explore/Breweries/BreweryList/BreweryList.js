@@ -56,12 +56,7 @@ const BreweryList = ({ sorted_list, category, filterListBy }) => {
               display="flex"
               flexDirection={{ xs: "column", sm: "row" }}
             >
-              <Box
-                display="flex"
-                alignItems="center"
-                flexGrow={1}
-                mb={{ xs: 1, sm: 0 }}
-              >
+              <Box display="flex" alignItems="center" flexGrow={1}>
                 <Avatar
                   variant="square"
                   src={getCloudinaryUrl(item.image)}
