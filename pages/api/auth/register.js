@@ -1,5 +1,5 @@
 import Users from "../../../src/models/userModel";
-import bcrypt from "bcrypt";
+import * as bcrypt from "bcryptjs";
 import connectDB from "./../../../src/lib/connectDB";
 
 const handler = async (req, res) => {
