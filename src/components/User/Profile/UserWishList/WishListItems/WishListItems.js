@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
@@ -16,18 +16,27 @@ import {
 import DeleteUserItem from "../../DeleteUserItem";
 import { patchData } from "../../../../../utils/fetchData";
 import getCloudinaryUrl from "../../../../../utils/getCloudinaryUrl";
+import { AlertContext } from "../../../../../stores/context/alert.context";
+import { toggleSnackBar } from "../../../../../stores/actions";
 
 const WishListItems = ({ wishList }) => {
   const { data: session } = useSession();
+  const { dispatch } = useContext(AlertContext);
 
   const handleDelete = async (_id) => {
     if (!session) {
       return;
     }
-    await patchData(`users/${session.user.username}/wish-list`, {
+    const res = await patchData(`users/${session.user.username}/wish-list`, {
       kombucha_id: _id,
     });
-    router.replace(router.asPath);
+    if (res?.msg) {
+      dispatch(toggleSnackBar("success", res.msg, true));
+      router.replace(router.asPath);
+    }
+    if (res?.err) {
+      dispatch(toggleSnackBar("error", res.err, true));
+    }
   };
 
   const router = useRouter();
