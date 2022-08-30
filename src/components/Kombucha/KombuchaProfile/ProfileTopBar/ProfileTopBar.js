@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import useSWR, { mutate } from "swr";
 import { Box, Typography, Stack, IconButton, Tooltip } from "@mui/material";
@@ -17,8 +16,6 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const ProfileTopBar = ({ kombuchaId }) => {
   const { dispatch } = useContext(AlertContext);
   const { data: session } = useSession();
-
-  const router = useRouter();
 
   const { data: kombuchaData } = useSWR(
     session?.user ? `/api/kombucha/${kombuchaId}` : null,
