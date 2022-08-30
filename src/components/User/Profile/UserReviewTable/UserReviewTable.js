@@ -179,8 +179,8 @@ const UserReviewTable = ({ userReviews }) => {
     const res = await deleteData("reviews", reviewData);
     if (res?.msg) {
       //swr will not revalidate unless mutate is called
-      mutate(`/api/users/${session.user.username}/reviews`);
       dispatch(toggleSnackBar("success", res.msg, true));
+      mutate(`/api/users/${session.user.username}/reviews`);
     }
     if (res?.err) {
       dispatch(toggleSnackBar("error", res.err, true));
