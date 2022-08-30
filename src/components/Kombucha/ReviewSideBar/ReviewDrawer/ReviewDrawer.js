@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useSession } from "next-auth/react";
+import { mutate } from "swr";
 import {
   Box,
   Button,
@@ -57,6 +58,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   };
 
   const handleSubmitReview = async (e) => {
+    e.preventDefault();
     const { rating, served_in, comment } = userReview;
 
     if (!rating > 0 || !served_in || +comment <= 10) {
@@ -66,8 +68,9 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
     const res = await postData("/reviews", userReview);
 
     if (res?.msg) {
-      toggleDrawer(e);
       dispatch(toggleSnackBar("success", res.msg, true));
+      mutate(`/api/kombucha/${singleKombuchaData._id}/reviews`);
+      toggleDrawer(e);
     }
     if (res?.err) dispatch(toggleSnackBar("error", res.err, true));
   };
