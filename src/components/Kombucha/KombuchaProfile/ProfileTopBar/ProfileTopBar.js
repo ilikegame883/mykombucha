@@ -17,13 +17,15 @@ const ProfileTopBar = ({ kombuchaId }) => {
   const { dispatch } = useContext(AlertContext);
   const { data: session } = useSession();
 
+  //SWR is used here to show live updates to the user when they add a kombucha to wish list
   const { data: kombuchaData } = useSWR(
+    //only fetch if session exists
     session?.user ? `/api/kombucha/${kombuchaId}` : null,
     fetcher
   );
 
   //check if user in session has already added kombucha to wish list
-  //each kombucha document contains wish_list array field
+  //every kombucha document contains wish_list array field
   const checkUserSessionWishList =
     session &&
     kombuchaData &&
@@ -31,6 +33,7 @@ const ProfileTopBar = ({ kombuchaId }) => {
       ({ username }) => username === session.user.username
     );
 
+  //add kombucha to user's wish list
   const handleClickAddIcon = async () => {
     if (!session) {
       dispatch(

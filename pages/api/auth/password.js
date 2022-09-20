@@ -38,7 +38,6 @@ async function handler(req, res) {
 
   const hashedPassword = await hashPassword(newPassword);
 
-  //what does updateOne return?
   await Users.updateOne({ _id }, { $set: { password: hashedPassword } });
   res.status(200).json({ msg: "Password updated!" });
 }

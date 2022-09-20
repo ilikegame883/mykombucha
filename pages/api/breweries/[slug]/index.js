@@ -13,12 +13,11 @@ const handler = async (req, res) => {
     //need to change to get brewery data, average, # of people favorite count, # of kombuchas
     // const brewery = await Brewery.findOne({ name }).populate("products");
     const breweryData = await Brewery.aggregate([
-      //get brewery by query name
+      //get brewery data by slug
       {
         $match: { slug },
       },
-
-      //lookup brewery id inside kombucha collection
+      //lookup brewery id in kombucha collection
       //retrieve matched kombucha items
       {
         $lookup: {

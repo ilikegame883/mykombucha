@@ -3,6 +3,7 @@ import { Typography } from "@mui/material";
 
 const RevealText = ({ text = "N/A", maxLength }) => {
   const MAX_DESC_LENGTH = maxLength;
+
   const [seeMoreDesc, setSeeMoreDesc] = useState(false);
 
   const handleSeeMoreDesc = () => {

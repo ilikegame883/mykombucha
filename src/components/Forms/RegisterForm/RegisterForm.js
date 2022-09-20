@@ -72,7 +72,7 @@ const RegisterForm = () => {
 
   const formik = useFormik({
     initialValues,
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit,
   });
 

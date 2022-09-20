@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Custom404 = () => {
   return (
-    <Box height={"100vh"} display="flex" alignItems="center">
+    <Box height="100vh" display="flex" alignItems="center">
       <Container
         maxWidth="sm"
         sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}

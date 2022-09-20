@@ -4,13 +4,14 @@ import { Avatar, Typography, Box, Rating, IconButton } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
 import getUserBadge from "../../../../utils/getUserBadge";
 
+//Single review item
 const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
   const { data: session } = useSession();
 
   const checkIfUserLikedReview =
     session && review.likes.includes(session.user._id);
 
-  //disable like button for own review
+  //disable like button for user's own review
   const disableLikeBtn = session && session.user._id === review.review_by._id;
 
   return (

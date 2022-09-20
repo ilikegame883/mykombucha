@@ -6,7 +6,6 @@ import {
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-
 import HorizontalStats from "./HorizontalStats";
 import RevealText from "../../RevealText";
 import CustomChips from "../../../components/CustomChips";
