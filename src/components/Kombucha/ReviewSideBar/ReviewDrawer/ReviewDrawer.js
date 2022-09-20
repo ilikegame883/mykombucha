@@ -9,13 +9,13 @@ import {
   IconButton,
   Rating,
   Stack,
+  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { postData } from "../../../../utils/fetchData";
 import RatingSlider from "./RatingSlider";
-import CommentBox from "./CommentBox";
 import { AlertContext } from "../../../../stores/context/alert.context";
 import { toggleSnackBar } from "../../../../stores/actions";
 
@@ -61,7 +61,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
     e.preventDefault();
     const { rating, served_in, comment } = userReview;
 
-    if (!rating > 0 || !served_in || +comment <= 10) {
+    if (!rating > 0 || !served_in || +comment.length <= 10) {
       setError(true);
       return;
     }
@@ -130,10 +130,21 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
           <Typography variant="h6" color="text.primary" gutterBottom>
             Your Review:
           </Typography>
-          <CommentBox
-            comment={userReview.comment}
-            handleChange={handleCommentChange}
+          <TextField
+            id="review-comments"
+            placeholder="Share your experience with this kombucha."
+            required
+            multiline
+            fullWidth
+            rows={8}
+            variant="outlined"
+            value={userReview.comment}
+            onChange={handleCommentChange}
+            type="text"
           />
+          <FormHelperText error={error}>
+            Must be at least 10 characters in length.
+          </FormHelperText>
         </Box>
         <Typography variant="h6" color="text.primary">
           Served in:
@@ -169,7 +180,9 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
           Submit Review
         </Button>
         {error && (
-          <FormHelperText error>Please fill in all fields</FormHelperText>
+          <FormHelperText error sx={{ fontWeight: "600" }}>
+            Please complete all fields.
+          </FormHelperText>
         )}
       </Box>
     </Box>
