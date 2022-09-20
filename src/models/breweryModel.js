@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import Kombucha from "./kombuchaModel";
 
 const brewerySchema = new mongoose.Schema(
   {
@@ -28,9 +27,6 @@ const brewerySchema = new mongoose.Schema(
       required: true,
     },
     product_type: [String],
-    type: {
-      type: String,
-    },
     favorite_list: [{ type: mongoose.Types.ObjectId, ref: "User" }],
     favorite_count: {
       type: Number,

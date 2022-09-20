@@ -17,9 +17,9 @@ const ProfileTopBar = ({ kombuchaId }) => {
   const { dispatch } = useContext(AlertContext);
   const { data: session } = useSession();
 
-  //SWR is used here to show live updates to the user when they add a kombucha to wish list
+  //fetch kombuchaData clientside with SWR to show live updates when user clicks add to favorites button
+  //fetch only when user is logged in
   const { data: kombuchaData } = useSWR(
-    //only fetch if session exists
     session?.user ? `/api/kombucha/${kombuchaId}` : null,
     fetcher
   );

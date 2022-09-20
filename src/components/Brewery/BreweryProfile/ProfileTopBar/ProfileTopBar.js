@@ -20,12 +20,13 @@ const ProfileTopBar = () => {
   const router = useRouter();
   const { slug } = router.query;
 
+  //fetch brewery data clientside with SWR to show live updates when user favorites a brewery
+  //fetch only when user is logged in
   const { data: singleBreweryData } = useSWR(
     session?.user ? `/api/breweries/${slug}` : null,
     fetcher
   );
-  //check if user in session has already added gave favorite to brewery
-  //each brewery document contains favorite_list array field
+
   const checkUserFavoriteBrewery =
     session &&
     singleBreweryData &&

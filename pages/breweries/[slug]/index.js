@@ -1,5 +1,12 @@
 import { useRouter } from "next/router";
-import { Box, Container, Grid, Paper, Divider } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Paper,
+  Divider,
+  CircularProgress,
+} from "@mui/material";
 import {
   BreweryProductTable,
   TopRaters,
@@ -13,6 +20,7 @@ import connectDB from "../../../src/lib/connectDB";
 
 const Brewery = ({ singleBreweryData, topRaters }) => {
   const router = useRouter();
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
@@ -46,6 +54,7 @@ const Brewery = ({ singleBreweryData, topRaters }) => {
   );
 };
 
+//fetch and pre-render brewery profile and top raters data at build time
 export async function getStaticPaths() {
   await connectDB();
   const slugList = await BreweryModel.distinct("slug");
@@ -62,7 +71,7 @@ export async function getStaticProps({ params }) {
   const topRaters = await getData(`breweries/${params.slug}/users/top`);
   return {
     props: { singleBreweryData, topRaters },
-    revalidate: 5,
+    revalidate: 10,
   };
 }
 export default Brewery;

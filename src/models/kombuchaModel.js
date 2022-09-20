@@ -1,7 +1,4 @@
 import mongoose from "mongoose";
-// import Brewery from "./breweryModel";
-// import Review from "./reviewModel";
-// import User from "./userModel";
 
 const kombuchaSchema = new mongoose.Schema(
   {

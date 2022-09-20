@@ -66,10 +66,9 @@ function createTableData(
   avg,
   total_ratings,
   added,
-  _id,
+  _id, //_id = kombucha id
   image
 ) {
-  //_id = kombucha product id
   return {
     name,
     product_type,
@@ -124,19 +123,16 @@ const BreweryProductTable = ({ singleBreweryData }) => {
 
   const { kombuchas, reviews } = singleBreweryData;
 
-  //If user in session has rated a kombucha from brewery
-  //Show user rating on brewery kombucha list table
+  //Check if user gave rating to a kombucha from the brewery
+  //Show user's rating value on kombuchas list table
   const getUserSessionRating = (_id) => {
-    if (session) {
-      const findUserSessionReview = reviews.find(
-        (review) => _id === review.product && review.user === session.user._id
-      );
-      const getRating = findUserSessionReview
-        ? findUserSessionReview.rating
-        : "-";
-      return getRating;
-    }
-    return "-";
+    if (!session) return "-";
+
+    const findUserReview = reviews.find(
+      (review) => _id === review.product && review.user === session.user._id
+    );
+    const getRating = findUserReview ? findUserSessionReview.rating : "-";
+    return getRating;
   };
 
   const rows = kombuchas.map(

@@ -1,10 +1,12 @@
-import { buildUrl } from "cloudinary-build-url";
+import { buildImageUrl, buildUrl } from "cloudinary-build-url";
 
 //generate cloudinary image url from various image sources
 const getCloudinaryUrl = (url) => {
   if (url == undefined || url === "") {
     return "";
   }
+  //if image is from Cloudinary
+  //build cloudinary url with desired image size and format
   if (url.includes("cloudinary")) {
     const src = buildUrl(url, {
       cloud: {
@@ -21,6 +23,23 @@ const getCloudinaryUrl = (url) => {
     });
     return src;
   }
+  //if image is from a random source,
+  //upload image to cloudinary and build image url with desired size and format
+  const image = buildImageUrl(url, {
+    cloud: {
+      cloudName: "mykombucha",
+      storageType: "fetch",
+    },
+    transformations: {
+      resize: {
+        type: "pad",
+        width: 150,
+        height: 150,
+      },
+      format: "webp",
+    },
+  });
+  return image;
 };
 
 export default getCloudinaryUrl;

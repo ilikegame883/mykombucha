@@ -9,6 +9,7 @@ async function getSignature() {
   return { signature, timestamp };
 }
 
+//param image = user profile image uploaded from account settings
 export const imageUploadSDK = async (image) => {
   const { signature, timestamp } = await getSignature();
 

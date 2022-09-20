@@ -92,7 +92,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
   );
 };
 
-//generate kombucha profile data at build time
+//fetch and pre-render kombucha profile data at build time
 export async function getStaticPaths() {
   await connectDB();
 

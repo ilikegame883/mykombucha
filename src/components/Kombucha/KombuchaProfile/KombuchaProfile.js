@@ -55,28 +55,26 @@ const KombuchaProfile = ({ singleKombuchaData }) => {
               </Link>
             </Box>
             <Box display="flex">
-              {Boolean(avg) && (
-                <Box display="flex" alignItems="center" mr={1}>
-                  <Rating
-                    name="kombucha-rating"
-                    precision={0.25}
-                    value={avg}
-                    readOnly
-                    size="small"
-                  />
-                  <Typography
-                    variant="body1"
-                    color="text.primary"
-                    fontWeight="600"
-                    ml={0.5}
-                  >
-                    ({avg.toFixed(2)})
-                  </Typography>
-                </Box>
-              )}
+              <Box display="flex" alignItems="center">
+                <Rating
+                  name="kombucha-rating"
+                  precision={0.25}
+                  value={Boolean(avg) ? avg : 0}
+                  readOnly
+                  size="small"
+                />
+                <Typography
+                  variant="body1"
+                  color="text.primary"
+                  fontWeight="600"
+                  ml={0.5}
+                >
+                  {Boolean(avg) && `(${avg.toFixed(2)})`}
+                </Typography>
+              </Box>
 
-              <IconButton sx={{ p: 0 }}>
-                <PublicIcon />
+              <IconButton sx={{ p: 0, ml: 0.5 }}>
+                <PublicIcon fontSize="small" />
               </IconButton>
             </Box>
           </Stack>
@@ -89,8 +87,9 @@ const KombuchaProfile = ({ singleKombuchaData }) => {
         <Typography variant="body2" gutterBottom>
           <b>Flavor</b>: {flavor.map((f) => f).join(", ")}
         </Typography>
-
-        <Typography variant="body2">Description: {description}</Typography>
+        <Typography variant="body2">
+          <b>Description:</b> {description}
+        </Typography>
       </Box>
     </>
   );

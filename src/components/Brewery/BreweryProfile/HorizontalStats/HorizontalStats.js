@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material/styles";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const HorizontalStats = ({ singleBreweryData }) => {
-  const { total_products, avg, favorite_count, reviews } = singleBreweryData;
+  const { total_products, avg, favorite_count } = singleBreweryData;
   const theme = useTheme();
 
   return (
