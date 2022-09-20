@@ -1,14 +1,14 @@
 import React, { useContext } from "react";
 import { mutate } from "swr";
 import { useSession } from "next-auth/react";
-import { Typography, Box, CircularProgress, Divider } from "@mui/material";
+import { Typography, Box, Divider } from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 import { patchData } from "../../../../utils/fetchData";
 import ReviewCard from "../ReviewCard";
 import { AlertContext } from "../../../../stores/context/alert.context";
 import { toggleSnackBar } from "../../../../stores/actions";
 
-const KombuchaReviews = ({ kombuchaReviews, kombuchaId, isValidating }) => {
+const KombuchaReviews = ({ kombuchaReviews, kombuchaId }) => {
   const { dispatch } = useContext(AlertContext);
 
   const { data: session } = useSession();
@@ -18,15 +18,12 @@ const KombuchaReviews = ({ kombuchaReviews, kombuchaId, isValidating }) => {
       dispatch(toggleSnackBar("error", "Log in to like a review!", true));
       return;
     }
-    //when user in session clicks review like button,
-    //add/remove review id to from their like list
-    //use useSWR mutate to show a live update of like button
+    //update user's liked reviews - add/remove reviewId from reviews liked list
+    //use SWR mutate to show updated like count
     await patchData(`reviews/${reviewId}/like`, { user: session.user._id });
     mutate(`/api/kombucha/${kombuchaId}/reviews`);
     mutate(`/api/kombucha/${kombuchaId}/reviews/top-review`);
   };
-
-  if (isValidating) return <CircularProgress color="primary" />;
 
   return (
     <>

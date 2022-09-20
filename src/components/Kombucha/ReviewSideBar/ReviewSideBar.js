@@ -8,7 +8,6 @@ import {
   Typography,
   Button,
   Drawer,
-  CircularProgress,
 } from "@mui/material";
 import StarsIcon from "@mui/icons-material/Stars";
 import RateReviewIcon from "@mui/icons-material/RateReview";
@@ -17,6 +16,7 @@ import ReviewDrawer from "./ReviewDrawer";
 import { AlertContext } from "../../../stores/context/alert.context";
 import { toggleSnackBar } from "../../../stores/actions";
 
+//Right side column for kombucha stats (reviews, rank, etc)
 const StatItem = ({ kombuchaReviews }) => {
   return (
     <>
@@ -56,6 +56,7 @@ const ReviewSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const { data: session } = useSession();
+
   const toggleDrawer = (event) => {
     if (
       event.type === "keydown" &&
@@ -71,8 +72,6 @@ const ReviewSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
       setOpenDrawer(!openDrawer);
     }
   };
-
-  if (!kombuchaReviews) return <CircularProgress color="primary" />;
 
   const findUserSessionReview =
     session && kombuchaReviews.find(({ user }) => user === session.user._id);

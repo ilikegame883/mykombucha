@@ -1,6 +1,13 @@
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import { Container, Grid, Paper, Typography, Divider } from "@mui/material";
+import {
+  Container,
+  Grid,
+  Paper,
+  Typography,
+  Divider,
+  CircularProgress,
+} from "@mui/material";
 import { getData } from "../../../src/utils/fetchData";
 import connectDB from "../../../src/lib/connectDB";
 import Kombucha from "../../../src/models/kombuchaModel";
@@ -18,8 +25,9 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
   const router = useRouter();
 
-  //load reviews, client side with useSWR
-  const { data: kombuchaReviews, isValidating } = useSWR(
+  //return user reviews client side with SWR
+  //SWR is used here to show live updates to the user when they add a review
+  const { data: kombuchaReviews } = useSWR(
     `/api/kombucha/${kombuchaId}/reviews`,
     fetcher,
     { revalidateOnFocus: false }
@@ -29,13 +37,18 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
     return <div>Loading...</div>;
   }
 
+  if (!kombuchaReviews) return <CircularProgress />;
+
   return (
     <MainLayout>
       <Container maxWidth="lg" sx={{ py: 5 }}>
         <Grid container columnSpacing={2}>
           <Grid item xs={12} md={9}>
             <Paper sx={{ mb: 1.5 }} variant="outlined">
-              <ProfileTopBar kombuchaId={kombuchaId} />
+              <ProfileTopBar
+                kombuchaId={kombuchaId}
+                singleKombuchaData={singleKombuchaData}
+              />
               <Divider />
               <KombuchaProfile singleKombuchaData={singleKombuchaData} />
             </Paper>
@@ -65,11 +78,10 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
                 fontWeight="600"
                 gutterBottom
               >
-                Reviews ({!isValidating && kombuchaReviews.length})
+                Reviews ({kombuchaReviews.length})
               </Typography>
               <KombuchaReviews
                 kombuchaReviews={kombuchaReviews}
-                isValidating={isValidating}
                 kombuchaId={kombuchaId}
               />
             </Paper>
@@ -80,6 +92,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
   );
 };
 
+//generate kombucha profile data at build time
 export async function getStaticPaths() {
   await connectDB();
 
@@ -98,7 +111,7 @@ export async function getStaticProps({ params }) {
       singleKombuchaData,
       kombuchaId: params.id,
     },
-    revalidate: 1,
+    revalidate: 10,
   };
 }
 

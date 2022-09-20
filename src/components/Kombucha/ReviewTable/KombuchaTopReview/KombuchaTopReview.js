@@ -5,14 +5,13 @@ import ReviewCard from "../ReviewCard";
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const KombuchaTopReview = ({ kombuchaId }) => {
-  //load top review client side with useSWR
-  const { data: topReview, error } = useSWR(
+  //load top review client side with SWR
+  const { data: topReview } = useSWR(
     `/api/kombucha/${kombuchaId}/reviews/top-review`,
     fetcher
   );
-  const isTopReviewDataLoading = !error && !topReview;
 
-  if (isTopReviewDataLoading) return <CircularProgress color="primary" />;
+  if (!topReview) return <CircularProgress color="primary" />;
 
   return (
     <Box>
