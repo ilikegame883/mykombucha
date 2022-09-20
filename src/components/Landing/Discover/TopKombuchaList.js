@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
 
-const TopKombuchaList = ({ kombuchaList }) => {
+const TopKombuchaList = ({ kombuchaData }) => {
   return (
     <>
       <Box
@@ -36,7 +36,7 @@ const TopKombuchaList = ({ kombuchaList }) => {
             py: 0,
           }}
         >
-          {kombuchaList.map((k) => (
+          {kombuchaData.map((k) => (
             <React.Fragment key={k.name}>
               <ListItem alignItems="center" sx={{ py: 1.5, pl: 3 }}>
                 <ListItemAvatar sx={{ mr: 1 }}>

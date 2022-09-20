@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 import ExploreCard from "./ExploreCard";
 import Link from "next/link";
 
-const ExploreSection = ({ breweryList }) => {
+const ExploreSection = ({ breweryData }) => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"), {
     defaultMatches: true,
@@ -81,7 +81,7 @@ const ExploreSection = ({ breweryList }) => {
         </Typography>
       </Stack>
       <Slider {...settings}>
-        {breweryList.map((brewery) => (
+        {breweryData.map((brewery) => (
           <Box key={brewery.name}>
             <ExploreCard brewery={brewery} />
           </Box>

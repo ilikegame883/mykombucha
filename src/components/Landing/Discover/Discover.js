@@ -1,7 +1,7 @@
 import { Typography, Box, useMediaQuery, Grid, useTheme } from "@mui/material";
 import TopKombuchaList from "./TopKombuchaList";
 
-const Discover = ({ kombuchaList }) => {
+const Discover = ({ kombuchaData }) => {
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.up("sm"), {});
 
@@ -42,7 +42,7 @@ const Discover = ({ kombuchaList }) => {
         </Box>
       </Grid>
       <Grid item xs={12} md={6} align="center">
-        <TopKombuchaList kombuchaList={kombuchaList} />
+        <TopKombuchaList kombuchaData={kombuchaData} />
       </Grid>
     </Grid>
   );

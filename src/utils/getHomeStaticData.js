@@ -7,12 +7,13 @@ const getHomeStaticData = async () => {
   // lean converts mongoose.Document to Plain Javascript Object
   const breweryResult = await Brewery.find().sort({ _id: -1 }).limit(6).lean();
 
-  const breweryList = breweryResult.map((doc) => {
+  const breweryData = breweryResult.map((doc) => {
     doc._id = doc._id.toString();
     doc.updatedAt = doc.updatedAt.toString();
     doc.favorite_list = doc.favorite_list.toString();
     return doc;
   });
+
   const kombuchaResult = await Kombucha.aggregate([
     //search kombucha with user reviews greater than 1
     //set to 0 for now since not enough ratings
@@ -31,7 +32,8 @@ const getHomeStaticData = async () => {
     { $limit: 5 },
     { $unwind: "$brewery" },
   ]);
-  const kombuchaList = kombuchaResult.map((doc) => {
+
+  const kombuchaData = kombuchaResult.map((doc) => {
     doc._id = doc._id.toString();
     doc.updatedAt = doc.updatedAt.toString();
     doc.brewery._id = doc.brewery._id.toString();
@@ -40,6 +42,6 @@ const getHomeStaticData = async () => {
     return doc;
   });
 
-  return { breweryList, kombuchaList };
+  return { breweryData, kombuchaData };
 };
 export default getHomeStaticData;
