@@ -1,6 +1,6 @@
 import { Container, Box } from "@mui/material";
 import {
-  DiscoverSection,
+  Discover,
   ExploreSection,
   Hero,
   MobileApp,
@@ -10,16 +10,16 @@ import { MainLayout } from "../src/components/Layout";
 import connectDB from "../src/lib/connectDB";
 import getHomeStaticData from "../src/utils/getHomeStaticData";
 
-export default function Home({ breweryList, kombuchaList }) {
+export default function Home({ breweryData, kombuchaData }) {
   return (
     <Box>
       <MainLayout position="sticky">
         <Hero />
         <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
-          <ExploreSection kombuchaList={kombuchaList} />
+          <Discover kombuchaData={kombuchaData} />
         </Container>
         <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 15 } }}>
-          <DiscoverSection breweryList={breweryList} />
+          <ExploreSection breweryData={breweryData} />
         </Container>
         <Container maxWidth="lg" sx={{ py: { xs: 10, sm: 20 } }}>
           <MobileApp />
@@ -37,11 +37,11 @@ export const getStaticProps = async () => {
   //The reason is that your API route is not available until your Next app is built and getStaticProps runs at build time.
   //Therefore the API route would not be available to populate the data during the build.
   await connectDB();
-  const { breweryList, kombuchaList } = await getHomeStaticData();
+  const { breweryData, kombuchaData } = await getHomeStaticData();
   return {
     props: {
-      breweryList,
-      kombuchaList,
+      breweryData,
+      kombuchaData,
     },
     revalidate: 15,
   };
