@@ -1,5 +1,6 @@
-import { buildImageUrl, buildUrl } from "cloudinary-build-url";
+import { buildUrl } from "cloudinary-build-url";
 
+//generate cloudinary image url from various image sources
 const getCloudinaryUrl = (url) => {
   if (url == undefined || url === "") {
     return "";
@@ -20,21 +21,6 @@ const getCloudinaryUrl = (url) => {
     });
     return src;
   }
-  const image = buildImageUrl(url, {
-    cloud: {
-      cloudName: "mykombucha",
-      storageType: "fetch",
-    },
-    transformations: {
-      resize: {
-        type: "pad",
-        width: 150,
-        height: 150,
-      },
-      format: "webp",
-    },
-  });
-  return image;
 };
 
 export default getCloudinaryUrl;
