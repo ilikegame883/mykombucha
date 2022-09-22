@@ -6,7 +6,7 @@ import { Box, Typography, Stack, IconButton, Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import moment from "moment";
+import dayjs from "dayjs";
 import { patchData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
 import { toggleSnackBar } from "../../../../stores/actions";
@@ -47,7 +47,7 @@ const ProfileTopBar = ({ kombuchaId }) => {
     }
     const res = await patchData(`users/${session.user.username}/wish-list`, {
       kombucha_id: kombuchaId,
-      date: moment().format("YYYY/MM/DD"),
+      date: dayjs().format("YYYY/MM/DD"),
     });
 
     if (res?.msg) {
