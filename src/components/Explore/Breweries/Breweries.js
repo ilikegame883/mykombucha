@@ -5,16 +5,15 @@ import ExploreTabs from "../ExploreTabs";
 import BreweryList from "./BreweryList/BreweryList";
 import SortMenu from "./SortMenu";
 
-const PAGE_SIZE = 8; //# of items for each page under tab
+const PAGE_SIZE = 8; //# of items to display per page page under tab
 const TABS = ["list", "popular"];
 
 const Breweries = ({ exploreBreweryData, category, page }) => {
   const [filterListBy, setFilterListBy] = useState("Recent");
 
-  //total = total number of sorted items
-  const { sorted_list, total } = exploreBreweryData;
+  const { sorted_list, total_breweries } = exploreBreweryData;
 
-  const totalPages = Math.ceil(total.count / PAGE_SIZE);
+  const totalPages = Math.ceil(total_breweries.count / PAGE_SIZE);
 
   return (
     <Box>
