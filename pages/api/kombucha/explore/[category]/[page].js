@@ -71,10 +71,10 @@ const getRecentKombuchaReviews = async (req, res) => {
 
             { $addFields: { insertTime: { $toDate: "$_id" } } },
           ],
-          total: [{ $count: "count" }],
+          total_kombucha: [{ $count: "count" }],
         },
       },
-      { $unwind: "$total" },
+      { $unwind: "$total_kombucha" },
     ]);
 
     res.json(recentKombuchaReviews);
@@ -99,10 +99,10 @@ const getNewKombucha = async (req, res) => {
             { $limit: PAGE_SIZE },
             { $addFields: { insertTime: { $toDate: "$_id" } } },
           ],
-          total: [{ $count: "count" }],
+          total_kombucha: [{ $count: "count" }],
         },
       },
-      { $unwind: "$total" },
+      { $unwind: "$total_kombucha" },
     ]);
     res.json(newKombuchaList);
   } catch (err) {
@@ -127,11 +127,11 @@ const getTopRatedKombucha = async (req, res) => {
             { $limit: PAGE_SIZE },
             { $addFields: { insertTime: { $toDate: "$_id" } } },
           ],
-          total: [{ $count: "count" }],
+          total_kombucha: [{ $count: "count" }],
         },
       },
 
-      { $unwind: "$total" },
+      { $unwind: "$total_kombucha" },
     ]);
 
     res.json(topRatedKombuchaList);
@@ -157,11 +157,11 @@ const getPopularKombucha = async (req, res) => {
             { $limit: PAGE_SIZE },
             { $addFields: { insertTime: { $toDate: "$_id" } } },
           ],
-          total: [{ $count: "count" }],
+          total_kombucha: [{ $count: "count" }],
         },
       },
 
-      { $unwind: "$total" },
+      { $unwind: "$total_kombucha" },
     ]);
 
     res.json(popularKombuchaList);

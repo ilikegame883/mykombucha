@@ -42,11 +42,11 @@ const getPopularBreweries = async (req, res) => {
             { $limit: PAGE_SIZE },
             { $addFields: { insertTime: { $toDate: "$_id" } } },
           ],
-          total: [{ $count: "count" }],
+          total_breweries: [{ $count: "count" }],
         },
       },
 
-      { $unwind: "$total" },
+      { $unwind: "$total_breweries" },
     ]);
 
     res.json(popularBreweryList);
@@ -72,12 +72,11 @@ const getRecentBreweries = async (req, res) => {
             { $limit: PAGE_SIZE },
             { $addFields: { insertTime: { $toDate: "$_id" } } },
           ],
-          total: [{ $count: "count" }],
+          total_breweries: [{ $count: "count" }],
         },
       },
-      { $unwind: "$total" },
+      { $unwind: "$total_breweries" },
     ]);
-
     res.json(recentBreweries);
   } catch (err) {
     return res.status(500).json({ err: err.message });
