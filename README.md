@@ -15,7 +15,7 @@
 
 ## Features
 
-- Fullstack application built with Next.js, MUI, [Serverless API Routes](https://nextjs.org/blog/next-9#api-routes), MongoDB and deployed with Vercel.
+- Full stack application built with Next.js, MUI, [API Routes](https://nextjs.org/blog/next-9#api-routes) as Serverless functions, MongoDB and deployed with Vercel.
 - Explore top rated kombuchas and discover new breweries.
 - Registered users can review and rate kombucha, create wish lists, favorite breweries and like reviews.
 - Static pre-rendered pages with ISR ([Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)) enabled.
