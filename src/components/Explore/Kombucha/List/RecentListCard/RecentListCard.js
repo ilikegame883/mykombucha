@@ -39,7 +39,7 @@ const RecentListCard = ({ sorted_list }) => {
                   sx={{ width: 60, height: 60 }}
                 />
               </Box>
-              <Stack mb={{ xs: 1, sm: 0 }} pr={{ xs: 0, sm: 15 }}>
+              <Stack mb={{ xs: 1, sm: 0 }} pr={{ xs: 0, sm: 20 }}>
                 <Box>
                   <Link href={`/kombucha/${item.kombucha._id}`} passHref>
                     <Typography

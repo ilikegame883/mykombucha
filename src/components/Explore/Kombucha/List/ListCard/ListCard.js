@@ -36,7 +36,7 @@ const ListCard = ({ sorted_list, category }) => {
                   sx={{ width: 60, height: 60 }}
                 />
               </Box>
-              <Box mb={{ xs: 1.5, sm: 0 }}>
+              <Box mb={{ xs: 1.5, sm: 0 }} pr={{ xs: 0, sm: 15 }}>
                 <Box>
                   <Link href={`/kombucha/${item._id}`} passHref>
                     <Typography
@@ -69,12 +69,11 @@ const ListCard = ({ sorted_list, category }) => {
                 </Box>
               </Box>
               <Box
-                display="flex"
-                flexDirection="column"
                 sx={{
                   position: "absolute",
                   top: { xs: 20, sm: 15 },
                   right: 20,
+                  textAlign: "right",
                 }}
               >
                 <Typography variant="h6" align="end">
@@ -86,10 +85,29 @@ const ListCard = ({ sorted_list, category }) => {
                   readOnly
                   precision={0.25}
                 />
+                {category === "new" ? (
+                  <Typography
+                    variant="caption"
+                    component="p"
+                    color="text.secondary"
+                  >
+                    {item.insertTime.slice(0, item.insertTime.lastIndexOf("T"))}
+                  </Typography>
+                ) : (
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    fontWeight="500"
+                    align="right"
+                  >
+                    {item.review_count}{" "}
+                    {item.review_count > 1 ? "ratings" : "rating"}
+                  </Typography>
+                )}
               </Box>
             </Box>
           </Box>
-          <Box
+          {/* <Box
             sx={{
               position: "absolute",
               bottom: { xs: 10, sm: 15 },
@@ -112,7 +130,7 @@ const ListCard = ({ sorted_list, category }) => {
                 {item.review_count > 1 ? "ratings" : "rating"}
               </Typography>
             )}
-          </Box>
+          </Box> */}
         </Grid>
       ))}
     </>
