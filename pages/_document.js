@@ -1,7 +1,6 @@
 import * as React from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
-import theme from "../src/theme";
 import createEmotionCache from "../src/createEmotionCache";
 
 export default class MyDocument extends Document {
@@ -46,11 +45,6 @@ export default class MyDocument extends Document {
             href="/static/favicons/safari-pinned-tab.svg"
             color="#ffbd59"
           />
-          {/* <meta name="apple-mobile-web-app-capable" content="yes" />
-          <meta
-            name="apple-mobile-web-app-status-bar-style"
-            content="default"
-          /> */}
           <meta name="msapplication-TileColor" content="#FAFAFA" />
           <meta
             content="/static/favicons/browserconfig.xml"
