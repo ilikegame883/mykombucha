@@ -12,7 +12,7 @@ import { getData } from "../../../src/utils/fetchData";
 import connectDB from "../../../src/lib/connectDB";
 import Kombucha from "../../../src/models/kombuchaModel";
 import KombuchaProfile from "../../../src/components/Kombucha/KombuchaProfile";
-import ReviewSideBar from "../../../src/components/Kombucha/ReviewSideBar";
+import ProfileSideBar from "../../../src/components/Kombucha/ProfileSideBar";
 import {
   KombuchaReviews,
   KombuchaTopReview,
@@ -55,7 +55,7 @@ const KombuchaPage = ({ singleKombuchaData, kombuchaId }) => {
           </Grid>
 
           <Grid item xs={12} md={3} mb={1.5}>
-            <ReviewSideBar
+            <ProfileSideBar
               singleKombuchaData={singleKombuchaData}
               kombuchaReviews={kombuchaReviews}
             />

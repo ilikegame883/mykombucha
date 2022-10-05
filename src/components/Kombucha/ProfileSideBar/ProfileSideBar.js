@@ -50,7 +50,7 @@ const StatItem = ({ kombuchaReviews }) => {
   );
 };
 
-const ReviewSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
+const ProfileSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
   const { dispatch } = useContext(AlertContext);
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -134,4 +134,4 @@ const ReviewSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
   );
 };
 
-export default ReviewSideBar;
+export default ProfileSideBar;

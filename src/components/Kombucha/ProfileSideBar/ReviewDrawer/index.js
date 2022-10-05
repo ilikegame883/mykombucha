@@ -1,3 +1,3 @@
 export { default } from "./ReviewDrawer";
 
-//import in /ReviewSideBar
+//import in /ProfileSideBar
