@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import {
   Autocomplete,
@@ -17,7 +17,8 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { getData } from "../../../../utils/fetchData";
-import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../../lib/cloudinary/getCloudinaryUrl";
+import debounce from "../../../../utils/searchbar/debounce";
 
 const StyledAutoComplete = styled(Autocomplete)(({ theme }) => ({
   width: "100%",
@@ -68,21 +69,25 @@ const HeroSearchBar = () => {
     }
   };
 
+  const debounceSearch = useMemo(() => debounce(getSearchData, 500), []);
+
   const onChangeSearch = async (e, value) => {
     if (value) {
       setValue(value);
-      getSearchData(e.target.value);
+      // getSearchData(e.target.value);
+      debounceSearch(e.target.value);
       return;
     }
     //clear state when search bar has no inputvalue from backspace or clear iconbutton
     setValue("");
     setSearchData([]);
   };
+
   return (
     <Box>
       <StyledAutoComplete
         loading
-        loadingText={`No results for "${value}"`}
+        loadingText={"No results found"}
         id="search-bar"
         freeSolo
         inputValue={value}

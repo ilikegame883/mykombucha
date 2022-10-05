@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import {
@@ -24,8 +24,9 @@ import {
 import ProductTableSearchBar from "../../ProductTable/ProductTableSearchBar";
 import ProductSearchNotFound from "../../ProductTable/ProductSearchNotFound";
 import { getData } from "../../../utils/fetchData";
-import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../lib/cloudinary/getCloudinaryUrl";
 import CustomChips from "../../CustomChips";
+import debounce from "../../../utils/searchbar/debounce";
 import StarIcon from "@mui/icons-material/Star";
 
 const descendingComparator = (a, b, orderBy) => {
@@ -61,17 +62,15 @@ const SearchTable = ({ category }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
-    //query params as user search query received from:
-    //navbar search bar and "see more results link" from Landing Page search drop down
     if (router.query?.search) {
-      //fill in search page bar with  user search query
+      //fill in searchbar on the search page with user search query
       setSearchQuery(router.query.search);
       return getSearchData(router.query.search, SEARCH_PAGE_LIMIT);
     }
     //if user does not clear search bar while switching between kombucha or brewery tabs,
-    //fetch search data from new tab (category) with the same text
+    //fetch search data from the other category tab with the same query string
     if (searchQuery) {
-      return getSearchData(searchQuery);
+      return getSearchData(searchQuery, SEARCH_PAGE_LIMIT);
     }
   }, [category]);
 
@@ -84,15 +83,16 @@ const SearchTable = ({ category }) => {
     }
   };
 
+  const debounceSearch = useMemo(() => debounce(getSearchData, 300), []);
+
   //search page search bar
   const handleSearchBar = async (e) => {
     setSearchQuery(e.target.value);
 
     if (e.target.value) {
-      return await getSearchData(e.target.value, SEARCH_PAGE_LIMIT);
+      return debounceSearch(e.target.value, SEARCH_PAGE_LIMIT);
     }
-    //if event.target.value === "" (i.e. empty searchbar from backspace)
-    //clear search data
+    //clear search data if event.target.value === "" (i.e. empty searchbar from backspace)
     setSearchData([]);
   };
 
