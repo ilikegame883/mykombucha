@@ -24,7 +24,7 @@ const Contact = () => {
       </Box>
       <Box textAlign="center">
         <Typography variant="subtitle1" color="text.secondary" align="left">
-          For all suggestions and all other enquiries reach us at:{" "}
+          For all suggestions and all other enquiries please email:{" "}
           <Typography
             component="a"
             href="mailto:admin@mykombucha.net"
