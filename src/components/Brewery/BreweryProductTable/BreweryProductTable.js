@@ -24,7 +24,7 @@ import ProductTableSearchBar from "../../ProductTable/ProductTableSearchBar";
 import ProductSearchNotFound from "../../ProductTable/ProductSearchNotFound";
 import ProductTableHead from "../../ProductTable/ProductTableHead";
 import CustomChips from "../../CustomChips";
-import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../lib/cloudinary/getCloudinaryUrl";
 
 const TABLE_HEAD = [
   {

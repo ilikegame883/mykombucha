@@ -15,7 +15,10 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { deleteImage, imageUploadSDK } from "../../../../utils/imageUpload";
+import {
+  deleteImage,
+  imageUploadSDK,
+} from "../../../../lib/cloudinary/imageUpload";
 import { patchData } from "../../../../utils/fetchData";
 import { useRouter } from "next/router";
 import { AlertContext } from "../../../../stores/context/alert.context";

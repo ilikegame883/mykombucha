@@ -15,7 +15,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import DeleteUserItem from "../../DeleteUserItem";
 import CustomChips from "../../../../CustomChips";
-import getCloudinaryUrl from "../../../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../../../lib/cloudinary/getCloudinaryUrl";
 
 const ReviewRow = ({ row, handleDelete, session }) => {
   const [openReview, setOpenReview] = useState(false);

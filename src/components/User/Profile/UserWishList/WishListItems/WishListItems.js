@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import DeleteUserItem from "../../DeleteUserItem";
 import { patchData } from "../../../../../utils/fetchData";
-import getCloudinaryUrl from "../../../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../../../lib/cloudinary/getCloudinaryUrl";
 import { AlertContext } from "../../../../../stores/context/alert.context";
 import { toggleSnackBar } from "../../../../../stores/actions";
 

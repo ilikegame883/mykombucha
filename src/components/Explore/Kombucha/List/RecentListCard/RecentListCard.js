@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Avatar, Stack, Grid, Box, Typography, useTheme } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import RevealText from "../../../../../components/RevealText";
-import getCloudinaryUrl from "../../../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../../../lib/cloudinary/getCloudinaryUrl";
 
 //Card component for /kombucha/explore/[category] page for category "recent"
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Avatar, Grid, Box, Typography, Paper, useTheme } from "@mui/material";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import getCloudinaryUrl from "../../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../../lib/cloudinary/getCloudinaryUrl";
 import CustomChips from "../../../CustomChips";
 
 function descendingComparator(a, b, orderBy) {

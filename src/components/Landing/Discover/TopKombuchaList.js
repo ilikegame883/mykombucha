@@ -11,7 +11,7 @@ import {
   Rating,
   Stack,
 } from "@mui/material";
-import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../lib/cloudinary/getCloudinaryUrl";
 
 const TopKombuchaList = ({ kombuchaData }) => {
   return (

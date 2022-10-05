@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, Stack, Avatar } from "@mui/material";
 import Link from "next/link";
-import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../lib/cloudinary/getCloudinaryUrl";
 
 const ExploreCard = ({ brewery }) => {
   const { name, city, country, image, type, slug } = brewery;

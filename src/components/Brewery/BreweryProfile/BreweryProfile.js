@@ -10,7 +10,7 @@ import HorizontalStats from "./HorizontalStats";
 import RevealText from "../../RevealText";
 import CustomChips from "../../../components/CustomChips";
 import SocialIcons from "./SocialIcons";
-import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../lib/cloudinary/getCloudinaryUrl";
 
 const BreweryProfile = ({ singleBreweryData }) => {
   const theme = useTheme();

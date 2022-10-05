@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import HorizontalStats from "./HorizontalStats";
 import PublicIcon from "@mui/icons-material/Public";
-import getCloudinaryUrl from "../../../utils/getCloudinaryUrl";
+import getCloudinaryUrl from "../../../lib/cloudinary/getCloudinaryUrl";
 
 const KombuchaProfile = ({ singleKombuchaData }) => {
   const {
