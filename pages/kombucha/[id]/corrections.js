@@ -72,7 +72,7 @@ const Corrections = () => {
             sx={{
               border: "1px solid #bdbdbd",
               borderRadius: 1,
-              bgcolor: "#F5F5F5",
+              bgcolor: "#F7F9FC",
             }}
           >
             {singleKombuchaData[0].description}
