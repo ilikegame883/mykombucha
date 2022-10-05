@@ -75,6 +75,7 @@ const SearchTable = ({ category }) => {
   }, [category]);
 
   const getSearchData = async (str, limit) => {
+    console.log(`${category}/search`, `${str}?limit=${limit}`);
     try {
       let data = await getData(`${category}/search`, `${str}?limit=${limit}`);
       setSearchData(data);
@@ -83,7 +84,10 @@ const SearchTable = ({ category }) => {
     }
   };
 
-  const debounceSearch = useMemo(() => debounce(getSearchData, 300), []);
+  const debounceSearch = useMemo(
+    () => debounce(getSearchData, 300),
+    [category]
+  );
 
   //search page search bar
   const handleSearchBar = async (e) => {
