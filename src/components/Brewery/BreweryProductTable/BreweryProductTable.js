@@ -123,15 +123,15 @@ const BreweryProductTable = ({ singleBreweryData }) => {
 
   const { kombuchas, reviews } = singleBreweryData;
 
-  //Check if user gave rating to a kombucha from the brewery
-  //Show user's rating value on kombuchas list table
+  //Check if user has given a rating to a kombucha listed in the brewery page
+  //Show user's rating value on kombucha list table
   const getUserSessionRating = (_id) => {
     if (!session) return "-";
 
     const findUserReview = reviews.find(
       (review) => _id === review.product && review.user === session.user._id
     );
-    const getRating = findUserReview ? findUserSessionReview.rating : "-";
+    const getRating = findUserReview ? findUserReview.rating : "-";
     return getRating;
   };
 
