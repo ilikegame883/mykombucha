@@ -11,26 +11,32 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DeleteUserItem from "../../DeleteUserItem";
 import CustomChips from "../../../../CustomChips";
 import getCloudinaryUrl from "../../../../../lib/cloudinary/getCloudinaryUrl";
 
-const ReviewRow = ({ row, handleDelete, session }) => {
+const ReviewRow = ({ row, handleDelete, session, idx }) => {
   const [openReview, setOpenReview] = useState(false);
 
   const router = useRouter();
   const { name } = router.query;
+
+  const handleOpenAccordian = (e) => {
+    if (e.target.href) return;
+    setOpenReview(!openReview);
+  };
+
   return (
     <>
-      <TableRow>
+      <TableRow onClick={(e) => handleOpenAccordian(e)}>
         <TableCell size="small" sx={{ pr: 0, pl: 0.5, width: 20 }}>
-          <IconButton onClick={() => setOpenReview(!openReview)}>
+          <IconButton>
             {openReview ? (
-              <KeyboardArrowUpIcon sx={{ color: "text.secondary" }} />
+              <ArrowDropDownIcon sx={{ color: "text.secondary" }} />
             ) : (
-              <KeyboardArrowDownIcon sx={{ color: "text.secondary" }} />
+              <ArrowRightIcon sx={{ color: "text.secondary" }} />
             )}
           </IconButton>
         </TableCell>
@@ -103,7 +109,7 @@ const ReviewRow = ({ row, handleDelete, session }) => {
           sx={{ py: 0, borderBottom: !openReview && "none" }}
         >
           <Collapse in={openReview} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
+            <Box sx={{ py: 1 }}>
               <Typography variant="body1" fontWeight="500" color="text.primary">
                 Review:
               </Typography>
