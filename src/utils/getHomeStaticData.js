@@ -3,7 +3,7 @@ import Kombucha from "../models/kombuchaModel";
 
 //helper function to get data required for Discover and Explore section on homepage
 const getHomeStaticData = async () => {
-  //when more user data is avaiable, fetch breweries documents based on popularity (number of hearts given)
+  //TODO: fetch breweries documents based on popularity (number of hearts given) when more data is available
   // lean converts mongoose.Document to Plain Javascript Object
   const breweryResult = await Brewery.find().sort({ _id: -1 }).limit(6).lean();
 
