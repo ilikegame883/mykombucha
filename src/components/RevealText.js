@@ -3,11 +3,10 @@ import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
 
 const RevealText = ({ text = "N/A", maxLength }) => {
-  const MAX_DESC_LENGTH = maxLength;
-
+  const [revealText, setRevealText] = useState(false);
   const router = useRouter();
 
-  const [revealText, setRevealText] = useState(false);
+  const MAX_DESC_LENGTH = maxLength;
 
   useEffect(() => {
     //set revealText back to false when route changes
@@ -18,6 +17,17 @@ const RevealText = ({ text = "N/A", maxLength }) => {
     setRevealText(!revealText);
   };
 
+  const revealBtn = (
+    <Typography
+      variant="caption"
+      color="secondary"
+      onClick={handleRevealText}
+      sx={{ cursor: "pointer" }}
+    >
+      {revealText ? `${" "}See Less` : `${" "}See More`}
+    </Typography>
+  );
+
   if (text.length <= MAX_DESC_LENGTH) {
     return (
       <Typography variant="subtitle2" fontWeight="400">
@@ -25,32 +35,19 @@ const RevealText = ({ text = "N/A", maxLength }) => {
       </Typography>
     );
   }
+
   if (!revealText) {
     return (
       <Typography variant="subtitle2" fontWeight="400">
         {`${text.substring(0, MAX_DESC_LENGTH)}...`}
-        <Typography
-          variant="caption"
-          color="secondary"
-          onClick={handleRevealText}
-          sx={{ cursor: "pointer" }}
-        >
-          {`${" "}See More`}
-        </Typography>
+        {revealBtn}
       </Typography>
     );
   } else {
     return (
       <Typography variant="subtitle2" fontWeight="400">
         {text}
-        <Typography
-          variant="caption"
-          color="secondary"
-          onClick={handleRevealText}
-          sx={{ cursor: "pointer" }}
-        >
-          {`${" "}See Less`}
-        </Typography>
+        {revealBtn}
       </Typography>
     );
   }
