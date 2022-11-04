@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { putData } from "../../../utils/fetchData";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../stores/actions";
+import { toggleSnackBar } from "../../../stores/alert.actions";
 
 const NewsLetter = () => {
   const [mail, setMail] = useState("");

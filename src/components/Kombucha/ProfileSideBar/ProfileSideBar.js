@@ -14,7 +14,7 @@ import RateReviewIcon from "@mui/icons-material/RateReview";
 import { useSession } from "next-auth/react";
 import ReviewDrawer from "./ReviewDrawer";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../stores/actions";
+import { toggleSnackBar } from "../../../stores/alert.actions";
 
 //Right side column for kombucha stats (reviews, rank, etc)
 const StatItem = ({ kombuchaReviews }) => {

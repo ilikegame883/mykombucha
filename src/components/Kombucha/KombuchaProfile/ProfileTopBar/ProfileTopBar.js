@@ -9,14 +9,13 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import dayjs from "dayjs";
 import { patchData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/alert.actions";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const ProfileTopBar = ({ kombuchaId }) => {
   const { dispatch } = useContext(AlertContext);
   const { data: session } = useSession();
-
   //fetch kombuchaData clientside with SWR to show live updates when user clicks add to favorites button
   //fetch only when user is logged in
   const { data: kombuchaData } = useSWR(

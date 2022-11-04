@@ -6,7 +6,7 @@ import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 import { patchData } from "../../../../utils/fetchData";
 import ReviewCard from "../ReviewCard";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/alert.actions";
 
 const KombuchaReviews = ({ kombuchaReviews, kombuchaId }) => {
   const { dispatch } = useContext(AlertContext);

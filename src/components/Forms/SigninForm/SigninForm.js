@@ -14,7 +14,7 @@ import {
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleAlert } from "../../../stores/actions";
+import { toggleAlert } from "../../../stores/alert.actions";
 import ToastAlert from "../../ToastAlert";
 import GoogleIcon from "@mui/icons-material/Google";
 

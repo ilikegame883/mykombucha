@@ -13,7 +13,7 @@ import {
 import * as yup from "yup";
 import { patchData } from "../../../utils/fetchData";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleAlert } from "../../../stores/actions";
+import { toggleAlert } from "../../../stores/alert.actions";
 import ToastAlert from "../../ToastAlert";
 import { countries } from "country-data-list";
 

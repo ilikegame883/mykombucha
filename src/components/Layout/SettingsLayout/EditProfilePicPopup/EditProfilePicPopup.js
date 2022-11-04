@@ -22,7 +22,7 @@ import {
 import { patchData } from "../../../../utils/fetchData";
 import { useRouter } from "next/router";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/alert.actions";
 
 const Input = styled("input")({
   display: "none",

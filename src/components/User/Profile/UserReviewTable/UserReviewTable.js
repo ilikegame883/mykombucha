@@ -18,7 +18,7 @@ import ReviewSearchBar from "./ReviewSearchBar";
 import ReviewNotFound from "./ReviewNotFound";
 import { deleteData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/alert.actions";
 import ReviewRow from "./ReviewRow/ReviewRow";
 
 const TABLE_HEAD = [

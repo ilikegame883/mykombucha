@@ -14,7 +14,7 @@ import {
 import { postData } from "../../../utils/fetchData";
 import { Container } from "@mui/material";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../stores/actions";
+import { toggleSnackBar } from "../../../stores/alert.actions";
 import GoogleIcon from "@mui/icons-material/Google";
 
 const validationSchema = yup.object({

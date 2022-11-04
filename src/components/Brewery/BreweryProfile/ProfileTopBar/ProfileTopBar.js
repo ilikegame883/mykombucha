@@ -9,7 +9,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { patchData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/alert.actions";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 

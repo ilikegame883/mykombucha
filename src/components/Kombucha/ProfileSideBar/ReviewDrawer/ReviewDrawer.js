@@ -17,7 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { postData } from "../../../../utils/fetchData";
 import RatingSlider from "./RatingSlider";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/actions";
+import { toggleSnackBar } from "../../../../stores/alert.actions";
 
 const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   const { brewery_slug, brewery_name } = singleKombuchaData;

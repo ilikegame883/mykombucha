@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Alert, Collapse } from "@mui/material";
 import { AlertContext } from "../stores/context/alert.context";
-import { toggleAlert } from "../stores/actions";
+import { toggleAlert } from "../stores/alert.actions";
 
 const ToastAlert = () => {
   const { state, dispatch } = useContext(AlertContext);

@@ -17,7 +17,7 @@ import DeleteUserItem from "../../DeleteUserItem";
 import { patchData } from "../../../../../utils/fetchData";
 import getCloudinaryUrl from "../../../../../lib/cloudinary/getCloudinaryUrl";
 import { AlertContext } from "../../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../../stores/actions";
+import { toggleSnackBar } from "../../../../../stores/alert.actions";
 
 const WishListItems = ({ wishList }) => {
   const { data: session } = useSession();

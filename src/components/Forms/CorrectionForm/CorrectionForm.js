@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../stores/actions";
+import { toggleSnackBar } from "../../../stores/alert.actions";
 import { postData } from "../../../utils/fetchData";
 
 const CHECKBOX = {

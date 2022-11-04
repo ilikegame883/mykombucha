@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { patchData } from "../../../utils/fetchData";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleAlert } from "../../../stores/actions";
+import { toggleAlert } from "../../../stores/alert.actions";
 import ToastAlert from "../../../components/ToastAlert";
 
 const validationSchema = yup.object({
