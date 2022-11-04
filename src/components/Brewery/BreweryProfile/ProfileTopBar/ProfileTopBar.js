@@ -9,7 +9,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { patchData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/alert.actions";
+import setToggleSnackBar from "../../../../utils/setToggleSnackBar";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -34,13 +34,7 @@ const ProfileTopBar = () => {
 
   const handleClickFavorite = async () => {
     if (!session) {
-      dispatch(
-        toggleSnackBar(
-          "error",
-          "Login/Register to favorite this brewery!",
-          true
-        )
-      );
+      dispatch(setToggleSnackBar("login"));
       return;
     }
 
@@ -49,9 +43,9 @@ const ProfileTopBar = () => {
     });
     if (res?.msg) {
       mutate(`/api/breweries/${slug}`);
-      dispatch(toggleSnackBar("success", res.msg, true));
+      dispatch(setToggleSnackBar("fetch-success", res.msg));
     }
-    if (res?.err) dispatch(toggleSnackBar("error", res.err, true));
+    if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
   };
 
   return (

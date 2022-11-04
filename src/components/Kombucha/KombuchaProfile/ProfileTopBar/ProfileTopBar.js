@@ -9,7 +9,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import dayjs from "dayjs";
 import { patchData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/alert.actions";
+import setToggleSnackBar from "../../../../utils/setToggleSnackBar";
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -35,13 +35,7 @@ const ProfileTopBar = ({ kombuchaId }) => {
   //add kombucha to user's wish list
   const handleClickAddIcon = async () => {
     if (!session) {
-      dispatch(
-        toggleSnackBar(
-          "error",
-          "Login/Register to add to your wish list!",
-          true
-        )
-      );
+      dispatch(setToggleSnackBar("login"));
       return;
     }
     const res = await patchData(`users/${session.user.username}/wish-list`, {
@@ -51,9 +45,9 @@ const ProfileTopBar = ({ kombuchaId }) => {
 
     if (res?.msg) {
       mutate(`/api/kombucha/${kombuchaId}`);
-      dispatch(toggleSnackBar("success", res.msg, true));
+      dispatch(setToggleSnackBar("fetch-success", res.msg));
     }
-    if (res?.err) dispatch(toggleSnackBar("error", res.err, true));
+    if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
   };
 
   return (

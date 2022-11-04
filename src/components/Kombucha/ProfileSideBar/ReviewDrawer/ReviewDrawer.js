@@ -17,7 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { postData } from "../../../../utils/fetchData";
 import RatingSlider from "./RatingSlider";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/alert.actions";
+import setToggleSnackBar from "../../../../utils/setToggleSnackBar";
 
 const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   const { brewery_slug, brewery_name } = singleKombuchaData;
@@ -68,11 +68,11 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
     const res = await postData("/reviews", userReview);
 
     if (res?.msg) {
-      dispatch(toggleSnackBar("success", res.msg, true));
+      dispatch(setToggleSnackBar("fetch-success", res.msg));
       mutate(`/api/kombucha/${singleKombuchaData._id}/reviews`);
       toggleDrawer(e);
     }
-    if (res?.err) dispatch(toggleSnackBar("error", res.err, true));
+    if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
   };
 
   return (

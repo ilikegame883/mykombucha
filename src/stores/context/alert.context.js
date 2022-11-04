@@ -1,7 +1,7 @@
 import { createContext, useReducer } from "react";
 import { Alert, Snackbar } from "@mui/material";
-import { toggleSnackBar } from "../alert.actions";
 import alertReducer from "../reducer/alert.reducer";
+import setToggleSnackBar from "../../utils/setToggleSnackBar";
 
 //Context for snackbar and toast alert
 const initialState = {
@@ -21,7 +21,7 @@ export const AlertProvider = ({ children }) => {
     if (reason === "clickaway") {
       return;
     }
-    dispatch(toggleSnackBar(undefined, "", false));
+    dispatch(setToggleSnackBar("close"));
   };
   return (
     <AlertContext.Provider value={{ state, dispatch }}>

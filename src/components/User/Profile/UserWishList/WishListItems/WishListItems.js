@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React, { useContext } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
@@ -17,7 +16,7 @@ import DeleteUserItem from "../../DeleteUserItem";
 import { patchData } from "../../../../../utils/fetchData";
 import getCloudinaryUrl from "../../../../../lib/cloudinary/getCloudinaryUrl";
 import { AlertContext } from "../../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../../stores/alert.actions";
+import setToggleSnackBar from "../../../../../utils/setToggleSnackBar";
 
 const WishListItems = ({ wishList }) => {
   const { data: session } = useSession();
@@ -31,12 +30,10 @@ const WishListItems = ({ wishList }) => {
       kombucha_id: _id,
     });
     if (res?.msg) {
-      dispatch(toggleSnackBar("success", res.msg, true));
+      dispatch(setToggleSnackBar("fetch-success", res.msg));
       router.replace(router.asPath);
     }
-    if (res?.err) {
-      dispatch(toggleSnackBar("error", res.err, true));
-    }
+    if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
   };
 
   const router = useRouter();

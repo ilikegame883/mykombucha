@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { putData } from "../../../utils/fetchData";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../stores/alert.actions";
+import setToggleSnackBar from "../../../utils/setToggleSnackBar";
 
 const NewsLetter = () => {
   const [mail, setMail] = useState("");
@@ -28,12 +28,10 @@ const NewsLetter = () => {
     if (!mail) return;
     const res = await putData("newsletter", { mail });
     if (res?.msg) {
-      dispatch(toggleSnackBar("success", res.msg, true));
+      dispatch(setToggleSnackBar("fetch-success", res.msg));
       setMail("");
     }
-    if (res?.err) {
-      dispatch(toggleSnackBar("error", res.err, true));
-    }
+    if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
   };
 
   return (

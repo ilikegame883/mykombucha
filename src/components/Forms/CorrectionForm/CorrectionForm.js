@@ -15,8 +15,8 @@ import {
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../stores/alert.actions";
 import { postData } from "../../../utils/fetchData";
+import setToggleSnackBar from "../../../utils/setToggleSnackBar";
 
 const CHECKBOX = {
   kombucha: [
@@ -59,11 +59,9 @@ const CorrectionForm = ({ name, type }) => {
     const res = await postData("mail", values);
     if (res?.msg) {
       resetForm.resetForm();
-      dispatch(toggleSnackBar("success", res.msg, true));
+      dispatch(setToggleSnackBar("fetch-success", res.msg));
     }
-    if (res?.err) {
-      dispatch(toggleSnackBar("error", res.err, true));
-    }
+    if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
   };
 
   const formik = useFormik({

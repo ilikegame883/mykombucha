@@ -22,7 +22,7 @@ import {
 import { patchData } from "../../../../utils/fetchData";
 import { useRouter } from "next/router";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/alert.actions";
+import setToggleSnackBar from "../../../../utils/setToggleSnackBar";
 
 const Input = styled("input")({
   display: "none",
@@ -39,23 +39,28 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
     const file = e.target.files[0];
     const maxSize = 2 * 1024 * 1024; //2mb
 
-    if (!file) return toggleSnackBar("error", "File does not exist.", true);
+    if (!file) {
+      dispatch(setToggleSnackBar("upload-error", "File does not exist."));
+      return;
+    }
 
-    if (file.size > maxSize)
-      return dispatch(
-        toggleSnackBar("error", "The largest image size is 1mb.", true)
+    if (file.size > maxSize) {
+      dispatch(
+        setToggleSnackBar("upload-error", "The largest image size is 1mb.")
       );
+      return;
+    }
 
-    if (file.type !== "image/jpeg" && file.type !== "image/png")
-      //jpeg & png
-      return dispatch(
-        toggleSnackBar(
-          "error",
-          "Image format is incorrect. Please use jpeg or png photo.",
-          true
+    //jpeg & png
+    if (file.type !== "image/jpeg" && file.type !== "image/png") {
+      dispatch(
+        setToggleSnackBar(
+          "upload-error",
+          "Image format is incorrect. Please use jpeg or png photo."
         )
       );
-
+      return;
+    }
     setUploadImage(file);
   };
 
@@ -80,13 +85,11 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
       });
 
       if (res?.msg) {
-        dispatch(toggleSnackBar("success", res.msg, true));
+        dispatch(setToggleSnackBar("fetch-success", res.msg));
         handleClose();
         router.replace(router.asPath);
       }
-      if (res?.err) {
-        dispatch(toggleSnackBar("error", res.err, true));
-      }
+      if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
     }
   };
 
@@ -97,13 +100,11 @@ const EditProfilePicPopup = ({ username, currentPhoto }) => {
         avatar: { image: "", public_id: "" },
       });
       if (resDB?.msg) {
-        dispatch(toggleSnackBar("success", resDB.msg, true));
+        dispatch(setToggleSnackBar("fetch-success", resDB.msg));
         handleClose();
         router.replace(router.asPath);
       }
-      if (resDB?.err) {
-        dispatch(toggleSnackBar("error", resDB.err, true));
-      }
+      if (resDB?.err) dispatch(setToggleSnackBar("fetch-error", resDB.err));
     }
   };
   return (

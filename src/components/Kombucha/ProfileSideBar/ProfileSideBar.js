@@ -14,7 +14,7 @@ import RateReviewIcon from "@mui/icons-material/RateReview";
 import { useSession } from "next-auth/react";
 import ReviewDrawer from "./ReviewDrawer";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../stores/alert.actions";
+import setToggleSnackBar from "../../../utils/setToggleSnackBar";
 
 //Right side column for kombucha stats (reviews, rank, etc)
 const StatItem = ({ kombuchaReviews }) => {
@@ -65,9 +65,7 @@ const ProfileSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
       return;
     }
     if (!session) {
-      dispatch(
-        toggleSnackBar("error", "Login/Register to rate this kombucha!", true)
-      );
+      dispatch(setToggleSnackBar("login"));
     } else {
       setOpenDrawer(!openDrawer);
     }

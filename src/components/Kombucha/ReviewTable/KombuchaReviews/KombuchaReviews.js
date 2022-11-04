@@ -6,7 +6,7 @@ import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 import { patchData } from "../../../../utils/fetchData";
 import ReviewCard from "../ReviewCard";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/alert.actions";
+import setToggleSnackBar from "../../../../utils/setToggleSnackBar";
 
 const KombuchaReviews = ({ kombuchaReviews, kombuchaId }) => {
   const { dispatch } = useContext(AlertContext);
@@ -15,7 +15,7 @@ const KombuchaReviews = ({ kombuchaReviews, kombuchaId }) => {
 
   const handleClickLikeIcon = async (reviewId) => {
     if (!session) {
-      dispatch(toggleSnackBar("error", "Log in to like a review!", true));
+      dispatch(setToggleSnackBar("login"));
       return;
     }
     //update user's liked reviews - add/remove reviewId from reviews liked list

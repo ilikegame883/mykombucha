@@ -18,8 +18,8 @@ import ReviewSearchBar from "./ReviewSearchBar";
 import ReviewNotFound from "./ReviewNotFound";
 import { deleteData } from "../../../../utils/fetchData";
 import { AlertContext } from "../../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../../stores/alert.actions";
-import ReviewRow from "./ReviewRow/ReviewRow";
+import setToggleSnackBar from "../../../../utils/setToggleSnackBar";
+import ReviewRow from "./ReviewRow";
 
 const TABLE_HEAD = [
   {
@@ -179,12 +179,10 @@ const UserReviewTable = ({ userReviews }) => {
     const res = await deleteData("reviews", reviewData);
     if (res?.msg) {
       //swr will not revalidate unless mutate is called
-      dispatch(toggleSnackBar("success", res.msg, true));
       mutate(`/api/users/${session.user.username}/reviews`);
+      dispatch(setToggleSnackBar("fetch-success", res.msg));
     }
-    if (res?.err) {
-      dispatch(toggleSnackBar("error", res.err, true));
-    }
+    if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
   };
 
   const filteredReview = applySearchFilter(reviewRows, searchUserReview);

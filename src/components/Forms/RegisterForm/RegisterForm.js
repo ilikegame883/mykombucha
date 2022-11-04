@@ -14,8 +14,8 @@ import {
 import { postData } from "../../../utils/fetchData";
 import { Container } from "@mui/material";
 import { AlertContext } from "../../../stores/context/alert.context";
-import { toggleSnackBar } from "../../../stores/alert.actions";
 import GoogleIcon from "@mui/icons-material/Google";
+import setToggleSnackBar from "../../../utils/setToggleSnackBar";
 
 const validationSchema = yup.object({
   username: yup
@@ -58,15 +58,14 @@ const RegisterForm = () => {
   const onSubmit = async (values) => {
     const res = await postData("auth/register", values);
     if (res?.msg) {
-      dispatch(toggleSnackBar("success", res.msg, true));
       await signIn("credentials", {
         email: values.email,
         password: values.password,
         callbackUrl: `${window.location.origin}`,
       });
-      if (res?.err) {
-        dispatch(toggleSnackBar("error", res.err, true));
-      }
+      dispatch(setToggleSnackBar("fetch-success", res.msg));
+
+      if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
     }
   };
 
