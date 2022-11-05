@@ -131,7 +131,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
             Your Review:
           </Typography>
           <TextField
-            id="review-comments"
+            id="kombucha-review"
             placeholder="Share your experience with this kombucha."
             required
             multiline

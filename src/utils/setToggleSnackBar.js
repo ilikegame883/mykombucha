@@ -8,7 +8,7 @@ const setToggleSnackBar = (alertType, res) => {
     case "login":
       return toggleSnackBar(
         "error",
-        "Login/Register to add to your wish list!",
+        " Please login/register to access this feature",
         true
       );
     case "fetch-success":
