@@ -1,21 +1,39 @@
+import React, { useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Avatar, Typography, Box, Rating, IconButton } from "@mui/material";
 import ThumbUpOutlinedIcon from "@mui/icons-material/ThumbUpOutlined";
+import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import getUserBadge from "../../../../utils/getUserBadge";
+import UserComment from "./UserComment";
 
 //Single review item
 const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
+  const [openComment, setOpenComment] = useState(false);
   const { data: session } = useSession();
 
-  const checkIfUserLikedReview =
-    session && review.likes.includes(session.user._id);
+  const likedBySessionUser = session && review.likes.includes(session.user._id);
 
   //disable like button for user's own review
   const disableLikeBtn = session && session.user._id === review.review_by._id;
 
+  const handleOpenComment = () => {
+    setOpenComment(true);
+  };
+
+  const handleCloseComment = () => {
+    setOpenComment(false);
+  };
+
   return (
     <Box py={2.5}>
+      {/* Dialog for user comments on kombucha review */}
+      <UserComment
+        openComment={openComment}
+        handleCloseComment={handleCloseComment}
+        review={review}
+      />
+
       <Box display="flex" alignItems="center" flexWrap="wrap">
         <Box display="flex" alignItems="center">
           <Avatar
@@ -76,27 +94,49 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
         flexWrap="wrap"
       >
         {!isTopReview && (
-          <IconButton
-            disableRipple
-            sx={{
-              p: 0,
-              color: checkIfUserLikedReview ? "secondary.main" : "inherit",
-            }}
-            disabled={disableLikeBtn}
-            onClick={() => handleClickLikeIcon(review._id)}
-          >
-            <ThumbUpOutlinedIcon sx={{ fontSize: 14 }} />
-            <Typography
-              variant="caption"
-              color="text.primary"
-              fontWeight="600"
-              pl={1}
+          <Box>
+            <IconButton
+              disableRipple
+              sx={{
+                p: 0,
+                color: likedBySessionUser ? "secondary.main" : "inherit",
+              }}
+              disabled={disableLikeBtn}
+              onClick={() => handleClickLikeIcon(review._id)}
             >
-              {review.like_count}
-            </Typography>
-          </IconButton>
+              <ThumbUpOutlinedIcon sx={{ fontSize: 14 }} />
+              <Typography
+                variant="caption"
+                color="text.primary"
+                fontWeight="600"
+                pl={1}
+              >
+                {review.like_count}
+              </Typography>
+            </IconButton>
+            <IconButton
+              disableRipple
+              sx={{
+                p: 0,
+                ml: 2,
+                color: likedBySessionUser ? "secondary.main" : "inherit",
+              }}
+              disabled={disableLikeBtn}
+              onClick={handleOpenComment}
+            >
+              <ChatBubbleOutlineIcon sx={{ fontSize: 14 }} />
+              <Typography
+                variant="caption"
+                color="text.primary"
+                fontWeight="600"
+                pl={0.75}
+              >
+                0
+              </Typography>
+            </IconButton>
+          </Box>
         )}
-        <Box pt={{ xs: 1, sm: 0 }}>
+        <Box>
           <Typography
             component="span"
             variant="caption"
@@ -108,7 +148,7 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
           >
             {review.served_in}
           </Typography>
-          <Typography variant="caption" ml={1}>
+          <Typography variant="caption" ml={0.5}>
             {review.createdAt.slice(0, review.createdAt.lastIndexOf("T"))}
           </Typography>
         </Box>
