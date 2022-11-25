@@ -38,13 +38,13 @@ const DeleteUserItem = ({ handleDelete, item }) => {
         <DialogTitle
           id="alert-dialog-delete-review"
           fontWeight="600"
-          sx={{ mb: 0.5 }}
+          sx={{ p: 2.5 }}
         >
           Confirm Delete
         </DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ color: "black" }}>
-            Are you sure you want to delete this kombucha - {` ${item}?`}
+            Are you sure you want to delete this kombucha - <b>{` ${item}?`}</b>
           </DialogContentText>
         </DialogContent>
         <Divider />
