@@ -18,6 +18,7 @@ import { postData } from "../../../../utils/fetchData";
 import RatingSlider from "./RatingSlider";
 import { AlertContext } from "../../../../stores/context/alert.context";
 import setToggleSnackBar from "../../../../utils/setToggleSnackBar";
+import useLocalStorage from "../../../../utils/hooks/useLocalStorage";
 
 const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   const { brewery_slug, brewery_name } = singleKombuchaData;
@@ -28,9 +29,11 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   const { data: session } = useSession();
 
   const [error, setError] = useState(false);
+  const [userComment, setUserComment] = useLocalStorage(singleKombuchaData._id);
+
   const [userReview, setUserReview] = useState({
     rating: 0,
-    comment: "",
+    comment: userComment,
     product: singleKombuchaData._id,
     brewery_slug: brewery_slug,
     brewery_name: brewery_name,
@@ -48,6 +51,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
   };
 
   const handleCommentChange = (event) => {
+    setUserComment(event.target.value);
     setUserReview((state) => ({ ...state, comment: event.target.value }));
     setError(false);
   };
@@ -70,6 +74,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
     if (res?.msg) {
       dispatch(setToggleSnackBar("fetch-success", res.msg));
       mutate(`/api/kombucha/${singleKombuchaData._id}/reviews`);
+      setUserComment("");
       toggleDrawer(e);
     }
     if (res?.err) dispatch(setToggleSnackBar("fetch-error", res.err));
@@ -138,7 +143,7 @@ const ReviewDrawer = ({ singleKombuchaData, toggleDrawer }) => {
             fullWidth
             rows={8}
             variant="outlined"
-            value={userReview.comment}
+            value={userComment}
             onChange={handleCommentChange}
             type="text"
           />
