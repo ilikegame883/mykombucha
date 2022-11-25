@@ -70,7 +70,7 @@ const HorizontalStats = ({ singleBreweryData }) => {
                 precision={0.25}
                 sx={{ color: "primary.main" }}
               />
-              {avg && (
+              {avg ? (
                 <Typography
                   variant="body1"
                   color="text.secondary"
@@ -80,7 +80,7 @@ const HorizontalStats = ({ singleBreweryData }) => {
                   {" "}
                   ({avg})
                 </Typography>
-              )}
+              ) : null}
             </Stack>
             <Typography variant="body1" color="text.primary" fontWeight="600">
               Brewery Rating

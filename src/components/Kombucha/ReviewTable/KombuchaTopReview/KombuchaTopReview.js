@@ -16,7 +16,7 @@ const KombuchaTopReview = ({ kombuchaId }) => {
   return (
     <Box>
       {topReview.length ? (
-        <ReviewCard review={topReview[0]} isTopReview={true} />
+        <ReviewCard review={topReview[0]} isTopReview />
       ) : (
         <Typography variant="body2" color="text.primary" mt={1}>
           Top review has not yet been determined.

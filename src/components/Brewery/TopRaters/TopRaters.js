@@ -30,7 +30,7 @@ const TopRaters = ({ topRaters }) => {
       </Box>
       <Divider />
 
-      {!topRaters.length && (
+      {!topRaters.length ? (
         <Stack alignItems="center" py={2} spacing={2}>
           <FindInPageOutlinedIcon
             color="primary"
@@ -40,7 +40,7 @@ const TopRaters = ({ topRaters }) => {
             There are no top raters yet.
           </Typography>
         </Stack>
-      )}
+      ) : null}
       <Grid container>
         {topRaters.map(({ total_reviews, user }, i) => (
           <Grid
