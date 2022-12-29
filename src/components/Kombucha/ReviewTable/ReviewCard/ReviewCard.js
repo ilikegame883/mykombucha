@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo, useMemo } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { Avatar, Typography, Box, Rating, IconButton } from "@mui/material";
@@ -12,10 +12,14 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
   const [openComment, setOpenComment] = useState(false);
   const { data: session } = useSession();
 
-  const likedBySessionUser = session && review.likes.includes(session.user._id);
+  const likedBySessionUser = useMemo(() => {
+    session && review.likes.includes(session.user._id);
+  }, [session, review]);
 
   //disable like button for user's own review
-  const disableLikeBtn = session && session.user._id === review.review_by._id;
+  const disableLikeBtn = useMemo(() => {
+    session && session.user._id === review.review_by._id;
+  }, [session, review]);
 
   const handleOpenComment = () => {
     setOpenComment(true);
@@ -157,4 +161,4 @@ const ReviewCard = ({ review, handleClickLikeIcon, isTopReview }) => {
   );
 };
 
-export default ReviewCard;
+export default memo(ReviewCard);

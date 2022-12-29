@@ -1,17 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import {
-  Box,
-  Container,
-  Typography,
-  Tabs,
-  Tab,
-  Pagination,
-  Stack,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, Typography, Tabs, Tab, useTheme } from "@mui/material";
 
 const SearchLinkTab = ({ label, href, value }) => {
   //wrap next Link component to Tab component for navigation
@@ -28,27 +18,7 @@ const SearchLinkTab = ({ label, href, value }) => {
   );
 };
 
-const SearchLinkTabs = ({
-  children,
-  category,
-  pageCount,
-  currentPage,
-  setSort,
-}) => {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
-  const router = useRouter();
-  const [value, setValue] = useState();
-
-  useEffect(() => {
-    //category value received from parent page
-    //setState to category after new page renders
-    //state will be the selected tab from set by Tabs component
-    if (category) {
-      setValue(category);
-    }
-  }, [category]);
-
+const SearchLinkTabs = ({ children, category, getSearchResultCount }) => {
   return (
     <>
       <Box width={1} display="flex" flexDirection="column">
@@ -76,7 +46,7 @@ const SearchLinkTabs = ({
         <Box mb={2}>
           {/* //Tabs children  must have prop named value */}
           <Tabs
-            value={value}
+            value={category}
             aria-label="nav tabs example"
             variant="scrollable"
             scrollButtons="auto"
@@ -93,7 +63,11 @@ const SearchLinkTabs = ({
               value="kombucha"
             />
             <SearchLinkTab
-              label="Breweries"
+              label={
+                getSearchResultCount
+                  ? `Breweries (${getSearchResultCount})`
+                  : "Breweries"
+              }
               href="/search/breweries"
               value="breweries"
             />

@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useMemo } from "react";
 import { Alert, Snackbar } from "@mui/material";
 import alertReducer from "../reducer/alert.reducer";
 import setToggleSnackBar from "../../utils/setToggleSnackBar";
@@ -23,8 +23,17 @@ export const AlertProvider = ({ children }) => {
     }
     dispatch(setToggleSnackBar("close"));
   };
+
+  const value = useMemo(
+    () => ({
+      state,
+      dispatch,
+    }),
+    [state, dispatch]
+  );
+
   return (
-    <AlertContext.Provider value={{ state, dispatch }}>
+    <AlertContext.Provider value={value}>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={alertSnackBar}

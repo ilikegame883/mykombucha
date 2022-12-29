@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useCallback, memo } from "react";
 import { mutate } from "swr";
 import { useSession } from "next-auth/react";
 import { Typography, Box, Divider } from "@mui/material";
@@ -10,10 +10,10 @@ import setToggleSnackBar from "../../../../utils/setToggleSnackBar";
 
 const KombuchaReviews = ({ kombuchaReviews, kombuchaId }) => {
   const { dispatch } = useContext(AlertContext);
-
   const { data: session } = useSession();
 
-  const handleClickLikeIcon = async (reviewId) => {
+  //useCallback here to prevent re-rendering <ReviewCard /> when AlertContext changes
+  const handleClickLikeIcon = useCallback(async (reviewId) => {
     if (!session) {
       dispatch(setToggleSnackBar("login"));
       return;
@@ -23,7 +23,7 @@ const KombuchaReviews = ({ kombuchaReviews, kombuchaId }) => {
     await patchData(`reviews/${reviewId}/like`, { user: session.user._id });
     mutate(`/api/kombucha/${kombuchaId}/reviews`);
     mutate(`/api/kombucha/${kombuchaId}/reviews/top-review`);
-  };
+  }, []);
 
   return (
     <>

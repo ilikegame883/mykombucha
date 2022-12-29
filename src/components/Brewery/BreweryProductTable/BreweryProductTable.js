@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
@@ -125,15 +125,19 @@ const BreweryProductTable = ({ singleBreweryData }) => {
 
   //Check if user has given a rating to a kombucha listed in the brewery page
   //Show user's rating value on kombucha list table
-  const getUserSessionRating = (_id) => {
-    if (!session) return "-";
+  const getUserSessionRating = useCallback(
+    (_id) => {
+      if (!session) return "-";
 
-    const findUserReview = reviews.find(
-      (review) => _id === review.product && review.user === session.user._id
-    );
-    const getRating = findUserReview ? findUserReview.rating : "-";
-    return getRating;
-  };
+      const findUserReview = reviews.find(
+        (review) => _id === review.product && review.user === session.user._id
+      );
+      const getRating = findUserReview ? findUserReview.rating : "-";
+      return getRating;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [reviews]
+  );
 
   const rows = kombuchas.map(
     ({ name, product_type, review_count, updatedAt, _id, avg, image }) => {
@@ -152,6 +156,7 @@ const BreweryProductTable = ({ singleBreweryData }) => {
       );
     }
   );
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && orderDirection === "asc";
     setOrderDirection(isAsc ? "desc" : "asc");

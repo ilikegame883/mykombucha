@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, memo, useMemo } from "react";
 import {
   Box,
   Grid,
@@ -17,7 +17,7 @@ import { AlertContext } from "../../../stores/context/alert.context";
 import setToggleSnackBar from "../../../utils/setToggleSnackBar";
 
 //Right side column for kombucha stats (reviews, rank, etc)
-const StatItem = ({ kombuchaReviews }) => {
+const StatItem = memo(function StatItem({ kombuchaReviews }) {
   return (
     <>
       <Grid item xs={6}>
@@ -48,7 +48,7 @@ const StatItem = ({ kombuchaReviews }) => {
       </Grid>
     </>
   );
-};
+});
 
 const ProfileSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
   const { dispatch } = useContext(AlertContext);
@@ -71,8 +71,9 @@ const ProfileSideBar = ({ kombuchaReviews, singleKombuchaData }) => {
     }
   };
 
-  const findUserSessionReview =
+  const findUserSessionReview = useMemo(() => {
     session && kombuchaReviews.find(({ user }) => user === session.user._id);
+  }, [session, kombuchaReviews]);
 
   return (
     <>
