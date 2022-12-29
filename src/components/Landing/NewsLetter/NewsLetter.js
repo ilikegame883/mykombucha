@@ -75,6 +75,7 @@ const NewsLetter = () => {
               label="Enter your email"
               variant="outlined"
               color="primary"
+              required
               value={mail}
               onChange={(e) => handleChange(e)}
               sx={{ width: 1, maxWidth: 460, mb: { xs: 1.5, sm: 0 } }}
