@@ -51,6 +51,9 @@ const providers = [
         id: user._id,
         username: user.username,
         email: user.email,
+        profile: {
+          image: user.profile.image,
+        },
       } as any;
     },
   }),
