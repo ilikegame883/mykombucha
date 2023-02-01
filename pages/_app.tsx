@@ -1,5 +1,6 @@
 import * as React from "react";
-import { AppProps } from "next/app";
+import type { AppProps } from "next/app";
+import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { ThemeProvider } from "@mui/material/styles";
 import { CacheProvider, EmotionCache } from "@emotion/react";
@@ -16,6 +17,7 @@ import "/src/styles/globals.css";
 
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
+  pageProps: { auth?: boolean; session?: Session };
 }
 
 // Client-side cache, shared for the whole session of the user in the browser.
@@ -29,7 +31,6 @@ function MyApp({
   React.useEffect(() => {
     mailgo({ showFooter: false });
   }, []);
-  // const AnyComponent = Component as any;
   return (
     <CacheProvider value={emotionCache}>
       <Head>
