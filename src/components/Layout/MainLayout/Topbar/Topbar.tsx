@@ -33,8 +33,8 @@ const Topbar = ({ onSidebarOpen }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const { data: session } = useSession();
-
+  const { data: session, status } = useSession();
+  const isLoading = status === "loading";
   const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,7 +44,7 @@ const Topbar = ({ onSidebarOpen }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  if (isLoading) return null; //prevent flash of unauthenticated content
   return (
     <Toolbar
       disableGutters
