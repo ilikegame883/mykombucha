@@ -6,7 +6,6 @@ import GoogleProvider from "next-auth/providers/google";
 import Users from "../../../src/models/userModel";
 import connectDB from "../../../src/lib/connectDB";
 import * as bcrypt from "bcryptjs";
-import { IncomingMessage } from "http";
 import clientPromise from "../../../src/lib/mongoDB";
 
 const providers = [
@@ -21,7 +20,7 @@ const providers = [
         //must include default fields required by next-auth: id, name, email, image
         // 'id' is required to identify the account when added to a database
         //mongoDBAdaper will add these properties to the user document DB
-        //return object forwarded to jwt callback
+        //passed in as user parameter to jwt callback
         id: profile.sub, // Google's ID
         email: profile.email,
         name: profile.name,
@@ -48,6 +47,7 @@ const providers = [
         throw new Error("E-mail or Password is Invalid");
       }
       return {
+        //passed in as user parameter to jwt callback
         id: user._id,
         username: user.username,
         email: user.email,
