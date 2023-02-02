@@ -15,11 +15,15 @@ import StarsIcon from "@mui/icons-material/Stars";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ReviewDrawer from "./ReviewDrawer";
 import { useSetSnackbar } from "../../../utils/hooks/useSnackbar";
+import { KombuchaData, ReviewData } from "../../../types/api";
 
 //Right side column for kombucha user based stats (reviews, rank, etc...)
 //TODO: add rank logic
-
-const ReviewSideBar = ({ singleKombuchaData, reviews }) => {
+interface ReviewSideBarProps {
+  singleKombuchaData: KombuchaData;
+  reviews: ReviewData[];
+}
+const ReviewSideBar = ({ singleKombuchaData, reviews }: ReviewSideBarProps) => {
   const [openDrawer, setOpenDrawer] = useState(false);
   const setSnackbar = useSetSnackbar();
   const router = useRouter();
@@ -49,7 +53,7 @@ const ReviewSideBar = ({ singleKombuchaData, reviews }) => {
   const findUserSessionReview = useMemo(() => {
     if (session && reviews) {
       return reviews.find(
-        ({ review_author }) => review_author.data === session.user.id
+        ({ review_author }) => review_author.data._id === session.user.id
       );
     }
   }, [session, reviews]);
@@ -90,14 +94,14 @@ const ReviewSideBar = ({ singleKombuchaData, reviews }) => {
                   color="text.primary"
                   fontWeight="600"
                 >
-                  #
+                  {singleKombuchaData.rating_avg}
                 </Typography>
                 <Typography
                   variant="body2"
                   color="text.primary"
                   fontWeight="500"
                 >
-                  Rank
+                  Avg Rating
                 </Typography>
               </Paper>
             </Grid>
