@@ -75,9 +75,11 @@ const ProfileTopBar = ({ slug }) => {
         </a>
       </Link>
 
-      <Stack direction="row" spacing={2} alignItems="center">
-        <Typography variant="caption" color="text.primary" fontWeight="500">
-          {checkUserFavoriteBrewery && "You favorited this brewery"}
+      <Stack direction="row" spacing={1} alignItems="center">
+        <Typography variant="caption" color="text.primary" fontWeight="600">
+          {checkUserFavoriteBrewery
+            ? "You favorited this brewery"
+            : "Favorite this brewery"}
         </Typography>
         <Tooltip
           title={

@@ -12,7 +12,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { getData, patchData } from "../src/utils/fetch-utils";
+import { patchData } from "../src/utils/fetch-utils";
 import { Session } from "next-auth";
 import { useRouter } from "next/router";
 import { updateSession } from "../src/utils/api-utils";
@@ -37,9 +37,6 @@ const Username = ({ session }: UsernameProps) => {
     e.preventDefault();
     const res = await patchData(`users/${session?.user.id}`, { username });
     if (res?.msg) {
-      // await getData("auth/session?update"); //update session
-      // const event = new Event("visibilitychange");
-      // document.dispatchEvent(event);
       await updateSession();
       router.replace("/");
     }

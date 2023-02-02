@@ -42,7 +42,6 @@ const getRecentKombuchaReviews = async (
   res: NextApiResponse
 ) => {
   const { page } = req.query;
-  console.log(req.query.category);
 
   // skip = # of items to skip over to display the next set of fetched items for upcoming pages
   //e.g, Page 1 = Skip 0 items, show first 8 items (from PAGE_SIZE) per page
@@ -85,7 +84,6 @@ const getRecentKombuchaReviews = async (
       },
       { $unwind: "$total_kombucha" },
     ]);
-    console.log(recentKombuchaReviews, req.query.category);
     res.json(recentKombuchaReviews);
   } catch (error) {
     let msg: string;

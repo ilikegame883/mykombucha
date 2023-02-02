@@ -26,7 +26,7 @@ const validationSchema = yup.object({
     .min(7, "The password should have at minimum length of 7"),
 });
 
-const SecurityForm = ({ provider }) => {
+const SecurityForm = ({ provider }: { provider: string }) => {
   const setSnackbar = useSetSnackbar();
   const disablePassword = provider === "google";
 
@@ -169,7 +169,7 @@ const SecurityForm = ({ provider }) => {
                   color="error"
                   mb={1}
                 >
-                  {`Signed in with ${provider}.`}
+                  {`Your account is connected through ${provider}.`}
                 </Typography>
               )}
             </Grid>

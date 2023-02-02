@@ -23,15 +23,14 @@ const ProfileTopBar = ({ kombuchaId }) => {
   const router = useRouter();
   const { data: session, status } = useSession();
 
-  const { data: wish_list, error } = useSWR(
+  const { data: wish_list } = useSWR(
     session?.user ? `/api/users/${session.user.id}/wish-list` : null
   );
 
   if (status === "loading" && wish_list === undefined)
     return <CircularProgress />;
-  //fetch kombuchaData clientside with SWR to show live updates when user clicks add to favorites button
+  //fetch kombuchaData clientside with SWR to show live update when user clicks add to favorites button
   //fetch only when user is logged in
-  //TODO: rename to addedToWishList
   const checkUserWishList = () => {
     if (!session || !Array.isArray(wish_list)) return false;
     if (
@@ -85,12 +84,12 @@ const ProfileTopBar = ({ kombuchaId }) => {
           </a>
         </Link>
 
-        <Stack direction="row" alignItems="center" spacing={2}>
-          {checkUserWishList() && (
-            <Typography component="span" sx={{ fontSize: 12 }}>
-              This item is in your wish list
-            </Typography>
-          )}
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Typography component="span" fontWeight="600" sx={{ fontSize: 12 }}>
+            {checkUserWishList()
+              ? "This item is in your wish list"
+              : "Add to wish list"}
+          </Typography>
           <Tooltip
             title={
               checkUserWishList() ? "Remove from wish list" : "Add to wish list"

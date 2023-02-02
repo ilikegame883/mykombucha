@@ -6,10 +6,11 @@ import BreweryList from "./BreweryList/BreweryList";
 import SortMenu from "./SortMenu";
 import { ExploreBreweriesProps } from "../../../../pages/breweries/explore/[category]/[page]";
 
+interface BreweriesProps extends ExploreBreweriesProps {}
+
 const PAGE_SIZE = 8; //# of items to display per page page under tab
 const TABS = ["list", "popular"];
 
-interface BreweriesProps extends ExploreBreweriesProps {}
 const Breweries = ({
   sorted_list,
   total_breweries,
