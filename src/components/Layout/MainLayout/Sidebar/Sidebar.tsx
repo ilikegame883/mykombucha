@@ -21,7 +21,6 @@ const sideBarLinks = [
   {
     groupTitle: "Explore",
     id: "explore",
-    authRequired: false,
     pages: [
       {
         title: "Breweries",
@@ -46,9 +45,27 @@ const sideBarLinks = [
     ],
   },
   {
+    groupTitle: "Site",
+    id: "site",
+    pages: [
+      {
+        title: "About",
+        href: "/",
+        icon: <AccountBoxOutlinedIcon />,
+      },
+      {
+        title: "Contact",
+        href: "/contact",
+        icon: <ListAltIcon />,
+      },
+    ],
+  },
+];
+
+const sideBarSessionLinks = [
+  {
     groupTitle: "Account",
     id: "account",
-    authRequired: true,
     pages: [
       {
         title: "My Profile",
@@ -67,41 +84,26 @@ const sideBarLinks = [
       },
     ],
   },
-  {
-    groupTitle: "Site",
-    id: "site",
-    authRequired: false,
-    pages: [
-      {
-        title: "About",
-        href: "/",
-        icon: <AccountBoxOutlinedIcon />,
-      },
-      {
-        title: "Contact",
-        href: "/contact",
-        icon: <ListAltIcon />,
-      },
-    ],
-  },
 ];
 
+//mobile nav drawer
 const Sidebar = ({ open, variant, onClose }) => {
   const theme = useTheme();
 
   const { data: session, status } = useSession();
   const loading = status === "loading";
 
-  const showUserAccountOptions = (authRequired) => {
+  const filterLinksBySession = () => {
+    //include session links to sideBar menu list if user is logged in
     if (!loading && session) {
-      return true;
+      return [...sideBarLinks, ...sideBarSessionLinks];
     }
-    return authRequired;
+    return sideBarLinks;
   };
 
   const getUserLinks = (href) => {
     if (!loading && session) {
-      return `/users/${session.user.username}${href}`;
+      return `/users/${session.user.id}${href}`;
     }
   };
 
@@ -145,46 +147,41 @@ const Sidebar = ({ open, variant, onClose }) => {
             </Box>
           )}
         </Box>
-        {sideBarLinks.map(
-          (item, i) =>
-            !showUserAccountOptions(item.authRequired) && (
-              <Box key={i} mb={3}>
-                <Typography
-                  variant="body2"
-                  color="secondary"
-                  sx={{
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    marginBottom: 1,
-                    display: "block",
-                  }}
-                >
-                  {item.groupTitle}
-                </Typography>
-                <Box>
-                  {item.pages.map((p, i) => (
-                    <Box marginBottom={1 / 2} key={i}>
-                      <Button
-                        component="a"
-                        href={
-                          item.id === "account" ? getUserLinks(p.href) : p.href
-                        }
-                        fullWidth
-                        sx={{
-                          justifyContent: "flex-start",
-                          color: "text.primary",
-                          textTransform: "capitalize",
-                        }}
-                        startIcon={p.icon || null}
-                      >
-                        {p.title}
-                      </Button>
-                    </Box>
-                  ))}
+        {filterLinksBySession().map((item, i) => (
+          <Box key={i} mb={3}>
+            <Typography
+              variant="body2"
+              color="secondary"
+              sx={{
+                fontWeight: 700,
+                textTransform: "uppercase",
+                marginBottom: 1,
+                display: "block",
+              }}
+            >
+              {item.groupTitle}
+            </Typography>
+            <Box>
+              {item.pages.map((p, i) => (
+                <Box marginBottom={1 / 2} key={i}>
+                  <Button
+                    component="a"
+                    href={item.id === "account" ? getUserLinks(p.href) : p.href}
+                    fullWidth
+                    sx={{
+                      justifyContent: "flex-start",
+                      color: "text.primary",
+                      textTransform: "capitalize",
+                    }}
+                    startIcon={p.icon || null}
+                  >
+                    {p.title}
+                  </Button>
                 </Box>
-              </Box>
-            )
-        )}
+              ))}
+            </Box>
+          </Box>
+        ))}
         <Divider sx={{ my: 3 }} />
         <Box>
           {!session && (

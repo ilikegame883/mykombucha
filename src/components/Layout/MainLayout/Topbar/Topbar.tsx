@@ -29,7 +29,10 @@ const StyledNavButton = styled(Button)(({ theme }) => ({
   fontWeight: 600,
 })) as unknown as typeof Button;
 
-const Topbar = ({ onSidebarOpen }) => {
+interface TopbarProps {
+  onSidebarOpen: () => void;
+}
+const Topbar = ({ onSidebarOpen }: TopbarProps) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -44,7 +47,7 @@ const Topbar = ({ onSidebarOpen }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  if (isLoading) return null; //prevent flash of unauthenticated content
+
   return (
     <Toolbar
       disableGutters
@@ -171,7 +174,7 @@ const Topbar = ({ onSidebarOpen }) => {
           </MenuItem>
         </Menu>
 
-        {!session && (
+        {!session && !isLoading ? (
           <>
             <Box display="flex">
               <Divider
@@ -208,7 +211,7 @@ const Topbar = ({ onSidebarOpen }) => {
               </Button>
             </Stack>
           </>
-        )}
+        ) : null}
 
         {session && (
           <UserMenuDropDown
@@ -219,7 +222,7 @@ const Topbar = ({ onSidebarOpen }) => {
       </Stack>
       {/* For mobile view */}
       <Box sx={{ display: { xs: "block", sm: "none" } }}>
-        {!session && (
+        {!session && !isLoading && (
           <>
             <Button
               LinkComponent={Link}
@@ -238,7 +241,7 @@ const Topbar = ({ onSidebarOpen }) => {
               Login
             </Button>
             <Button
-              onClick={() => onSidebarOpen()}
+              onClick={onSidebarOpen}
               aria-label="Menu"
               sx={{
                 color: "text.primary",
@@ -252,7 +255,7 @@ const Topbar = ({ onSidebarOpen }) => {
           </>
         )}
         {session && (
-          <IconButton onClick={() => onSidebarOpen()} aria-label="Menu">
+          <IconButton onClick={onSidebarOpen} aria-label="Menu">
             <Avatar
               src={session.user.image}
               alt="mobile user menu"
