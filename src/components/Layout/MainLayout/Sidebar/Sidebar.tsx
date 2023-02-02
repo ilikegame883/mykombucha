@@ -72,14 +72,14 @@ const sideBarSessionLinks = [
         href: "/",
         icon: <AccountBoxOutlinedIcon />,
       },
-      {
-        title: "My Lists ",
-        href: "/",
-        icon: <ListAltIcon />,
-      },
+      // {
+      //   title: "My Lists ",
+      //   href: "/",
+      //   icon: <ListAltIcon />,
+      // },
       {
         title: "Settings",
-        href: `/general-settings`,
+        href: `/settings`,
         icon: <SettingsOutlinedIcon />,
       },
     ],
