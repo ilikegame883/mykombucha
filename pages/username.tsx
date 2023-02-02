@@ -22,8 +22,8 @@ interface UsernameProps {
   session: Session;
 }
 
-//update username page after user sign up
-//TODO: Check best practice for receiving session - useSession vs session prop from getServerSideProps
+//username page after user sign up with google/facebook provider
+
 const Username = ({ session }: UsernameProps) => {
   const [username, setUsername] = useState("");
   const router = useRouter();
@@ -37,9 +37,10 @@ const Username = ({ session }: UsernameProps) => {
     e.preventDefault();
     const res = await patchData(`users/${session?.user.id}`, { username });
     if (res?.msg) {
-      await getData("auth/session?update"); //update session
-      const event = new Event("visibilitychange");
-      document.dispatchEvent(event);
+      // await getData("auth/session?update"); //update session
+      // const event = new Event("visibilitychange");
+      // document.dispatchEvent(event);
+      await updateSession();
       router.replace("/");
     }
     if (res?.err) return setSnackbar(res.err, "error");
