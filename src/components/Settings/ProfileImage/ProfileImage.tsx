@@ -9,6 +9,7 @@ import {
   Divider,
   Avatar,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -20,11 +21,11 @@ import {
   updateProfileImage,
   updateSession,
 } from "../../../utils/api-utils";
-// import { updateSession } from "../../../utils/session-utils";
 import { useSetSnackbar } from "../../../utils/hooks/useSnackbar";
+import { UserData } from "../../../types/api";
 
 interface ProfileImageFormProps {
-  userData: any; //TODO: type this
+  userData: UserData; //TODO: type this
 }
 const Input = styled("input")({
   display: "none",
@@ -34,10 +35,12 @@ const ProfileImage = ({ userData }: ProfileImageFormProps) => {
   const [openImage, setOpenImage] = useState(false);
   const [uploadImage, setUploadImage] = useState<File | null>(null);
   const [deleteAlert, setDeleteAlert] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const setSnackbar = useSetSnackbar();
 
-  const { _id: userId, username, profile } = userData;
+  const { _id, username, profile } = userData;
+  const userId = _id as string;
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
@@ -48,7 +51,7 @@ const ProfileImage = ({ userData }: ProfileImageFormProps) => {
     }
 
     if (file.size > maxSize) {
-      setSnackbar("The largest image size is 1mb.", "error");
+      setSnackbar("The largest image size is 2mb.", "error");
       return;
     }
 
@@ -63,10 +66,10 @@ const ProfileImage = ({ userData }: ProfileImageFormProps) => {
     setUploadImage(file);
   };
 
-  const responseAction = (res: { msg: string; err: string }) => {
+  const responseAction = async (res: { msg: string; err: string }) => {
     if (res?.msg) {
       setSnackbar(res.msg, "success");
-      updateSession();
+      await updateSession();
       mutate(`/api/users/${userId}`);
       handleClose();
     } else if (res?.err) {
@@ -75,6 +78,7 @@ const ProfileImage = ({ userData }: ProfileImageFormProps) => {
   };
 
   const handleClose = () => {
+    setLoading(false);
     setUploadImage(null);
     setOpenImage(false);
     setDeleteAlert(false);
@@ -82,6 +86,7 @@ const ProfileImage = ({ userData }: ProfileImageFormProps) => {
 
   const handleImageUpdate = async () => {
     //need image_id to delete image from cloudinary
+    setLoading(true);
     const res = await updateProfileImage(uploadImage, profile.image_id, userId);
     responseAction(res);
   };
@@ -189,6 +194,7 @@ const ProfileImage = ({ userData }: ProfileImageFormProps) => {
                 variant="contained"
                 color="info"
                 onClick={handleImageUpdate}
+                disabled={loading}
               >
                 Update Photo
               </Button>
