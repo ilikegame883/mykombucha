@@ -44,7 +44,7 @@ const MobileApp = () => {
           />
         </Box>
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6} display="flex" justifyContent="center">
         <Box
           width={{ xs: 200, md: 450 }}
           height={{ xs: 350, md: 480 }}
