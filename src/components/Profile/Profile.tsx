@@ -5,10 +5,15 @@ import UserStats from "./UserStats";
 import UserWishList from "./UserWishList";
 import UserReviewTable from "./UserReviewTable";
 
-const Profile = ({ userId }) => {
-  const { data: userData, error } = useSWR(`/api/users/${userId}`);
+interface ProfileProps {
+  userId: string;
+}
 
-  if (!userData || error) return <CircularProgress color="primary" />;
+const Profile = ({ userId }: ProfileProps) => {
+  const { data: userData } = useSWR(`/api/users/${userId}`);
+
+  if (!userData) return <CircularProgress />;
+
   return (
     <Grid container columnSpacing={1.5}>
       <Grid item xs={12} md={8} lg={9}>
