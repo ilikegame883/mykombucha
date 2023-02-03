@@ -2,15 +2,21 @@ import { InputAdornment, OutlinedInput, IconButton } from "@mui/material";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
 
+interface ProductTableSearchBarProps {
+  searchBar: string;
+  handleSearchBar: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  clearSearchBar: () => void;
+}
+
 const ProductTableSearchBar = ({
-  searchQuery,
+  searchBar,
   handleSearchBar,
   clearSearchBar,
-}) => {
+}: ProductTableSearchBarProps) => {
   return (
     <>
       <OutlinedInput
-        value={searchQuery}
+        value={searchBar}
         onChange={handleSearchBar}
         placeholder="Search"
         startAdornment={

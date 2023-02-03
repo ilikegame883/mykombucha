@@ -12,11 +12,12 @@ const SearchBar = () => {
   const theme = useTheme();
   const router = useRouter();
 
-  const onSubmit = (e) => {
-    // if (e.key === "Enter") {
-    //   router.push(`/search/kombucha/?search=${e.target.value}`);
-    // }
-    alert("Search functionality currently unavailable due to maintenance.");
+  const onSubmit = (e: React.SyntheticEvent) => {
+    const { key } = e as React.KeyboardEvent<HTMLInputElement>;
+    const { target } = e as React.ChangeEvent<HTMLInputElement>;
+    if (key === "Enter") {
+      router.push(`/search/kombucha/?search=${target.value}`);
+    }
   };
 
   return (
@@ -35,9 +36,7 @@ const SearchBar = () => {
       <FormControl fullWidth variant="outlined">
         <OutlinedInput
           placeholder="Search for Kombucha, Breweries..."
-          onKeyPress={(e) => {
-            onSubmit(e);
-          }}
+          onKeyPress={onSubmit}
           sx={{
             background: theme.palette.background.paper,
             border: `1px solid ${theme.palette.divider}`,

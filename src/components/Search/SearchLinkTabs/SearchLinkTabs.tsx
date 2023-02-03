@@ -2,7 +2,21 @@ import React from "react";
 import Link from "next/link";
 import { Box, Typography, Tabs, Tab } from "@mui/material";
 
-const SearchLinkTab = ({ label, href, value }) => {
+interface SearchLinkTabsProps {
+  category: string;
+  kombuchaTabCount: number;
+  breweryTabCount: number;
+  searchBar: string;
+  children: React.ReactNode;
+}
+
+interface LinkTabProps {
+  label: string;
+  href: string;
+  value: string;
+}
+
+const SearchLinkTab = ({ label, href, value }: LinkTabProps) => {
   //wrap next Link component to Tab component for navigation
   //pass in value to Tab component so it can match with the current state of the page
   return (
@@ -17,7 +31,23 @@ const SearchLinkTab = ({ label, href, value }) => {
   );
 };
 
-const SearchLinkTabs = ({ children, category, getSearchResultCount }) => {
+const SearchLinkTabs = ({
+  children,
+  category,
+  kombuchaTabCount,
+  breweryTabCount,
+  searchBar,
+}: SearchLinkTabsProps) => {
+  const getSearchResultCount = (filter: string = null) => {
+    if (!searchBar) return "";
+    if (filter === "kombucha") {
+      //Don't show count if no search result []
+      return !kombuchaTabCount ? "" : `(${kombuchaTabCount})`;
+    }
+    if (filter === "breweries") {
+      return !breweryTabCount ? "" : `(${breweryTabCount})`;
+    }
+  };
   return (
     <>
       <Box width={1} display="flex" flexDirection="column">
@@ -57,17 +87,17 @@ const SearchLinkTabs = ({ children, category, getSearchResultCount }) => {
             }}
           >
             <SearchLinkTab
-              label="Kombucha"
-              href="/search/kombucha"
+              label={`Kombucha ${getSearchResultCount("kombucha")}`}
+              href={`/search/kombucha${
+                searchBar ? `?search=${searchBar}` : ""
+              }`}
               value="kombucha"
             />
             <SearchLinkTab
-              label={
-                getSearchResultCount
-                  ? `Breweries (${getSearchResultCount})`
-                  : "Breweries"
-              }
-              href="/search/breweries"
+              label={`Breweries ${getSearchResultCount("breweries")}`}
+              href={`/search/breweries${
+                searchBar ? `?search=${searchBar}` : ""
+              }`}
               value="breweries"
             />
           </Tabs>

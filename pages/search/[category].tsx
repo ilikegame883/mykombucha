@@ -1,21 +1,50 @@
+import { useState } from "react";
 import { Container } from "@mui/material";
+import { GetServerSideProps } from "next";
 import { SearchLinkTabs, SearchTable } from "../../src/components/Search";
 import { MainLayout } from "../../src/components/Layout";
 import { getData } from "../../src/utils/fetch-utils";
+import { BreweryData, KombuchaData } from "../../src/types/api";
 
-export const PAGE_SIZE = 5; //# of items for each page under category tab
+interface SearchPageProps {
+  category: string;
+  navBarSearchQuery: string;
+  kombuchaData: KombuchaData[];
+  breweryData: BreweryData[];
+}
+export const SEARCH_PAGE_LIMIT = 35; //max # of items returned for each search
 
-//TODO: Refactor Search Page
-const SearchPage = () => {
+const SearchPage = ({
+  category,
+  navBarSearchQuery,
+  kombuchaData,
+  breweryData,
+}: SearchPageProps) => {
+  const [searchBar, setSearchBar] = useState(navBarSearchQuery || "");
+  const [kombuchaTabCount, setKombuchaTabCount] = useState(
+    kombuchaData?.length || 0
+  );
+  const [breweryTabCount, setBreweryTabCount] = useState(
+    breweryData?.length || 0
+  );
+
   return (
     <MainLayout>
       <Container maxWidth="md" sx={{ py: { xs: 5, sm: 8 } }}>
-        {/* <SearchLinkTabs
+        <SearchLinkTabs
           category={category}
-          getSearchResultCount={getSearchResultCount}
+          searchBar={searchBar}
+          kombuchaTabCount={kombuchaTabCount}
+          breweryTabCount={breweryTabCount}
         >
-          <SearchTable category={category} />
-        </SearchLinkTabs> */}
+          <SearchTable
+            category={category}
+            searchBar={searchBar}
+            setSearchBar={setSearchBar}
+            setKombuchaTabCount={setKombuchaTabCount}
+            setBreweryTabCount={setBreweryTabCount}
+          />
+        </SearchLinkTabs>
       </Container>
     </MainLayout>
   );
@@ -23,27 +52,27 @@ const SearchPage = () => {
 
 export default SearchPage;
 
-// export async function getServerSideProps(ctx) {
-//   let getSearchResultCount;
-//   const { category } = ctx.params;
-//   if (ctx.query?.search && category === "kombucha") {
-//     //by default, when user submits a search with the nav search bar-
-//     //it will direct them to /search/kombucha/${query_str} page
-//     //use the query str to check if results are available for the other tab page - "Breweries"
-//     //return search result count to display in SearchLinkTabs Component
-//     const { search } = ctx.query?.search && ctx.query;
-//     const brewerySearchData = await getData("breweries/search", `${search}`);
-//     getSearchResultCount = brewerySearchData.length;
-//     return {
-//       props: {
-//         category,
-//         getSearchResultCount,
-//       },
-//     };
-//   }
-//   return {
-//     props: {
-//       category,
-//     },
-//   };
-// }
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  query,
+}) => {
+  const category = params?.category as string;
+
+  if (query?.search) {
+    const kombuchaData = await getData("kombucha/search", `${query?.search}`);
+    const breweryData = await getData("breweries/search", `${query?.search}`);
+    return {
+      props: {
+        category,
+        kombuchaData,
+        breweryData,
+        navBarSearchQuery: query?.search,
+      },
+    };
+  }
+  return {
+    props: {
+      category,
+    },
+  };
+};

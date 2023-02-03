@@ -94,7 +94,7 @@ const ReviewSideBar = ({ singleKombuchaData, reviews }: ReviewSideBarProps) => {
                   color="text.primary"
                   fontWeight="600"
                 >
-                  {singleKombuchaData.rating_avg}
+                  {singleKombuchaData.rating_avg.toFixed(2)}
                 </Typography>
                 <Typography
                   variant="body2"

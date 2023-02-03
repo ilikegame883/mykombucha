@@ -28,110 +28,134 @@ import getCloudinaryUrl from "../../../lib/cloudinary/getCloudinaryUrl";
 import CustomChips from "../../CustomChips";
 import debounce from "../../../utils/debounce";
 import StarIcon from "@mui/icons-material/Star";
+import { BreweryData, KombuchaData } from "../../../types/api";
+import { SEARCH_PAGE_LIMIT } from "../../../../pages/search/[category]";
 
-// const descendingComparator = (a, b, orderBy) => {
-//   //a & b is an {} from row array
-//   if (b[orderBy] < a[orderBy]) {
-//     //ex: b[orderBy = "name"] = "cupcake"
-//     return -1;
-//   }
-//   if (b[orderBy] > a[orderBy]) {
-//     return 1;
-//   }
-//   return 0;
-// };
+interface SearchTableProps {
+  category: string;
+  searchBar: string;
+  setSearchBar: React.Dispatch<React.SetStateAction<string>>;
+  setKombuchaTabCount: React.Dispatch<React.SetStateAction<number>>;
+  setBreweryTabCount: React.Dispatch<React.SetStateAction<number>>;
+}
 
-// const getComparator = (orderDirection, orderBy) => {
-//   return orderDirection === "desc"
-//     ? (a, b) => descendingComparator(a, b, orderBy)
-//     : (a, b) => -descendingComparator(a, b, orderBy);
-// };
+const descendingComparator = (a, b, orderBy) => {
+  //a & b is an {} from row array
+  if (b[orderBy] < a[orderBy]) {
+    //ex: b[orderBy = "name"] = "cupcake"
+    return -1;
+  }
+  if (b[orderBy] > a[orderBy]) {
+    return 1;
+  }
+  return 0;
+};
 
-// const SEARCH_PAGE_LIMIT = 50;
+const getComparator = (orderDirection, orderBy) => {
+  return orderDirection === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
+};
 
-const SearchTable = ({ category }) => {
-  // const router = useRouter();
-  // const theme = useTheme();
-  // const isSM = useMediaQuery(theme.breakpoints.up("sm"));
+const SearchTable = ({
+  category,
+  searchBar,
+  setSearchBar,
+  setKombuchaTabCount,
+  setBreweryTabCount,
+}: SearchTableProps) => {
+  const theme = useTheme();
+  const isSM = useMediaQuery(theme.breakpoints.up("sm"));
 
-  // const [page, setPage] = useState(0);
-  // const [orderDirection, setOrderDirection] = useState("asc");
-  // const [orderBy, setOrderBy] = useState("name");
-  // const [searchData, setSearchData] = useState([]);
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+  const [searchData, setSearchData] = useState<KombuchaData[] | BreweryData[]>(
+    []
+  );
+  const [order, setOrder] = useState({
+    direction: "asc",
+    by: "name",
+    rows: 10, //default rows per page
+  });
 
-  // useEffect(() => {
-  //   setPage(0);
-  //   if (router.query?.search) {
-  //     //fill in searchbar on the search page with user search query
-  //     setSearchQuery(router.query.search);
-  //     return getSearchData(router.query.search, SEARCH_PAGE_LIMIT);
-  //   }
-  //   //if user does not clear search bar while switching between kombucha or brewery tabs,
-  //   //fetch search data from the other category tab with the same query string
-  //   if (searchQuery) {
-  //     return getSearchData(searchQuery, SEARCH_PAGE_LIMIT);
-  //   }
-  // }, [category]);
+  useEffect(() => {
+    setPage(0);
+    //if user switches to a new tab and does not clear searchbar, search the same keyword in the new tab
+    (async () => {
+      if (searchBar) {
+        return await getSearchData(searchBar, SEARCH_PAGE_LIMIT);
+      }
+    })();
+  }, [category]);
 
-  // const getSearchData = async (str, limit) => {
-  //   try {
-  //     let data = await getData(`${category}/search`, `${str}?limit=${limit}`);
-  //     setSearchData(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  const getSearchData = async (str: string, limit: number) => {
+    try {
+      const kombuchaData = await getData(
+        "kombucha/search",
+        `${str}?limit=${limit}`
+      );
+      const breweryData = await getData(
+        "breweries/search",
+        `${str}?limit=${limit}`
+      );
+      setSearchData(category === "kombucha" ? kombuchaData : breweryData);
+      setKombuchaTabCount(!kombuchaData.length ? 0 : kombuchaData.length);
+      setBreweryTabCount(!breweryData.length ? 0 : breweryData.length);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  // const debounceSearch = useMemo(
-  //   () => debounce(getSearchData, 300),
-  //   [category]
-  // );
+  const debounceSearch = useMemo(
+    () => debounce(getSearchData, 300),
+    [category]
+  );
 
-  // //search page search bar
-  // const handleSearchBar = async (e) => {
-  //   setSearchQuery(e.target.value);
+  //searchbar inside search page
+  const handleSearchBar: React.ChangeEventHandler<
+    HTMLTextAreaElement | HTMLInputElement
+  > = async (e) => {
+    setSearchBar(e.target.value);
 
-  //   if (e.target.value) {
-  //     return debounceSearch(e.target.value, SEARCH_PAGE_LIMIT);
-  //   }
-  //   //clear search data if event.target.value === "" (i.e. empty searchbar from backspace)
-  //   setSearchData([]);
-  // };
+    if (e.target.value) {
+      return debounceSearch(e.target.value, SEARCH_PAGE_LIMIT);
+    }
+    //clear search data when event.target.value === "" (i.e. empty searchbar from backspace)
+    setSearchData([]);
+  };
 
-  // //clear search button query
-  // const clearSearchBar = () => {
-  //   setSearchQuery("");
-  //   setSearchData([]);
-  // };
+  //clear search bar x button
+  const clearSearchBar = () => {
+    setSearchBar("");
+    setSearchData([]);
+    setKombuchaTabCount(0);
+    setBreweryTabCount(0);
+  };
 
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value));
-  //   setPage(0);
-  // };
+  const handleChangeRowsPerPage: React.ChangeEventHandler<
+    HTMLInputElement | HTMLTextAreaElement
+  > = (e) => {
+    setOrder((prev) => ({ ...prev, row: parseInt(e.target.value) }));
+    setPage(0);
+  };
 
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
+  const handleChangePage = (e, newPage: number) => {
+    setPage(newPage);
+  };
 
-  // const noMatchesFound = searchData.length === 0;
+  const createLinkByCategory = (listItem) => {
+    //create link for kombucha search results
+    if (category === "kombucha") return `/${category}/${listItem._id}`;
 
-  // //create links to the search result item page with category name (kombucha or breweries tab)
-  // const createLinkBySearchType = (resultItem) => {
-  //   //create link for kombucha search results
-  //   if (category === "kombucha") return `/${category}/${resultItem._id}`;
-
-  //   //create link for breweries search results
-  //   return `/${category}/${resultItem.slug}`;
-  // };
+    //create link for breweries search results
+    return `/${category}/${listItem.slug}`;
+  };
 
   return (
     <>
-      {/* <TableContainer component={Paper} variant="outlined">
+      <TableContainer component={Paper} variant="outlined">
         <Box display="flex" p={2} bgcolor="#F7F9FC">
           <ProductTableSearchBar
-            searchQuery={searchQuery}
+            searchBar={searchBar}
             handleSearchBar={handleSearchBar}
             clearSearchBar={clearSearchBar}
           />
@@ -140,8 +164,8 @@ const SearchTable = ({ category }) => {
         <Table aria-label="simple table">
           <TableBody>
             {searchData
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .sort(getComparator(orderDirection, orderBy))
+              .slice(page * order.rows, page * order.rows + order.rows)
+              .sort(getComparator(order.direction, order.by))
               .map((item, i) => (
                 <TableRow key={i}>
                   <TableCell scope="row">
@@ -157,10 +181,7 @@ const SearchTable = ({ category }) => {
                           disableTypography
                           primary={
                             <Box mb={{ xs: 0.5, sm: 0.25 }}>
-                              <Link
-                                href={createLinkBySearchType(item)}
-                                passHref
-                              >
+                              <Link href={createLinkByCategory(item)} passHref>
                                 <Typography
                                   variant={isSM ? "body1" : "body2"}
                                   color="text.primary"
@@ -233,10 +254,10 @@ const SearchTable = ({ category }) => {
                 </TableRow>
               ))}
 
-            {noMatchesFound && (
+            {!searchData.length && (
               <TableRow>
                 <TableCell align="center" sx={{ py: 3 }}>
-                  <ProductSearchNotFound searchQuery={searchQuery} />
+                  <ProductSearchNotFound category={category} />
                 </TableCell>
               </TableRow>
             )}
@@ -246,7 +267,7 @@ const SearchTable = ({ category }) => {
           rowsPerPageOptions={[10, 20, 50]}
           component="div"
           count={searchData.length}
-          rowsPerPage={rowsPerPage}
+          rowsPerPage={order.rows}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
@@ -257,7 +278,7 @@ const SearchTable = ({ category }) => {
             },
           }}
         />
-      </TableContainer> */}
+      </TableContainer>
     </>
   );
 };

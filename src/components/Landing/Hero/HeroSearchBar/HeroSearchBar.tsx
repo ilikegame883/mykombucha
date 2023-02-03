@@ -84,7 +84,7 @@ const HeroSearchBar = () => {
       setSnackbar(error.message, "error");
     }
   };
-  const debounceSearch = useMemo(() => debounce(getSearchData, 500), []);
+  const debounceSearch = useMemo(() => debounce(getSearchData, 250), []);
 
   const onChangeSearch = async (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -92,11 +92,10 @@ const HeroSearchBar = () => {
   ) => {
     if (value) {
       setValue(value);
-      // getSearchData(e.target.value);
       debounceSearch(e.target.value);
       return;
     }
-    //clear state when search bar when backspace or clear iconbutton
+    //clear state backspace or clear iconbutton is clicked
     setValue("");
     setSearchData([]);
   };

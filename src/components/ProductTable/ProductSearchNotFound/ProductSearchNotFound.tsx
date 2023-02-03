@@ -1,7 +1,11 @@
-import { Stack, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 
-const ProductSearchNotFound = () => {
+interface ProductSearchNotFoundProps {
+  category: string;
+}
+
+const ProductSearchNotFound = ({ category }: ProductSearchNotFoundProps) => {
   return (
     <>
       <FindInPageOutlinedIcon
@@ -12,9 +16,9 @@ const ProductSearchNotFound = () => {
         No Matches Found
       </Typography>
       <Typography variant="body1">
-        {/* No results found for <b>{`"${searchBar}"`}</b>. Try checking for typos
-        or using complete words. */}
-        Try using complete words or check the other category.
+        {`Try using complete words or check the ${
+          category === "kombucha" ? "Breweries" : "Kombucha"
+        } tab`}
       </Typography>
     </>
   );
