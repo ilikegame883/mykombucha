@@ -219,7 +219,7 @@ const BreweryProductTable = ({
             </Typography>
           </Typography>
           <ProductTableSearchBar
-            searchQuery={searchQuery}
+            searchBar={searchQuery}
             handleSearchBar={handleSearchBar}
             clearSearchBar={clearSearchBar}
           />
