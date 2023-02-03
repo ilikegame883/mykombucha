@@ -176,7 +176,7 @@ const Topbar = ({ onSidebarOpen }: TopbarProps) => {
           <MenuItem
             LinkComponent={Link}
             component="a"
-            href="/kombucha/search"
+            href="/search/kombucha"
             sx={{
               "& .MuiListItemIcon-root": {
                 minWidth: 30,
