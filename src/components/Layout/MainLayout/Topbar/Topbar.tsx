@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import {
   Box,
   Toolbar,
@@ -20,9 +21,9 @@ import MenuIcon from "@mui/icons-material/Menu";
 import WarehouseOutlinedIcon from "@mui/icons-material/WarehouseOutlined";
 import LocalDrinkOutlinedIcon from "@mui/icons-material/LocalDrinkOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import SearchIcon from "@mui/icons-material/Search";
 import UserMenuDropDown from "./UserMenuDropDown";
 import SearchBar from "../SearchBar/SearchBar";
-import { useRouter } from "next/router";
 
 const StyledNavButton = styled(Button)(({ theme }) => ({
   color: theme.palette.text.primary,
@@ -171,6 +172,21 @@ const Topbar = ({ onSidebarOpen }: TopbarProps) => {
               <LocalDrinkOutlinedIcon fontSize="small" color="secondary" />
             </ListItemIcon>
             <ListItemText>Kombucha</ListItemText>
+          </MenuItem>
+          <MenuItem
+            LinkComponent={Link}
+            component="a"
+            href="/kombucha/search"
+            sx={{
+              "& .MuiListItemIcon-root": {
+                minWidth: 30,
+              },
+            }}
+          >
+            <ListItemIcon>
+              <SearchIcon fontSize="small" color="secondary" />
+            </ListItemIcon>
+            <ListItemText>Search</ListItemText>
           </MenuItem>
         </Menu>
 
