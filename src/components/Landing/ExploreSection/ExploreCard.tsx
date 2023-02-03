@@ -3,7 +3,7 @@ import Link from "next/link";
 import getCloudinaryUrl from "../../../lib/cloudinary/getCloudinaryUrl";
 
 const ExploreCard = ({ brewery }) => {
-  const { name, city, country, image, type, slug } = brewery;
+  const { name, city, country, image, slug } = brewery;
   return (
     <Card sx={{ borderRadius: 2, m: { xs: 0.5, md: 1 } }} elevation={2}>
       <CardContent
@@ -41,7 +41,7 @@ const ExploreCard = ({ brewery }) => {
             <Typography
               variant="caption"
               color="text.secondary"
-              fontWeight={500}
+              fontWeight="600"
             >
               {city}
               {", "}

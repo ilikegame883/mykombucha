@@ -10,8 +10,8 @@ const LocalPage = () => {
             Coming soon...
           </Typography>
           <Typography color="text.secondary" align="left" variant="subtitle1">
-            Browse local kombucha breweries near your area. Sign up to our
-            newsletter for updates!
+            Find local kombucha breweries and bars near you. Join our newsletter
+            to stay on top of upcoming features!
           </Typography>
         </Box>
       </Container>

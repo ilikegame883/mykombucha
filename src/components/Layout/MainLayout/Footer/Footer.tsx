@@ -100,7 +100,7 @@ const Footer = () => {
 
       <Grid item xs={12} sm={6} sx={{ textAlign: isSm ? "left" : "center" }}>
         <Typography variant="caption" color="text.secondary">
-          &copy; 2022 myKombucha. All rights reserved.
+          &copy; 2023 myKombucha. All rights reserved.
         </Typography>
       </Grid>
       <Grid item xs={12} sm={6}>

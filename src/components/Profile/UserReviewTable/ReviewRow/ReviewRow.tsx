@@ -18,10 +18,12 @@ import getCloudinaryUrl from "../../../../lib/cloudinary/getCloudinaryUrl";
 import { deleteData } from "../../../../utils/fetch-utils";
 import { mutate } from "swr";
 import { useSetSnackbar } from "../../../../utils/hooks/useSnackbar";
+import { ReviewData } from "../../../../types/api";
 
 const ReviewRow = ({ row, session }) => {
   const [openReview, setOpenReview] = useState(false);
   const setSnackbar = useSetSnackbar();
+
   const handleOpenAccordian = (
     e: React.MouseEvent<HTMLTableRowElement, MouseEvent> & {
       target: HTMLAnchorElement;
@@ -30,8 +32,7 @@ const ReviewRow = ({ row, session }) => {
     if (e.target.href) return; //prevent link from opening if user clicks on href element
     setOpenReview(!openReview);
   };
-
-  const handleDelete = async (reviewData) => {
+  const handleDelete = async (reviewData: ReviewData) => {
     //TODO: delete data from user.review and review collection
     //reviewData - add to body - user's review rating
     const res = await deleteData(
@@ -93,7 +94,7 @@ const ReviewRow = ({ row, session }) => {
                     }}
                     noWrap
                   >
-                    {row.brewery} Brewery
+                    {row.brewery_name} Brewery
                   </Typography>
                 </Link>
               </Box>

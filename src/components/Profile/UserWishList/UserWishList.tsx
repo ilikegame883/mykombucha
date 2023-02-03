@@ -37,7 +37,7 @@ const UserWishList = ({ userId }: UserWishListProps) => {
             fontWeight="500"
             pt={4}
           >
-            No items in your wish list
+            No items in wish list
           </Typography>
         </Box>
       ) : (

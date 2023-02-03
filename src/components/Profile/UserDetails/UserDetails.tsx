@@ -12,9 +12,10 @@ import {
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
+import { UserData } from "../../../types/api";
 
 interface UserDetailsProps {
-  userData: any; //TODO: set types
+  userData: UserData;
 }
 
 //Top bar on profile page
@@ -83,25 +84,31 @@ const UserDetails = ({ userData }: UserDetailsProps) => {
               {username}
             </Typography>
 
-            <Typography variant="body2" color="text.primary" mb={0.25}>
-              {profile?.city && `${profile.city},`}{" "}
-              {profile?.country && `${profile.country}`}
+            <Typography
+              variant="body2"
+              color="text.primary"
+              mb={0.25}
+              fontWeight="500"
+            >
+              {profile?.city ? `${profile.city}, ` : "City,"}{" "}
+              {profile?.country ? `${profile.country}` : "Country"}
               <LocationOnOutlinedIcon
                 color="disabled"
                 fontSize="small"
-                sx={{ verticalAlign: "middle" }}
+                sx={{ verticalAlign: "top" }}
               />
             </Typography>
             <Typography
               variant="caption"
               color="text.secondary"
+              fontWeight="500"
               sx={{ fontStyle: "italic" }}
             >
               {profile?.bio
                 ? `${profile.bio}`
-                : session
-                ? "Go to Account Settings to update your location & bio"
-                : ""}
+                : session?.user.id === _id
+                ? "Update your location or bio in your Account Settings page"
+                : "Bio"}
             </Typography>
           </Stack>
         </Box>
