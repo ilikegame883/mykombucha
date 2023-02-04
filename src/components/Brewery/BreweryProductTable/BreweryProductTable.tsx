@@ -303,7 +303,6 @@ const BreweryProductTable = ({
             {isKombuchaNotFound && (
               <TableRow>
                 <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                  {/* <ProductSearchNotFound searchQuery={searchQuery} /> */}
                   <ProductSearchNotFound />
                 </TableCell>
               </TableRow>

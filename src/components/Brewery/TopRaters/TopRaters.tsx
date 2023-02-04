@@ -12,10 +12,10 @@ import {
   Stack,
 } from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
-import { TopUsersData } from "../../../types/api";
+import { TopRatersData } from "../../../types/api";
 
 interface TopRatersProps {
-  topRaters: TopUsersData[];
+  topRaters: TopRatersData[];
 }
 
 const TopRaters = ({ topRaters }: TopRatersProps) => {

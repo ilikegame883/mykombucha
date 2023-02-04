@@ -8,13 +8,16 @@ import {
   useTheme,
 } from "@mui/material";
 
-const SortMenu = ({ setFilterListBy }) => {
+interface SortMenuProps {
+  setFilterListBy: React.Dispatch<React.SetStateAction<string>>;
+}
+const SortMenu = ({ setFilterListBy }: SortMenuProps) => {
   const theme = useTheme();
   const [value, setValue] = useState("Recent");
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
-    setFilterListBy(event.target.value);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    setFilterListBy(e.target.value);
   };
 
   return (

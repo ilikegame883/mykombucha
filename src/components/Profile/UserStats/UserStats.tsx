@@ -8,10 +8,14 @@ import {
 } from "@mui/material";
 import getUserBadge from "../../UserBadge";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { UserData } from "../../../types/api";
 
-const UserStats = ({ userData }) => {
+interface UserStatsProps {
+  userData: UserData;
+}
+const UserStats = ({ userData }: UserStatsProps) => {
   const theme = useTheme();
-  //TODO: Get user review avg from reviews array
+  //TODO: Set up logic to get user's rating_avg
   //right now it's undefined
   const { rating_avg, review_total } = userData;
 

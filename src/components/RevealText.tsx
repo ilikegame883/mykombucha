@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Typography from "@mui/material/Typography";
 
-const RevealText = ({ text = "N/A", maxLength }) => {
+interface RevealTextProps {
+  text?: string;
+  maxLength: number;
+}
+const RevealText = ({ text = "N/A", maxLength }: RevealTextProps) => {
   const [revealText, setRevealText] = useState(false);
   const router = useRouter();
 

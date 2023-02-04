@@ -2,8 +2,13 @@ import React from "react";
 import { Typography, Box, Divider } from "@mui/material";
 import FindInPageOutlinedIcon from "@mui/icons-material/FindInPageOutlined";
 import ReviewCard from "../ReviewCard";
+import { ReviewData } from "../../../../types/api";
 
-const KombuchaReviews = ({ kombuchaId, reviews }) => {
+interface KombuchaReviewsProps {
+  kombuchaId: string;
+  reviews: ReviewData[];
+}
+const KombuchaReviews = ({ kombuchaId, reviews }: KombuchaReviewsProps) => {
   return (
     <>
       {!!reviews.length ? (

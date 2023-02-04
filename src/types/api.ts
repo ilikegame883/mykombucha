@@ -109,7 +109,7 @@ export interface UserWishListData {
   add_date: string;
 }
 
-export interface TopUsersData {
+export interface TopRatersData {
   _id: Types.ObjectId | string;
   review_total: number;
   user: {

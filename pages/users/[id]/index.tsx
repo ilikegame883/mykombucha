@@ -6,7 +6,11 @@ import Profile from "../../../src/components/Profile";
 import { MainLayout } from "../../../src/components/Layout";
 import { authOptions } from "../../api/auth/[...nextauth]";
 
-const ProfilePage = ({ id }: { id: string }) => {
+interface ProfilePageProps {
+  id: string;
+}
+
+const ProfilePage = ({ id }: ProfilePageProps) => {
   return (
     <>
       <Head>

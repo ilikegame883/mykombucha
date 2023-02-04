@@ -19,8 +19,8 @@ import ReviewNotFound from "./ReviewNotFound";
 import ReviewTableHead from "./ReviewTableHead";
 import CircularProgress from "@mui/material/CircularProgress";
 import { getUserReviewRowData } from "../../../utils/getTableRowData";
+import { UserData } from "../../../types/api";
 
-//TODO: set up type interface for table data
 const TABLE_HEAD = [
   {
     id: "name", //kombucha name
@@ -54,7 +54,7 @@ const TABLE_HEAD = [
   },
 ];
 
-const descendingComparator = (a, b, orderBy) => {
+const descendingComparator = (a, b, orderBy: string) => {
   //a & b is an {} from row array
   if (b[orderBy] < a[orderBy]) {
     //ex: b[orderBy = "name"] = "cupcake"
@@ -66,7 +66,7 @@ const descendingComparator = (a, b, orderBy) => {
   return 0;
 };
 
-const getComparator = (orderDirection, orderBy) => {
+const getComparator = (orderDirection: string, orderBy: string) => {
   return orderDirection === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
@@ -82,7 +82,12 @@ const applySearchFilter = (array, query) => {
   return array;
 };
 
-const UserReviewTable = ({ userData }) => {
+interface UserReviewTableProps {
+  userData: UserData;
+}
+
+//TODO: update types
+const UserReviewTable = ({ userData }: UserReviewTableProps) => {
   const { _id: userId } = userData;
 
   const { data: userReviews, error } = useSWR(`/api/users/${userId}/reviews`);

@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { ParsedUrlQuery } from "querystring";
 import {
   Box,
   Container,
@@ -19,11 +18,11 @@ import BreweryProfile from "../../../src/components/Brewery/BreweryProfile";
 import { MainLayout } from "../../../src/components/Layout";
 import ProfileTopBar from "../../../src/components/Brewery/BreweryProfile/ProfileTopBar";
 import connectDB from "../../../src/lib/connectDB";
-import { BreweryData, TopUsersData } from "../../../src/types/api";
+import { BreweryData, TopRatersData } from "../../../src/types/api";
 
 interface BreweryProps {
   singleBreweryData: BreweryData;
-  topRaters: TopUsersData[];
+  topRaters: TopRatersData[];
 }
 
 const Brewery = ({ singleBreweryData, topRaters }: BreweryProps) => {
@@ -80,7 +79,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const topRaters = await getData(`breweries/${slug}/users/top`);
   return {
     props: { singleBreweryData, topRaters },
-    revalidate: 10,
+    revalidate: 30,
   };
 };
 export default Brewery;
