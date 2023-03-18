@@ -94,14 +94,14 @@ const MainLayout = ({
         <Container maxWidth="lg">
           <Topbar onSidebarOpen={handleSidebarOpen} />
         </Container>
-        <Alert
+        {/* <Alert
           severity="warning"
           variant="outlined"
           sx={{ fontWeight: 700, justifyContent: "center", fontSize: "1rem" }}
         >
           myKombucha is currently undergoing a major update. Several features
           might be temporarily unavailable.
-        </Alert>
+        </Alert> */}
       </AppBar>
 
       <Sidebar onClose={handleSidebarClose} open={open} variant="temporary" />
