@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-//Used in useSearchData
+//Used in useSearchData hook
 const useDebounce = (value, delay) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 

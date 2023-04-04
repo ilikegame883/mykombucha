@@ -24,10 +24,3 @@ export const useSearchData = (searchValue) => {
 
   return { searchData, error, isLoading: isValidating };
 };
-
-// const { data: combinedData, error } = useSWR(
-//     searchValue ? `/api/search/combined/${searchValue}` : null,
-//     {
-//       refreshInterval: 0,
-//     }
-//   );
