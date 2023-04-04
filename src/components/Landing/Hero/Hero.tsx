@@ -84,7 +84,6 @@ const Hero = () => {
               Online resource and community for kombucha enthusists.
             </Typography>
           </Box>
-          {/* {children} */}
           <HeroSearchBar />
         </Box>
       </Container>

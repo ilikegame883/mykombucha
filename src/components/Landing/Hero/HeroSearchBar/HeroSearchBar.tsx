@@ -73,7 +73,7 @@ const HeroSearchBar = () => {
   const [searchKey, setSearchKey] = useState("");
   const { searchData, error, isLoading } = useSearchData(searchKey);
   const setSnackbar = useSetSnackbar();
-  console.log(searchKey);
+
   if (error) {
     setSnackbar(error.message, "error");
   }

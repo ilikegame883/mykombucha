@@ -9,7 +9,6 @@ const headers = {
 };
 
 //TODO: declare correct types for parameters
-
 const getUrl = (path: string, params: string | null = null) => {
   let url: string;
   if (params !== null) {
