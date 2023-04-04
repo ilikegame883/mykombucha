@@ -2,7 +2,7 @@ const dev = process.env.NODE_ENV !== "production";
 
 const baseUrl = dev
   ? process.env.NEXT_PUBLIC_BASE_URL
-  : process.env.NEXT_PUBLIC_PROD_URL;
+  : `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
 
 const headers = {
   "Content-Type": "application/json",
