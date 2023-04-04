@@ -6,114 +6,39 @@ import {
   EXPLORE_BREWERY_PAGE_SIZE,
 } from "./consts";
 
-const formatBreweryData = (doc) => {
-  doc._id = doc._id.toString();
-  doc.updatedAt = doc.updatedAt.toString();
-  doc.createdAt = doc.createdAt.toString();
-  doc.favorite_list = doc.favorite_list.toString();
-  return doc;
-};
-
-const formatKombuchaData = (doc) => {
-  doc._id = doc._id.toString();
-  doc.updatedAt = doc.updatedAt.toString();
-  doc.createdAt = doc.createdAt.toString();
-  doc.company.brewery_id = doc.company.brewery_id.toString();
-  doc.brewery = doc.brewery.toString();
-  doc.reviews = doc.reviews.map((review) => review.toString());
-  return doc;
-};
-
-//Home page - Explore Breweries Section
-export const getExploreBreweries = async () => {
-  //TODO: fetch breweries documents based on popularity (number of hearts given) when more data is available
-  //lean() converts mongoose.Document to Plain Javascript Object
+//----------Home page - Explore and Discover Sections----------
+export const getHomeSectionData = async () => {
   try {
-    const breweryResult = await Brewery.find()
-      .sort({ _id: -1 })
-      .limit(6)
-      .lean();
-    return breweryResult.map(formatBreweryData);
-  } catch (error) {
-    console.error("Error fetching explore breweries:", error);
-    return [];
-  }
-};
-
-//Home page - Discover Kombucha Section
-export const getTopRatedKombucha = async () => {
-  //return top rated kombuchas by rating avg, limit to 5
-  //set review_count 0 for now since not enough reviews
-  try {
-    const kombuchaRes = await Kombucha.find()
+    const exploreSectionData = await Brewery.find().sort({ _id: -1 }).limit(6);
+    const topRatedKombucha = await Kombucha.find()
       .sort({ rating_avg: -1 })
       .limit(5)
-      .populate("brewery")
-      .lean();
-
-    return kombuchaRes.map(formatKombuchaData);
+      .populate("brewery");
+    return { exploreSectionData, topRatedKombucha };
   } catch (error) {
-    console.error("Error fetching top-rated kombucha:", error);
-    return [];
+    console.error("Error fetching getHomeSectionData:", error);
+    return { exploreSectionData: [], topRatedKombucha: [] };
   }
 };
 
-//Home page - For Search Bar
-export const getBreweryAndKombuchaData = async () => {
-  try {
-    const [breweryRes, kombuchaRes] = await Promise.all([
-      Brewery.find().lean(),
-      Kombucha.find().lean(),
-    ]);
-    const breweryData = breweryRes.map((doc) => {
-      doc._id = doc._id.toString();
-      doc.updatedAt = doc.updatedAt.toString();
-      doc.createdAt = doc.createdAt.toString();
-      doc.favorite_list = doc.favorite_list.toString();
-      return doc;
-    });
-
-    const kombuchaData = kombuchaRes.map((doc) => {
-      doc._id = doc._id.toString();
-      doc.updatedAt = doc.updatedAt.toString();
-      doc.createdAt = doc.createdAt.toString();
-      doc.company.brewery_id = doc.company.brewery_id.toString();
-      doc.brewery = doc.brewery.toString();
-      doc.reviews = doc.reviews.map((review) => review.toString());
-      return doc;
-    });
-
-    return {
-      breweries: breweryData,
-      kombuchas: kombuchaData,
-    };
-  } catch (error) {
-    console.error("Error fetching brewery and kombucha data:", error);
-    return {
-      breweries: [],
-      kombuchas: [],
-    };
-  }
-};
-
-//pages/kombucha/[id]
+//----------pages/kombucha/[id]----------
 export const getKombuchaById = async (id: string) => {
   try {
-    const kombuchaRes = await Kombucha.findById({
+    const singleKombuchaData = await Kombucha.findById({
       _id: id,
     }).populate({ path: "reviews", model: Review });
 
-    return kombuchaRes;
+    return singleKombuchaData;
   } catch (error) {
-    console.error("Error fetching kombucha by id:", error);
-    return [];
+    console.error("Error fetching getKombuchaById:", error);
+    return {};
   }
 };
 
-//pages/breweries/[slug]
-export const getBreweryById = async (slug: string) => {
+//----------pages/breweries/[slug]----------
+export const getBreweryBySlug = async (slug: string) => {
   try {
-    const breweryRes = await Brewery.aggregate([
+    const singleBreweryData = await Brewery.aggregate([
       {
         $match: { slug },
       },
@@ -141,19 +66,17 @@ export const getBreweryById = async (slug: string) => {
       },
     ]);
 
-    if (!breweryRes) {
+    if (!singleBreweryData) {
       throw new Error("This brewery does not exist.");
     }
-    return breweryRes;
+    return singleBreweryData;
   } catch (error) {
-    let msg: string;
-    if (error instanceof Error) msg = error.message;
-    else msg = String(error);
-
-    throw new Error(msg);
+    console.error("Error fetching getBreweryBySlug:", error);
+    return {};
   }
 };
 
+//----------pages/breweries/[slug]----------
 export const getTopUsersByBrewery = async (slug: string) => {
   try {
     //find top 3 users with the most kombucha reviews coming from the same brewery
@@ -212,13 +135,14 @@ export const getTopUsersByBrewery = async (slug: string) => {
   }
 };
 
-//pages/breweries/explore/[category]/[page].tsx
-//1. Get list of breweries by highest to lowest number of favorites given
-//2. Match breweries that has an favorite count > 0
-//3. Fetch results based on page number passed in from req.query
+//----------pages/breweries/explore/[category]/[page]----------
 export const getPopularBreweries = async (page: string) => {
+  //1. Get list of breweries by highest to lowest number of favorites given
+  //2. Match breweries that has an favorite count > 0
+  //3. Fetch results based on page number passed in from req.query
+
   // skip = # of items to skip over to display the next set of fetched items for upcoming pages
-  //e.g, Page 1 = Skip 0 items, show first 8 items (from PAGE_SIZE) per page
+  //e.g, Page 1 = Skip 0 items, show first 8 items (from EXPLORE_BREWERY_PAGE_SIZE) per page
   //e.g. Page 2 = Skip 8 items, and display next set of items after skipping 8 items from page 1
   const skip = (+page - 1) * EXPLORE_BREWERY_PAGE_SIZE;
   try {
@@ -245,12 +169,12 @@ export const getPopularBreweries = async (page: string) => {
   }
 };
 
-//1. Get list of Brewery and sort by most recent
-//2. Populate Brewery date with each review
-//3. Fetch results based on page number passed in from req.query
+//----------pages/breweries/explore/[category]/[page]----------
 export const getRecentBreweries = async (page: string) => {
+  //1. Get list of Brewery and sort by most recent
+  //2. Populate Brewery date with each review
+  //3. Fetch results based on page number passed in from req.query
   const skip = (+page - 1) * EXPLORE_BREWERY_PAGE_SIZE; // For page 1, the skip is: (1 - 1) * 20 => 0 * 20 = 0
-  //e.g, Page 1 = Skip 0 (from skip) items, limit to 2 (from PAGE_SIZE) items per page
   try {
     const recentBreweries = await Brewery.aggregate([
       {
@@ -272,13 +196,11 @@ export const getRecentBreweries = async (page: string) => {
   }
 };
 
-//1. Get list of kombucha reviews and sort by most recent
-//2. Return kombucha review date with each review
-//3. Fetch results based on page number passed in from req.query
+//----------pages/kombucha/explore/[category]/[page]----------
 export const getRecentKombuchaReviews = async (page: string) => {
-  // skip = # of items to skip over to display the next set of fetched items for upcoming pages
-  //e.g, Page 1 = Skip 0 items, show first 8 items (from PAGE_SIZE) per page
-  //e.g. Page 2 = Skip 8 items, and display next set of items after skipping 8 items from page 1
+  //1. Get list of kombucha reviews and sort by most recent
+  //2. Return kombucha review date with each review
+  //3. Fetch results based on page number passed in from req.query
   const skip = (+page - 1) * EXPLORE_KOMBUCHA_PAGE_SIZE;
   try {
     const recentKombuchaReviews = await Review.aggregate([
@@ -324,10 +246,11 @@ export const getRecentKombuchaReviews = async (page: string) => {
   }
 };
 
-//1. Get list of kombucha by date created for now
-//2. MongoDB ObjectId contain a timestamp, you can sort by 'created date' if you sort by objectId
-//3. Fetch results based on page number passed in from req.query
+//----------pages/kombucha/explore/[category]/[page]----------
 export const getNewKombucha = async (page: string) => {
+  //1. Get list of kombucha by date created for now
+  //2. MongoDB ObjectId contain a timestamp, you can sort by 'created date' if you sort by objectId
+  //3. Fetch results based on page number passed in from req.query
   const skip = (+page - 1) * EXPLORE_KOMBUCHA_PAGE_SIZE;
   try {
     const newKombuchaList = await Kombucha.aggregate([
@@ -350,10 +273,11 @@ export const getNewKombucha = async (page: string) => {
   }
 };
 
-//1. Get list of kombucha by highest to lowest avg ratings
-//2. Match all kombuchas that has an avg rating >= 3.50 (no rating = 0 avg)
-//3. Fetch results based on page number passed in from req.query
+//----------pages/kombucha/explore/[category]/[page]----------
 export const getTopAvgRatedKombucha = async (page: string) => {
+  //1. Get list of kombucha by highest to lowest avg ratings
+  //2. Match all kombuchas that has an avg rating >= 3.50 (no rating = 0 avg)
+  //3. Fetch results based on page number passed in from req.query
   const skip = (+page - 1) * EXPLORE_KOMBUCHA_PAGE_SIZE;
   try {
     const topAvgRatedKombuchaList = await Kombucha.aggregate([
@@ -379,10 +303,11 @@ export const getTopAvgRatedKombucha = async (page: string) => {
   }
 };
 
-//1. Get list of kombucha by highest to lowest number of ratings
-//2. Match all kombuchas that has an rating count > 0
-//3. Fetch results based on page number passed in from req.query
+//----------pages/kombucha/explore/[category]/[page]----------
 export const getPopularKombucha = async (page: string) => {
+  //1. Get list of kombucha by highest to lowest number of ratings
+  //2. Match all kombuchas that has an rating count > 0
+  //3. Fetch results based on page number passed in from req.query
   const skip = (+page - 1) * EXPLORE_KOMBUCHA_PAGE_SIZE;
   try {
     const popularKombuchaList = await Kombucha.aggregate([
@@ -403,7 +328,7 @@ export const getPopularKombucha = async (page: string) => {
 
     return popularKombuchaList;
   } catch (error) {
-    console.error("Error fetching popularKombuchaList:", error);
+    console.error("Error fetching getPopularKombucha:", error);
     return [];
   }
 };
