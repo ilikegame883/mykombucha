@@ -61,23 +61,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const category = params?.category as string;
   const page = params?.page as string;
-  let data;
 
-  switch (category) {
-    case "recent":
-      data = await getRecentKombuchaReviews(page);
-      break;
-    case "new":
-      data = await getNewKombucha(page);
-      break;
-    case "top-rated":
-      data = await getTopAvgRatedKombucha(page);
-      break;
-    case "popular":
-      data = await getPopularKombucha(page);
-      break;
-  }
+  const categoryFunctions = {
+    recent: getRecentKombuchaReviews,
+    new: getNewKombucha,
+    "top-rated": getTopAvgRatedKombucha,
+    popular: getPopularKombucha,
+  };
 
+  const data = await categoryFunctions[category](page);
   const [exploreData] = JSON.parse(JSON.stringify(data));
 
   return {
@@ -86,6 +78,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page,
       exploreData,
     },
-    revalidate: 30,
+    revalidate: 60,
   };
 };

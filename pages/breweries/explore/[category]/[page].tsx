@@ -64,19 +64,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const category = params?.category as string;
   const page = params?.page as string;
-  let data;
 
-  switch (category) {
-    case "popular":
-      data = await getPopularBreweries(page);
-      break;
-    case "list":
-      data = await getRecentBreweries(page);
-      break;
-  }
+  const categoryFunctions = {
+    popular: getPopularBreweries,
+    list: getRecentBreweries,
+  };
 
+  const data = await categoryFunctions[category](page);
   const [exploreBreweryData] = JSON.parse(JSON.stringify(data));
-  console.log(exploreBreweryData);
+
   return {
     props: {
       category,

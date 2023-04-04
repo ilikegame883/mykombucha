@@ -1,4 +1,5 @@
 import { Container, Box } from "@mui/material";
+import { GetStaticProps } from "next";
 import {
   Discover,
   ExploreSection,
@@ -9,14 +10,11 @@ import {
 import { MainLayout } from "../src/components/Layout";
 import connectDB from "../src/lib/connectDB";
 import { BreweryData, KombuchaData } from "../src/types/api";
-import {
-  getExploreBreweries,
-  getTopRatedKombucha,
-} from "../src/utils/db-utils";
+import { getHomeSectionData } from "../src/utils/db-utils";
 
 interface HomeProps {
-  breweryData: BreweryData;
-  kombuchaData: KombuchaData;
+  breweryData: BreweryData[];
+  kombuchaData: KombuchaData[];
 }
 
 export default function Home({ breweryData, kombuchaData }: HomeProps) {
@@ -41,16 +39,13 @@ export default function Home({ breweryData, kombuchaData }: HomeProps) {
   );
 }
 
-export const getStaticProps = async () => {
-  //You should not call your Next.js API route within getStaticProps.
-  //The reason is that your API route is not available until your Next app is built and getStaticProps runs at build time.
-  //Therefore the API route would not be available to populate the data during the build.
+export const getStaticProps: GetStaticProps = async () => {
   await connectDB();
 
-  const [breweryData, kombuchaData] = await Promise.all([
-    getExploreBreweries(),
-    getTopRatedKombucha(),
-  ]);
+  const { exploreSectionData, topRatedKombucha } = await getHomeSectionData();
+
+  const breweryData = JSON.parse(JSON.stringify(exploreSectionData));
+  const kombuchaData = JSON.parse(JSON.stringify(topRatedKombucha));
 
   return {
     props: {

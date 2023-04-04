@@ -12,7 +12,6 @@ import {
   BreweryProductTable,
   TopRaters,
 } from "../../../src/components/Brewery";
-import { getData } from "../../../src/utils/fetch-utils";
 import { default as BreweryModel } from "../../../src/models/breweryModel";
 import BreweryProfile from "../../../src/components/Brewery/BreweryProfile";
 import { MainLayout } from "../../../src/components/Layout";
@@ -20,7 +19,7 @@ import ProfileTopBar from "../../../src/components/Brewery/BreweryProfile/Profil
 import connectDB from "../../../src/lib/connectDB";
 import { BreweryData, TopRatersData } from "../../../src/types/api";
 import {
-  getBreweryById,
+  getBreweryBySlug,
   getTopUsersByBrewery,
 } from "../../../src/utils/db-utils";
 
@@ -64,7 +63,6 @@ const Brewery = ({ singleBreweryData, topRaters }: BreweryProps) => {
   );
 };
 
-//fetch and pre-render brewery profile and top raters data at build time
 export const getStaticPaths: GetStaticPaths = async () => {
   await connectDB();
   const slugList = await BreweryModel.distinct("slug");
@@ -82,10 +80,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 
   const slug = params?.slug as string;
-  const dataBreweryById = await getBreweryById(slug);
+  const dataBreweryBySlug = await getBreweryBySlug(slug);
   const dataTopUsers = await getTopUsersByBrewery(slug);
 
-  const [singleBreweryData] = parseAndStringify(dataBreweryById);
+  const [singleBreweryData] = parseAndStringify(dataBreweryBySlug);
   const topRaters = parseAndStringify(dataTopUsers);
 
   return {
