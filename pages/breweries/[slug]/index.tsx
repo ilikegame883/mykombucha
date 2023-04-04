@@ -19,6 +19,10 @@ import { MainLayout } from "../../../src/components/Layout";
 import ProfileTopBar from "../../../src/components/Brewery/BreweryProfile/ProfileTopBar";
 import connectDB from "../../../src/lib/connectDB";
 import { BreweryData, TopRatersData } from "../../../src/types/api";
+import {
+  getBreweryById,
+  getTopUsersByBrewery,
+} from "../../../src/utils/db-utils";
 
 interface BreweryProps {
   singleBreweryData: BreweryData;
@@ -73,13 +77,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const slug = params?.slug as string;
-  const [singleBreweryData] = await getData(`breweries/${slug}`);
+  const parseAndStringify = (data: any) => {
+    return JSON.parse(JSON.stringify(data));
+  };
 
-  const topRaters = await getData(`breweries/${slug}/users/top`);
+  const slug = params?.slug as string;
+  const dataBreweryById = await getBreweryById(slug);
+  const dataTopUsers = await getTopUsersByBrewery(slug);
+
+  const [singleBreweryData] = parseAndStringify(dataBreweryById);
+  const topRaters = parseAndStringify(dataTopUsers);
+
   return {
     props: { singleBreweryData, topRaters },
-    revalidate: 30,
+    revalidate: 60,
   };
 };
 export default Brewery;
