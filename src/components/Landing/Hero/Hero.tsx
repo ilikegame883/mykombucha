@@ -37,8 +37,8 @@ const RootStyle = styled("div")(({ theme }) => ({
 }));
 
 const Hero = () => {
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("sm"));
+  const { breakpoints } = useTheme();
+  const isUpSm = useMediaQuery(breakpoints.up("sm"));
   return (
     <RootStyle>
       <Container
@@ -54,14 +54,14 @@ const Hero = () => {
         <Box width={1}>
           <Box mb={2.5}>
             <Typography
-              variant={matches ? "h3" : "h4"}
+              variant={isUpSm ? "h3" : "h4"}
               color="text.primary"
               fontWeight="700"
             >
               Find, rate, and share
             </Typography>
             <Typography
-              variant={matches ? "h3" : "h4"}
+              variant={isUpSm ? "h3" : "h4"}
               color="text.primary"
               fontWeight="700"
               mb={1.5}
@@ -69,7 +69,7 @@ const Hero = () => {
               your favorite{" "}
               <Typography
                 color="secondary"
-                variant={matches ? "h3" : "h4"}
+                variant={isUpSm ? "h3" : "h4"}
                 component="span"
                 fontWeight="800"
               >
@@ -84,6 +84,7 @@ const Hero = () => {
               Online resource and community for kombucha enthusists.
             </Typography>
           </Box>
+          {/* {children} */}
           <HeroSearchBar />
         </Box>
       </Container>

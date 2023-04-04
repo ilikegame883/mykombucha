@@ -46,8 +46,12 @@ export const getStaticProps = async () => {
   //The reason is that your API route is not available until your Next app is built and getStaticProps runs at build time.
   //Therefore the API route would not be available to populate the data during the build.
   await connectDB();
-  const breweryData = await getExploreBreweries();
-  const kombuchaData = await getTopRatedKombucha();
+
+  const [breweryData, kombuchaData] = await Promise.all([
+    getExploreBreweries(),
+    getTopRatedKombucha(),
+  ]);
+
   return {
     props: {
       breweryData,

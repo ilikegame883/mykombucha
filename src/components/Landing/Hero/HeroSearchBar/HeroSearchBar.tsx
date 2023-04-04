@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
+import useSWR from "swr";
 import {
   Autocomplete,
   TextField,
@@ -16,13 +17,11 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { getData } from "../../../../utils/fetch-utils";
-import getCloudinaryUrl from "../../../../lib/cloudinary/getCloudinaryUrl";
-import debounce from "../../../../utils/debounce";
 import { useSetSnackbar } from "../../../../utils/hooks/useSnackbar";
+import getCloudinaryUrl from "../../../../lib/cloudinary/getCloudinaryUrl";
+import { useSearchData } from "../../../../utils/hooks/useSearchData";
 
 interface RenderOptionProps {
-  //TODO: Extend types from KombuchaData and BreweryData
   name: string;
   image: string;
   search_key: string;
@@ -46,8 +45,8 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
     //paper is the listbox parent container
     boxShadow: "none",
     borderTop: `0.25px solid #BDBDBD`,
-    borderLeft: `1px solid #BDBDBD`,
     borderBottom: `0.5px solid #BDBDBD`,
+    borderLeft: `1px solid #BDBDBD`,
     borderRight: `0.25px solid #BDBDBD`,
   },
   [`& .${autocompleteClasses.listbox}`]: {
@@ -69,45 +68,31 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
   },
 }));
 
-//TODO: fix border overlap when search bar is focused
+//TODO: fix search border overlap when search bar is focused without dropdown shown
 const HeroSearchBar = () => {
-  const [value, setValue] = useState("");
-  const [searchData, setSearchData] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
+  const { searchData, error, isLoading } = useSearchData(searchKey);
   const setSnackbar = useSetSnackbar();
+  console.log(searchKey);
+  if (error) {
+    setSnackbar(error.message, "error");
+  }
 
-  const getSearchData = async (str: string) => {
-    try {
-      let kombuchaSearchData = await getData("kombucha/search", `${str}`);
-      let brewerySearchData = await getData("breweries/search", `${str}`);
-      setSearchData([...kombuchaSearchData, ...brewerySearchData]);
-    } catch (error) {
-      setSnackbar(error.message, "error");
-    }
-  };
-  const debounceSearch = useMemo(() => debounce(getSearchData, 250), []);
-
-  const onChangeSearch = async (
-    e: React.ChangeEvent<HTMLInputElement>,
+  const onChangeSearch = (
+    _: React.ChangeEvent<HTMLInputElement>,
     value: string
   ) => {
-    if (value) {
-      setValue(value);
-      debounceSearch(e.target.value);
-      return;
-    }
-    //clear state backspace or clear iconbutton is clicked
-    setValue("");
-    setSearchData([]);
+    setSearchKey(value);
   };
 
   return (
     <Box>
       <StyledAutoComplete
-        loading={value.length > 1 && searchData.length <= 0 ? true : false}
-        loadingText={`No results for ${value}`}
+        loading={isLoading || searchKey.length > 0}
+        loadingText={`No results for ${searchKey}`}
         id="search-bar"
         freeSolo
-        inputValue={value}
+        inputValue={searchKey}
         onInputChange={onChangeSearch}
         PopperComponent={StyledPopper}
         filterOptions={(option) => option}
@@ -138,7 +123,7 @@ const HeroSearchBar = () => {
                 },
                 startAdornment: (
                   <InputAdornment position="start">
-                    {value.length > 1 && searchData.length <= 0 ? (
+                    {isLoading ? (
                       <CircularProgress />
                     ) : (
                       <Box
@@ -230,14 +215,14 @@ const HeroSearchBar = () => {
               </Typography>
               {children}
               <Box p={1}>
-                <Link href={`/search/${group}/?search=${value}`} passHref>
+                <Link href={`/search/${group}/?search=${searchKey}`} passHref>
                   <Typography
                     component="a"
                     variant="subtitle2"
                     color="info.dark"
                     fontWeight="600"
                   >
-                    See all {group} for {`"${value}"`}
+                    See all {group} for {`"${searchKey}"`}
                   </Typography>
                 </Link>
               </Box>
