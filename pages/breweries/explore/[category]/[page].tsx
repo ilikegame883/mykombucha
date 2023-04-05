@@ -3,7 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Container } from "@mui/material";
 import { Breweries } from "../../../../src/components/Explore";
 import { MainLayout } from "../../../../src/components/Layout";
-import { BreweryData, KombuchaData } from "../../../../src/types/api";
+import { BreweryData } from "../../../../src/types/api";
 import {
   getRecentBreweries,
   getPopularBreweries,

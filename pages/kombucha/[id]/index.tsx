@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { ParsedUrlQuery } from "querystring";
 import {
   Container,
   Grid,
