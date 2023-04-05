@@ -72,13 +72,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   const data = await categoryFunctions[category](page);
   const [exploreBreweryData] = JSON.parse(JSON.stringify(data));
-
+  const { sorted_list, total_breweries } = exploreBreweryData;
   return {
     props: {
       category,
       page,
-      sorted_list: exploreBreweryData.sorted_list,
-      total_breweries: exploreBreweryData.total_breweries,
+      sorted_list,
+      total_breweries,
     },
     revalidate: 60,
   };
