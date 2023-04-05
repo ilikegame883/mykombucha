@@ -18,6 +18,7 @@ interface ReviewCardProps {
   kombuchaId: string;
 }
 
+//TODO: Finish review comment feature
 const ReviewCard = ({
   review,
   isTopReview = null,
@@ -42,7 +43,7 @@ const ReviewCard = ({
 
   const handleClickLikeIcon = async (reviewId) => {
     if (!session) {
-      setSnackbar("Please login to use this feature", "error");
+      router.push("/signin");
       return;
     }
     if (!session?.user.username) {

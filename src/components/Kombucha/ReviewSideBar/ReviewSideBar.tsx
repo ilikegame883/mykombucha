@@ -14,7 +14,6 @@ import {
 import StarsIcon from "@mui/icons-material/Stars";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import ReviewDrawer from "./ReviewDrawer";
-import { useSetSnackbar } from "../../../utils/hooks/useSnackbar";
 import { KombuchaData, ReviewData } from "../../../types/api";
 
 //Right side column for kombucha user based stats (reviews, rank, etc...)
@@ -25,7 +24,6 @@ interface ReviewSideBarProps {
 }
 const ReviewSideBar = ({ singleKombuchaData, reviews }: ReviewSideBarProps) => {
   const [openDrawer, setOpenDrawer] = useState(false);
-  const setSnackbar = useSetSnackbar();
   const router = useRouter();
 
   const { data: session } = useSession();
@@ -39,7 +37,7 @@ const ReviewSideBar = ({ singleKombuchaData, reviews }: ReviewSideBarProps) => {
     }
 
     if (!session) {
-      setSnackbar("Please login to use this feature", "error");
+      router.push("/signin");
       return;
     }
     if (!session?.user.username) {

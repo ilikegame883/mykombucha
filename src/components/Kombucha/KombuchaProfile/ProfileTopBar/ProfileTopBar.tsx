@@ -42,7 +42,7 @@ const ProfileTopBar = ({ kombuchaId }) => {
 
   const handleClickAddIcon = async () => {
     if (!session) {
-      setSnackbar("Please login to use this feature", "error");
+      router.push("/signin");
       return;
     }
     if (!session?.user.username) {

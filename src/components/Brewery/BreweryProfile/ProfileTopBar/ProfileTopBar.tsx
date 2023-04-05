@@ -35,7 +35,7 @@ const ProfileTopBar = ({ slug }) => {
 
   const handleClickFavorite = async () => {
     if (!session) {
-      setSnackbar("Please login/register to access this feature", "error");
+      router.push("/signin");
       return;
     }
 
