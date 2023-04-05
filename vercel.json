@@ -1,0 +1,7 @@
+{
+  "build": {
+    "skip": {
+      "when": "/^README\\.md$/"
+    }
+  }
+}
