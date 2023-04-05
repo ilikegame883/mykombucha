@@ -22,6 +22,7 @@ export const getHomeSectionData = async () => {
 };
 
 //----------pages/kombucha/[id]----------
+//----------pages/kombucha/[id]/corrections----------
 export const getKombuchaById = async (id: string) => {
   try {
     const singleKombuchaData = await Kombucha.findById({
@@ -36,6 +37,7 @@ export const getKombuchaById = async (id: string) => {
 };
 
 //----------pages/breweries/[slug]----------
+//----------pages/breweries/[slug]/corrections----------
 export const getBreweryBySlug = async (slug: string) => {
   try {
     const singleBreweryData = await Brewery.aggregate([
