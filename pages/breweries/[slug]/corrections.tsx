@@ -3,6 +3,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { MainLayout } from "../../../src/components/Layout";
 import CorrectionForm from "../../../src/components/Forms/CorrectionForm";
 import { getBreweryBySlug } from "../../../src/utils/db-utils";
+import connectDB from "../../../src/lib/connectDB";
 
 const Corrections = ({ singleBreweryData }) => {
   return (
@@ -64,6 +65,8 @@ const Corrections = ({ singleBreweryData }) => {
 export default Corrections;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  await connectDB();
+
   const slug = params?.slug as string;
 
   const data = await getBreweryBySlug(slug);

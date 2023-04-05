@@ -4,6 +4,7 @@ import { Box, Container, Typography } from "@mui/material";
 import { MainLayout } from "../../../src/components/Layout";
 import CorrectionForm from "../../../src/components/Forms/CorrectionForm/CorrectionForm";
 import { getKombuchaById } from "../../../src/utils/db-utils";
+import connectDB from "../../../src/lib/connectDB";
 
 const Corrections = ({ singleKombuchaData }) => {
   return (
@@ -77,6 +78,8 @@ const Corrections = ({ singleKombuchaData }) => {
 export default Corrections;
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  await connectDB();
+
   const id = params?.id as string;
 
   const data = await getKombuchaById(id);

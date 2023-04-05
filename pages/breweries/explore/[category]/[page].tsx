@@ -8,6 +8,7 @@ import {
   getRecentBreweries,
   getPopularBreweries,
 } from "../../../../src/utils/db-utils";
+import connectDB from "../../../../src/lib/connectDB";
 
 interface IParams {
   category: string;
@@ -48,7 +49,8 @@ const ExploreBreweries = ({
 export default ExploreBreweries;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const categories = ["popular", "list"];
+  await connectDB();
+  const categories = ["list", "popular"];
   //generate pages 1 and 2 (most common pages) for each category
   //remaining pages will generate when they are accessed for first time
   const params = categories.flatMap((category) => [
@@ -66,8 +68,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const page = params?.page as string;
 
   const categoryFunctions = {
-    popular: getPopularBreweries,
     list: getRecentBreweries,
+    popular: getPopularBreweries,
   };
 
   const data = await categoryFunctions[category](page);
