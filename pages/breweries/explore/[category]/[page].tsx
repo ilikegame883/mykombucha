@@ -1,10 +1,14 @@
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { Container } from "@mui/material";
-import { getData } from "../../../../src/utils/fetch-utils";
 import { Breweries } from "../../../../src/components/Explore";
 import { MainLayout } from "../../../../src/components/Layout";
-import { BreweryData, KombuchaData } from "../../../../src/types/api";
+import { BreweryData } from "../../../../src/types/api";
+import {
+  getRecentBreweries,
+  getPopularBreweries,
+} from "../../../../src/utils/db-utils";
+import connectDB from "../../../../src/lib/connectDB";
 
 interface IParams {
   category: string;
@@ -45,10 +49,10 @@ const ExploreBreweries = ({
 export default ExploreBreweries;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const categories = ["popular", "list"];
+  await connectDB();
+  const categories = ["list", "popular"];
   //generate pages 1 and 2 (most common pages) for each category
   //remaining pages will generate when they are accessed for first time
-
   const params = categories.flatMap((category) => [
     { params: { category, page: "1" } },
     { params: { category, page: "2" } },
@@ -63,17 +67,21 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const category = params?.category as string;
   const page = params?.page as string;
 
-  const [exploreBreweryData] = await getData(
-    `breweries/explore/${category}/${page}`
-  );
+  const categoryFunctions = {
+    list: getRecentBreweries,
+    popular: getPopularBreweries,
+  };
 
+  const data = await categoryFunctions[category](page);
+  const [exploreBreweryData] = JSON.parse(JSON.stringify(data));
+  const { sorted_list, total_breweries } = exploreBreweryData;
   return {
     props: {
       category,
       page,
-      sorted_list: exploreBreweryData.sorted_list,
-      total_breweries: exploreBreweryData.total_breweries,
+      sorted_list,
+      total_breweries,
     },
-    revalidate: 30,
+    revalidate: 60,
   };
 };

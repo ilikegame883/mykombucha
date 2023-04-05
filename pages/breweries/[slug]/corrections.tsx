@@ -1,17 +1,11 @@
-import { useRouter } from "next/router";
-import useSWR from "swr";
-import { Box, CircularProgress, Container, Typography } from "@mui/material";
+import { GetServerSideProps } from "next";
+import { Box, Container, Typography } from "@mui/material";
 import { MainLayout } from "../../../src/components/Layout";
 import CorrectionForm from "../../../src/components/Forms/CorrectionForm";
+import { getBreweryBySlug } from "../../../src/utils/db-utils";
+import connectDB from "../../../src/lib/connectDB";
 
-const Corrections = () => {
-  const router = useRouter();
-  const { slug } = router.query;
-
-  const { data: singleBrewerydata } = useSWR(slug && `/api/breweries/${slug}`);
-
-  if (!singleBrewerydata) return <CircularProgress />;
-
+const Corrections = ({ singleBreweryData }) => {
   return (
     <MainLayout>
       <Container maxWidth="md" sx={{ py: 5 }}>
@@ -20,23 +14,22 @@ const Corrections = () => {
             Send Correction For
           </Typography>
           <Typography variant="h4" color="text.primary" fontWeight="600">
-            {singleBrewerydata[0].name} Brewery
+            {singleBreweryData.name} Brewery
           </Typography>
         </Box>
         <Box mb={4}>
           <Typography variant="body1" color="text.primary">
-            <b>Name</b>: {singleBrewerydata[0].name}
+            <b>Name</b>: {singleBreweryData.name}
           </Typography>
           <Typography variant="body1" color="text.primary">
-            <b>Brewery Type</b>: {singleBrewerydata[0].brewery_type}
+            <b>Brewery Type</b>: {singleBreweryData.brewery_type}
           </Typography>
           <Typography variant="body1" color="text.primary">
-            <b>Location</b>: {singleBrewerydata[0].city},{" "}
-            {singleBrewerydata[0].country}
+            <b>Location</b>: {singleBreweryData.city},{" "}
+            {singleBreweryData.country}
           </Typography>
           <Typography variant="body1" color="text.primary">
-            <b>Styles Offered</b>:{" "}
-            {singleBrewerydata[0].kombucha_type.join(", ")}
+            <b>Styles Offered</b>: {singleBreweryData.kombucha_type}
           </Typography>
         </Box>
         <Box mb={4}>
@@ -58,11 +51,11 @@ const Corrections = () => {
               bgcolor: "#F5F5F5",
             }}
           >
-            {singleBrewerydata[0].description}
+            {singleBreweryData.description}
           </Typography>
         </Box>
         <Box>
-          <CorrectionForm name={singleBrewerydata[0].name} type="brewery" />
+          <CorrectionForm name={singleBreweryData.name} type="brewery" />
         </Box>
       </Container>
     </MainLayout>
@@ -70,3 +63,18 @@ const Corrections = () => {
 };
 
 export default Corrections;
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  await connectDB();
+
+  const slug = params?.slug as string;
+
+  const data = await getBreweryBySlug(slug);
+  const [singleBreweryData] = JSON.parse(JSON.stringify(data));
+
+  return {
+    props: {
+      singleBreweryData,
+    },
+  };
+};

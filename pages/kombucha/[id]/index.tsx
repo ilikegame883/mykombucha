@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { GetStaticPaths, GetStaticProps } from "next";
-import { ParsedUrlQuery } from "querystring";
 import {
   Container,
   Grid,
@@ -22,23 +21,25 @@ import { MainLayout } from "../../../src/components/Layout";
 import ProfileTopBar from "../../../src/components/Kombucha/KombuchaProfile/ProfileTopBar";
 import useSWR from "swr";
 import { KombuchaData } from "../../../src/types/api";
+import { getKombuchaById } from "../../../src/utils/db-utils";
 
 interface KombuchaPageProps {
   singleKombuchaData: KombuchaData;
 }
 
-//TODO: Why is singleKombuchaData returned as array from getStaticProps in production?
 const KombuchaPage = ({ singleKombuchaData }: KombuchaPageProps) => {
   const _id = singleKombuchaData?._id as string;
-
-  const { data: reviews } = useSWR(`/api/kombucha/${_id}/reviews`);
-
   const router = useRouter();
+
+  const { data: reviews, isValidating } = useSWR(
+    `/api/kombucha/${_id}/reviews`
+  );
 
   if (router.isFallback) {
     return <CircularProgress />;
   }
-  if (!reviews) return <CircularProgress />;
+
+  if (isValidating) return <CircularProgress />;
 
   return (
     <MainLayout>
@@ -102,14 +103,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const id = params?.id as string;
-  const res = await getData(`kombucha/${id}`);
-  const singleKombuchaData = Array.isArray(res) ? res[0] : res;
+  const data = await getKombuchaById(id);
+  const singleKombuchaData = JSON.parse(JSON.stringify(data));
 
   return {
     props: {
       singleKombuchaData,
     },
-    revalidate: 10,
+    revalidate: 60,
   };
 };
 

@@ -1,20 +1,12 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import useSWR from "swr";
-import { Box, CircularProgress, Container, Typography } from "@mui/material";
+import { GetServerSideProps } from "next";
+import { Box, Container, Typography } from "@mui/material";
 import { MainLayout } from "../../../src/components/Layout";
 import CorrectionForm from "../../../src/components/Forms/CorrectionForm/CorrectionForm";
+import { getKombuchaById } from "../../../src/utils/db-utils";
+import connectDB from "../../../src/lib/connectDB";
 
-const Corrections = () => {
-  const router = useRouter();
-  const { id: kombuchaId } = router.query;
-
-  const { data: singleKombuchaData } = useSWR(
-    kombuchaId && `/api/kombucha/${kombuchaId}`
-  );
-
-  if (!singleKombuchaData) return <CircularProgress />;
-
+const Corrections = ({ singleKombuchaData }) => {
   return (
     <MainLayout>
       <Container maxWidth="md" sx={{ py: 5 }}>
@@ -84,3 +76,18 @@ const Corrections = () => {
 };
 
 export default Corrections;
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  await connectDB();
+
+  const id = params?.id as string;
+
+  const data = await getKombuchaById(id);
+  const singleKombuchaData = JSON.parse(JSON.stringify(data));
+
+  return {
+    props: {
+      singleKombuchaData,
+    },
+  };
+};

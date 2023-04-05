@@ -12,7 +12,6 @@ interface SearchPageProps {
   kombuchaData: KombuchaData[];
   breweryData: BreweryData[];
 }
-export const SEARCH_PAGE_LIMIT = 35; //max # of items returned for each search
 
 const SearchPage = ({
   category,

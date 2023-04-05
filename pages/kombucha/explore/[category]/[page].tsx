@@ -3,8 +3,13 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { Container } from "@mui/material";
 import { Kombucha } from "../../../../src/components/Explore";
 import { MainLayout } from "../../../../src/components/Layout";
-import { getData } from "../../../../src/utils/fetch-utils";
 import { KombuchaData, ReviewData } from "../../../../src/types/api";
+import {
+  getRecentKombuchaReviews,
+  getNewKombucha,
+  getTopAvgRatedKombucha,
+  getPopularKombucha,
+} from "../../../../src/utils/db-utils";
 
 interface IParams {
   category?: string;
@@ -29,6 +34,7 @@ const ExploreKombuchaPage = ({
   if (router.isFallback) {
     return <h1>Loading...</h1>;
   }
+
   return (
     <MainLayout>
       <Container maxWidth="md" sx={{ py: { xs: 5, sm: 8 } }}>
@@ -56,7 +62,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const category = params?.category as string;
   const page = params?.page as string;
 
-  const [exploreData] = await getData(`kombucha/explore/${category}/${page}`);
+  const categoryFunctions = {
+    recent: getRecentKombuchaReviews,
+    new: getNewKombucha,
+    "top-rated": getTopAvgRatedKombucha,
+    popular: getPopularKombucha,
+  };
+
+  const data = await categoryFunctions[category](page);
+  const [exploreData] = JSON.parse(JSON.stringify(data));
 
   return {
     props: {
@@ -64,6 +78,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       page,
       exploreData,
     },
-    revalidate: 30,
+    revalidate: 60,
   };
 };

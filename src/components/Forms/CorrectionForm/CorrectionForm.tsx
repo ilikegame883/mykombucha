@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { FormikHelpers, useFormik } from "formik";
 import {
   Box,
@@ -12,6 +12,7 @@ import {
   Button,
   FormHelperText,
   InputAdornment,
+  CircularProgress,
 } from "@mui/material";
 import EmailIcon from "@mui/icons-material/Email";
 import { postData } from "../../../utils/fetch-utils";
@@ -76,7 +77,6 @@ const CorrectionForm = ({ name, type }) => {
     initialValues,
     onSubmit,
   });
-
   return (
     <form onSubmit={formik.handleSubmit}>
       <Box mb={4}>
@@ -87,7 +87,7 @@ const CorrectionForm = ({ name, type }) => {
           <Grid container>
             <Grid item xs={12} sm={6}>
               <FormGroup>
-                {CHECKBOX_LIST.slice(0, 3).map((item) => (
+                {CHECKBOX_LIST.slice(0, 3).map((item: string) => (
                   <Box key={item}>
                     <FormControlLabel
                       control={
@@ -113,7 +113,7 @@ const CorrectionForm = ({ name, type }) => {
 
             <Grid item xs={12} sm={6}>
               <FormGroup>
-                {CHECKBOX_LIST.slice(3).map((item) => (
+                {CHECKBOX_LIST.slice(3).map((item: string) => (
                   <Box key={item}>
                     <FormControlLabel
                       control={
@@ -187,8 +187,13 @@ const CorrectionForm = ({ name, type }) => {
           }}
         />
       </Box>
-      <Button variant="contained" color="secondary" type="submit">
-        Submit
+      <Button
+        variant="contained"
+        color="secondary"
+        type="submit"
+        disabled={formik.isSubmitting}
+      >
+        {formik.isSubmitting ? <CircularProgress size={24} /> : "Submit"}
       </Button>
     </form>
   );

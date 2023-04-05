@@ -29,7 +29,7 @@ import CustomChips from "../../CustomChips";
 import debounce from "../../../utils/debounce";
 import StarIcon from "@mui/icons-material/Star";
 import { BreweryData, KombuchaData } from "../../../types/api";
-import { SEARCH_PAGE_LIMIT } from "../../../../pages/search/[category]";
+import { SEARCH_PAGE_LIMIT } from "../../../utils/consts";
 
 interface SearchTableProps {
   category: string;
