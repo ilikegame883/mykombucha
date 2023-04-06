@@ -15,8 +15,9 @@
 
 ## Features
 
-- Full stack application built with Next.js, MUI, [API Routes](https://nextjs.org/blog/next-9#api-routes) as Serverless functions, MongoDB and deployed with Vercel.
-- Explore top rated kombuchas and discover new breweries.
+- Full stack application built with Typescript, Next.js, MUI, [API Routes](https://nextjs.org/blog/next-9#api-routes) as Serverless functions, MongoDB and deployed with Vercel.
+- Search over 400 different kombucha beverages. Explore top rated kombuchas and discover new breweries.
+- User authentication via Google and credentials provider, powered by NextAuth.
 - Registered users can review and rate kombucha, create wish lists, favorite breweries and like reviews.
 - Static pre-rendered pages with ISR ([Incremental Static Regeneration](https://vercel.com/docs/concepts/next.js/incremental-static-regeneration)) enabled.
 - Kombucha and brewery correction form integrated with [Sendgrid](https://sendgrid.com) API.
@@ -24,15 +25,15 @@
 - Autocomplete kombucha and brewery search bar on homepage.
 - Paginated kombucha and brewery explore list.
 - User dashboard page to keep track of kombucha reviews, wish list and rating stats.
-- Edit user account & security settings and profile image uploaded to [Cloudinary](https://cloudinary.com).
-- User authentication via Google and credentials provider, powered by NextAuth.
+- User account & security settings.
+- Utilized Cloudinary APIs APIs to streamline image uploads and optimization.
 
 ## Project Overview
 
 - `pages/breweries/[slug]` - Static pre-rendered brewery profile pages.
-- `pages/breweries/explore/*` - Static pre-rendered paginated brewery list pages from various categories.
+- `pages/breweries/explore/*` - Static pre-rendered paginated brewery list from various categories.
 - `pages/kombucha/[id]` - Static pre-rendered kombucha profile pages.
-- `pages/kombucha/explore/*`- Static pre-rendered paginated kombucha list pages from various categories.
+- `pages/kombucha/explore/*`- Static pre-rendered paginated kombucha list from various categories.
 - `pages/search/[category]` - Kombucha and brewery search page.
 - `pages/users/[name]/*` - User profile and settings page (General & Security).
 - `pages/*` - All other static pages.
@@ -43,53 +44,6 @@
 - `public/*` - Static assets.
 - `styles/*` - Small amount of global styles.
 - `theme.js` - MUI custom component styles for application.
-
-## API Endpoints
-
-**auth**
-
-- **`GET & POST`** `/api/auth/[...nextauth]/*` - [Next-Auth REST API](https://next-auth-docs.vercel.app/getting-started/rest-api).
-- **`PATCH`** `/api/auth/password` - Update password for users logged in with credentials.
-- **`POST`** `/api/auth/register` - Add new user to database.
-
-**breweries**
-
-- **`GET`** `/api/breweries/[slug]` - Returns single brewery data by brewery slug.
-- **`PATCH`** `/api/breweries/[slug]/users/favorite` - Update brewery's favorite count given by registered user.
-- **`GET`** `/api/breweries/[slug]/users/top` - Returns top 3 raters for single brewery.
-- **`GET`** `/api/breweries/search/[str]` - Returns a list of breweries from search bar by string.
-- **`GET`** `/api/breweries/explore/[category]/[page]` - Returns a paginated list of breweries by category.
-
-**kombucha**
-
-- **`GET`** `/api/kombucha/[id]` - Returns single kombucha data by kombucha id.
-- **`GET`** `/api/kombucha/[id]/reviews` - Returns a list of reviews by kombucha id.
-- **`GET`** `/api/kombucha/[id]/reviews/[top-review]` - Returns top user review by kombucha id.
-- **`GET`** `/api/kombucha/search/[str]` - Returns a list of kombucha from search bar by string.
-- **`GET`** `/api/kombucha/explore/[category]/[page]`- Returns paginated list of kombucha by category.
-
-**users**
-
-- **`GET`** `/api/users/[name]` - Returns user data by username.
-- **`PATCH`** `/api/users/[name]` - Update authenticated user info by username.
-- **`PATCH`** `/api/users/[name]/reviews` - Returns a list of reviews by username.
-- **`PATCH`** `/api/users/[name]/wish-list` - Returns kombucha wish list by username.
-
-**reviews**
-
-- **`POST`** `/api/review/` - Add user kombucha review.
-- **`DELETE`** `/api/review/` - Delete user review.
-- **`PATCH`** `/api/review/[id]/like` - Update user's review like count.
-
-**other**
-
-- **`PUT`** `/api/newsletter/` - Add newsletter subscriptions to sendgrid mailing list.
-
-## Upcoming Features
-
-- Search local breweries by visitor's location.
-- Messaging system for registered users.
-- Native mobile app.
 
 ## Screenshots
 
